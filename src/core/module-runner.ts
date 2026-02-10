@@ -40,8 +40,11 @@ const MODULE_REGISTRY: Record<string, () => Promise<GitProModule>> = {
     const { ChronicleModule } = await import('../modules/chronicle');
     return new ChronicleModule();
   },
+  'constellation': async () => {
+    const { ConstellationModule } = await import('../modules/constellation');
+    return new ConstellationModule();
+  },
   // 향후 모듈 추가 시 여기에 등록
-  // 'constellation': async () => { ... },
   // 'dev-city': async () => { ... },
 };
 
