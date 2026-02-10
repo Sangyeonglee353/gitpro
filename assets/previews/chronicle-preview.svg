@@ -110,7 +110,7 @@
 
   <!-- 활성 퀘스트 -->
   <rect x="30" y="445" width="460" height="50" rx="8" fill="#161b22" stroke="#58a6ff" stroke-width="1" stroke-dasharray="4 2" opacity="0.7"/>
-  <text x="48" y="466" class="chr-text" font-size="10" font-weight="700" fill="#58a6ff" class="chr-quest-pulse">
+  <text x="48" y="466" class="chr-text chr-quest-pulse" font-size="10" font-weight="700" fill="#58a6ff">
     ⚔️ 활성 퀘스트</text>
   <text x="140" y="466" class="chr-text" font-size="10" fill="#e6edf3">100일 연속 커밋 달성하기</text>
   <!-- 진행 바 -->

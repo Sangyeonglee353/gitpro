@@ -98,7 +98,7 @@
   </g>
 
   <!-- 기분 상태 -->
-  <text x="101" y="180" text-anchor="middle" class="pet-text" font-size="18" class="heartbeat">😊</text>
+  <text x="101" y="180" text-anchor="middle" class="pet-text heartbeat" font-size="18">😊</text>
   <text x="101" y="198" text-anchor="middle" class="pet-text" font-size="9" fill="#3fb950" font-weight="600">기분 좋음!</text>
 
   <!-- 우측: 정보 영역 -->
