@@ -28,10 +28,13 @@ const MODULE_REGISTRY: Record<string, () => Promise<GitProModule>> = {
     const { TradingCardModule } = await import('../modules/trading-card');
     return new TradingCardModule();
   },
+  'code-pet': async () => {
+    const { CodePetModule } = await import('../modules/code-pet');
+    return new CodePetModule();
+  },
   // 향후 모듈 추가 시 여기에 등록
   // 'code-dna': async () => { ... },
   // 'chronicle': async () => { ... },
-  // 'code-pet': async () => { ... },
   // 'constellation': async () => { ... },
   // 'dev-city': async () => { ... },
 };
