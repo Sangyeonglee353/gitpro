@@ -34,7 +34,7 @@
   </a>
   &nbsp;
   <a href="https://github.com/Sangyeonglee353/gitpro">
-    <img src="https://img.shields.io/github/stars/Sangyeonglee353/gitpro?style=for-the-badge&logo=github&label=⭐ Star&color=gold" alt="Stars" />
+    <img src="https://img.shields.io/github/stars/Sangyeonglee353/gitpro?style=for-the-badge&logo=github&label=%E2%AD%90%20Star&color=gold" alt="Stars" />
   </a>
 </p>
 
@@ -133,8 +133,8 @@ There are **2 ways** to display gitpro-generated SVGs on your profile:
 
 | Method | Description | Best For |
 |--------|-------------|----------|
-| 📌 **[Method A: Pinned Gist](#method-a--pinned-gist)** | Upload SVGs to a Gist and pin it to your profile | Those who don't want to touch their existing README |
-| 📝 **[Method B: Add to Existing README](#method-b--add-to-existing-profile-readme)** | Insert SVG image tags into your existing profile README | Those who want full control over their profile layout |
+| 📌 **[Method A: Pinned Gist](#method-a)** | Upload SVGs to a Gist and pin it to your profile | Those who don't want to touch their existing README |
+| 📝 **[Method B: Add to Existing README](#method-b)** | Insert SVG image tags into your existing profile README | Those who want full control over their profile layout |
 
 > 💡 You can use **both methods** simultaneously!
 
@@ -244,6 +244,8 @@ git push origin main
 
 ---
 
+<a id="method-a"></a>
+
 ### Method A — 📌 Pinned Gist
 
 > Display gitpro SVGs on your GitHub profile by **pinning a Gist** — no changes to your existing README needed.
@@ -281,6 +283,8 @@ Push the config changes or manually re-run Actions to upload SVGs to your Gist.
 ```
 
 ---
+
+<a id="method-b"></a>
 
 ### Method B — 📝 Add to Existing Profile README
 
@@ -540,7 +544,7 @@ custom_theme:
 
 ### Gist Integration (Pinned Gist)
 
-> 📌 For Gist integration setup, see [**Method A — Pinned Gist**](#method-a--pinned-gist) in the Quick Start section above.
+> 📌 For Gist integration setup, see [**Method A — Pinned Gist**](#method-a) in the Quick Start section above.
 
 ### Debug Mode
 
@@ -614,7 +618,7 @@ gitpro/
     └── gitpro-state.json           # 💾 Persistent state (pet EXP, city level, etc.)
 ```
 
-> 💡 Display these SVGs on your profile using [**Method A (Gist Pin)**](#method-a--pinned-gist) or [**Method B (Profile README)**](#method-b--add-to-existing-profile-readme).
+> 💡 Display these SVGs on your profile using [**Method A (Gist Pin)**](#method-a) or [**Method B (Profile README)**](#method-b).
 
 ---
 

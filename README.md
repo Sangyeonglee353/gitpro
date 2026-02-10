@@ -34,7 +34,7 @@
   </a>
   &nbsp;
   <a href="https://github.com/Sangyeonglee353/gitpro">
-    <img src="https://img.shields.io/github/stars/Sangyeonglee353/gitpro?style=for-the-badge&logo=github&label=⭐ Star&color=gold" alt="Stars" />
+    <img src="https://img.shields.io/github/stars/Sangyeonglee353/gitpro?style=for-the-badge&logo=github&label=%E2%AD%90%20Star&color=gold" alt="Stars" />
   </a>
 </p>
 
@@ -133,8 +133,8 @@ gitpro로 생성한 SVG를 프로필에 표시하는 방법은 **2가지**입니
 
 | 방식 | 설명 | 추천 대상 |
 |------|------|----------|
-| 📌 **[방법 A: Pinned Gist](#방법-a--pinned-gist-프로필-고정)** | Gist에 SVG를 업로드하여 프로필에 Pin 고정 | 기존 README를 건드리고 싶지 않은 분 |
-| 📝 **[방법 B: 기존 README에 추가](#방법-b--기존-프로필-readme에-추가)** | 기존 프로필 README에 SVG 이미지 태그 삽입 | 프로필 README를 자유롭게 꾸미고 싶은 분 |
+| 📌 **[방법 A: Pinned Gist](#방법-a)** | Gist에 SVG를 업로드하여 프로필에 Pin 고정 | 기존 README를 건드리고 싶지 않은 분 |
+| 📝 **[방법 B: 기존 README에 추가](#방법-b)** | 기존 프로필 README에 SVG 이미지 태그 삽입 | 프로필 README를 자유롭게 꾸미고 싶은 분 |
 
 > 💡 두 방법을 **동시에** 사용할 수도 있습니다!
 
@@ -244,6 +244,8 @@ git push origin main
 
 ---
 
+<a id="방법-a"></a>
+
 ### 방법 A — 📌 Pinned Gist (프로필 고정)
 
 > 기존 프로필 README를 전혀 수정하지 않고, GitHub 프로필에 SVG를 **Pin(고정)** 하는 방법입니다.
@@ -281,6 +283,8 @@ gist:
 ```
 
 ---
+
+<a id="방법-b"></a>
 
 ### 방법 B — 📝 기존 프로필 README에 추가
 
@@ -541,7 +545,7 @@ custom_theme:
 
 ### Gist 연동 (Pinned Gist)
 
-> 📌 Gist 연동 설정 방법은 위의 [**방법 A — Pinned Gist**](#방법-a--pinned-gist-프로필-고정) 섹션을 참고하세요.
+> 📌 Gist 연동 설정 방법은 위의 [**방법 A — Pinned Gist**](#방법-a) 섹션을 참고하세요.
 
 ### 디버그 모드
 
@@ -615,7 +619,7 @@ gitpro/
     └── gitpro-state.json           # 💾 영구 상태 (펫 EXP, 도시 레벨 등)
 ```
 
-> 💡 이 SVG 파일들을 [**방법 A (Gist Pin)**](#방법-a--pinned-gist-프로필-고정) 또는 [**방법 B (프로필 README)**](#방법-b--기존-프로필-readme에-추가)로 프로필에 표시합니다.
+> 💡 이 SVG 파일들을 [**방법 A (Gist Pin)**](#방법-a) 또는 [**방법 B (프로필 README)**](#방법-b)로 프로필에 표시합니다.
 
 ---
 
