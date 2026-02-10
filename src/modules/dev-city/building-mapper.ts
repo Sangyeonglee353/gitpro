@@ -138,16 +138,12 @@ export function classifyBuilding(repo: GitHubRepository): BuildingType {
     return 'ruin';
   }
 
-  // 프로필 README → 시청
+  // 프로필 README → 시청 (레포 이름이나 토픽에 profile/readme 포함)
   if (
-    name === name.toLowerCase() &&
-    (name.includes('readme') || name.includes('profile') || name === repo.name.toLowerCase())
+    allText.includes('profile') ||
+    allText.includes('readme')
   ) {
-    // GitHub 프로필 레포는 username과 동일한 이름
-    // 더 정확한 판별을 위해 topics도 확인
-    if (allText.includes('profile') || allText.includes('readme')) {
-      return 'cityhall';
-    }
+    return 'cityhall';
   }
 
   // ML/AI → 연구소

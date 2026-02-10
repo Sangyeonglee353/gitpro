@@ -15,6 +15,9 @@ Thumbs.db
 *.swp
 *.swo
 
+# Test coverage
+coverage/
+
 # output은 커밋 대상 (SVG 결과물)
 # output/
 

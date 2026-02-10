@@ -1,0 +1,72 @@
+# ═══════════════════════════════════════════
+# 🧪 gitpro - CI/CD Pipeline
+# ═══════════════════════════════════════════
+# PR 및 Push 시 자동으로 빌드 + 테스트를 실행합니다.
+
+name: 🧪 CI - Build & Test
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    name: 🧪 Build & Test
+    timeout-minutes: 10
+
+    strategy:
+      matrix:
+        node-version: [18, 20]
+
+    steps:
+      # 1. 레포 체크아웃
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+
+      # 2. Node.js 환경 설정
+      - name: 🟢 Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+
+      # 3. 의존성 설치
+      - name: 📦 Install dependencies
+        run: npm ci
+
+      # 4. 린트 체크
+      - name: 🔍 Lint
+        run: npm run lint
+        continue-on-error: true
+
+      # 5. TypeScript 빌드
+      - name: 🔨 Build
+        run: npm run build
+
+      # 6. 테스트 실행
+      - name: 🧪 Run tests
+        run: npm test -- --ci --coverage --forceExit
+
+      # 7. 테스트 커버리지 리포트
+      - name: 📊 Upload coverage
+        if: matrix.node-version == 20
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: coverage/
+          retention-days: 14
+
+      # 8. 실행 요약
+      - name: 📋 Job Summary
+        if: always()
+        run: |
+          echo "## 🧪 gitpro CI 결과 (Node ${{ matrix.node-version }})" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| 단계 | 상태 |" >> $GITHUB_STEP_SUMMARY
+          echo "|------|------|" >> $GITHUB_STEP_SUMMARY
+          echo "| 📦 Install | ✅ |" >> $GITHUB_STEP_SUMMARY
+          echo "| 🔨 Build | ✅ |" >> $GITHUB_STEP_SUMMARY
+          echo "| 🧪 Test | ${{ job.status == 'success' && '✅' || '❌' }} |" >> $GITHUB_STEP_SUMMARY

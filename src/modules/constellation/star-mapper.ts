@@ -32,8 +32,8 @@ export function classifyRepoType(repo: GitHubRepository): RepoType {
   const lang = (repo.primaryLanguage || '').toLowerCase();
   const allText = `${name} ${desc} ${topics.join(' ')}`;
 
-  // 프로필 README
-  if (name === repo.name.toLowerCase() || name.includes('readme') || name.includes('profile')) {
+  // 프로필 README (레포 이름에 readme/profile이 포함된 경우)
+  if (name.includes('readme') || name.includes('profile')) {
     return 'profile';
   }
 
