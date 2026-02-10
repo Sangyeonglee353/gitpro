@@ -63,10 +63,18 @@ const DEFAULT_CONFIG: GitProConfig = {
       text: '',
       color: '#6C63FF',
     },
+    footer: {
+      enabled: true,
+      style: 'minimal',
+      text: '',
+    },
+    module_order: [],
+    show_last_updated: true,
   },
   gist: {
     enabled: false,
     gist_id: '',
+    modules: [],
   },
 };
 
@@ -123,7 +131,7 @@ function validateConfig(config: GitProConfig): void {
     }
   }
 
-  const validThemes = ['dark', 'light', 'cyberpunk', 'retro', 'pastel'];
+  const validThemes = ['dark', 'light', 'cyberpunk', 'retro', 'pastel', 'ocean', 'forest', 'dracula', 'nord', 'sunset', 'custom'];
   if (!validThemes.includes(config.theme)) {
     console.warn(`⚠️  알 수 없는 테마 "${config.theme}", "dark"로 기본 설정됩니다.`);
     config.theme = 'dark';

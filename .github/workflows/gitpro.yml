@@ -11,19 +11,38 @@ on:
   schedule:
     - cron: '0 */6 * * *'
 
-  # 수동 실행
+  # 수동 실행 (입력 파라미터 포함)
   workflow_dispatch:
+    inputs:
+      force_rebuild:
+        description: '전체 모듈 강제 재생성'
+        required: false
+        default: 'false'
+        type: choice
+        options:
+          - 'false'
+          - 'true'
+      debug_mode:
+        description: '디버그 모드 활성화'
+        required: false
+        default: 'false'
+        type: choice
+        options:
+          - 'false'
+          - 'true'
 
   # 설정 파일 변경 시 자동 실행
   push:
     branches: [main]
     paths:
       - 'gitpro.config.yml'
+      - 'src/**'
 
 jobs:
   generate:
     runs-on: ubuntu-latest
     name: 🎮 Generate Profile Visualizations
+    timeout-minutes: 10
 
     permissions:
       contents: write
@@ -32,34 +51,113 @@ jobs:
       # 1. 레포 체크아웃
       - name: 📥 Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-      # 2. Node.js 환경 설정
+      # 2. Node.js 환경 설정 + npm 캐싱
       - name: 🟢 Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
           cache: 'npm'
 
-      # 3. 의존성 설치
+      # 3. 의존성 캐시 복원
+      - name: 📦 Cache dependencies
+        uses: actions/cache@v4
+        id: npm-cache
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      # 4. 의존성 설치 (캐시 미스 시에만)
       - name: 📦 Install dependencies
+        if: steps.npm-cache.outputs.cache-hit != 'true'
         run: npm ci
 
-      # 4. TypeScript 빌드
+      # 5. TypeScript 빌드 캐시
+      - name: 🔨 Cache build output
+        uses: actions/cache@v4
+        id: build-cache
+        with:
+          path: dist
+          key: ${{ runner.os }}-build-${{ hashFiles('src/**/*.ts', 'tsconfig.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-
+
+      # 6. TypeScript 빌드 (캐시 미스 시에만)
       - name: 🔨 Build
+        if: steps.build-cache.outputs.cache-hit != 'true' || github.event.inputs.force_rebuild == 'true'
         run: npm run build
 
-      # 5. gitpro 실행
+      # 7. gitpro 실행
       - name: 🎮 Run gitpro
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITPRO_DEBUG: ${{ github.event.inputs.debug_mode || 'false' }}
+          GITPRO_FORCE: ${{ github.event.inputs.force_rebuild || 'false' }}
         run: npm start
 
-      # 6. 변경사항 커밋 & 푸시
+      # 8. 생성된 파일 확인
+      - name: 📊 Check generated files
+        run: |
+          echo "📦 생성된 SVG 파일:"
+          ls -la output/ 2>/dev/null || echo "  (output 디렉토리 없음)"
+          echo ""
+          echo "💾 상태 파일:"
+          ls -la state/ 2>/dev/null || echo "  (state 디렉토리 없음)"
+          echo ""
+          echo "📄 README.md:"
+          head -20 README.md 2>/dev/null || echo "  (README.md 없음)"
+
+      # 9. 아티팩트 업로드 (디버그 모드 시)
+      - name: 📤 Upload artifacts (debug)
+        if: github.event.inputs.debug_mode == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: gitpro-output
+          path: |
+            output/
+            state/
+          retention-days: 7
+
+      # 10. 변경사항 커밋 & 푸시
       - name: 📤 Commit and push changes
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git add -A output/ state/ README.md
-          git diff --staged --quiet || git commit -m "🎮 gitpro: Update profile visualizations"
-          git push
+          
+          # 변경사항이 있을 때만 커밋
+          if git diff --staged --quiet; then
+            echo "✅ 변경사항 없음 — 커밋 건너뜀"
+          else
+            TIMESTAMP=$(date +'%Y-%m-%d %H:%M')
+            git commit -m "🎮 gitpro: Update profile visualizations ($TIMESTAMP)"
+            git push
+            echo "✅ 변경사항 커밋 & 푸시 완료!"
+          fi
+
+      # 11. 실행 요약
+      - name: 📋 Job Summary
+        if: always()
+        run: |
+          echo "## 🎮 gitpro 실행 결과" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| 항목 | 값 |" >> $GITHUB_STEP_SUMMARY
+          echo "|------|-----|" >> $GITHUB_STEP_SUMMARY
+          echo "| 🕐 실행 시간 | $(date +'%Y-%m-%d %H:%M:%S UTC') |" >> $GITHUB_STEP_SUMMARY
+          echo "| 📦 빌드 캐시 | ${{ steps.build-cache.outputs.cache-hit == 'true' && '✅ Hit' || '❌ Miss' }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| 📦 npm 캐시 | ${{ steps.npm-cache.outputs.cache-hit == 'true' && '✅ Hit' || '❌ Miss' }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| 🔄 강제 재빌드 | ${{ github.event.inputs.force_rebuild || 'false' }} |" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          
+          if [ -d "output" ]; then
+            echo "### 📦 생성된 파일" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo '```' >> $GITHUB_STEP_SUMMARY
+            ls -la output/ >> $GITHUB_STEP_SUMMARY
+            echo '```' >> $GITHUB_STEP_SUMMARY
+          fi

@@ -8,7 +8,20 @@
 username: "Sangyeonglee353"
 timezone: "Asia/Seoul"
 locale: "ko"                    # ko | en | ja
-theme: "dark"                   # dark | light | cyberpunk | retro | pastel
+theme: "dark"                   # dark | light | cyberpunk | retro | pastel | ocean | forest | dracula | nord | sunset | custom
+
+# ═══════════════════════════════════════════
+# 🎨 커스텀 테마 (theme: "custom" 설정 시에만 적용)
+# ═══════════════════════════════════════════
+
+# custom_theme:
+#   background: "#1a1b26"
+#   backgroundSecondary: "#24283b"
+#   text: "#c0caf5"
+#   textSecondary: "#565f89"
+#   accent: "#7aa2f7"
+#   accentSecondary: "#bb9af7"
+#   border: "#3b4261"
 
 # ═══════════════════════════════════════════
 # 🎯 모듈 설정
@@ -74,11 +87,25 @@ readme:
     type: "wave"                # wave | typing | gradient | none
     text: "Hello, I'm Sangyeonglee353! 👋"
     color: "#6C63FF"
+  footer:
+    enabled: true
+    style: "minimal"            # wave | minimal | stats | none
+    text: ""                    # 추가 푸터 텍스트 (선택)
+  module_order: []              # 모듈 표시 순서 (빈 배열이면 기본 순서)
+                                # 예: ["trading-card", "code-pet", "code-dna"]
+  show_last_updated: true       # 마지막 업데이트 시간 표시
 
 # ═══════════════════════════════════════════
 # 📌 Gist 연동 (선택사항)
 # ═══════════════════════════════════════════
+# Pinned Gist에 SVG를 업로드하여 프로필에 고정할 수 있습니다.
+# 사용법:
+# 1. https://gist.github.com 에서 새 Gist 생성
+# 2. Gist ID를 아래에 입력
+# 3. GH_TOKEN에 gist 스코프 권한 필요
 
 gist:
   enabled: false
   gist_id: ""
+  modules: []                   # 업로드할 모듈 (빈 배열이면 전부 업로드)
+                                # 예: ["trading-card", "code-pet"]

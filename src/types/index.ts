@@ -143,12 +143,24 @@ export interface GitProConfig {
   timezone: string;
   locale: 'ko' | 'en' | 'ja';
   theme: ThemeName;
+  custom_theme?: CustomThemeColors;
   modules: ModulesConfig;
   readme: ReadmeConfig;
   gist: GistConfig;
 }
 
-export type ThemeName = 'dark' | 'light' | 'cyberpunk' | 'retro' | 'pastel';
+export type ThemeName =
+  | 'dark'
+  | 'light'
+  | 'cyberpunk'
+  | 'retro'
+  | 'pastel'
+  | 'ocean'
+  | 'forest'
+  | 'dracula'
+  | 'nord'
+  | 'sunset'
+  | 'custom';
 
 export interface ModulesConfig {
   'trading-card': TradingCardConfig;
@@ -212,11 +224,29 @@ export interface ReadmeConfig {
     text: string;
     color: string;
   };
+  footer: {
+    enabled: boolean;
+    style: 'wave' | 'minimal' | 'stats' | 'none';
+    text: string;
+  };
+  module_order: string[];
+  show_last_updated: boolean;
 }
 
 export interface GistConfig {
   enabled: boolean;
   gist_id: string;
+  modules: string[];
+}
+
+export interface CustomThemeColors {
+  background: string;
+  backgroundSecondary: string;
+  text: string;
+  textSecondary: string;
+  accent: string;
+  accentSecondary: string;
+  border: string;
 }
 
 // ── 테마 ──────────────────────────
