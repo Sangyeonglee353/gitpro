@@ -1,0 +1,198 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="320" viewBox="0 0 480 320">
+  <defs>
+    <linearGradient id="petCardBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#161b22"/>
+      <stop offset="100%" stop-color="#0d1117"/>
+    </linearGradient>
+    <linearGradient id="petBorder" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3572A5"/>
+      <stop offset="50%" stop-color="#ffd43b"/>
+      <stop offset="100%" stop-color="#3572A5"/>
+    </linearGradient>
+    <linearGradient id="expBar" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#3572A5"/>
+      <stop offset="100%" stop-color="#ffd43b"/>
+    </linearGradient>
+    <linearGradient id="moodBar" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#f85149"/>
+      <stop offset="50%" stop-color="#d29922"/>
+      <stop offset="100%" stop-color="#3fb950"/>
+    </linearGradient>
+    <filter id="petShadow">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#000" flood-opacity="0.3"/>
+    </filter>
+    <filter id="petGlow">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    
+  </defs>
+
+  <style>
+    .pet-text { font-family: 'Segoe UI', 'Noto Sans KR', sans-serif; }
+    .pet-name { font-size: 18px; font-weight: 700; }
+    .pet-species { font-size: 11px; font-weight: 500; letter-spacing: 1px; }
+    .pet-label { font-size: 10px; font-weight: 600; letter-spacing: 0.5px; }
+    .pet-value { font-size: 12px; font-weight: 700; }
+    .pet-small { font-size: 9px; opacity: 0.7; }
+    .pet-reaction { font-size: 10px; font-weight: 500; }
+    .pet-status { font-size: 10px; font-weight: 600; }
+    .pet-stage { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; }
+
+    @keyframes petBounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-4px); }
+    }
+    .pet-bounce { animation: petBounce 2s ease-in-out infinite; }
+
+    @keyframes sparkle {
+      0%, 100% { opacity: 0; }
+      50% { opacity: 1; }
+    }
+    .sparkle { animation: sparkle 1.5s ease-in-out infinite; }
+
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+    .heartbeat { animation: heartbeat 1.5s ease-in-out infinite; transform-origin: center; }
+
+    
+  </style>
+
+  <!-- 카드 외곽 -->
+  <rect x="2" y="2" width="476" height="316" rx="16" ry="16"
+        fill="url(#petBorder)" filter="url(#petShadow)"/>
+  <rect x="5" y="5" width="470" height="310" rx="14" ry="14"
+        fill="url(#petCardBg)"/>
+
+  <!-- ═══ 좌측 영역: 펫 + 스테이지 ═══ -->
+
+  <!-- 펫 영역 배경 -->
+  <rect x="16" y="16" width="180" height="200" rx="12" ry="12"
+        fill="#161b22" stroke="#3572A5" stroke-width="1" opacity="0.8"/>
+
+  <!-- 진화 단계 배지 -->
+  <rect x="26" y="22" width="160" height="20" rx="10" ry="10"
+        fill="#3572A5" opacity="0.2"/>
+  <text x="106" y="36" text-anchor="middle" class="pet-text pet-stage"
+        fill="#3572A5" >
+    🐣 아기 형태</text>
+
+  <!-- 펫 픽셀아트 -->
+  <g class="pet-bounce">
+    <g>
+      <animateTransform attributeName="transform" type="translate" values="0,0;0,-3;0,0" dur="2.5s" repeatCount="indefinite"/>
+      <rect x="42" y="46" width="128" height="118" rx="8" ry="8" fill="#3572A5" opacity="0.1"><animate attributeName="opacity" values="0.05;0.15;0.05" dur="2.5s" repeatCount="indefinite"/></rect><rect x="94.0" y="50.0" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="106.0" y="50.0" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="82.0" y="59.2" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="94.0" y="59.2" width="12.5" height="9.7" fill="#3572A5"/><rect x="106.0" y="59.2" width="12.5" height="9.7" fill="#3572A5"/><rect x="118.0" y="59.2" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="70.0" y="68.3" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="82.0" y="68.3" width="12.5" height="9.7" fill="#3572A5"/><rect x="94.0" y="68.3" width="12.5" height="9.7" fill="#3572A5"/><rect x="106.0" y="68.3" width="12.5" height="9.7" fill="#3572A5"/><rect x="118.0" y="68.3" width="12.5" height="9.7" fill="#3572A5"/><rect x="130.0" y="68.3" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="70.0" y="77.5" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="82.0" y="77.5" width="12.5" height="9.7" fill="#ffcc00"/><rect x="94.0" y="77.5" width="12.5" height="9.7" fill="#3572A5"/><rect x="106.0" y="77.5" width="12.5" height="9.7" fill="#3572A5"/><rect x="118.0" y="77.5" width="12.5" height="9.7" fill="#ffcc00"/><rect x="130.0" y="77.5" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="70.0" y="86.7" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="82.0" y="86.7" width="12.5" height="9.7" fill="#3572A5"/><rect x="94.0" y="86.7" width="12.5" height="9.7" fill="#ff6b6b"/><rect x="106.0" y="86.7" width="12.5" height="9.7" fill="#3572A5"/><rect x="118.0" y="86.7" width="12.5" height="9.7" fill="#3572A5"/><rect x="130.0" y="86.7" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="82.0" y="95.8" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="94.0" y="95.8" width="12.5" height="9.7" fill="#3572A5"/><rect x="106.0" y="95.8" width="12.5" height="9.7" fill="#3572A5"/><rect x="118.0" y="95.8" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="94.0" y="105.0" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="106.0" y="105.0" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="82.0" y="114.2" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="94.0" y="114.2" width="12.5" height="9.7" fill="#3572A5"/><rect x="106.0" y="114.2" width="12.5" height="9.7" fill="#3572A5"/><rect x="118.0" y="114.2" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="70.0" y="123.3" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="82.0" y="123.3" width="12.5" height="9.7" fill="#3572A5"/><rect x="94.0" y="123.3" width="12.5" height="9.7" fill="#3572A5"/><rect x="106.0" y="123.3" width="12.5" height="9.7" fill="#3572A5"/><rect x="118.0" y="123.3" width="12.5" height="9.7" fill="#3572A5"/><rect x="130.0" y="123.3" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="58.0" y="132.5" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="70.0" y="132.5" width="12.5" height="9.7" fill="#3572A5"/><rect x="82.0" y="132.5" width="12.5" height="9.7" fill="#3572A5"/><rect x="94.0" y="132.5" width="12.5" height="9.7" fill="#3572A5"/><rect x="106.0" y="132.5" width="12.5" height="9.7" fill="#3572A5"/><rect x="118.0" y="132.5" width="12.5" height="9.7" fill="#3572A5"/><rect x="130.0" y="132.5" width="12.5" height="9.7" fill="#3572A5"/><rect x="142.0" y="132.5" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="46.0" y="141.7" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="58.0" y="141.7" width="12.5" height="9.7" fill="#3572A5"/><rect x="70.0" y="141.7" width="12.5" height="9.7" fill="#3572A5"/><rect x="82.0" y="141.7" width="12.5" height="9.7" fill="#3572A5"/><rect x="94.0" y="141.7" width="12.5" height="9.7" fill="#3572A5"/><rect x="106.0" y="141.7" width="12.5" height="9.7" fill="#3572A5"/><rect x="118.0" y="141.7" width="12.5" height="9.7" fill="#3572A5"/><rect x="130.0" y="141.7" width="12.5" height="9.7" fill="#3572A5"/><rect x="142.0" y="141.7" width="12.5" height="9.7" fill="#3572A5"/><rect x="154.0" y="141.7" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="58.0" y="150.8" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="70.0" y="150.8" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="82.0" y="150.8" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="94.0" y="150.8" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="106.0" y="150.8" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="118.0" y="150.8" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="130.0" y="150.8" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="142.0" y="150.8" width="12.5" height="9.7" fill="#1a1a1a"/>
+    </g>
+  </g>
+
+  <!-- 기분 이모지 -->
+  
+  <text x="156" y="54" font-size="16" class="heartbeat">😐</text>
+  
+
+  <!-- 활동 상태 -->
+  <rect x="26" y="170" width="160" height="18" rx="9" ry="9"
+        fill="#161b22" stroke="#30363d" stroke-width="0.5"/>
+  <text x="106" y="183" text-anchor="middle" class="pet-text pet-status"
+        fill="#8b949e">🎮 활발하게 놀고 있어요!</text>
+
+  <!-- 속성 태그 -->
+  <rect x="26" y="194" width="70" height="16" rx="8" ry="8"
+        fill="#3572A5" opacity="0.15"/>
+  <text x="61" y="205" text-anchor="middle" class="pet-text pet-small"
+        fill="#3572A5">🔥 Fire</text>
+
+  <!-- 나이 -->
+  <text x="116" y="205" class="pet-text pet-small" fill="#8b949e">
+    Day 0</text>
+
+  <!-- ═══ 우측 영역: 정보 + EXP ═══ -->
+
+  <!-- 펫 이름 -->
+  <text x="214" y="38" class="pet-text pet-name"
+        fill="#e6edf3">🐍 Pythonix</text>
+  <text x="214" y="54" class="pet-text pet-species"
+        fill="#8b949e">@Sangyeonglee353's companion</text>
+
+  <!-- 구분선 -->
+  <line x1="214" y1="62" x2="460" y2="62"
+        stroke="#30363d" stroke-width="0.5" opacity="0.5"/>
+
+  <!-- EXP 바 -->
+  <text x="214" y="80" class="pet-text pet-label" fill="#8b949e">EXP</text>
+  <text x="460" y="80" text-anchor="end" class="pet-text pet-value"
+        fill="#3572A5">1.9k</text>
+  <rect x="214" y="86" width="246" height="8" rx="4" ry="4"
+        fill="#161b22"/>
+  <rect x="214" y="86" width="57" height="8" rx="4" ry="4"
+        fill="url(#expBar)">
+    <animate attributeName="width" from="0" to="57" dur="1.5s" fill="freeze"/>
+  </rect>
+  
+  <text x="214" y="106" class="pet-text pet-small" fill="#8b949e">
+    다음 진화까지: 3.1k EXP (23%)</text>
+  
+
+  
+  <text x="214" y="130" class="pet-text pet-label" fill="#8b949e">
+    😐 기분</text>
+  <text x="460" y="130" text-anchor="end" class="pet-text pet-label"
+        fill="#e6edf3">보통</text>
+  <rect x="214" y="136" width="246" height="6" rx="3" ry="3"
+        fill="#161b22"/>
+  <rect x="214" y="136" width="121" height="6" rx="3" ry="3"
+        fill="#3fb950"/>
+    <text x="214" y="162" class="pet-text pet-label" fill="#8b949e">
+      🍖 포만감</text>
+    <text x="460" y="162" text-anchor="end" class="pet-text pet-label"
+          fill="#e6edf3">0%</text>
+    <rect x="214" y="168" width="246" height="6" rx="3" ry="3"
+          fill="#161b22"/>
+    <rect x="214" y="168" width="0" height="6" rx="3" ry="3"
+          fill="#3572A5"/>
+    <rect x="214" y="184" width="auto" height="18" rx="9" ry="9"
+          fill="#3572A5" opacity="0.1"/>
+    <text x="222" y="196" class="pet-text pet-label"
+          fill="#3572A5">+1.9k EXP earned!</text>
+
+  <!-- 최근 획득 EXP -->
+  <line x1="214" y1="212" x2="460" y2="212"
+        stroke="#30363d" stroke-width="0.5" opacity="0.3"/>
+  <text x="214" y="226" class="pet-text pet-label"
+      fill="#8b949e">📊 EXP 내역</text>
+    <text x="218" y="242" class="pet-text pet-small" fill="#e6edf3">
+      📦 레포지토리 32개</text>
+    <text x="460" y="242" text-anchor="end" class="pet-text pet-small"
+          fill="#3572A5">+960</text>
+    <text x="218" y="258" class="pet-text pet-small" fill="#e6edf3">
+      🌍 12개 언어 습득</text>
+    <text x="460" y="258" text-anchor="end" class="pet-text pet-small"
+          fill="#3572A5">+600</text>
+    <text x="218" y="274" class="pet-text pet-small" fill="#e6edf3">
+      🎉 PR 2개 머지</text>
+    <text x="460" y="274" text-anchor="end" class="pet-text pet-small"
+          fill="#3572A5">+240</text>
+
+  <!-- 펫 반응 메시지 -->
+  
+  <rect x="16" y="270" width="180" height="18" rx="9" ry="9"
+        fill="#3572A5" opacity="0.1"/>
+  <text x="106" y="282" text-anchor="middle" class="pet-text pet-reaction"
+        fill="#3572A5">"새로운 모험이다!"</text>
+
+  <!-- 풋터 -->
+  <line x1="16" y1="292" x2="464" y2="292"
+        stroke="#30363d" stroke-width="0.5" opacity="0.3"/>
+  <text x="20" y="308" class="pet-text pet-small" fill="#8b949e">
+    🐾 gitpro Code Pet</text>
+  <text x="460" y="308" text-anchor="end" class="pet-text pet-small"
+        fill="#8b949e">2026-02-10</text>
+
+  <!-- 전설 시머 효과 -->
+  
+
+  <!-- 스파클 효과 (stage 3+) -->
+  
+</svg>

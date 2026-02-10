@@ -1,0 +1,368 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="520" height="770" viewBox="0 0 520 770">
+  <defs>
+    <linearGradient id="chrBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#161b22"/>
+      <stop offset="100%" stop-color="#0d1117"/>
+    </linearGradient>
+    <linearGradient id="chrAccent" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#58a6ff" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#1f6feb" stop-opacity="0.4"/>
+    </linearGradient>
+    <filter id="chrGlow">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="chrShadow">
+      <feDropShadow dx="0" dy="1" stdDeviation="2" flood-color="#000" flood-opacity="0.3"/>
+    </filter>
+    
+    <linearGradient id="rankS" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFD700" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#FFD700" stop-opacity="0.1"/>
+    </linearGradient>
+    <linearGradient id="rankA" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF6B6B" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#FF6B6B" stop-opacity="0.1"/>
+    </linearGradient>
+    <linearGradient id="rankB" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4ECDC4" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#4ECDC4" stop-opacity="0.1"/>
+    </linearGradient>
+    <linearGradient id="rankC" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#45B7D1" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#45B7D1" stop-opacity="0.1"/>
+    </linearGradient>
+    <linearGradient id="rankD" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#96CEB4" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#96CEB4" stop-opacity="0.1"/>
+    </linearGradient>
+  </defs>
+
+  <style>
+    .chr-text { font-family: 'Segoe UI', 'Noto Sans KR', sans-serif; }
+    .chr-title { font-size: 15px; font-weight: 700; letter-spacing: 2px; }
+    .chr-subtitle { font-size: 11px; font-weight: 500; }
+    .chr-chapter-title { font-size: 12px; font-weight: 700; }
+    .chr-chapter-sub { font-size: 10px; font-weight: 500; }
+    .chr-date { font-size: 9px; font-weight: 400; }
+    .chr-desc { font-size: 9px; }
+    .chr-rank { font-size: 11px; font-weight: 800; letter-spacing: 1px; }
+    .chr-label { font-size: 9px; font-weight: 600; letter-spacing: 1px; }
+    .chr-value { font-size: 10px; font-weight: 700; }
+    .chr-small { font-size: 8px; }
+
+    @keyframes chr-fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes chr-pulse {
+      0%, 100% { opacity: 0.6; }
+      50% { opacity: 1; }
+    }
+    @keyframes chr-glow {
+      0%, 100% { filter: brightness(1); }
+      50% { filter: brightness(1.3); }
+    }
+    .chr-chapter { animation: chr-fadeIn 0.5s ease-out forwards; opacity: 0; }
+    .chr-quest-pulse { animation: chr-pulse 2s ease-in-out infinite; }
+    .chr-rank-glow { animation: chr-glow 3s ease-in-out infinite; }
+  </style>
+
+  <!-- 배경 -->
+  <rect width="520" height="770" rx="16" fill="url(#chrBg)"/>
+
+  <!-- 장식: 좌측 세로선 (퀘스트 로그 느낌) -->
+  <line x1="50" y1="100" x2="50" y2="644"
+        stroke="url(#chrAccent)" stroke-width="2" stroke-dasharray="4 4" opacity="0.5"/>
+
+  <!-- 헤더 -->
+  
+  <text x="260" y="30" text-anchor="middle" class="chr-text chr-title" fill="#58a6ff">
+    📜 개발자 연대기</text>
+  <text x="260" y="48" text-anchor="middle" class="chr-text chr-subtitle" fill="#e6edf3">
+    Sangyeonglee353 — Polyglot Adventurer</text>
+
+  <!-- 레벨 & EXP 뱃지 -->
+  <rect x="16" y="60" width="60" height="22" rx="11" fill="#58a6ff" opacity="0.15"/>
+  <text x="46" y="75" text-anchor="middle" class="chr-text chr-label" fill="#58a6ff">
+    Lv.8</text>
+
+  <rect x="84" y="60" width="80" height="22" rx="11" fill="#1f6feb" opacity="0.15"/>
+  <text x="124" y="75" text-anchor="middle" class="chr-text chr-small" fill="#1f6feb">
+    EXP 1500</text>
+
+  <!-- 챕터 수 -->
+  <text x="500" y="75" text-anchor="end" class="chr-text chr-date" fill="#8b949e">
+    8 챕터 · 981 일</text>
+
+  <!-- 구분선 -->
+  <line x1="16" y1="90" x2="504" y2="90"
+        stroke="#30363d" stroke-width="1" opacity="0.5"/>
+
+  <!-- 챕터 목록 -->
+  
+  <g class="chr-chapter" style="animation-delay: 0.00s">
+    <!-- 타임라인 노드 -->
+    <circle cx="50" cy="128" r="8" fill="#161b22"
+            stroke="#FF6B6B" stroke-width="2"/>
+    <text x="50" y="132" text-anchor="middle" font-size="10">🤝</text>
+
+    <!-- 랭크 뱃지 -->
+    <rect x="16" y="112" width="20" height="16" rx="4" fill="#FF6B6B" opacity="0.15"/>
+    <text x="26" y="124" text-anchor="middle" class="chr-text chr-rank chr-rank-glow" fill="#FF6B6B">
+      A</text>
+
+    <!-- 챕터 내용 -->
+    <text x="70" y="122" class="chr-text chr-chapter-title" fill="#e6edf3">
+      Ch.1 각성</text>
+    <text x="70" y="137" class="chr-text chr-chapter-sub" fill="#8b949e">
+      다른 레포에 첫 기여</text>
+    <text x="70" y="152" class="chr-text chr-desc" fill="#8b949e" opacity="0.7">
+      오픈소스 세계에 첫 발을 내딛었습니다. PR이 머지되었습니다!</text>
+
+    <!-- 날짜 -->
+    <text x="500" y="122" text-anchor="end" class="chr-text chr-date" fill="#8b949e">
+      2018.12.29</text>
+
+    <!-- 구분선 -->
+    <line x1="70" y1="164" x2="500" y2="164"
+          stroke="#30363d" stroke-width="0.5" opacity="0.3"/>
+  </g>
+
+  <g class="chr-chapter" style="animation-delay: 0.15s">
+    <!-- 타임라인 노드 -->
+    <circle cx="50" cy="196" r="8" fill="#161b22"
+            stroke="#FF6B6B" stroke-width="2"/>
+    <text x="50" y="200" text-anchor="middle" font-size="10">📦</text>
+
+    <!-- 랭크 뱃지 -->
+    <rect x="16" y="180" width="20" height="16" rx="4" fill="#FF6B6B" opacity="0.15"/>
+    <text x="26" y="192" text-anchor="middle" class="chr-text chr-rank chr-rank-glow" fill="#FF6B6B">
+      A</text>
+
+    <!-- 챕터 내용 -->
+    <text x="70" y="190" class="chr-text chr-chapter-title" fill="#e6edf3">
+      Ch.2 기초 공사</text>
+    <text x="70" y="205" class="chr-text chr-chapter-sub" fill="#8b949e">
+      첫 번째 레포지토리 &quot;manuals&quot; 생성</text>
+    <text x="70" y="220" class="chr-text chr-desc" fill="#8b949e" opacity="0.7">
+      &quot;manuals&quot; — 당신의 첫 번째 성채가 세워졌습니다!</text>
+
+    <!-- 날짜 -->
+    <text x="500" y="190" text-anchor="end" class="chr-text chr-date" fill="#8b949e">
+      2021.02.14</text>
+
+    <!-- 구분선 -->
+    <line x1="70" y1="232" x2="500" y2="232"
+          stroke="#30363d" stroke-width="0.5" opacity="0.3"/>
+  </g>
+
+  <g class="chr-chapter" style="animation-delay: 0.30s">
+    <!-- 타임라인 노드 -->
+    <circle cx="50" cy="264" r="8" fill="#161b22"
+            stroke="#45B7D1" stroke-width="2"/>
+    <text x="50" y="268" text-anchor="middle" font-size="10">🏗️</text>
+
+    <!-- 랭크 뱃지 -->
+    <rect x="16" y="248" width="20" height="16" rx="4" fill="#45B7D1" opacity="0.15"/>
+    <text x="26" y="260" text-anchor="middle" class="chr-text chr-rank chr-rank-glow" fill="#45B7D1">
+      C</text>
+
+    <!-- 챕터 내용 -->
+    <text x="70" y="258" class="chr-text chr-chapter-title" fill="#e6edf3">
+      Ch.3 새로운 탐험</text>
+    <text x="70" y="273" class="chr-text chr-chapter-sub" fill="#8b949e">
+      &quot;Web-Dev-For-Beginners&quot; 레포 생성</text>
+    <text x="70" y="288" class="chr-text chr-desc" fill="#8b949e" opacity="0.7">
+      새로운 프로젝트 &quot;Web-Dev-For-Beginners&quot;를 시작했습니다. (JavaScript)</text>
+
+    <!-- 날짜 -->
+    <text x="500" y="258" text-anchor="end" class="chr-text chr-date" fill="#8b949e">
+      2021.02.14</text>
+
+    <!-- 구분선 -->
+    <line x1="70" y1="300" x2="500" y2="300"
+          stroke="#30363d" stroke-width="0.5" opacity="0.3"/>
+  </g>
+
+  <g class="chr-chapter" style="animation-delay: 0.45s">
+    <!-- 타임라인 노드 -->
+    <circle cx="50" cy="332" r="8" fill="#161b22"
+            stroke="#45B7D1" stroke-width="2"/>
+    <text x="50" y="336" text-anchor="middle" font-size="10">🏗️</text>
+
+    <!-- 랭크 뱃지 -->
+    <rect x="16" y="316" width="20" height="16" rx="4" fill="#45B7D1" opacity="0.15"/>
+    <text x="26" y="328" text-anchor="middle" class="chr-text chr-rank chr-rank-glow" fill="#45B7D1">
+      C</text>
+
+    <!-- 챕터 내용 -->
+    <text x="70" y="326" class="chr-text chr-chapter-title" fill="#e6edf3">
+      Ch.4 새로운 탐험</text>
+    <text x="70" y="341" class="chr-text chr-chapter-sub" fill="#8b949e">
+      &quot;doit&quot; 레포 생성</text>
+    <text x="70" y="356" class="chr-text chr-desc" fill="#8b949e" opacity="0.7">
+      새로운 프로젝트 &quot;doit&quot;를 시작했습니다.</text>
+
+    <!-- 날짜 -->
+    <text x="500" y="326" text-anchor="end" class="chr-text chr-date" fill="#8b949e">
+      2021.02.14</text>
+
+    <!-- 구분선 -->
+    <line x1="70" y1="368" x2="500" y2="368"
+          stroke="#30363d" stroke-width="0.5" opacity="0.3"/>
+  </g>
+
+  <g class="chr-chapter" style="animation-delay: 0.60s">
+    <!-- 타임라인 노드 -->
+    <circle cx="50" cy="400" r="8" fill="#161b22"
+            stroke="#45B7D1" stroke-width="2"/>
+    <text x="50" y="404" text-anchor="middle" font-size="10">🏗️</text>
+
+    <!-- 랭크 뱃지 -->
+    <rect x="16" y="384" width="20" height="16" rx="4" fill="#45B7D1" opacity="0.15"/>
+    <text x="26" y="396" text-anchor="middle" class="chr-text chr-rank chr-rank-glow" fill="#45B7D1">
+      C</text>
+
+    <!-- 챕터 내용 -->
+    <text x="70" y="394" class="chr-text chr-chapter-title" fill="#e6edf3">
+      Ch.5 새로운 탐험</text>
+    <text x="70" y="409" class="chr-text chr-chapter-sub" fill="#8b949e">
+      &quot;test&quot; 레포 생성</text>
+    <text x="70" y="424" class="chr-text chr-desc" fill="#8b949e" opacity="0.7">
+      새로운 프로젝트 &quot;test&quot;를 시작했습니다.</text>
+
+    <!-- 날짜 -->
+    <text x="500" y="394" text-anchor="end" class="chr-text chr-date" fill="#8b949e">
+      2021.02.14</text>
+
+    <!-- 구분선 -->
+    <line x1="70" y1="436" x2="500" y2="436"
+          stroke="#30363d" stroke-width="0.5" opacity="0.3"/>
+  </g>
+
+  <g class="chr-chapter" style="animation-delay: 0.75s">
+    <!-- 타임라인 노드 -->
+    <circle cx="50" cy="468" r="8" fill="#161b22"
+            stroke="#4ECDC4" stroke-width="2"/>
+    <text x="50" y="472" text-anchor="middle" font-size="10">🌍</text>
+
+    <!-- 랭크 뱃지 -->
+    <rect x="16" y="452" width="20" height="16" rx="4" fill="#4ECDC4" opacity="0.15"/>
+    <text x="26" y="464" text-anchor="middle" class="chr-text chr-rank chr-rank-glow" fill="#4ECDC4">
+      B</text>
+
+    <!-- 챕터 내용 -->
+    <text x="70" y="462" class="chr-text chr-chapter-title" fill="#e6edf3">
+      Ch.6 새로운 무기 습득</text>
+    <text x="70" y="477" class="chr-text chr-chapter-sub" fill="#8b949e">
+      Python를 배웠습니다</text>
+    <text x="70" y="492" class="chr-text chr-desc" fill="#8b949e" opacity="0.7">
+      Python의 힘을 얻었습니다! &quot;PL_training&quot; 프로젝트에서 처음 사용했습니다.</text>
+
+    <!-- 날짜 -->
+    <text x="500" y="462" text-anchor="end" class="chr-text chr-date" fill="#8b949e">
+      2021.02.19</text>
+
+    <!-- 구분선 -->
+    <line x1="70" y1="504" x2="500" y2="504"
+          stroke="#30363d" stroke-width="0.5" opacity="0.3"/>
+  </g>
+
+  <g class="chr-chapter" style="animation-delay: 0.90s">
+    <!-- 타임라인 노드 -->
+    <circle cx="50" cy="536" r="8" fill="#161b22"
+            stroke="#4ECDC4" stroke-width="2"/>
+    <text x="50" y="540" text-anchor="middle" font-size="10">🌍</text>
+
+    <!-- 랭크 뱃지 -->
+    <rect x="16" y="520" width="20" height="16" rx="4" fill="#4ECDC4" opacity="0.15"/>
+    <text x="26" y="532" text-anchor="middle" class="chr-text chr-rank chr-rank-glow" fill="#4ECDC4">
+      B</text>
+
+    <!-- 챕터 내용 -->
+    <text x="70" y="530" class="chr-text chr-chapter-title" fill="#e6edf3">
+      Ch.7 새로운 무기 습득</text>
+    <text x="70" y="545" class="chr-text chr-chapter-sub" fill="#8b949e">
+      Stylus를 배웠습니다</text>
+    <text x="70" y="560" class="chr-text chr-desc" fill="#8b949e" opacity="0.7">
+      Stylus의 힘을 얻었습니다! &quot;dandelion.github.io&quot; 프로젝트에서 처음 사용했습…</text>
+
+    <!-- 날짜 -->
+    <text x="500" y="530" text-anchor="end" class="chr-text chr-date" fill="#8b949e">
+      2021.09.05</text>
+
+    <!-- 구분선 -->
+    <line x1="70" y1="572" x2="500" y2="572"
+          stroke="#30363d" stroke-width="0.5" opacity="0.3"/>
+  </g>
+
+  <g class="chr-chapter" style="animation-delay: 1.05s">
+    <!-- 타임라인 노드 -->
+    <circle cx="50" cy="604" r="8" fill="#161b22"
+            stroke="#4ECDC4" stroke-width="2"/>
+    <text x="50" y="608" text-anchor="middle" font-size="10">🌍</text>
+
+    <!-- 랭크 뱃지 -->
+    <rect x="16" y="588" width="20" height="16" rx="4" fill="#4ECDC4" opacity="0.15"/>
+    <text x="26" y="600" text-anchor="middle" class="chr-text chr-rank chr-rank-glow" fill="#4ECDC4">
+      B</text>
+
+    <!-- 챕터 내용 -->
+    <text x="70" y="598" class="chr-text chr-chapter-title" fill="#e6edf3">
+      Ch.8 새로운 무기 습득</text>
+    <text x="70" y="613" class="chr-text chr-chapter-sub" fill="#8b949e">
+      HTML를 배웠습니다</text>
+    <text x="70" y="628" class="chr-text chr-desc" fill="#8b949e" opacity="0.7">
+      HTML의 힘을 얻었습니다! &quot;Sangyeonglee353.github.io&quot; 프로젝트에서 처음 …</text>
+
+    <!-- 날짜 -->
+    <text x="500" y="598" text-anchor="end" class="chr-text chr-date" fill="#8b949e">
+      2021.09.05</text>
+
+    <!-- 구분선 -->
+    <line x1="70" y1="640" x2="500" y2="640"
+          stroke="#30363d" stroke-width="0.5" opacity="0.3"/>
+  </g>
+
+  <!-- 활성 퀘스트 -->
+  
+  <!-- 퀘스트 영역 -->
+  <rect x="16" y="652" width="488" height="48" rx="8"
+        fill="#58a6ff" opacity="0.06"/>
+
+  <text x="26" y="668" class="chr-text chr-label" fill="#58a6ff">
+    🎯 진행 중인 퀘스트</text>
+
+  <text x="26" y="684" class="chr-text chr-chapter-sub" fill="#e6edf3">
+    🔥 The Grind — 28/30일</text>
+
+  <!-- 프로그레스 바 -->
+  <rect x="26" y="690" width="300" height="4" rx="2" fill="#30363d" opacity="0.3"/>
+  <rect x="26" y="690" width="279" height="4" rx="2"
+        fill="#58a6ff" class="chr-quest-pulse"/>
+  <text x="332" y="695" class="chr-text chr-small" fill="#8b949e">
+    93%</text>
+
+  <!-- 푸터 -->
+  
+  <line x1="16" y1="728" x2="504" y2="728"
+        stroke="#30363d" stroke-width="1" opacity="0.3"/>
+  
+  <text x="80" y="750" text-anchor="middle"
+        class="chr-text chr-small" fill="#8b949e">💻 0 커밋</text>
+  <text x="200" y="750" text-anchor="middle"
+        class="chr-text chr-small" fill="#8b949e">📦 32 레포</text>
+  <text x="320" y="750" text-anchor="middle"
+        class="chr-text chr-small" fill="#8b949e">🌍 12 언어</text>
+  <text x="440" y="750" text-anchor="middle"
+        class="chr-text chr-small" fill="#8b949e">⭐ 0 스타</text>
+
+  <text x="260" y="766" text-anchor="middle"
+        class="chr-text chr-small" fill="#8b949e" opacity="0.5">
+    2018-12-29 ~ 2021-09-05</text>
+
+  <!-- 외곽 테두리 -->
+  <rect x="2" y="2" width="516" height="766" rx="15"
+        fill="none" stroke="#58a6ff" stroke-width="1" opacity="0.2"/>
+</svg>

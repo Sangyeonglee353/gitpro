@@ -1,0 +1,1149 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500">
+<defs>
+    <!-- 하늘 그라데이션 -->
+    <linearGradient id="skyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1a1a2e"/>
+      <stop offset="100%" stop-color="#16213e"/>
+    </linearGradient>
+
+    <!-- 지면 그라데이션 -->
+    <linearGradient id="groundGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#2d5016"/>
+      <stop offset="100%" stop-color="#3a6b1e"/>
+    </linearGradient>
+
+    <!-- 건물 그림자 -->
+    <filter id="buildingShadow">
+      <feDropShadow dx="2" dy="3" stdDeviation="2" flood-color="rgba(0,0,0,0.3)" flood-opacity="0.5"/>
+    </filter>
+
+    <!-- 글로우 효과 -->
+    <filter id="cityGlow">
+      <feGaussianBlur stdDeviation="1.5" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <!-- 네온 강한 글로우 -->
+    
+
+    <!-- 비/눈 입자용 -->
+    <filter id="weatherBlur">
+      <feGaussianBlur stdDeviation="0.5"/>
+    </filter>
+
+    <!-- 건물 윈도우 패턴 -->
+    <pattern id="windowPattern" x="0" y="0" width="12" height="14" patternUnits="userSpaceOnUse">
+      <rect width="8" height="8" x="2" y="3" rx="1" fill="#ffdd57" opacity="0.6"/>
+    </pattern>
+
+    <!-- 도로 패턴 -->
+    <pattern id="roadDash" x="0" y="0" width="20" height="4" patternUnits="userSpaceOnUse">
+      <rect width="10" height="2" y="1" fill="#cccc66" opacity="0.6"/>
+    </pattern>
+  </defs>
+<style>
+    .dc-text { font-family: 'Segoe UI', 'Noto Sans KR', sans-serif; }
+    .dc-title { font-size: 13px; font-weight: 700; letter-spacing: 1.5px; }
+    .dc-subtitle { font-size: 9px; font-weight: 500; }
+    .dc-label { font-size: 7px; font-weight: 500; }
+    .dc-label-sm { font-size: 6px; font-weight: 400; }
+    .dc-footer-text { font-size: 9px; font-weight: 500; }
+    .dc-footer-val { font-size: 10px; font-weight: 700; }
+    
+    @keyframes dc-blink {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 0.9; }
+    }
+
+    @keyframes dc-vehicle-move {
+      0% { transform: translateX(-60px); }
+      100% { transform: translateX(860px); }
+    }
+
+    @keyframes dc-vehicle-move-rev {
+      0% { transform: translateX(860px); }
+      100% { transform: translateX(-60px); }
+    }
+
+    @keyframes dc-rain {
+      0% { transform: translateY(-20px); opacity: 0; }
+      20% { opacity: 1; }
+      100% { transform: translateY(420px); opacity: 0.3; }
+    }
+
+    @keyframes dc-snow {
+      0% { transform: translate(0, -20px); opacity: 0; }
+      20% { opacity: 0.9; }
+      100% { transform: translate(20px, 420px); opacity: 0; }
+    }
+
+    @keyframes dc-firework {
+      0% { r: 0; opacity: 1; }
+      50% { opacity: 0.8; }
+      100% { r: 15; opacity: 0; }
+    }
+
+    @keyframes dc-smoke {
+      0% { transform: translateY(0); opacity: 0.6; }
+      100% { transform: translateY(-30px); opacity: 0; }
+    }
+
+    @keyframes dc-fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes dc-rainbow {
+      0% { opacity: 0; }
+      30% { opacity: 0.4; }
+      70% { opacity: 0.4; }
+      100% { opacity: 0; }
+    }
+
+    @keyframes dc-neon-pulse {
+      0%, 100% { opacity: 0.6; }
+      50% { opacity: 1; }
+    }
+
+    .dc-window { animation: dc-blink 4s ease-in-out infinite; }
+    .dc-vehicle { animation: dc-vehicle-move 12s linear infinite; }
+    .dc-vehicle-rev { animation: dc-vehicle-move-rev 15s linear infinite; }
+    .dc-rain-drop { animation: dc-rain 1.5s linear infinite; }
+    .dc-snow-flake { animation: dc-snow 4s ease-in-out infinite; }
+    .dc-firework { animation: dc-firework 2s ease-out infinite; }
+    .dc-smoke { animation: dc-smoke 3s ease-out infinite; }
+    .dc-building { animation: dc-fadeIn 0.6s ease-out forwards; opacity: 0; }
+    .dc-rainbow { animation: dc-rainbow 8s ease-in-out infinite; }
+    .dc-neon { animation: dc-neon-pulse 2s ease-in-out infinite; }
+  
+  </style>
+
+<!-- 외곽 배경 -->
+<rect width="800" height="500" rx="16" fill="#1a1a2e"/>
+
+<!-- 하늘 그라데이션 -->
+<rect width="800" height="500" rx="16" fill="url(#skyGrad)"/>
+
+<!-- 헤더 -->
+<g>
+    <text x="400" y="22" text-anchor="middle"
+          class="dc-text dc-title" fill="#e6edf3">
+      🏙️ Sangyeonglee353&apos;s Dev City</text>
+    <text x="400" y="36" text-anchor="middle"
+          class="dc-text dc-subtitle" fill="#8b949e">
+      Metropolis (Tier 4) · ☀️ Sunny</text>
+  </g>
+
+<!-- 도시 영역 -->
+<g transform="translate(0, 45)">
+  <g><rect x="0" y="243" width="800" height="162" fill="url(#groundGrad)"/><rect x="0" y="263" width="800" height="16"
+                     fill="#444444"/><rect x="0" y="270" width="800" height="2"
+                     fill="url(#roadDash)"/><rect x="392" y="243" width="16" height="162"
+                     fill="#444444"/><circle cx="29" cy="288" r="1" fill="#3a6b1e" opacity="0.3"/><circle cx="202" cy="335" r="2" fill="#3a6b1e" opacity="0.3"/><circle cx="375" cy="382" r="3" fill="#3a6b1e" opacity="0.3"/><circle cx="548" cy="317" r="1" fill="#3a6b1e" opacity="0.3"/><circle cx="721" cy="364" r="2" fill="#3a6b1e" opacity="0.3"/><circle cx="94" cy="299" r="3" fill="#3a6b1e" opacity="0.3"/><circle cx="267" cy="346" r="1" fill="#3a6b1e" opacity="0.3"/><circle cx="440" cy="393" r="2" fill="#3a6b1e" opacity="0.3"/><circle cx="613" cy="328" r="3" fill="#3a6b1e" opacity="0.3"/><circle cx="786" cy="375" r="1" fill="#3a6b1e" opacity="0.3"/><circle cx="159" cy="310" r="2" fill="#3a6b1e" opacity="0.3"/><circle cx="332" cy="357" r="3" fill="#3a6b1e" opacity="0.3"/><circle cx="505" cy="292" r="1" fill="#3a6b1e" opacity="0.3"/><circle cx="678" cy="339" r="2" fill="#3a6b1e" opacity="0.3"/><circle cx="51" cy="386" r="3" fill="#3a6b1e" opacity="0.3"/><circle cx="224" cy="321" r="1" fill="#3a6b1e" opacity="0.3"/><circle cx="397" cy="368" r="2" fill="#3a6b1e" opacity="0.3"/><circle cx="570" cy="303" r="3" fill="#3a6b1e" opacity="0.3"/><circle cx="743" cy="350" r="1" fill="#3a6b1e" opacity="0.3"/><circle cx="116" cy="397" r="2" fill="#3a6b1e" opacity="0.3"/></g>
+<g><g>
+    <rect x="59" y="241" width="2" height="18" fill="#666" rx="0.5"/>
+    <circle cx="60" cy="239" r="3" fill="#ffdd57" opacity="0.7"/>
+    <circle cx="60" cy="239" r="6" fill="#ffdd57" opacity="0.15"/>
+  </g><g>
+    <rect x="195" y="241" width="2" height="18" fill="#666" rx="0.5"/>
+    <circle cx="196" cy="239" r="3" fill="#ffdd57" opacity="0.7"/>
+    <circle cx="196" cy="239" r="6" fill="#ffdd57" opacity="0.15"/>
+  </g><g>
+    <rect x="331" y="241" width="2" height="18" fill="#666" rx="0.5"/>
+    <circle cx="332" cy="239" r="3" fill="#ffdd57" opacity="0.7"/>
+    <circle cx="332" cy="239" r="6" fill="#ffdd57" opacity="0.15"/>
+  </g><g>
+    <rect x="467" y="241" width="2" height="18" fill="#666" rx="0.5"/>
+    <circle cx="468" cy="239" r="3" fill="#ffdd57" opacity="0.7"/>
+    <circle cx="468" cy="239" r="6" fill="#ffdd57" opacity="0.15"/>
+  </g><g>
+    <rect x="603" y="241" width="2" height="18" fill="#666" rx="0.5"/>
+    <circle cx="604" cy="239" r="3" fill="#ffdd57" opacity="0.7"/>
+    <circle cx="604" cy="239" r="6" fill="#ffdd57" opacity="0.15"/>
+  </g><g>
+    <rect x="739" y="241" width="2" height="18" fill="#666" rx="0.5"/>
+    <circle cx="740" cy="239" r="3" fill="#ffdd57" opacity="0.7"/>
+    <circle cx="740" cy="239" r="6" fill="#ffdd57" opacity="0.15"/>
+  </g></g>
+<g><g class="dc-building" style="animation-delay: 0.00s" opacity="1">
+    <!-- 건물 그림자 -->
+    <ellipse cx="94.42857142857143" cy="235" rx="25" ry="4" fill="rgba(0,0,0,0.3)" opacity="0.4"/>
+
+    <!-- 건물 본체 -->
+    <rect x="61.42857142857143" y="192.28" width="60" height="40.72" rx="3" fill="#FFD54F" stroke="#222222" stroke-width="0.5"/>
+              <polygon points="58.42857142857143,192.28 91.42857142857143,177.28 124.42857142857143,192.28" fill="#F9A825"/>
+              <rect x="85.42857142857143" y="211" width="12" height="18" rx="2" fill="#F9A825" opacity="0.6"/>
+              <rect x="67.42857142857143" y="194.28" width="3" height="24.72" fill="#F9A825" opacity="0.4"/>
+              <rect x="112.42857142857143" y="194.28" width="3" height="24.72" fill="#F9A825" opacity="0.4"/>
+              <rect x="88.42857142857143" y="164.28" width="1.5" height="16" fill="#F9A825"/>
+              <polygon points="88.42857142857143,160.28 95.42857142857143,160.28 95.42857142857143,164.28 88.42857142857143,164.28" fill="#ff4444"/>
+
+    <!-- 창문 -->
+    <rect x="71.42857142857143" y="190.28" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.40"
+                        class="dc-window" style="animation-delay: 0.0s"/><rect x="87.42857142857143" y="190.28" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.75"
+                        class="dc-window" style="animation-delay: 1.3s"/><rect x="103.42857142857143" y="190.28" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.60"
+                        class="dc-window" style="animation-delay: 2.6s"/><rect x="71.42857142857143" y="206.28" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.55"
+                        class="dc-window" style="animation-delay: 0.7s"/><rect x="87.42857142857143" y="206.28" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.40"
+                        class="dc-window" style="animation-delay: 2.0s"/><rect x="103.42857142857143" y="206.28" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.75"
+                        class="dc-window" style="animation-delay: 3.3s"/>
+
+    <!-- 네온 효과 -->
+    
+
+    <!-- 건물 아이콘 -->
+    <text x="91.42857142857143" y="172.28" text-anchor="middle" class="dc-text" font-size="12">
+      🏛️</text>
+
+    <!-- 건물 이름 -->
+    <text x="91.42857142857143" y="247" text-anchor="middle"
+          class="dc-text dc-label" fill="#8b949e" opacity="0.8">
+      gitpro</text>
+  </g><g class="dc-building" style="animation-delay: 0.10s" opacity="1">
+    <!-- 건물 그림자 -->
+    <ellipse cx="197.28571428571428" cy="235" rx="25" ry="4" fill="rgba(0,0,0,0.3)" opacity="0.4"/>
+
+    <!-- 건물 본체 -->
+    <rect x="164.28571428571428" y="192.04" width="60" height="40.96" rx="3" fill="#FFD54F" stroke="#222222" stroke-width="0.5"/>
+              <polygon points="161.28571428571428,192.04 194.28571428571428,177.04 227.28571428571428,192.04" fill="#F9A825"/>
+              <rect x="188.28571428571428" y="211" width="12" height="18" rx="2" fill="#F9A825" opacity="0.6"/>
+              <rect x="170.28571428571428" y="194.04" width="3" height="24.96" fill="#F9A825" opacity="0.4"/>
+              <rect x="215.28571428571428" y="194.04" width="3" height="24.96" fill="#F9A825" opacity="0.4"/>
+              <rect x="191.28571428571428" y="164.04" width="1.5" height="16" fill="#F9A825"/>
+              <polygon points="191.28571428571428,160.04 198.28571428571428,160.04 198.28571428571428,164.04 191.28571428571428,164.04" fill="#ff4444"/>
+
+    <!-- 창문 -->
+    <rect x="174.28571428571428" y="190.04" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.40"
+                        class="dc-window" style="animation-delay: 0.2s"/><rect x="190.28571428571428" y="190.04" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.75"
+                        class="dc-window" style="animation-delay: 1.5s"/><rect x="206.28571428571428" y="190.04" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.60"
+                        class="dc-window" style="animation-delay: 2.8s"/><rect x="174.28571428571428" y="206.04" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.55"
+                        class="dc-window" style="animation-delay: 0.9s"/><rect x="190.28571428571428" y="206.04" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.40"
+                        class="dc-window" style="animation-delay: 2.2s"/><rect x="206.28571428571428" y="206.04" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.75"
+                        class="dc-window" style="animation-delay: 3.5s"/>
+
+    <!-- 네온 효과 -->
+    
+
+    <!-- 건물 아이콘 -->
+    <text x="194.28571428571428" y="172.04" text-anchor="middle" class="dc-text" font-size="12">
+      🏛️</text>
+
+    <!-- 건물 이름 -->
+    <text x="194.28571428571428" y="247" text-anchor="middle"
+          class="dc-text dc-label" fill="#8b949e" opacity="0.8">
+      Sangyeongl…</text>
+  </g><g class="dc-building" style="animation-delay: 0.20s" opacity="1">
+    <!-- 건물 그림자 -->
+    <ellipse cx="300.14285714285717" cy="235" rx="25" ry="4" fill="rgba(0,0,0,0.3)" opacity="0.4"/>
+
+    <!-- 건물 본체 -->
+    <rect x="267.14285714285717" y="182.472" width="60" height="50.528" rx="3" fill="#4FC3F7" stroke="#222222" stroke-width="0.5"/>
+              <rect x="267.14285714285717" y="182.472" width="60" height="8" rx="3" fill="#0288D1"/>
+              <rect x="271.14285714285717" y="184.472" width="52" height="4" rx="1" fill="#4FC3F7" opacity="0.5"/>
+
+    <!-- 창문 -->
+    <rect x="277.14285714285717" y="190.472" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.40"
+                        class="dc-window" style="animation-delay: 0.4s"/><rect x="293.14285714285717" y="190.472" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.75"
+                        class="dc-window" style="animation-delay: 1.7s"/><rect x="309.14285714285717" y="190.472" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.60"
+                        class="dc-window" style="animation-delay: 3.0s"/><rect x="277.14285714285717" y="206.472" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.55"
+                        class="dc-window" style="animation-delay: 1.1s"/><rect x="293.14285714285717" y="206.472" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.40"
+                        class="dc-window" style="animation-delay: 2.4s"/><rect x="309.14285714285717" y="206.472" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.75"
+                        class="dc-window" style="animation-delay: 3.7s"/>
+
+    <!-- 네온 효과 -->
+    
+
+    <!-- 건물 아이콘 -->
+    <text x="297.14285714285717" y="172.472" text-anchor="middle" class="dc-text" font-size="12">
+      🏬</text>
+
+    <!-- 건물 이름 -->
+    <text x="297.14285714285717" y="247" text-anchor="middle"
+          class="dc-text dc-label" fill="#8b949e" opacity="0.8">
+      pdfPicker</text>
+  </g><g class="dc-building" style="animation-delay: 0.30s" opacity="0.5">
+    <!-- 건물 그림자 -->
+    <ellipse cx="403" cy="235" rx="25" ry="4" fill="rgba(0,0,0,0.3)" opacity="0.4"/>
+
+    <!-- 건물 본체 -->
+    <rect x="370" y="182.56799999999998" width="60" height="50.432" rx="1" fill="#555555" stroke="#222222" stroke-width="0.5"/>
+              <line x1="375" y1="182.56799999999998" x2="385" y2="202.74079999999998" stroke="#555" stroke-width="0.8" opacity="0.6"/>
+              <line x1="420" y1="192.65439999999998" x2="425" y2="217.8704" stroke="#555" stroke-width="0.8" opacity="0.6"/>
+              <circle cx="412" cy="197.6976" r="3" fill="#888" opacity="0.2"/>
+
+    <!-- 창문 -->
+    <rect x="380" y="190.56799999999998" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 0.6s"/><rect x="396" y="190.56799999999998" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 1.9s"/><rect x="412" y="190.56799999999998" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 3.2s"/><rect x="380" y="206.56799999999998" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 1.3s"/><rect x="396" y="206.56799999999998" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 2.6s"/><rect x="412" y="206.56799999999998" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 3.9s"/>
+
+    <!-- 네온 효과 -->
+    
+
+    <!-- 건물 아이콘 -->
+    <text x="400" y="172.56799999999998" text-anchor="middle" class="dc-text" font-size="12">
+      🏚️</text>
+
+    <!-- 건물 이름 -->
+    <text x="400" y="247" text-anchor="middle"
+          class="dc-text dc-label" fill="#8b949e" opacity="0.8">
+      ai-musthav…</text>
+  </g><g class="dc-building" style="animation-delay: 0.40s" opacity="0.5">
+    <!-- 건물 그림자 -->
+    <ellipse cx="505.8571428571429" cy="235" rx="25" ry="4" fill="rgba(0,0,0,0.3)" opacity="0.4"/>
+
+    <!-- 건물 본체 -->
+    <rect x="472.8571428571429" y="182.184" width="60" height="50.816" rx="1" fill="#555555" stroke="#222222" stroke-width="0.5"/>
+              <line x1="477.8571428571429" y1="182.184" x2="487.8571428571429" y2="202.5104" stroke="#555" stroke-width="0.8" opacity="0.6"/>
+              <line x1="522.8571428571429" y1="192.3472" x2="527.8571428571429" y2="217.7552" stroke="#555" stroke-width="0.8" opacity="0.6"/>
+              <circle cx="514.8571428571429" cy="197.4288" r="3" fill="#888" opacity="0.2"/>
+
+    <!-- 창문 -->
+    <rect x="482.8571428571429" y="190.184" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 0.8s"/><rect x="498.8571428571429" y="190.184" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 2.1s"/><rect x="514.8571428571429" y="190.184" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 3.4s"/><rect x="482.8571428571429" y="206.184" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 1.5s"/><rect x="498.8571428571429" y="206.184" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 2.8s"/><rect x="514.8571428571429" y="206.184" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 4.1s"/>
+
+    <!-- 네온 효과 -->
+    
+
+    <!-- 건물 아이콘 -->
+    <text x="502.8571428571429" y="172.184" text-anchor="middle" class="dc-text" font-size="12">
+      🏚️</text>
+
+    <!-- 건물 이름 -->
+    <text x="502.8571428571429" y="247" text-anchor="middle"
+          class="dc-text dc-label" fill="#8b949e" opacity="0.8">
+      24NewsBot</text>
+  </g><g class="dc-building" style="animation-delay: 0.50s" opacity="0.5">
+    <!-- 건물 그림자 -->
+    <ellipse cx="608.7142857142858" cy="235" rx="25" ry="4" fill="rgba(0,0,0,0.3)" opacity="0.4"/>
+
+    <!-- 건물 본체 -->
+    <rect x="575.7142857142858" y="181.56" width="60" height="51.44" rx="1" fill="#555555" stroke="#222222" stroke-width="0.5"/>
+              <line x1="580.7142857142858" y1="181.56" x2="590.7142857142858" y2="202.136" stroke="#555" stroke-width="0.8" opacity="0.6"/>
+              <line x1="625.7142857142858" y1="191.848" x2="630.7142857142858" y2="217.56799999999998" stroke="#555" stroke-width="0.8" opacity="0.6"/>
+              <circle cx="617.7142857142858" cy="196.992" r="3" fill="#888" opacity="0.2"/>
+
+    <!-- 창문 -->
+    <rect x="585.7142857142858" y="189.56" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 1.0s"/><rect x="601.7142857142858" y="189.56" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 2.3s"/><rect x="617.7142857142858" y="189.56" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 3.6s"/><rect x="585.7142857142858" y="205.56" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 1.7s"/><rect x="601.7142857142858" y="205.56" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 3.0s"/><rect x="617.7142857142858" y="205.56" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 4.3s"/>
+
+    <!-- 네온 효과 -->
+    
+
+    <!-- 건물 아이콘 -->
+    <text x="605.7142857142858" y="171.56" text-anchor="middle" class="dc-text" font-size="12">
+      🏚️</text>
+
+    <!-- 건물 이름 -->
+    <text x="605.7142857142858" y="247" text-anchor="middle"
+          class="dc-text dc-label" fill="#8b949e" opacity="0.8">
+      ai-hongong</text>
+  </g><g class="dc-building" style="animation-delay: 0.15s" opacity="0.5">
+    <!-- 건물 그림자 -->
+    <ellipse cx="125.28571428571429" cy="170" rx="25" ry="4" fill="rgba(0,0,0,0.3)" opacity="0.4"/>
+
+    <!-- 건물 본체 -->
+    <rect x="92.28571428571429" y="116.608" width="60" height="51.391999999999996" rx="1" fill="#555555" stroke="#222222" stroke-width="0.5"/>
+              <line x1="97.28571428571429" y1="116.608" x2="107.28571428571429" y2="137.1648" stroke="#555" stroke-width="0.8" opacity="0.6"/>
+              <line x1="142.28571428571428" y1="126.88640000000001" x2="147.28571428571428" y2="152.5824" stroke="#555" stroke-width="0.8" opacity="0.6"/>
+              <circle cx="134.28571428571428" cy="132.0256" r="3" fill="#888" opacity="0.2"/>
+
+    <!-- 창문 -->
+    <rect x="102.28571428571429" y="124.608" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 0.3s"/><rect x="118.28571428571429" y="124.608" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 1.6s"/><rect x="134.28571428571428" y="124.608" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 2.9s"/><rect x="102.28571428571429" y="140.608" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 1.0s"/><rect x="118.28571428571429" y="140.608" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 2.3s"/><rect x="134.28571428571428" y="140.608" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 3.6s"/>
+
+    <!-- 네온 효과 -->
+    
+
+    <!-- 건물 아이콘 -->
+    <text x="122.28571428571429" y="106.608" text-anchor="middle" class="dc-text" font-size="12">
+      🏚️</text>
+
+    <!-- 건물 이름 -->
+    <text x="122.28571428571429" y="182" text-anchor="middle"
+          class="dc-text dc-label" fill="#8b949e" opacity="0.8">
+      react-usef…</text>
+  </g><g class="dc-building" style="animation-delay: 0.25s" opacity="0.5">
+    <!-- 건물 그림자 -->
+    <ellipse cx="228.14285714285714" cy="170" rx="25" ry="4" fill="rgba(0,0,0,0.3)" opacity="0.4"/>
+
+    <!-- 건물 본체 -->
+    <rect x="195.14285714285714" y="114.736" width="60" height="53.263999999999996" rx="1" fill="#555555" stroke="#222222" stroke-width="0.5"/>
+              <line x1="200.14285714285714" y1="114.736" x2="210.14285714285714" y2="136.04160000000002" stroke="#555" stroke-width="0.8" opacity="0.6"/>
+              <line x1="245.14285714285714" y1="125.3888" x2="250.14285714285714" y2="152.0208" stroke="#555" stroke-width="0.8" opacity="0.6"/>
+              <circle cx="237.14285714285714" cy="130.7152" r="3" fill="#888" opacity="0.2"/>
+
+    <!-- 창문 -->
+    <rect x="205.14285714285714" y="122.736" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 0.5s"/><rect x="221.14285714285714" y="122.736" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 1.8s"/><rect x="237.14285714285714" y="122.736" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 3.1s"/><rect x="205.14285714285714" y="138.736" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 1.2s"/><rect x="221.14285714285714" y="138.736" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 2.5s"/><rect x="237.14285714285714" y="138.736" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 3.8s"/>
+
+    <!-- 네온 효과 -->
+    
+
+    <!-- 건물 아이콘 -->
+    <text x="225.14285714285714" y="104.736" text-anchor="middle" class="dc-text" font-size="12">
+      🏚️</text>
+
+    <!-- 건물 이름 -->
+    <text x="225.14285714285714" y="182" text-anchor="middle"
+          class="dc-text dc-label" fill="#8b949e" opacity="0.8">
+      react</text>
+  </g><g class="dc-building" style="animation-delay: 0.35s" opacity="0.5">
+    <!-- 건물 그림자 -->
+    <ellipse cx="331" cy="170" rx="25" ry="4" fill="rgba(0,0,0,0.3)" opacity="0.4"/>
+
+    <!-- 건물 본체 -->
+    <rect x="298" y="117.424" width="60" height="50.576" rx="1" fill="#555555" stroke="#222222" stroke-width="0.5"/>
+              <line x1="303" y1="117.424" x2="313" y2="137.6544" stroke="#555" stroke-width="0.8" opacity="0.6"/>
+              <line x1="348" y1="127.53920000000001" x2="353" y2="152.8272" stroke="#555" stroke-width="0.8" opacity="0.6"/>
+              <circle cx="340" cy="132.5968" r="3" fill="#888" opacity="0.2"/>
+
+    <!-- 창문 -->
+    <rect x="308" y="125.424" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 0.7s"/><rect x="324" y="125.424" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 2.0s"/><rect x="340" y="125.424" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 3.3s"/><rect x="308" y="141.424" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 1.4s"/><rect x="324" y="141.424" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 2.7s"/><rect x="340" y="141.424" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 4.0s"/>
+
+    <!-- 네온 효과 -->
+    
+
+    <!-- 건물 아이콘 -->
+    <text x="328" y="107.424" text-anchor="middle" class="dc-text" font-size="12">
+      🏚️</text>
+
+    <!-- 건물 이름 -->
+    <text x="328" y="182" text-anchor="middle"
+          class="dc-text dc-label" fill="#8b949e" opacity="0.8">
+      react-ppt-…</text>
+  </g><g class="dc-building" style="animation-delay: 0.45s" opacity="0.5">
+    <!-- 건물 그림자 -->
+    <ellipse cx="433.85714285714283" cy="170" rx="25" ry="4" fill="rgba(0,0,0,0.3)" opacity="0.4"/>
+
+    <!-- 건물 본체 -->
+    <rect x="400.85714285714283" y="118" width="60" height="50" rx="1" fill="#555555" stroke="#222222" stroke-width="0.5"/>
+              <line x1="405.85714285714283" y1="118" x2="415.85714285714283" y2="138" stroke="#555" stroke-width="0.8" opacity="0.6"/>
+              <line x1="450.85714285714283" y1="128" x2="455.85714285714283" y2="153" stroke="#555" stroke-width="0.8" opacity="0.6"/>
+              <circle cx="442.85714285714283" cy="133" r="3" fill="#888" opacity="0.2"/>
+
+    <!-- 창문 -->
+    <rect x="410.85714285714283" y="126" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 0.9s"/><rect x="426.85714285714283" y="126" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 2.2s"/><rect x="442.85714285714283" y="126" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 3.5s"/><rect x="410.85714285714283" y="142" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 1.6s"/><rect x="426.85714285714283" y="142" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 2.9s"/><rect x="442.85714285714283" y="142" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 4.2s"/>
+
+    <!-- 네온 효과 -->
+    
+
+    <!-- 건물 아이콘 -->
+    <text x="430.85714285714283" y="108" text-anchor="middle" class="dc-text" font-size="12">
+      🏚️</text>
+
+    <!-- 건물 이름 -->
+    <text x="430.85714285714283" y="182" text-anchor="middle"
+          class="dc-text dc-label" fill="#8b949e" opacity="0.8">
+      blog-comme…</text>
+  </g><g class="dc-building" style="animation-delay: 0.55s" opacity="0.5">
+    <!-- 건물 그림자 -->
+    <ellipse cx="536.7142857142858" cy="170" rx="25" ry="4" fill="rgba(0,0,0,0.3)" opacity="0.4"/>
+
+    <!-- 건물 본체 -->
+    <rect x="503.7142857142858" y="108.73599999999999" width="60" height="59.264" rx="1" fill="#555555" stroke="#222222" stroke-width="0.5"/>
+              <line x1="508.7142857142858" y1="108.73599999999999" x2="518.7142857142858" y2="132.4416" stroke="#555" stroke-width="0.8" opacity="0.6"/>
+              <line x1="553.7142857142858" y1="120.58879999999999" x2="558.7142857142858" y2="150.2208" stroke="#555" stroke-width="0.8" opacity="0.6"/>
+              <circle cx="545.7142857142858" cy="126.5152" r="3" fill="#888" opacity="0.2"/>
+
+    <!-- 창문 -->
+    <rect x="513.7142857142858" y="116.73599999999999" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 1.1s"/><rect x="529.7142857142858" y="116.73599999999999" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 2.4s"/><rect x="545.7142857142858" y="116.73599999999999" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 3.7s"/><rect x="513.7142857142858" y="132.736" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 1.8s"/><rect x="529.7142857142858" y="132.736" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 3.1s"/><rect x="545.7142857142858" y="132.736" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 4.4s"/><rect x="513.7142857142858" y="148.736" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 2.5s"/><rect x="529.7142857142858" y="148.736" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 3.8s"/><rect x="545.7142857142858" y="148.736" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 5.1s"/>
+
+    <!-- 네온 효과 -->
+    
+
+    <!-- 건물 아이콘 -->
+    <text x="533.7142857142858" y="98.73599999999999" text-anchor="middle" class="dc-text" font-size="12">
+      🏚️</text>
+
+    <!-- 건물 이름 -->
+    <text x="533.7142857142858" y="182" text-anchor="middle"
+          class="dc-text dc-label" fill="#8b949e" opacity="0.8">
+      how-about-…</text>
+  </g><g class="dc-building" style="animation-delay: 0.65s" opacity="0.5">
+    <!-- 건물 그림자 -->
+    <ellipse cx="639.5714285714287" cy="170" rx="25" ry="4" fill="rgba(0,0,0,0.3)" opacity="0.4"/>
+
+    <!-- 건물 본체 -->
+    <rect x="606.5714285714287" y="117.952" width="60" height="50.048" rx="1" fill="#555555" stroke="#222222" stroke-width="0.5"/>
+              <line x1="611.5714285714287" y1="117.952" x2="621.5714285714287" y2="137.9712" stroke="#555" stroke-width="0.8" opacity="0.6"/>
+              <line x1="656.5714285714287" y1="127.9616" x2="661.5714285714287" y2="152.9856" stroke="#555" stroke-width="0.8" opacity="0.6"/>
+              <circle cx="648.5714285714287" cy="132.9664" r="3" fill="#888" opacity="0.2"/>
+
+    <!-- 창문 -->
+    <rect x="616.5714285714287" y="125.952" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 1.3s"/><rect x="632.5714285714287" y="125.952" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 2.6s"/><rect x="648.5714285714287" y="125.952" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 3.9s"/><rect x="616.5714285714287" y="141.952" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 2.0s"/><rect x="632.5714285714287" y="141.952" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 3.3s"/><rect x="648.5714285714287" y="141.952" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 4.6s"/>
+
+    <!-- 네온 효과 -->
+    
+
+    <!-- 건물 아이콘 -->
+    <text x="636.5714285714287" y="107.952" text-anchor="middle" class="dc-text" font-size="12">
+      🏚️</text>
+
+    <!-- 건물 이름 -->
+    <text x="636.5714285714287" y="182" text-anchor="middle"
+          class="dc-text dc-label" fill="#8b949e" opacity="0.8">
+      TIL</text>
+  </g><g class="dc-building" style="animation-delay: 0.30s" opacity="0.5">
+    <!-- 건물 그림자 -->
+    <ellipse cx="94.42857142857143" cy="105" rx="25" ry="4" fill="rgba(0,0,0,0.3)" opacity="0.4"/>
+
+    <!-- 건물 본체 -->
+    <rect x="61.42857142857143" y="29" width="60" height="74" rx="1" fill="#555555" stroke="#222222" stroke-width="0.5"/>
+              <line x1="66.42857142857143" y1="29" x2="76.42857142857143" y2="58.6" stroke="#555" stroke-width="0.8" opacity="0.6"/>
+              <line x1="111.42857142857143" y1="43.8" x2="116.42857142857143" y2="80.8" stroke="#555" stroke-width="0.8" opacity="0.6"/>
+              <circle cx="103.42857142857143" cy="51.2" r="3" fill="#888" opacity="0.2"/>
+
+    <!-- 창문 -->
+    <rect x="71.42857142857143" y="37" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 0.6s"/><rect x="87.42857142857143" y="37" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 1.9s"/><rect x="103.42857142857143" y="37" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 3.2s"/><rect x="71.42857142857143" y="53" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 1.3s"/><rect x="87.42857142857143" y="53" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 2.6s"/><rect x="103.42857142857143" y="53" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 3.9s"/><rect x="71.42857142857143" y="69" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 2.0s"/><rect x="87.42857142857143" y="69" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 3.3s"/><rect x="103.42857142857143" y="69" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 4.6s"/><rect x="71.42857142857143" y="85" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 2.7s"/><rect x="87.42857142857143" y="85" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 4.0s"/><rect x="103.42857142857143" y="85" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 5.3s"/>
+
+    <!-- 네온 효과 -->
+    
+
+    <!-- 건물 아이콘 -->
+    <text x="91.42857142857143" y="19" text-anchor="middle" class="dc-text" font-size="12">
+      🏚️</text>
+
+    <!-- 건물 이름 -->
+    <text x="91.42857142857143" y="117" text-anchor="middle"
+          class="dc-text dc-label" fill="#8b949e" opacity="0.8">
+      PL_trainin…</text>
+  </g><g class="dc-building" style="animation-delay: 0.40s" opacity="0.5">
+    <!-- 건물 그림자 -->
+    <ellipse cx="197.28571428571428" cy="105" rx="25" ry="4" fill="rgba(0,0,0,0.3)" opacity="0.4"/>
+
+    <!-- 건물 본체 -->
+    <rect x="164.28571428571428" y="52.952" width="60" height="50.048" rx="1" fill="#555555" stroke="#222222" stroke-width="0.5"/>
+              <line x1="169.28571428571428" y1="52.952" x2="179.28571428571428" y2="72.9712" stroke="#555" stroke-width="0.8" opacity="0.6"/>
+              <line x1="214.28571428571428" y1="62.9616" x2="219.28571428571428" y2="87.9856" stroke="#555" stroke-width="0.8" opacity="0.6"/>
+              <circle cx="206.28571428571428" cy="67.9664" r="3" fill="#888" opacity="0.2"/>
+
+    <!-- 창문 -->
+    <rect x="174.28571428571428" y="60.952" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 0.8s"/><rect x="190.28571428571428" y="60.952" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 2.1s"/><rect x="206.28571428571428" y="60.952" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 3.4s"/><rect x="174.28571428571428" y="76.952" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 1.5s"/><rect x="190.28571428571428" y="76.952" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 2.8s"/><rect x="206.28571428571428" y="76.952" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 4.1s"/>
+
+    <!-- 네온 효과 -->
+    
+
+    <!-- 건물 아이콘 -->
+    <text x="194.28571428571428" y="42.952" text-anchor="middle" class="dc-text" font-size="12">
+      🏚️</text>
+
+    <!-- 건물 이름 -->
+    <text x="194.28571428571428" y="117" text-anchor="middle"
+          class="dc-text dc-label" fill="#8b949e" opacity="0.8">
+      react-yout…</text>
+  </g><g class="dc-building" style="animation-delay: 0.50s" opacity="0.5">
+    <!-- 건물 그림자 -->
+    <ellipse cx="300.14285714285717" cy="105" rx="25" ry="4" fill="rgba(0,0,0,0.3)" opacity="0.4"/>
+
+    <!-- 건물 본체 -->
+    <rect x="267.14285714285717" y="53" width="60" height="50" rx="1" fill="#555555" stroke="#222222" stroke-width="0.5"/>
+              <line x1="272.14285714285717" y1="53" x2="282.14285714285717" y2="73" stroke="#555" stroke-width="0.8" opacity="0.6"/>
+              <line x1="317.14285714285717" y1="63" x2="322.14285714285717" y2="88" stroke="#555" stroke-width="0.8" opacity="0.6"/>
+              <circle cx="309.14285714285717" cy="68" r="3" fill="#888" opacity="0.2"/>
+
+    <!-- 창문 -->
+    <rect x="277.14285714285717" y="61" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 1.0s"/><rect x="293.14285714285717" y="61" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 2.3s"/><rect x="309.14285714285717" y="61" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 3.6s"/><rect x="277.14285714285717" y="77" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 1.7s"/><rect x="293.14285714285717" y="77" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 3.0s"/><rect x="309.14285714285717" y="77" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 4.3s"/>
+
+    <!-- 네온 효과 -->
+    
+
+    <!-- 건물 아이콘 -->
+    <text x="297.14285714285717" y="43" text-anchor="middle" class="dc-text" font-size="12">
+      🏚️</text>
+
+    <!-- 건물 이름 -->
+    <text x="297.14285714285717" y="117" text-anchor="middle"
+          class="dc-text dc-label" fill="#8b949e" opacity="0.8">
+      bolier-pla…</text>
+  </g><g class="dc-building" style="animation-delay: 0.60s" opacity="0.5">
+    <!-- 건물 그림자 -->
+    <ellipse cx="403" cy="105" rx="25" ry="4" fill="rgba(0,0,0,0.3)" opacity="0.4"/>
+
+    <!-- 건물 본체 -->
+    <rect x="370" y="52.568" width="60" height="50.432" rx="1" fill="#555555" stroke="#222222" stroke-width="0.5"/>
+              <line x1="375" y1="52.568" x2="385" y2="72.74080000000001" stroke="#555" stroke-width="0.8" opacity="0.6"/>
+              <line x1="420" y1="62.654399999999995" x2="425" y2="87.87039999999999" stroke="#555" stroke-width="0.8" opacity="0.6"/>
+              <circle cx="412" cy="67.6976" r="3" fill="#888" opacity="0.2"/>
+
+    <!-- 창문 -->
+    <rect x="380" y="60.568" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 1.2s"/><rect x="396" y="60.568" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 2.5s"/><rect x="412" y="60.568" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 3.8s"/><rect x="380" y="76.568" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 1.9s"/><rect x="396" y="76.568" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 3.2s"/><rect x="412" y="76.568" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 4.5s"/>
+
+    <!-- 네온 효과 -->
+    
+
+    <!-- 건물 아이콘 -->
+    <text x="400" y="42.568" text-anchor="middle" class="dc-text" font-size="12">
+      🏚️</text>
+
+    <!-- 건물 이름 -->
+    <text x="400" y="117" text-anchor="middle"
+          class="dc-text dc-label" fill="#8b949e" opacity="0.8">
+      boiler-pla…</text>
+  </g><g class="dc-building" style="animation-delay: 0.70s" opacity="0.5">
+    <!-- 건물 그림자 -->
+    <ellipse cx="505.8571428571429" cy="105" rx="25" ry="4" fill="rgba(0,0,0,0.3)" opacity="0.4"/>
+
+    <!-- 건물 본체 -->
+    <rect x="472.8571428571429" y="52.952" width="60" height="50.048" rx="1" fill="#555555" stroke="#222222" stroke-width="0.5"/>
+              <line x1="477.8571428571429" y1="52.952" x2="487.8571428571429" y2="72.9712" stroke="#555" stroke-width="0.8" opacity="0.6"/>
+              <line x1="522.8571428571429" y1="62.9616" x2="527.8571428571429" y2="87.9856" stroke="#555" stroke-width="0.8" opacity="0.6"/>
+              <circle cx="514.8571428571429" cy="67.9664" r="3" fill="#888" opacity="0.2"/>
+
+    <!-- 창문 -->
+    <rect x="482.8571428571429" y="60.952" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 1.4s"/><rect x="498.8571428571429" y="60.952" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 2.7s"/><rect x="514.8571428571429" y="60.952" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 4.0s"/><rect x="482.8571428571429" y="76.952" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 2.1s"/><rect x="498.8571428571429" y="76.952" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 3.4s"/><rect x="514.8571428571429" y="76.952" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 4.7s"/>
+
+    <!-- 네온 효과 -->
+    
+
+    <!-- 건물 아이콘 -->
+    <text x="502.8571428571429" y="42.952" text-anchor="middle" class="dc-text" font-size="12">
+      🏚️</text>
+
+    <!-- 건물 이름 -->
+    <text x="502.8571428571429" y="117" text-anchor="middle"
+          class="dc-text dc-label" fill="#8b949e" opacity="0.8">
+      react-for-…</text>
+  </g><g class="dc-building" style="animation-delay: 0.80s" opacity="0.5">
+    <!-- 건물 그림자 -->
+    <ellipse cx="608.7142857142858" cy="105" rx="25" ry="4" fill="rgba(0,0,0,0.3)" opacity="0.4"/>
+
+    <!-- 건물 본체 -->
+    <rect x="575.7142857142858" y="51.416" width="60" height="51.584" rx="1" fill="#555555" stroke="#222222" stroke-width="0.5"/>
+              <line x1="580.7142857142858" y1="51.416" x2="590.7142857142858" y2="72.0496" stroke="#555" stroke-width="0.8" opacity="0.6"/>
+              <line x1="625.7142857142858" y1="61.7328" x2="630.7142857142858" y2="87.5248" stroke="#555" stroke-width="0.8" opacity="0.6"/>
+              <circle cx="617.7142857142858" cy="66.8912" r="3" fill="#888" opacity="0.2"/>
+
+    <!-- 창문 -->
+    <rect x="585.7142857142858" y="59.416" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 1.6s"/><rect x="601.7142857142858" y="59.416" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 2.9s"/><rect x="617.7142857142858" y="59.416" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 4.2s"/><rect x="585.7142857142858" y="75.416" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 2.3s"/><rect x="601.7142857142858" y="75.416" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 3.6s"/><rect x="617.7142857142858" y="75.416" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 4.9s"/>
+
+    <!-- 네온 효과 -->
+    
+
+    <!-- 건물 아이콘 -->
+    <text x="605.7142857142858" y="41.416" text-anchor="middle" class="dc-text" font-size="12">
+      🏚️</text>
+
+    <!-- 건물 이름 -->
+    <text x="605.7142857142858" y="117" text-anchor="middle"
+          class="dc-text dc-label" fill="#8b949e" opacity="0.8">
+      BCSD</text>
+  </g><g class="dc-building" style="animation-delay: 0.45s" opacity="0.5">
+    <!-- 건물 그림자 -->
+    <ellipse cx="125.28571428571429" cy="40" rx="25" ry="4" fill="rgba(0,0,0,0.3)" opacity="0.4"/>
+
+    <!-- 건물 본체 -->
+    <rect x="92.28571428571429" y="-19.728" width="60" height="57.728" rx="1" fill="#555555" stroke="#222222" stroke-width="0.5"/>
+              <line x1="97.28571428571429" y1="-19.728" x2="107.28571428571429" y2="3.363199999999999" stroke="#555" stroke-width="0.8" opacity="0.6"/>
+              <line x1="142.28571428571428" y1="-8.182400000000001" x2="147.28571428571428" y2="20.681599999999996" stroke="#555" stroke-width="0.8" opacity="0.6"/>
+              <circle cx="134.28571428571428" cy="-2.409600000000001" r="3" fill="#888" opacity="0.2"/>
+
+    <!-- 창문 -->
+    <rect x="102.28571428571429" y="-11.728000000000002" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 0.9s"/><rect x="118.28571428571429" y="-11.728000000000002" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 2.2s"/><rect x="134.28571428571428" y="-11.728000000000002" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 3.5s"/><rect x="102.28571428571429" y="4.2719999999999985" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 1.6s"/><rect x="118.28571428571429" y="4.2719999999999985" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 2.9s"/><rect x="134.28571428571428" y="4.2719999999999985" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 4.2s"/><rect x="102.28571428571429" y="20.272" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 2.3s"/><rect x="118.28571428571429" y="20.272" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 3.6s"/><rect x="134.28571428571428" y="20.272" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 4.9s"/>
+
+    <!-- 네온 효과 -->
+    
+
+    <!-- 건물 아이콘 -->
+    <text x="122.28571428571429" y="-29.728" text-anchor="middle" class="dc-text" font-size="12">
+      🏚️</text>
+
+    <!-- 건물 이름 -->
+    <text x="122.28571428571429" y="52" text-anchor="middle"
+          class="dc-text dc-label" fill="#8b949e" opacity="0.8">
+      BOJ</text>
+  </g><g class="dc-building" style="animation-delay: 0.55s" opacity="0.5">
+    <!-- 건물 그림자 -->
+    <ellipse cx="228.14285714285714" cy="40" rx="25" ry="4" fill="rgba(0,0,0,0.3)" opacity="0.4"/>
+
+    <!-- 건물 본체 -->
+    <rect x="195.14285714285714" y="-12.816000000000003" width="60" height="50.816" rx="1" fill="#555555" stroke="#222222" stroke-width="0.5"/>
+              <line x1="200.14285714285714" y1="-12.816000000000003" x2="210.14285714285714" y2="7.510400000000001" stroke="#555" stroke-width="0.8" opacity="0.6"/>
+              <line x1="245.14285714285714" y1="-2.652800000000001" x2="250.14285714285714" y2="22.755199999999995" stroke="#555" stroke-width="0.8" opacity="0.6"/>
+              <circle cx="237.14285714285714" cy="2.428799999999997" r="3" fill="#888" opacity="0.2"/>
+
+    <!-- 창문 -->
+    <rect x="205.14285714285714" y="-4.8160000000000025" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 1.1s"/><rect x="221.14285714285714" y="-4.8160000000000025" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 2.4s"/><rect x="237.14285714285714" y="-4.8160000000000025" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 3.7s"/><rect x="205.14285714285714" y="11.183999999999997" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 1.8s"/><rect x="221.14285714285714" y="11.183999999999997" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 3.1s"/><rect x="237.14285714285714" y="11.183999999999997" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 4.4s"/>
+
+    <!-- 네온 효과 -->
+    
+
+    <!-- 건물 아이콘 -->
+    <text x="225.14285714285714" y="-22.816000000000003" text-anchor="middle" class="dc-text" font-size="12">
+      🏚️</text>
+
+    <!-- 건물 이름 -->
+    <text x="225.14285714285714" y="52" text-anchor="middle"
+          class="dc-text dc-label" fill="#8b949e" opacity="0.8">
+      web_basic</text>
+  </g><g class="dc-building" style="animation-delay: 0.65s" opacity="0.5">
+    <!-- 건물 그림자 -->
+    <ellipse cx="331" cy="40" rx="25" ry="4" fill="rgba(0,0,0,0.3)" opacity="0.4"/>
+
+    <!-- 건물 본체 -->
+    <rect x="298" y="-12.623999999999995" width="60" height="50.623999999999995" rx="1" fill="#555555" stroke="#222222" stroke-width="0.5"/>
+              <line x1="303" y1="-12.623999999999995" x2="313" y2="7.625600000000006" stroke="#555" stroke-width="0.8" opacity="0.6"/>
+              <line x1="348" y1="-2.4991999999999948" x2="353" y2="22.812799999999996" stroke="#555" stroke-width="0.8" opacity="0.6"/>
+              <circle cx="340" cy="2.563200000000002" r="3" fill="#888" opacity="0.2"/>
+
+    <!-- 창문 -->
+    <rect x="308" y="-4.623999999999995" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 1.3s"/><rect x="324" y="-4.623999999999995" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 2.6s"/><rect x="340" y="-4.623999999999995" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 3.9s"/><rect x="308" y="11.376000000000005" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 2.0s"/><rect x="324" y="11.376000000000005" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 3.3s"/><rect x="340" y="11.376000000000005" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 4.6s"/>
+
+    <!-- 네온 효과 -->
+    
+
+    <!-- 건물 아이콘 -->
+    <text x="328" y="-22.623999999999995" text-anchor="middle" class="dc-text" font-size="12">
+      🏚️</text>
+
+    <!-- 건물 이름 -->
+    <text x="328" y="52" text-anchor="middle"
+          class="dc-text dc-label" fill="#8b949e" opacity="0.8">
+      CodeUp</text>
+  </g><g class="dc-building" style="animation-delay: 0.75s" opacity="0.5">
+    <!-- 건물 그림자 -->
+    <ellipse cx="433.85714285714283" cy="40" rx="25" ry="4" fill="rgba(0,0,0,0.3)" opacity="0.4"/>
+
+    <!-- 건물 본체 -->
+    <rect x="400.85714285714283" y="-12.095999999999997" width="60" height="50.096" rx="1" fill="#555555" stroke="#222222" stroke-width="0.5"/>
+              <line x1="405.85714285714283" y1="-12.095999999999997" x2="415.85714285714283" y2="7.942400000000003" stroke="#555" stroke-width="0.8" opacity="0.6"/>
+              <line x1="450.85714285714283" y1="-2.076799999999997" x2="455.85714285714283" y2="22.971199999999996" stroke="#555" stroke-width="0.8" opacity="0.6"/>
+              <circle cx="442.85714285714283" cy="2.932800000000002" r="3" fill="#888" opacity="0.2"/>
+
+    <!-- 창문 -->
+    <rect x="410.85714285714283" y="-4.0959999999999965" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 1.5s"/><rect x="426.85714285714283" y="-4.0959999999999965" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 2.8s"/><rect x="442.85714285714283" y="-4.0959999999999965" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 4.1s"/><rect x="410.85714285714283" y="11.904000000000003" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 2.2s"/><rect x="426.85714285714283" y="11.904000000000003" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 3.5s"/><rect x="442.85714285714283" y="11.904000000000003" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 4.8s"/>
+
+    <!-- 네온 효과 -->
+    
+
+    <!-- 건물 아이콘 -->
+    <text x="430.85714285714283" y="-22.095999999999997" text-anchor="middle" class="dc-text" font-size="12">
+      🏚️</text>
+
+    <!-- 건물 이름 -->
+    <text x="430.85714285714283" y="52" text-anchor="middle"
+          class="dc-text dc-label" fill="#8b949e" opacity="0.8">
+      gitfth</text>
+  </g><g class="dc-building" style="animation-delay: 0.85s" opacity="0.5">
+    <!-- 건물 그림자 -->
+    <ellipse cx="536.7142857142858" cy="40" rx="25" ry="4" fill="rgba(0,0,0,0.3)" opacity="0.4"/>
+
+    <!-- 건물 본체 -->
+    <rect x="503.7142857142858" y="-12.384" width="60" height="50.384" rx="1" fill="#555555" stroke="#222222" stroke-width="0.5"/>
+              <line x1="508.7142857142858" y1="-12.384" x2="518.7142857142858" y2="7.7696000000000005" stroke="#555" stroke-width="0.8" opacity="0.6"/>
+              <line x1="553.7142857142858" y1="-2.3072" x2="558.7142857142858" y2="22.8848" stroke="#555" stroke-width="0.8" opacity="0.6"/>
+              <circle cx="545.7142857142858" cy="2.7311999999999994" r="3" fill="#888" opacity="0.2"/>
+
+    <!-- 창문 -->
+    <rect x="513.7142857142858" y="-4.384" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 1.7s"/><rect x="529.7142857142858" y="-4.384" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 3.0s"/><rect x="545.7142857142858" y="-4.384" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 4.3s"/><rect x="513.7142857142858" y="11.616" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 2.4s"/><rect x="529.7142857142858" y="11.616" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 3.7s"/><rect x="545.7142857142858" y="11.616" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 5.0s"/>
+
+    <!-- 네온 효과 -->
+    
+
+    <!-- 건물 아이콘 -->
+    <text x="533.7142857142858" y="-22.384" text-anchor="middle" class="dc-text" font-size="12">
+      🏚️</text>
+
+    <!-- 건물 이름 -->
+    <text x="533.7142857142858" y="52" text-anchor="middle"
+          class="dc-text dc-label" fill="#8b949e" opacity="0.8">
+      test</text>
+  </g><g class="dc-building" style="animation-delay: 0.95s" opacity="0.5">
+    <!-- 건물 그림자 -->
+    <ellipse cx="639.5714285714287" cy="40" rx="25" ry="4" fill="rgba(0,0,0,0.3)" opacity="0.4"/>
+
+    <!-- 건물 본체 -->
+    <rect x="606.5714285714287" y="-12.240000000000002" width="60" height="50.24" rx="1" fill="#555555" stroke="#222222" stroke-width="0.5"/>
+              <line x1="611.5714285714287" y1="-12.240000000000002" x2="621.5714285714287" y2="7.856000000000002" stroke="#555" stroke-width="0.8" opacity="0.6"/>
+              <line x1="656.5714285714287" y1="-2.192" x2="661.5714285714287" y2="22.927999999999997" stroke="#555" stroke-width="0.8" opacity="0.6"/>
+              <circle cx="648.5714285714287" cy="2.831999999999997" r="3" fill="#888" opacity="0.2"/>
+
+    <!-- 창문 -->
+    <rect x="616.5714285714287" y="-4.240000000000002" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 1.9s"/><rect x="632.5714285714287" y="-4.240000000000002" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 3.2s"/><rect x="648.5714285714287" y="-4.240000000000002" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 4.5s"/><rect x="616.5714285714287" y="11.759999999999998" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 2.6s"/><rect x="632.5714285714287" y="11.759999999999998" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 3.9s"/><rect x="648.5714285714287" y="11.759999999999998" width="7" height="7" rx="1"
+                        fill="#ffdd57" opacity="0.10"
+                        class="dc-window" style="animation-delay: 5.2s"/>
+
+    <!-- 네온 효과 -->
+    
+
+    <!-- 건물 아이콘 -->
+    <text x="636.5714285714287" y="-22.240000000000002" text-anchor="middle" class="dc-text" font-size="12">
+      🏚️</text>
+
+    <!-- 건물 이름 -->
+    <text x="636.5714285714287" y="52" text-anchor="middle"
+          class="dc-text dc-label" fill="#8b949e" opacity="0.8">
+      manuals</text>
+  </g></g>
+
+<g>
+    <circle cx="680" cy="35" r="20" fill="#ffd700" opacity="0.9" filter="url(#cityGlow)"/>
+    <circle cx="680" cy="35" r="28" fill="#ffd700" opacity="0.15"/>
+    <circle cx="680" cy="35" r="36" fill="#ffd700" opacity="0.06"/>
+  </g>
+<g><g>
+    <rect x="71.5" y="277" width="3" height="8" fill="#8B4513" opacity="0.7"/>
+    <polygon points="65,279 73,263 81,279" fill="#2ecc71" opacity="0.7"/>
+    <polygon points="67,273 73,261 79,273" fill="#27ae60" opacity="0.6"/>
+  </g><g>
+    <rect x="250.5" y="288" width="3" height="8" fill="#8B4513" opacity="0.7"/>
+    <polygon points="244,290 252,274 260,290" fill="#2ecc71" opacity="0.7"/>
+    <polygon points="246,284 252,272 258,284" fill="#27ae60" opacity="0.6"/>
+  </g><g>
+    <rect x="429.5" y="299" width="3" height="8" fill="#8B4513" opacity="0.7"/>
+    <polygon points="423,301 431,285 439,301" fill="#2ecc71" opacity="0.7"/>
+    <polygon points="425,295 431,283 437,295" fill="#27ae60" opacity="0.6"/>
+  </g><g>
+    <rect x="608.5" y="280" width="3" height="8" fill="#8B4513" opacity="0.7"/>
+    <polygon points="602,282 610,266 618,282" fill="#2ecc71" opacity="0.7"/>
+    <polygon points="604,276 610,264 616,276" fill="#27ae60" opacity="0.6"/>
+  </g><g>
+    <rect x="27.5" y="291" width="3" height="8" fill="#8B4513" opacity="0.7"/>
+    <polygon points="21,293 29,277 37,293" fill="#2ecc71" opacity="0.7"/>
+    <polygon points="23,287 29,275 35,287" fill="#27ae60" opacity="0.6"/>
+  </g><rect x="120" y="293" width="20" height="6" rx="2" fill="#8B4513" opacity="0.6"/>
+                    <rect x="122" y="289" width="2" height="4" fill="#8B4513" opacity="0.6"/>
+                    <rect x="136" y="289" width="2" height="4" fill="#8B4513" opacity="0.6"/><ellipse cx="656" cy="291" rx="12" ry="5" fill="#4FC3F7" opacity="0.4"/>
+                    <line x1="656" y1="281" x2="656" y2="291" stroke="#4FC3F7" stroke-width="1.5" opacity="0.5"/>
+                    <circle cx="656" cy="279" r="2" fill="#4FC3F7" opacity="0.3"/><g opacity="0.6">
+    <ellipse cx="120" cy="20" rx="10" ry="4" fill="#555"/>
+    <line x1="108" y1="17" x2="132" y2="17" stroke="#777" stroke-width="1"/>
+    <line x1="128" y1="20" x2="138" y2="22" stroke="#555" stroke-width="1"/>
+  </g></g>
+</g>
+
+<!-- 푸터 -->
+<g>
+    <!-- 구분선 -->
+    <line x1="16" y1="452" x2="784" y2="452"
+          stroke="#30363d" stroke-width="0.5" opacity="0.5"/>
+    
+    <text x="67" y="468" text-anchor="middle"
+          class="dc-text dc-footer-text" fill="#8b949e">
+      🏢 Buildings</text>
+    <text x="67" y="483" text-anchor="middle"
+          class="dc-text dc-footer-val" fill="#e6edf3">
+      24</text>
+    <text x="200" y="468" text-anchor="middle"
+          class="dc-text dc-footer-text" fill="#8b949e">
+      👥 Population</text>
+    <text x="200" y="483" text-anchor="middle"
+          class="dc-text dc-footer-val" fill="#e6edf3">
+      100</text>
+    <text x="333" y="468" text-anchor="middle"
+          class="dc-text dc-footer-text" fill="#8b949e">
+      💻 Commits</text>
+    <text x="333" y="483" text-anchor="middle"
+          class="dc-text dc-footer-val" fill="#e6edf3">
+      0</text>
+    <text x="467" y="468" text-anchor="middle"
+          class="dc-text dc-footer-text" fill="#8b949e">
+      ⭐ Stars</text>
+    <text x="467" y="483" text-anchor="middle"
+          class="dc-text dc-footer-val" fill="#e6edf3">
+      0</text>
+    <text x="600" y="468" text-anchor="middle"
+          class="dc-text dc-footer-text" fill="#8b949e">
+      🔥 Streak</text>
+    <text x="600" y="483" text-anchor="middle"
+          class="dc-text dc-footer-val" fill="#e6edf3">
+      28d</text>
+    <text x="733" y="468" text-anchor="middle"
+          class="dc-text dc-footer-text" fill="#8b949e">
+      📊 Top Lang</text>
+    <text x="733" y="483" text-anchor="middle"
+          class="dc-text dc-footer-val" fill="#e6edf3">
+      Python</text>
+  </g>
+
+<!-- 외곽 테두리 -->
+<rect x="1" y="1" width="798" height="498" rx="15"
+      fill="none" stroke="#30363d" stroke-width="1" opacity="0.5"/>
+</svg>

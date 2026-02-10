@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="850" height="230" viewBox="0 0 850 230">
+  <defs>
+    <linearGradient id="waveGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6C63FF"/>
+      <stop offset="50%" stop-color="#4e45e1"/>
+      <stop offset="100%" stop-color="#6C63FF"/>
+    </linearGradient>
+    <linearGradient id="textGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#e0e0e0"/>
+    </linearGradient>
+  </defs>
+  <style>
+    @keyframes waveMove1 {
+      0%, 100% { transform: translateX(0); }
+      50% { transform: translateX(-30px); }
+    }
+    @keyframes waveMove2 {
+      0%, 100% { transform: translateX(0); }
+      50% { transform: translateX(30px); }
+    }
+    @keyframes fadeInUp {
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    .wave1 { animation: waveMove1 6s ease-in-out infinite; }
+    .wave2 { animation: waveMove2 8s ease-in-out infinite; }
+    .header-text { animation: fadeInUp 1.5s ease-out forwards; }
+  </style>
+
+  <!-- 배경 -->
+  <rect width="850" height="230" fill="url(#waveGrad)"/>
+
+  <!-- 물결 1 -->
+  <g class="wave1">
+    <path d="M0,170 C212.5,140 425,200 850,170 L850,230 L0,230 Z" fill="rgba(255,255,255,0.08)"/>
+  </g>
+
+  <!-- 물결 2 -->
+  <g class="wave2">
+    <path d="M0,190 C255,160 510,210 850,185 L850,230 L0,230 Z" fill="rgba(255,255,255,0.05)"/>
+  </g>
+
+  <!-- 장식 원 -->
+  <circle cx="770" cy="60" r="40" fill="rgba(255,255,255,0.06)"/>
+  <circle cx="790" cy="80" r="60" fill="rgba(255,255,255,0.04)"/>
+  <circle cx="80" cy="170" r="35" fill="rgba(255,255,255,0.05)"/>
+
+  <!-- 메인 텍스트 -->
+  <text class="header-text" x="425" y="105" 
+    text-anchor="middle" dominant-baseline="middle"
+    font-size="32" font-weight="bold" fill="url(#textGrad)"
+    font-family="'Segoe UI', 'Apple Color Emoji', sans-serif">
+    Hello, I&apos;m Sangyeonglee353! 👋
+  </text>
+
+  <!-- 서브 라인 -->
+  <line x1="365" y1="135" x2="485" y2="135" 
+    stroke="rgba(255,255,255,0.3)" stroke-width="2" stroke-linecap="round"/>
+</svg>

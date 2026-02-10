@@ -1,29 +1,41 @@
 {
-  "lastUpdated": null,
+  "lastUpdated": "2026-02-10T12:55:32.910Z",
   "pet": {
-    "species": null,
-    "stage": 0,
-    "exp": 0,
-    "mood": 50,
-    "hunger": 50,
-    "lastFed": null,
-    "birthDate": null,
+    "species": "pythonix",
+    "stage": 1,
+    "exp": 1900,
+    "mood": 49,
+    "hunger": 100,
+    "lastFed": "2026-02-10T12:55:31.671Z",
+    "birthDate": "2026-02-10T12:55:31.670Z",
     "abilities": []
   },
   "city": {
-    "tier": 0,
-    "population": 0,
-    "buildings": 0,
+    "tier": 4,
+    "population": 100,
+    "buildings": 24,
     "lastWeather": "sunny"
   },
   "chronicle": {
-    "currentChapter": 0,
-    "unlockedTitles": [],
-    "currentQuest": null
+    "currentChapter": 8,
+    "unlockedTitles": [
+      "The Awakening",
+      "Laying the Foundation",
+      "New Expedition",
+      "New Expedition",
+      "New Expedition",
+      "New Weapon Acquired",
+      "New Weapon Acquired",
+      "New Weapon Acquired"
+    ],
+    "currentQuest": {
+      "type": "The Grind",
+      "progress": 93
+    }
   },
   "card": {
     "seasonNumber": 1,
     "cardNumber": 1,
-    "highestRarity": "common"
+    "highestRarity": "rare"
   }
 }
