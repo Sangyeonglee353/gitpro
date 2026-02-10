@@ -1,0 +1,20 @@
+name: 'gitpro'
+description: '🎮 All-in-One GitHub Profile Suite - 6 unique visualization modules for your GitHub profile'
+author: 'Sangyeonglee353'
+
+inputs:
+  gh_token:
+    description: 'GitHub Personal Access Token (repo, gist scope required)'
+    required: true
+  config_path:
+    description: 'Path to gitpro.config.yml (default: ./gitpro.config.yml)'
+    required: false
+    default: './gitpro.config.yml'
+
+runs:
+  using: 'node20'
+  main: 'dist/index.js'
+
+branding:
+  icon: 'activity'
+  color: 'purple'

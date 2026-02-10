@@ -1,0 +1,37 @@
+{
+  "name": "gitpro",
+  "version": "1.0.0",
+  "description": "🎮 All-in-One GitHub Profile Suite - 6 unique visualization modules for your GitHub profile",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "ts-node src/index.ts",
+    "lint": "eslint src/**/*.ts",
+    "clean": "rimraf dist output"
+  },
+  "keywords": [
+    "github",
+    "profile",
+    "github-actions",
+    "gist",
+    "pinned-gist",
+    "trading-card",
+    "code-pet",
+    "svg"
+  ],
+  "author": "Sangyeonglee353",
+  "license": "MIT",
+  "dependencies": {
+    "@octokit/graphql": "^7.0.2",
+    "@octokit/rest": "^20.0.2",
+    "js-yaml": "^4.1.0"
+  },
+  "devDependencies": {
+    "@types/js-yaml": "^4.0.9",
+    "@types/node": "^20.11.0",
+    "typescript": "^5.3.3",
+    "ts-node": "^10.9.2",
+    "rimraf": "^5.0.5"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "lastUpdated": null,
+  "pet": {
+    "species": null,
+    "stage": 0,
+    "exp": 0,
+    "mood": 50,
+    "hunger": 50,
+    "lastFed": null,
+    "birthDate": null,
+    "abilities": []
+  },
+  "city": {
+    "tier": 0,
+    "population": 0,
+    "buildings": 0,
+    "lastWeather": "sunny"
+  },
+  "chronicle": {
+    "currentChapter": 0,
+    "unlockedTitles": [],
+    "currentQuest": null
+  },
+  "card": {
+    "seasonNumber": 1,
+    "cardNumber": 1,
+    "highestRarity": "common"
+  }
+}

@@ -1,0 +1,84 @@
+# ═══════════════════════════════════════════
+# 🎮 gitpro - All-in-One GitHub Profile Suite
+# ═══════════════════════════════════════════
+# 이 파일 하나로 모든 모듈을 제어합니다.
+# 원하는 모듈만 enabled: true 로 설정하세요!
+
+# 기본 설정
+username: "Sangyeonglee353"
+timezone: "Asia/Seoul"
+locale: "ko"                    # ko | en | ja
+theme: "dark"                   # dark | light | cyberpunk | retro | pastel
+
+# ═══════════════════════════════════════════
+# 🎯 모듈 설정
+# ═══════════════════════════════════════════
+
+modules:
+
+  # 🃏 개발자 트레이딩 카드
+  trading-card:
+    enabled: true
+    style: "hologram"           # hologram | pixel | minimal | anime
+    show_ability: true
+    show_skills: true
+    max_skills: 5
+    custom_title: ""            # 비워두면 자동 생성
+
+  # 🧬 코드 DNA
+  code-dna:
+    enabled: true
+    shape: "circular"           # circular | helix | spiral | fingerprint
+    color_scheme: "language"    # language | mood | rainbow | monochrome
+    complexity: "detailed"      # simple | detailed
+
+  # 📜 개발자 연대기
+  chronicle:
+    enabled: true
+    max_chapters: 8
+    style: "rpg"                # rpg | book | timeline | comic
+    language: "ko"              # 연대기 텍스트 언어
+
+  # 🐾 코드 펫
+  code-pet:
+    enabled: true
+    custom_name: ""             # 비워두면 자동 생성
+    show_mood: true
+    show_stats: true
+    animation: true
+
+  # 🌌 커밋 별자리
+  constellation:
+    enabled: true
+    sky_theme: "midnight"       # midnight | aurora | sunset | deep_space
+    show_meteors: true
+    show_nebula: true
+    max_constellations: 10
+
+  # 🏙️ 개발자 도시
+  dev-city:
+    enabled: true
+    city_style: "pixel"         # pixel | isometric | flat | neon
+    show_weather: true
+    show_traffic: true
+    animation: true
+
+# ═══════════════════════════════════════════
+# 📄 프로필 README 자동 생성 설정
+# ═══════════════════════════════════════════
+
+readme:
+  auto_update: true
+  layout: "grid"                # grid | vertical | tabs
+  header:
+    type: "wave"                # wave | typing | gradient | none
+    text: "Hello, I'm Sangyeonglee353! 👋"
+    color: "#6C63FF"
+
+# ═══════════════════════════════════════════
+# 📌 Gist 연동 (선택사항)
+# ═══════════════════════════════════════════
+
+gist:
+  enabled: false
+  gist_id: ""

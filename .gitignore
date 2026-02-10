@@ -1,0 +1,22 @@
+node_modules/
+dist/
+*.js.map
+*.d.ts.map
+.env
+.env.local
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# output은 커밋 대상 (SVG 결과물)
+# output/
+
+# state도 커밋 대상 (펫 상태 등 영구 데이터)
+# state/
