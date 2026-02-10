@@ -89,7 +89,7 @@
 
   <!-- 기분 이모지 -->
   
-  <text x="156" y="54" font-size="16" class="heartbeat">😐</text>
+  <text x="156" y="54" font-size="16" class="heartbeat">🙂</text>
   
 
   <!-- 활동 상태 -->
@@ -123,34 +123,34 @@
   <!-- EXP 바 -->
   <text x="214" y="80" class="pet-text pet-label" fill="#8b949e">EXP</text>
   <text x="460" y="80" text-anchor="end" class="pet-text pet-value"
-        fill="#3572A5">1.9k</text>
+        fill="#3572A5">3.8k</text>
   <rect x="214" y="86" width="246" height="8" rx="4" ry="4"
         fill="#161b22"/>
-  <rect x="214" y="86" width="57" height="8" rx="4" ry="4"
+  <rect x="214" y="86" width="172" height="8" rx="4" ry="4"
         fill="url(#expBar)">
-    <animate attributeName="width" from="0" to="57" dur="1.5s" fill="freeze"/>
+    <animate attributeName="width" from="0" to="172" dur="1.5s" fill="freeze"/>
   </rect>
   
   <text x="214" y="106" class="pet-text pet-small" fill="#8b949e">
-    다음 진화까지: 3.1k EXP (23%)</text>
+    다음 진화까지: 1.2k EXP (70%)</text>
   
 
   
   <text x="214" y="130" class="pet-text pet-label" fill="#8b949e">
-    😐 기분</text>
+    🙂 기분</text>
   <text x="460" y="130" text-anchor="end" class="pet-text pet-label"
-        fill="#e6edf3">보통</text>
+        fill="#e6edf3">만족</text>
   <rect x="214" y="136" width="246" height="6" rx="3" ry="3"
         fill="#161b22"/>
-  <rect x="214" y="136" width="121" height="6" rx="3" ry="3"
+  <rect x="214" y="136" width="143" height="6" rx="3" ry="3"
         fill="#3fb950"/>
     <text x="214" y="162" class="pet-text pet-label" fill="#8b949e">
       🍖 포만감</text>
     <text x="460" y="162" text-anchor="end" class="pet-text pet-label"
-          fill="#e6edf3">0%</text>
+          fill="#e6edf3">19%</text>
     <rect x="214" y="168" width="246" height="6" rx="3" ry="3"
           fill="#161b22"/>
-    <rect x="214" y="168" width="0" height="6" rx="3" ry="3"
+    <rect x="214" y="168" width="47" height="6" rx="3" ry="3"
           fill="#3572A5"/>
     <rect x="214" y="184" width="auto" height="18" rx="9" ry="9"
           fill="#3572A5" opacity="0.1"/>
