@@ -1,0 +1,129 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="520" height="580" viewBox="0 0 520 580">
+  <defs>
+    <linearGradient id="chrBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#161b22"/>
+      <stop offset="100%" stop-color="#0d1117"/>
+    </linearGradient>
+    <linearGradient id="chrAccent" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#58a6ff" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#1f6feb" stop-opacity="0.4"/>
+    </linearGradient>
+    <filter id="chrGlow">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="chrShadow">
+      <feDropShadow dx="0" dy="1" stdDeviation="2" flood-color="#000" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <style>
+    .chr-text { font-family: 'Segoe UI', 'Noto Sans KR', sans-serif; }
+    @keyframes chr-fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes chr-pulse {
+      0%, 100% { opacity: 0.6; }
+      50% { opacity: 1; }
+    }
+    .chr-chapter { animation: chr-fadeIn 0.5s ease-out forwards; opacity: 0; }
+    .chr-quest-pulse { animation: chr-pulse 2s ease-in-out infinite; }
+  </style>
+
+  <!-- 배경 -->
+  <rect width="520" height="580" rx="16" fill="url(#chrBg)"/>
+
+  <!-- 헤더 -->
+  <text x="260" y="32" text-anchor="middle" class="chr-text" font-size="15" font-weight="700" fill="#58a6ff" letter-spacing="2">
+    📜 DEV CHRONICLE</text>
+  <text x="260" y="52" text-anchor="middle" class="chr-text" font-size="12" font-weight="600" fill="#e6edf3">
+    Sangyeonglee353</text>
+  <text x="260" y="70" text-anchor="middle" class="chr-text" font-size="10" fill="#8b949e">
+    🏅 Full-Stack Adventurer · 📖 Chapter 6</text>
+
+  <!-- 구분선 -->
+  <line x1="30" y1="85" x2="490" y2="85" stroke="#30363d" stroke-width="0.5" opacity="0.5"/>
+
+  <!-- 좌측 세로 퀘스트 라인 -->
+  <line x1="50" y1="100" x2="50" y2="460" stroke="url(#chrAccent)" stroke-width="2" stroke-dasharray="4 4" opacity="0.5"/>
+
+  <!-- Chapter 1 -->
+  <g class="chr-chapter" style="animation-delay: 0s">
+    <circle cx="50" cy="116" r="8" fill="#161b22" stroke="#3fb950" stroke-width="2.5" filter="url(#chrGlow)"/>
+    <text x="50" y="120" text-anchor="middle" font-size="8">🌱</text>
+    <rect x="70" y="100" width="420" height="55" rx="8" fill="#161b22" opacity="0.6" stroke="#3fb950" stroke-width="0.5" stroke-opacity="0.3"/>
+    <rect x="78" y="106" width="18" height="14" rx="3" fill="#3fb950" opacity="0.15"/>
+    <text x="87" y="116" text-anchor="middle" class="chr-text" font-size="9" font-weight="800" fill="#3fb950">S</text>
+    <text x="104" y="116" class="chr-text" font-size="12" font-weight="700" fill="#e6edf3">🌱 The Beginning</text>
+    <text x="470" y="116" text-anchor="end" class="chr-text" font-size="9" fill="#8b949e">2023.03.15</text>
+    <text x="78" y="138" class="chr-text" font-size="9" fill="#8b949e">첫 번째 커밋을 작성했습니다. 모험이 시작됩니다!</text>
+  </g>
+
+  <!-- Chapter 2 -->
+  <g class="chr-chapter" style="animation-delay: 0.1s">
+    <circle cx="50" cy="184" r="8" fill="#161b22" stroke="#58a6ff" stroke-width="2.5" filter="url(#chrGlow)"/>
+    <text x="50" y="188" text-anchor="middle" font-size="8">📦</text>
+    <rect x="70" y="168" width="420" height="55" rx="8" fill="#161b22" opacity="0.6" stroke="#58a6ff" stroke-width="0.5" stroke-opacity="0.3"/>
+    <rect x="78" y="174" width="18" height="14" rx="3" fill="#58a6ff" opacity="0.15"/>
+    <text x="87" y="184" text-anchor="middle" class="chr-text" font-size="9" font-weight="800" fill="#58a6ff">A</text>
+    <text x="104" y="184" class="chr-text" font-size="12" font-weight="700" fill="#e6edf3">📦 Laying the Foundation</text>
+    <text x="470" y="184" text-anchor="end" class="chr-text" font-size="9" fill="#8b949e">2023.04.02</text>
+    <text x="78" y="206" class="chr-text" font-size="9" fill="#8b949e">첫 번째 Public 레포지토리를 생성했습니다.</text>
+  </g>
+
+  <!-- Chapter 3 -->
+  <g class="chr-chapter" style="animation-delay: 0.2s">
+    <circle cx="50" cy="252" r="8" fill="#161b22" stroke="#A855F7" stroke-width="2.5" filter="url(#chrGlow)"/>
+    <text x="50" y="256" text-anchor="middle" font-size="8">🤝</text>
+    <rect x="70" y="236" width="420" height="55" rx="8" fill="#161b22" opacity="0.6" stroke="#A855F7" stroke-width="0.5" stroke-opacity="0.3"/>
+    <rect x="78" y="242" width="18" height="14" rx="3" fill="#A855F7" opacity="0.15"/>
+    <text x="87" y="252" text-anchor="middle" class="chr-text" font-size="9" font-weight="800" fill="#A855F7">A</text>
+    <text x="104" y="252" class="chr-text" font-size="12" font-weight="700" fill="#e6edf3">🤝 The Awakening</text>
+    <text x="470" y="252" text-anchor="end" class="chr-text" font-size="9" fill="#8b949e">2023.06.18</text>
+    <text x="78" y="274" class="chr-text" font-size="9" fill="#8b949e">다른 레포지토리에 첫 Pull Request를 머지했습니다!</text>
+  </g>
+
+  <!-- Chapter 4 -->
+  <g class="chr-chapter" style="animation-delay: 0.3s">
+    <circle cx="50" cy="320" r="8" fill="#161b22" stroke="#FFD700" stroke-width="2.5" filter="url(#chrGlow)"/>
+    <text x="50" y="324" text-anchor="middle" font-size="8">⭐</text>
+    <rect x="70" y="304" width="420" height="55" rx="8" fill="#161b22" opacity="0.6" stroke="#FFD700" stroke-width="0.5" stroke-opacity="0.3"/>
+    <rect x="78" y="310" width="18" height="14" rx="3" fill="#FFD700" opacity="0.15"/>
+    <text x="87" y="320" text-anchor="middle" class="chr-text" font-size="9" font-weight="800" fill="#FFD700">S</text>
+    <text x="104" y="320" class="chr-text" font-size="12" font-weight="700" fill="#e6edf3">⭐ Recognition</text>
+    <text x="470" y="320" text-anchor="end" class="chr-text" font-size="9" fill="#8b949e">2023.09.05</text>
+    <text x="78" y="342" class="chr-text" font-size="9" fill="#8b949e">첫 번째 GitHub 스타를 받았습니다. 누군가 인정해주었습니다!</text>
+  </g>
+
+  <!-- Chapter 5 -->
+  <g class="chr-chapter" style="animation-delay: 0.4s">
+    <circle cx="50" cy="388" r="8" fill="#161b22" stroke="#F59E0B" stroke-width="2.5" filter="url(#chrGlow)"/>
+    <text x="50" y="392" text-anchor="middle" font-size="8">🔥</text>
+    <rect x="70" y="372" width="420" height="55" rx="8" fill="#161b22" opacity="0.6" stroke="#F59E0B" stroke-width="0.5" stroke-opacity="0.3"/>
+    <rect x="78" y="378" width="18" height="14" rx="3" fill="#F59E0B" opacity="0.15"/>
+    <text x="87" y="388" text-anchor="middle" class="chr-text" font-size="9" font-weight="800" fill="#F59E0B">S</text>
+    <text x="104" y="388" class="chr-text" font-size="12" font-weight="700" fill="#e6edf3">🔥 The Grind</text>
+    <text x="470" y="388" text-anchor="end" class="chr-text" font-size="9" fill="#8b949e">2024.01.20</text>
+    <text x="78" y="410" class="chr-text" font-size="9" fill="#8b949e">30일 연속 커밋을 달성했습니다! 끈기의 증명!</text>
+  </g>
+
+  <!-- 활성 퀘스트 -->
+  <rect x="30" y="445" width="460" height="50" rx="8" fill="#161b22" stroke="#58a6ff" stroke-width="1" stroke-dasharray="4 2" opacity="0.7"/>
+  <text x="48" y="466" class="chr-text" font-size="10" font-weight="700" fill="#58a6ff" class="chr-quest-pulse">
+    ⚔️ 활성 퀘스트</text>
+  <text x="140" y="466" class="chr-text" font-size="10" fill="#e6edf3">100일 연속 커밋 달성하기</text>
+  <!-- 진행 바 -->
+  <rect x="48" y="476" width="280" height="8" rx="4" fill="#30363d"/>
+  <rect x="48" y="476" width="182" height="8" rx="4" fill="#58a6ff" opacity="0.8"/>
+  <text x="340" y="484" class="chr-text" font-size="9" font-weight="600" fill="#58a6ff">65/100 (65%)</text>
+
+  <!-- 푸터 -->
+  <line x1="30" y1="510" x2="490" y2="510" stroke="#30363d" stroke-width="0.5" opacity="0.5"/>
+  <text x="40" y="530" class="chr-text" font-size="9" fill="#8b949e">📜 gitpro Chronicle</text>
+  <text x="260" y="530" text-anchor="middle" class="chr-text" font-size="9" fill="#8b949e">🏆 총 활동일: 487일</text>
+  <text x="480" y="530" text-anchor="end" class="chr-text" font-size="9" fill="#8b949e">2026-02-10</text>
+
+  <!-- 외곽 테두리 -->
+  <rect x="1" y="1" width="518" height="578" rx="15" fill="none" stroke="#30363d" stroke-width="1" opacity="0.3"/>
+</svg>

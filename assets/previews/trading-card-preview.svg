@@ -1,0 +1,158 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="420" height="560" viewBox="0 0 420 560">
+  <defs>
+    <linearGradient id="cardBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#161b22"/>
+      <stop offset="100%" stop-color="#0d1117"/>
+    </linearGradient>
+    <linearGradient id="holoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFD700" stop-opacity="0.8"/>
+      <stop offset="33%" stop-color="#FF69B4" stop-opacity="0.6"/>
+      <stop offset="66%" stop-color="#00CED1" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#FFD700" stop-opacity="0.8"/>
+    </linearGradient>
+    <linearGradient id="rarityGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FFD700"/>
+      <stop offset="50%" stop-color="#FFA500"/>
+      <stop offset="100%" stop-color="#FFD700"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="2" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#000" flood-opacity="0.4"/>
+    </filter>
+    <radialGradient id="charGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#58a6ff" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#58a6ff" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <style>
+    .card-text { font-family: 'Segoe UI', 'Noto Sans KR', Arial, sans-serif; }
+    @keyframes shimmer {
+      0% { opacity: 0.3; }
+      50% { opacity: 0.6; }
+      100% { opacity: 0.3; }
+    }
+    @keyframes sparkle {
+      0%, 100% { opacity: 0; transform: scale(0.5); }
+      50% { opacity: 1; transform: scale(1); }
+    }
+    .holo-shimmer { animation: shimmer 3s ease-in-out infinite; }
+    .sparkle1 { animation: sparkle 2s ease-in-out infinite; }
+    .sparkle2 { animation: sparkle 2s ease-in-out infinite 0.7s; }
+    .sparkle3 { animation: sparkle 2s ease-in-out infinite 1.4s; }
+  </style>
+
+  <!-- 카드 외곽 (홀로그램 보더) -->
+  <rect x="2" y="2" width="416" height="556" rx="16" fill="url(#holoGrad)" filter="url(#shadow)"/>
+  <rect x="6" y="6" width="408" height="548" rx="14" fill="url(#cardBg)"/>
+
+  <!-- 레어도 배지 -->
+  <rect x="16" y="16" width="388" height="28" rx="14" fill="#FFD700" opacity="0.1"/>
+  <text x="210" y="35" text-anchor="middle" class="card-text" font-size="13" font-weight="800" fill="#FFD700" letter-spacing="3" filter="url(#glow)">
+    ✦ LEGENDARY ✦</text>
+
+  <!-- 캐릭터 영역 -->
+  <rect x="30" y="54" width="360" height="180" rx="12" fill="#1c2333" stroke="#58a6ff" stroke-width="1" opacity="0.7"/>
+  <circle cx="210" cy="140" r="70" fill="url(#charGlow)"/>
+
+  <!-- 픽셀아트 캐릭터 (TypeScript 드래곤) -->
+  <g transform="translate(170, 80)">
+    <!-- 몸통 -->
+    <rect x="20" y="40" width="40" height="50" rx="4" fill="#3178c6"/>
+    <!-- 머리 -->
+    <rect x="15" y="15" width="50" height="35" rx="8" fill="#3178c6"/>
+    <!-- 눈 -->
+    <rect x="25" y="25" width="8" height="8" rx="2" fill="#fff"/>
+    <rect x="28" y="28" width="4" height="4" fill="#0d1117"/>
+    <rect x="45" y="25" width="8" height="8" rx="2" fill="#fff"/>
+    <rect x="48" y="28" width="4" height="4" fill="#0d1117"/>
+    <!-- 뿔 -->
+    <polygon points="20,18 15,2 25,15" fill="#FFD700"/>
+    <polygon points="55,18 60,2 50,15" fill="#FFD700"/>
+    <!-- 날개 -->
+    <polygon points="15,45 -5,30 5,60" fill="#2563eb" opacity="0.8"/>
+    <polygon points="65,45 85,30 75,60" fill="#2563eb" opacity="0.8"/>
+    <!-- TS 마크 -->
+    <text x="40" y="72" text-anchor="middle" font-size="14" font-weight="900" fill="#fff">TS</text>
+    <!-- 꼬리 -->
+    <path d="M20,85 Q0,90 5,105 Q8,110 15,105" fill="none" stroke="#3178c6" stroke-width="4" stroke-linecap="round"/>
+    <!-- 발 -->
+    <rect x="22" y="88" width="12" height="8" rx="2" fill="#2563eb"/>
+    <rect x="46" y="88" width="12" height="8" rx="2" fill="#2563eb"/>
+  </g>
+
+  <text x="210" y="160" text-anchor="middle" class="card-text" font-size="11" fill="#58a6ff" font-weight="600" letter-spacing="2">
+    ⚡ TypeScript Mage ⚡</text>
+
+  <!-- 유저명 & 타이틀 -->
+  <text x="210" y="258" text-anchor="middle" class="card-text" font-size="18" font-weight="700" fill="#e6edf3">
+    Sangyeonglee353</text>
+  <text x="210" y="278" text-anchor="middle" class="card-text" font-size="11" fill="#8b949e" font-style="italic">
+    "The Midnight Coder"</text>
+
+  <!-- 스탯 4종 -->
+  <g>
+    <!-- ATK -->
+    <rect x="24" y="296" width="85" height="65" rx="8" fill="#161b22" stroke="#EF4444" stroke-width="1" opacity="0.8"/>
+    <text x="66" y="318" text-anchor="middle" class="card-text" font-size="11" font-weight="700" fill="#EF4444">⚔ ATK</text>
+    <text x="66" y="346" text-anchor="middle" class="card-text" font-size="22" font-weight="800" fill="#e6edf3">847</text>
+
+    <!-- DEF -->
+    <rect x="119" y="296" width="85" height="65" rx="8" fill="#161b22" stroke="#3B82F6" stroke-width="1" opacity="0.8"/>
+    <text x="161" y="318" text-anchor="middle" class="card-text" font-size="11" font-weight="700" fill="#3B82F6">🛡 DEF</text>
+    <text x="161" y="346" text-anchor="middle" class="card-text" font-size="22" font-weight="800" fill="#e6edf3">623</text>
+
+    <!-- INT -->
+    <rect x="214" y="296" width="85" height="65" rx="8" fill="#161b22" stroke="#A855F7" stroke-width="1" opacity="0.8"/>
+    <text x="256" y="318" text-anchor="middle" class="card-text" font-size="11" font-weight="700" fill="#A855F7">🧠 INT</text>
+    <text x="256" y="346" text-anchor="middle" class="card-text" font-size="22" font-weight="800" fill="#e6edf3">952</text>
+
+    <!-- SPD -->
+    <rect x="309" y="296" width="85" height="65" rx="8" fill="#161b22" stroke="#F59E0B" stroke-width="1" opacity="0.8"/>
+    <text x="351" y="318" text-anchor="middle" class="card-text" font-size="11" font-weight="700" fill="#F59E0B">⚡ SPD</text>
+    <text x="351" y="346" text-anchor="middle" class="card-text" font-size="22" font-weight="800" fill="#e6edf3">789</text>
+  </g>
+
+  <!-- 어빌리티 -->
+  <rect x="24" y="374" width="372" height="32" rx="8" fill="#161b22" stroke="#FFD700" stroke-width="0.5" opacity="0.6"/>
+  <text x="210" y="395" text-anchor="middle" class="card-text" font-size="11" font-weight="600" fill="#FFD700">
+    🔥 Special: "Midnight Surge" — 야간 커밋 시 공격력 2배</text>
+
+  <!-- 스킬 바 -->
+  <g>
+    <text x="32" y="428" class="card-text" font-size="10" font-weight="600" fill="#8b949e" letter-spacing="1">── SKILLS ──</text>
+    
+    <text x="32" y="450" class="card-text" font-size="10" fill="#e6edf3">TypeScript</text>
+    <rect x="120" y="441" width="230" height="10" rx="5" fill="#30363d"/>
+    <rect x="120" y="441" width="184" height="10" rx="5" fill="#3178c6"/>
+    <text x="358" y="450" text-anchor="end" class="card-text" font-size="9" fill="#8b949e">42.5%</text>
+
+    <text x="32" y="470" class="card-text" font-size="10" fill="#e6edf3">Python</text>
+    <rect x="120" y="461" width="230" height="10" rx="5" fill="#30363d"/>
+    <rect x="120" y="461" width="138" height="10" rx="5" fill="#3572A5"/>
+    <text x="358" y="470" text-anchor="end" class="card-text" font-size="9" fill="#8b949e">28.1%</text>
+
+    <text x="32" y="490" class="card-text" font-size="10" fill="#e6edf3">React</text>
+    <rect x="120" y="481" width="230" height="10" rx="5" fill="#30363d"/>
+    <rect x="120" y="481" width="92" height="10" rx="5" fill="#61DAFB"/>
+    <text x="358" y="490" text-anchor="end" class="card-text" font-size="9" fill="#8b949e">18.3%</text>
+  </g>
+
+  <!-- 카드 번호 & 시즌 -->
+  <line x1="24" y1="510" x2="396" y2="510" stroke="#30363d" stroke-width="0.5"/>
+  <text x="32" y="530" class="card-text" font-size="10" fill="#8b949e">#0001</text>
+  <text x="210" y="530" text-anchor="middle" class="card-text" font-size="9" fill="#8b949e">🃏 gitpro Trading Card</text>
+  <text x="388" y="530" text-anchor="end" class="card-text" font-size="10" fill="#8b949e">Season 1 / 2026</text>
+
+  <!-- 스파클 효과 -->
+  <text x="50" y="70" font-size="14" class="sparkle1">✦</text>
+  <text x="360" y="100" font-size="12" class="sparkle2">✦</text>
+  <text x="380" y="290" font-size="10" class="sparkle3">✦</text>
+  <text x="30" y="250" font-size="11" class="sparkle2">✦</text>
+
+  <!-- 홀로그램 시머 오버레이 -->
+  <rect x="6" y="6" width="408" height="548" rx="14" fill="url(#holoGrad)" opacity="0.05" class="holo-shimmer"/>
+</svg>

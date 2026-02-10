@@ -1,0 +1,159 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="300" viewBox="0 0 480 300">
+  <defs>
+    <linearGradient id="petBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#161b22"/>
+      <stop offset="100%" stop-color="#0d1117"/>
+    </linearGradient>
+    <linearGradient id="petBorder" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3178c6"/>
+      <stop offset="50%" stop-color="#58a6ff"/>
+      <stop offset="100%" stop-color="#3178c6"/>
+    </linearGradient>
+    <linearGradient id="expBar" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#3178c6"/>
+      <stop offset="100%" stop-color="#58a6ff"/>
+    </linearGradient>
+    <linearGradient id="moodBar" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#f85149"/>
+      <stop offset="50%" stop-color="#d29922"/>
+      <stop offset="100%" stop-color="#3fb950"/>
+    </linearGradient>
+    <filter id="petShadow">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#000" flood-opacity="0.3"/>
+    </filter>
+    <filter id="petGlow">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <style>
+    .pet-text { font-family: 'Segoe UI', 'Noto Sans KR', sans-serif; }
+    @keyframes petBounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-4px); }
+    }
+    @keyframes sparkle {
+      0%, 100% { opacity: 0; }
+      50% { opacity: 1; }
+    }
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.15); }
+    }
+    .pet-bounce { animation: petBounce 2s ease-in-out infinite; }
+    .sparkle1 { animation: sparkle 1.5s ease-in-out infinite; }
+    .sparkle2 { animation: sparkle 1.5s ease-in-out infinite 0.5s; }
+    .sparkle3 { animation: sparkle 1.5s ease-in-out infinite 1s; }
+    .heartbeat { animation: heartbeat 1.5s ease-in-out infinite; transform-origin: center; }
+  </style>
+
+  <!-- 카드 외곽 -->
+  <rect x="2" y="2" width="476" height="296" rx="16" fill="url(#petBorder)" filter="url(#petShadow)"/>
+  <rect x="5" y="5" width="470" height="290" rx="14" fill="url(#petBg)"/>
+
+  <!-- 좌측: 펫 영역 -->
+  <rect x="16" y="16" width="170" height="190" rx="12" fill="#1c2333" stroke="#3178c6" stroke-width="1" opacity="0.8"/>
+
+  <!-- 진화 단계 배지 -->
+  <rect x="26" y="22" width="150" height="20" rx="10" fill="#3178c6" opacity="0.2"/>
+  <text x="101" y="36" text-anchor="middle" class="pet-text" font-size="10" font-weight="700" fill="#3178c6" letter-spacing="2">
+    🐲 성체 (3진화)</text>
+
+  <!-- 펫 픽셀아트 (TypeScriptodon - 드래곤) -->
+  <g class="pet-bounce">
+    <rect x="40" y="48" width="122" height="112" rx="8" fill="#3178c6" opacity="0.08"/>
+    <g transform="translate(56, 56)">
+      <!-- 몸통 -->
+      <rect x="20" y="35" width="50" height="45" rx="6" fill="#3178c6"/>
+      <rect x="25" y="30" width="40" height="20" rx="8" fill="#3178c6"/>
+      <!-- 머리 -->
+      <rect x="22" y="10" width="46" height="30" rx="10" fill="#2563eb"/>
+      <!-- 눈 (빛남) -->
+      <circle cx="36" cy="22" r="5" fill="#fff"/>
+      <circle cx="38" cy="21" r="2.5" fill="#0d1117"/>
+      <circle cx="54" cy="22" r="5" fill="#fff"/>
+      <circle cx="56" cy="21" r="2.5" fill="#0d1117"/>
+      <!-- 뿔 -->
+      <polygon points="28,12 22,0 34,10" fill="#FFD700"/>
+      <polygon points="60,12 66,0 54,10" fill="#FFD700"/>
+      <!-- 날개 -->
+      <polygon points="18,40 0,25 8,55" fill="#58a6ff" opacity="0.7"/>
+      <polygon points="72,40 90,25 82,55" fill="#58a6ff" opacity="0.7"/>
+      <!-- 이빨 -->
+      <rect x="33" y="36" width="4" height="5" rx="1" fill="#fff" opacity="0.8"/>
+      <rect x="53" y="36" width="4" height="5" rx="1" fill="#fff" opacity="0.8"/>
+      <!-- 배 -->
+      <ellipse cx="45" cy="60" rx="16" ry="12" fill="#58a6ff" opacity="0.3"/>
+      <!-- 꼬리 -->
+      <path d="M20,75 Q0,80 5,95 Q10,100 18,92" fill="none" stroke="#3178c6" stroke-width="5" stroke-linecap="round"/>
+      <!-- 불꽃 꼬리 끝 -->
+      <circle cx="5" cy="95" r="4" fill="#FFD700" opacity="0.7" class="heartbeat"/>
+      <!-- 발 -->
+      <rect x="25" y="78" width="14" height="10" rx="3" fill="#2563eb"/>
+      <rect x="51" y="78" width="14" height="10" rx="3" fill="#2563eb"/>
+      <!-- ⚡ 속성 표시 -->
+      <text x="45" y="72" text-anchor="middle" font-size="10" fill="#FFD700" opacity="0.6">⚡</text>
+    </g>
+  </g>
+
+  <!-- 기분 상태 -->
+  <text x="101" y="180" text-anchor="middle" class="pet-text" font-size="18" class="heartbeat">😊</text>
+  <text x="101" y="198" text-anchor="middle" class="pet-text" font-size="9" fill="#3fb950" font-weight="600">기분 좋음!</text>
+
+  <!-- 우측: 정보 영역 -->
+  <!-- 펫 이름 & 종류 -->
+  <text x="204" y="34" class="pet-text" font-size="17" font-weight="700" fill="#e6edf3">TypeScriptodon</text>
+  <text x="204" y="50" class="pet-text" font-size="10" fill="#8b949e" letter-spacing="1">🐲 드래곤 · ⚡ 전기 속성</text>
+
+  <!-- EXP 바 -->
+  <text x="204" y="72" class="pet-text" font-size="10" font-weight="600" fill="#3178c6">EXP</text>
+  <text x="458" y="72" text-anchor="end" class="pet-text" font-size="10" font-weight="700" fill="#e6edf3">18,420 / 50,000</text>
+  <rect x="204" y="78" width="256" height="8" rx="4" fill="#30363d"/>
+  <rect x="204" y="78" width="94" height="8" rx="4" fill="url(#expBar)">
+    <animate attributeName="width" from="0" to="94" dur="1.5s" fill="freeze"/>
+  </rect>
+  <text x="204" y="100" class="pet-text" font-size="9" fill="#8b949e">다음 진화까지: 31,580 EXP (36.8%)</text>
+
+  <!-- 스탯 -->
+  <g>
+    <text x="204" y="122" class="pet-text" font-size="9" font-weight="600" fill="#8b949e" letter-spacing="1">STATS</text>
+    
+    <!-- 기분 -->
+    <text x="204" y="140" class="pet-text" font-size="9" fill="#8b949e">😊 기분</text>
+    <rect x="260" y="132" width="120" height="6" rx="3" fill="#30363d"/>
+    <rect x="260" y="132" width="96" height="6" rx="3" fill="url(#moodBar)"/>
+    <text x="388" y="140" class="pet-text" font-size="9" font-weight="600" fill="#3fb950">80%</text>
+
+    <!-- 배고픔 -->
+    <text x="204" y="158" class="pet-text" font-size="9" fill="#8b949e">🍖 배고픔</text>
+    <rect x="260" y="150" width="120" height="6" rx="3" fill="#30363d"/>
+    <rect x="260" y="150" width="36" height="6" rx="3" fill="#3fb950"/>
+    <text x="388" y="158" class="pet-text" font-size="9" font-weight="600" fill="#3fb950">30%</text>
+
+    <!-- 나이 -->
+    <text x="204" y="176" class="pet-text" font-size="9" fill="#8b949e">📅 펫 나이: 142일</text>
+  </g>
+
+  <!-- 구분선 -->
+  <line x1="204" y1="186" x2="460" y2="186" stroke="#30363d" stroke-width="0.5" opacity="0.3"/>
+
+  <!-- 최근 획득 EXP -->
+  <text x="204" y="204" class="pet-text" font-size="9" font-weight="600" fill="#8b949e" letter-spacing="1">RECENT EXP</text>
+  <text x="204" y="222" class="pet-text" font-size="9" fill="#3fb950">+120 EXP</text>
+  <text x="270" y="222" class="pet-text" font-size="9" fill="#8b949e">PR 머지 성공! "대승리! 🎉"</text>
+  <text x="204" y="238" class="pet-text" font-size="9" fill="#58a6ff">+30 EXP</text>
+  <text x="270" y="238" class="pet-text" font-size="9" fill="#8b949e">커밋 3회 "냠냠! 맛있는 코드다!"</text>
+  <text x="204" y="254" class="pet-text" font-size="9" fill="#FFD700">+200 EXP</text>
+  <text x="270" y="254" class="pet-text" font-size="9" fill="#8b949e">스타 받기 "팬이 생겼어! ⭐"</text>
+
+  <!-- 푸터 -->
+  <line x1="16" y1="272" x2="464" y2="272" stroke="#30363d" stroke-width="0.5" opacity="0.3"/>
+  <text x="24" y="288" class="pet-text" font-size="9" fill="#8b949e">🐾 gitpro Code Pet</text>
+  <text x="456" y="288" text-anchor="end" class="pet-text" font-size="9" fill="#8b949e">2026-02-10</text>
+
+  <!-- 스파클 -->
+  <text x="155" y="55" font-size="10" fill="#FFD700" class="sparkle1">✦</text>
+  <text x="40" y="168" font-size="8" fill="#58a6ff" class="sparkle2">✦</text>
+  <text x="165" y="110" font-size="9" fill="#3178c6" class="sparkle3">✦</text>
+</svg>

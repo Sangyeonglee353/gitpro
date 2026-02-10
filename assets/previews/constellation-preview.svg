@@ -1,0 +1,167 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500">
+  <defs>
+    <linearGradient id="skyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0a0e27"/>
+      <stop offset="40%" stop-color="#0d1534"/>
+      <stop offset="100%" stop-color="#1a1040"/>
+    </linearGradient>
+    <radialGradient id="milkyWay" cx="50%" cy="40%" r="50%">
+      <stop offset="0%" stop-color="#5566aa" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#5566aa" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="starBlur">
+      <feGaussianBlur stdDeviation="1.5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="meteorGlow">
+      <feGaussianBlur stdDeviation="2" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <style>
+    .cst-text { font-family: 'Segoe UI', 'Noto Sans KR', sans-serif; }
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 1; }
+    }
+    @keyframes twinkle-slow {
+      0%, 100% { opacity: 0.5; }
+      50% { opacity: 0.9; }
+    }
+    @keyframes meteor {
+      0% { transform: translate(0, 0); opacity: 1; }
+      100% { transform: translate(120px, 80px); opacity: 0; }
+    }
+    @keyframes nebula-pulse {
+      0%, 100% { opacity: 0.15; }
+      50% { opacity: 0.3; }
+    }
+    .star-twinkle { animation: twinkle 2s ease-in-out infinite; }
+    .star-twinkle-slow { animation: twinkle-slow 4s ease-in-out infinite; }
+    .meteor-anim { animation: meteor 3s linear infinite; }
+    .nebula-pulse { animation: nebula-pulse 5s ease-in-out infinite; }
+  </style>
+
+  <!-- 밤하늘 배경 -->
+  <rect width="800" height="500" rx="16" fill="url(#skyGrad)"/>
+  <rect width="800" height="500" rx="16" fill="url(#milkyWay)"/>
+
+  <!-- 은하수 효과 -->
+  <ellipse cx="400" cy="200" rx="350" ry="80" fill="#4455aa" opacity="0.03" transform="rotate(-20, 400, 200)"/>
+  <ellipse cx="400" cy="200" rx="280" ry="50" fill="#6677cc" opacity="0.04" transform="rotate(-20, 400, 200)"/>
+
+  <!-- 헤더 -->
+  <text x="400" y="28" text-anchor="middle" class="cst-text" font-size="14" font-weight="700" fill="#8899cc" letter-spacing="2">
+    🌌 COMMIT CONSTELLATION</text>
+  <text x="400" y="44" text-anchor="middle" class="cst-text" font-size="10" fill="#6677aa">Sangyeonglee353's Night Sky</text>
+
+  <!-- 배경 별 (작은 별 장식) -->
+  <circle cx="50" cy="80" r="0.5" fill="#fff" opacity="0.4" class="star-twinkle" style="animation-delay: 0.3s"/>
+  <circle cx="120" cy="120" r="0.8" fill="#fff" opacity="0.5" class="star-twinkle-slow" style="animation-delay: 1.2s"/>
+  <circle cx="200" cy="70" r="0.4" fill="#fff" opacity="0.3" class="star-twinkle" style="animation-delay: 0.8s"/>
+  <circle cx="300" cy="95" r="0.6" fill="#fff" opacity="0.4" class="star-twinkle-slow" style="animation-delay: 2.1s"/>
+  <circle cx="520" cy="75" r="0.5" fill="#fff" opacity="0.5" class="star-twinkle" style="animation-delay: 0.5s"/>
+  <circle cx="650" cy="90" r="0.7" fill="#fff" opacity="0.3" class="star-twinkle-slow" style="animation-delay: 1.8s"/>
+  <circle cx="720" cy="120" r="0.4" fill="#fff" opacity="0.4" class="star-twinkle" style="animation-delay: 1.0s"/>
+  <circle cx="80" cy="380" r="0.6" fill="#fff" opacity="0.3" class="star-twinkle-slow" style="animation-delay: 0.7s"/>
+  <circle cx="180" cy="420" r="0.5" fill="#fff" opacity="0.4" class="star-twinkle" style="animation-delay: 2.5s"/>
+  <circle cx="350" cy="400" r="0.4" fill="#fff" opacity="0.5" class="star-twinkle-slow" style="animation-delay: 1.5s"/>
+  <circle cx="500" cy="410" r="0.7" fill="#fff" opacity="0.3" class="star-twinkle" style="animation-delay: 0.2s"/>
+  <circle cx="650" cy="390" r="0.5" fill="#fff" opacity="0.4" class="star-twinkle-slow" style="animation-delay: 3.0s"/>
+  <circle cx="750" cy="370" r="0.6" fill="#fff" opacity="0.5" class="star-twinkle" style="animation-delay: 1.3s"/>
+  <circle cx="100" cy="250" r="0.3" fill="#fff" opacity="0.4"/>
+  <circle cx="700" cy="200" r="0.4" fill="#fff" opacity="0.3"/>
+  <circle cx="430" cy="350" r="0.5" fill="#fff" opacity="0.35"/>
+
+  <!-- 성운 (Nebula) - 오픈 이슈 -->
+  <ellipse cx="650" cy="300" rx="40" ry="25" fill="#A855F7" opacity="0.08" class="nebula-pulse"/>
+  <ellipse cx="650" cy="300" rx="25" ry="15" fill="#A855F7" opacity="0.12" class="nebula-pulse" style="animation-delay: 1s"/>
+  <text x="650" y="340" text-anchor="middle" class="cst-text" font-size="8" fill="#A855F7" opacity="0.5">✦ Issue Nebula</text>
+
+  <!-- 별자리 1: React의 방패 (프론트엔드) -->
+  <g>
+    <!-- 연결선 -->
+    <line x1="150" y1="150" x2="180" y2="200" stroke="#8899cc" stroke-width="0.6" opacity="0.25"/>
+    <line x1="180" y1="200" x2="220" y2="180" stroke="#8899cc" stroke-width="0.6" opacity="0.25"/>
+    <line x1="220" y1="180" x2="200" y2="230" stroke="#8899cc" stroke-width="0.6" opacity="0.25"/>
+    <line x1="200" y1="230" x2="160" y2="240" stroke="#8899cc" stroke-width="0.6" opacity="0.25"/>
+    <line x1="160" y1="240" x2="150" y2="150" stroke="#8899cc" stroke-width="0.6" opacity="0.25"/>
+    <!-- 별 -->
+    <circle cx="150" cy="150" r="3.5" fill="#61DAFB" opacity="0.9" filter="url(#starBlur)" class="star-twinkle-slow"/>
+    <circle cx="150" cy="150" r="8" fill="#61DAFB" opacity="0.08"/>
+    <circle cx="180" cy="200" r="2.5" fill="#61DAFB" opacity="0.8" class="star-twinkle" style="animation-delay: 0.5s"/>
+    <circle cx="220" cy="180" r="4" fill="#61DAFB" opacity="0.9" filter="url(#starBlur)" class="star-twinkle-slow" style="animation-delay: 1s"/>
+    <circle cx="220" cy="180" r="10" fill="#61DAFB" opacity="0.06"/>
+    <circle cx="200" cy="230" r="2" fill="#61DAFB" opacity="0.7" class="star-twinkle" style="animation-delay: 1.5s"/>
+    <circle cx="160" cy="240" r="3" fill="#61DAFB" opacity="0.8" class="star-twinkle-slow" style="animation-delay: 0.8s"/>
+    <!-- 별자리 이름 -->
+    <text x="185" y="265" text-anchor="middle" class="cst-text" font-size="9" fill="#8899cc" opacity="0.6">🏬 React의 방패</text>
+    <text x="185" y="278" text-anchor="middle" class="cst-text" font-size="7" fill="#6677aa" opacity="0.4">⭐ 24</text>
+  </g>
+
+  <!-- 별자리 2: Node의 탑 (백엔드) -->
+  <g>
+    <line x1="400" y1="130" x2="430" y2="180" stroke="#8899cc" stroke-width="0.6" opacity="0.25"/>
+    <line x1="430" y1="180" x2="460" y2="140" stroke="#8899cc" stroke-width="0.6" opacity="0.25"/>
+    <line x1="460" y1="140" x2="450" y2="210" stroke="#8899cc" stroke-width="0.6" opacity="0.25"/>
+    <line x1="450" y1="210" x2="410" y2="220" stroke="#8899cc" stroke-width="0.6" opacity="0.25"/>
+    <line x1="410" y1="220" x2="430" y2="180" stroke="#8899cc" stroke-width="0.6" opacity="0.25"/>
+    <circle cx="400" cy="130" r="3" fill="#3fb950" opacity="0.9" filter="url(#starBlur)" class="star-twinkle"/>
+    <circle cx="400" cy="130" r="7" fill="#3fb950" opacity="0.07"/>
+    <circle cx="430" cy="180" r="4.5" fill="#3fb950" opacity="0.95" filter="url(#starBlur)" class="star-twinkle-slow" style="animation-delay: 0.3s"/>
+    <circle cx="430" cy="180" r="12" fill="#3fb950" opacity="0.05"/>
+    <circle cx="460" cy="140" r="2.5" fill="#3fb950" opacity="0.8" class="star-twinkle" style="animation-delay: 1.2s"/>
+    <circle cx="450" cy="210" r="2" fill="#3fb950" opacity="0.7" class="star-twinkle-slow" style="animation-delay: 2s"/>
+    <circle cx="410" cy="220" r="3" fill="#3fb950" opacity="0.8" class="star-twinkle" style="animation-delay: 0.7s"/>
+    <text x="430" y="245" text-anchor="middle" class="cst-text" font-size="9" fill="#8899cc" opacity="0.6">🏗️ Node의 탑</text>
+    <text x="430" y="258" text-anchor="middle" class="cst-text" font-size="7" fill="#6677aa" opacity="0.4">⭐ 47</text>
+  </g>
+
+  <!-- 별자리 3: Utils의 망치 (라이브러리) -->
+  <g>
+    <line x1="300" y1="300" x2="340" y2="320" stroke="#8899cc" stroke-width="0.6" opacity="0.25"/>
+    <line x1="340" y1="320" x2="320" y2="360" stroke="#8899cc" stroke-width="0.6" opacity="0.25"/>
+    <line x1="320" y1="360" x2="280" y2="350" stroke="#8899cc" stroke-width="0.6" opacity="0.25"/>
+    <circle cx="300" cy="300" r="2.5" fill="#F59E0B" opacity="0.85" class="star-twinkle-slow" style="animation-delay: 1.5s"/>
+    <circle cx="340" cy="320" r="3.5" fill="#F59E0B" opacity="0.9" filter="url(#starBlur)" class="star-twinkle" style="animation-delay: 0.4s"/>
+    <circle cx="340" cy="320" r="9" fill="#F59E0B" opacity="0.06"/>
+    <circle cx="320" cy="360" r="2" fill="#F59E0B" opacity="0.75" class="star-twinkle-slow" style="animation-delay: 2.3s"/>
+    <circle cx="280" cy="350" r="1.5" fill="#F59E0B" opacity="0.6" class="star-twinkle" style="animation-delay: 1s"/>
+    <text x="310" y="385" text-anchor="middle" class="cst-text" font-size="9" fill="#8899cc" opacity="0.6">🔧 Utils의 망치</text>
+  </g>
+
+  <!-- 별자리 4: TF의 눈 (ML/AI - 적색왜성=비활성) -->
+  <g opacity="0.5">
+    <line x1="580" y1="160" x2="610" y2="190" stroke="#cc4444" stroke-width="0.5" opacity="0.2"/>
+    <line x1="610" y1="190" x2="590" y2="220" stroke="#cc4444" stroke-width="0.5" opacity="0.2"/>
+    <circle cx="580" cy="160" r="2" fill="#cc4444" opacity="0.5" class="star-twinkle-slow" style="animation-delay: 3s"/>
+    <circle cx="610" cy="190" r="2.5" fill="#cc4444" opacity="0.4"/>
+    <circle cx="590" cy="220" r="1.5" fill="#cc4444" opacity="0.4"/>
+    <text x="593" y="240" text-anchor="middle" class="cst-text" font-size="8" fill="#cc4444" opacity="0.35">🔬 TF의 눈 (비활성)</text>
+  </g>
+
+  <!-- 유성 (PR 머지) -->
+  <g class="meteor-anim" style="animation-delay: 2s" filter="url(#meteorGlow)">
+    <line x1="550" y1="80" x2="580" y2="95" stroke="#FFD700" stroke-width="2" opacity="0.8" stroke-linecap="round"/>
+    <line x1="530" y1="72" x2="550" y2="80" stroke="#FFD700" stroke-width="1" opacity="0.4" stroke-linecap="round"/>
+    <circle cx="580" cy="95" r="2" fill="#FFD700" opacity="0.9"/>
+  </g>
+  <g class="meteor-anim" style="animation-delay: 5s" filter="url(#meteorGlow)">
+    <line x1="200" y1="90" x2="230" y2="105" stroke="#58a6ff" stroke-width="1.5" opacity="0.7" stroke-linecap="round"/>
+    <line x1="185" y1="84" x2="200" y2="90" stroke="#58a6ff" stroke-width="0.8" opacity="0.3" stroke-linecap="round"/>
+    <circle cx="230" cy="105" r="1.5" fill="#58a6ff" opacity="0.8"/>
+  </g>
+
+  <!-- 푸터 -->
+  <rect x="0" y="455" width="800" height="45" rx="0" fill="#0a0e27" opacity="0.6"/>
+  <text x="40" y="478" class="cst-text" font-size="9" fill="#8899cc" opacity="0.7">🌌 gitpro Constellation</text>
+  <text x="250" y="478" class="cst-text" font-size="9" fill="#6677aa" opacity="0.5">⭐ 별 18개</text>
+  <text x="370" y="478" class="cst-text" font-size="9" fill="#6677aa" opacity="0.5">☄️ 유성 5개</text>
+  <text x="490" y="478" class="cst-text" font-size="9" fill="#6677aa" opacity="0.5">✦ 성운 2개</text>
+  <text x="610" y="478" class="cst-text" font-size="9" fill="#6677aa" opacity="0.5">🌟 별자리 4개</text>
+  <text x="760" y="478" text-anchor="end" class="cst-text" font-size="9" fill="#6677aa" opacity="0.5">2026-02-10</text>
+
+  <!-- 외곽 테두리 -->
+  <rect x="1" y="1" width="798" height="498" rx="15" fill="none" stroke="#334" stroke-width="1" opacity="0.4"/>
+</svg>

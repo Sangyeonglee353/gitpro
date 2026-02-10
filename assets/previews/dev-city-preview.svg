@@ -1,0 +1,240 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500">
+  <defs>
+    <linearGradient id="skyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1a1040"/>
+      <stop offset="50%" stop-color="#0d1534"/>
+      <stop offset="100%" stop-color="#0a192f"/>
+    </linearGradient>
+    <linearGradient id="groundGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1a2744"/>
+      <stop offset="100%" stop-color="#0d1b30"/>
+    </linearGradient>
+    <filter id="cityShadow">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#000" flood-opacity="0.4"/>
+    </filter>
+    <filter id="neonGlow">
+      <feGaussianBlur stdDeviation="2" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <style>
+    .dc-text { font-family: 'Segoe UI', 'Noto Sans KR', sans-serif; }
+    @keyframes dc-smoke {
+      0% { transform: translateY(0); opacity: 0.4; }
+      100% { transform: translateY(-15px); opacity: 0; }
+    }
+    @keyframes dc-neon {
+      0%, 100% { opacity: 0.6; }
+      50% { opacity: 1; }
+    }
+    @keyframes dc-car {
+      0% { transform: translateX(-20px); }
+      100% { transform: translateX(820px); }
+    }
+    @keyframes dc-car-rev {
+      0% { transform: translateX(820px); }
+      100% { transform: translateX(-20px); }
+    }
+    @keyframes dc-rain {
+      0% { transform: translateY(-10px); opacity: 0; }
+      50% { opacity: 0.4; }
+      100% { transform: translateY(460px); opacity: 0; }
+    }
+    @keyframes dc-building-appear {
+      from { transform: scaleY(0); opacity: 0; }
+      to { transform: scaleY(1); opacity: 1; }
+    }
+    .dc-smoke { animation: dc-smoke 3s ease-out infinite; }
+    .dc-neon { animation: dc-neon 2s ease-in-out infinite; }
+    .dc-car { animation: dc-car 12s linear infinite; }
+    .dc-car-rev { animation: dc-car-rev 15s linear infinite; }
+    .dc-building { animation: dc-building-appear 0.6s ease-out forwards; transform-origin: bottom; }
+  </style>
+
+  <!-- 하늘 -->
+  <rect width="800" height="500" rx="16" fill="url(#skyGrad)"/>
+
+  <!-- 달 -->
+  <circle cx="680" cy="80" r="25" fill="#ddd8c4" opacity="0.15"/>
+  <circle cx="686" cy="76" r="25" fill="#1a1040" opacity="0.9"/>
+
+  <!-- 별 -->
+  <circle cx="100" cy="60" r="1" fill="#fff" opacity="0.5"/>
+  <circle cx="250" cy="40" r="0.8" fill="#fff" opacity="0.4"/>
+  <circle cx="450" cy="55" r="1.2" fill="#fff" opacity="0.6"/>
+  <circle cx="550" cy="35" r="0.7" fill="#fff" opacity="0.3"/>
+  <circle cx="720" cy="50" r="0.9" fill="#fff" opacity="0.5"/>
+  <circle cx="350" cy="70" r="0.6" fill="#fff" opacity="0.35"/>
+
+  <!-- 헤더 -->
+  <text x="400" y="30" text-anchor="middle" class="dc-text" font-size="14" font-weight="700" fill="#58a6ff" letter-spacing="2">
+    🏙️ DEV CITY</text>
+  <text x="400" y="46" text-anchor="middle" class="dc-text" font-size="10" fill="#8b949e">
+    Sangyeonglee353 · 🌆 Tier 3: 도시 · ☀️ 맑음</text>
+
+  <!-- 지면 -->
+  <rect x="0" y="340" width="800" height="160" rx="0" fill="url(#groundGrad)"/>
+  <!-- 도로 -->
+  <rect x="0" y="355" width="800" height="30" fill="#1a2744" stroke="#2a3754" stroke-width="0.5"/>
+  <line x1="0" y1="370" x2="800" y2="370" stroke="#F59E0B" stroke-width="1" stroke-dasharray="20 15" opacity="0.4"/>
+
+  <!-- 도로 2 -->
+  <rect x="0" y="400" width="800" height="20" fill="#1a2744" stroke="#2a3754" stroke-width="0.5"/>
+  <line x1="0" y1="410" x2="800" y2="410" stroke="#F59E0B" stroke-width="0.8" stroke-dasharray="15 12" opacity="0.3"/>
+
+  <!-- 건물들 (뒤쪽 줄) -->
+  <!-- 🏗️ 공장 (백엔드) -->
+  <g class="dc-building" style="animation-delay: 0.1s" filter="url(#cityShadow)">
+    <rect x="80" y="200" width="70" height="140" rx="2" fill="#2d4a6f" stroke="#3a5a80" stroke-width="0.5"/>
+    <rect x="85" y="185" width="12" height="15" fill="#3a5a80"/>
+    <rect x="140" y="190" width="8" height="10" fill="#3a5a80"/>
+    <circle cx="91" cy="183" r="5" fill="#8b949e" opacity="0.3" class="dc-smoke"/>
+    <circle cx="91" cy="178" r="4" fill="#8b949e" opacity="0.2" class="dc-smoke" style="animation-delay: 0.5s"/>
+    <!-- 창문 -->
+    <rect x="90" y="215" width="10" height="12" rx="1" fill="#58a6ff" opacity="0.3"/>
+    <rect x="108" y="215" width="10" height="12" rx="1" fill="#58a6ff" opacity="0.2"/>
+    <rect x="126" y="215" width="10" height="12" rx="1" fill="#58a6ff" opacity="0.4"/>
+    <rect x="90" y="245" width="10" height="12" rx="1" fill="#58a6ff" opacity="0.2"/>
+    <rect x="108" y="245" width="10" height="12" rx="1" fill="#58a6ff" opacity="0.3"/>
+    <rect x="126" y="245" width="10" height="12" rx="1" fill="#58a6ff" opacity="0.15"/>
+    <rect x="90" y="275" width="10" height="12" rx="1" fill="#58a6ff" opacity="0.35"/>
+    <rect x="108" y="275" width="10" height="12" rx="1" fill="#58a6ff" opacity="0.25"/>
+    <text x="115" y="195" text-anchor="middle" font-size="14">🏗️</text>
+    <text x="115" y="352" text-anchor="middle" class="dc-text" font-size="8" fill="#8b949e" opacity="0.7">API Server</text>
+  </g>
+
+  <!-- 🏬 쇼핑몰 (프론트엔드) -->
+  <g class="dc-building" style="animation-delay: 0.2s" filter="url(#cityShadow)">
+    <rect x="200" y="230" width="80" height="110" rx="3" fill="#2d4a6f" stroke="#3a5a80" stroke-width="0.5"/>
+    <rect x="200" y="230" width="80" height="10" rx="3" fill="#61DAFB" opacity="0.4"/>
+    <rect x="206" y="233" width="68" height="5" rx="1" fill="#2d4a6f" opacity="0.5"/>
+    <!-- 유리 창 -->
+    <rect x="208" y="250" width="28" height="25" rx="2" fill="#61DAFB" opacity="0.15"/>
+    <rect x="244" y="250" width="28" height="25" rx="2" fill="#61DAFB" opacity="0.2"/>
+    <rect x="208" y="285" width="28" height="25" rx="2" fill="#61DAFB" opacity="0.1"/>
+    <rect x="244" y="285" width="28" height="25" rx="2" fill="#61DAFB" opacity="0.25"/>
+    <text x="240" y="225" text-anchor="middle" font-size="14">🏬</text>
+    <text x="240" y="352" text-anchor="middle" class="dc-text" font-size="8" fill="#8b949e" opacity="0.7">Web App</text>
+  </g>
+
+  <!-- 🔬 연구소 (ML/AI) - 높은 건물 -->
+  <g class="dc-building" style="animation-delay: 0.3s" filter="url(#cityShadow)">
+    <rect x="340" y="170" width="60" height="170" rx="2" fill="#2d4a6f" stroke="#3a5a80" stroke-width="0.5"/>
+    <!-- 안테나 -->
+    <line x1="370" y1="170" x2="370" y2="140" stroke="#A855F7" stroke-width="2"/>
+    <circle cx="370" cy="138" r="3" fill="#A855F7" opacity="0.6" class="dc-neon"/>
+    <!-- 전파 -->
+    <circle cx="370" cy="138" r="10" fill="none" stroke="#A855F7" stroke-width="0.5" opacity="0.2" class="dc-neon" style="animation-delay: 0.5s"/>
+    <circle cx="370" cy="138" r="18" fill="none" stroke="#A855F7" stroke-width="0.3" opacity="0.1" class="dc-neon" style="animation-delay: 1s"/>
+    <!-- 창문 -->
+    <rect x="348" y="185" width="8" height="10" rx="1" fill="#A855F7" opacity="0.2"/>
+    <rect x="362" y="185" width="8" height="10" rx="1" fill="#A855F7" opacity="0.3"/>
+    <rect x="378" y="185" width="8" height="10" rx="1" fill="#A855F7" opacity="0.15"/>
+    <rect x="348" y="210" width="8" height="10" rx="1" fill="#A855F7" opacity="0.25"/>
+    <rect x="362" y="210" width="8" height="10" rx="1" fill="#A855F7" opacity="0.2"/>
+    <rect x="378" y="210" width="8" height="10" rx="1" fill="#A855F7" opacity="0.35"/>
+    <rect x="348" y="240" width="8" height="10" rx="1" fill="#A855F7" opacity="0.15"/>
+    <rect x="362" y="240" width="8" height="10" rx="1" fill="#A855F7" opacity="0.3"/>
+    <rect x="348" y="270" width="8" height="10" rx="1" fill="#A855F7" opacity="0.2"/>
+    <rect x="362" y="270" width="8" height="10" rx="1" fill="#A855F7" opacity="0.25"/>
+    <rect x="378" y="270" width="8" height="10" rx="1" fill="#A855F7" opacity="0.1"/>
+    <text x="370" y="165" text-anchor="middle" font-size="14">🔬</text>
+    <text x="370" y="352" text-anchor="middle" class="dc-text" font-size="8" fill="#8b949e" opacity="0.7">ML Lab</text>
+  </g>
+
+  <!-- 📚 도서관 (문서) -->
+  <g class="dc-building" style="animation-delay: 0.4s" filter="url(#cityShadow)">
+    <rect x="450" y="260" width="65" height="80" rx="2" fill="#2d4a6f" stroke="#3a5a80" stroke-width="0.5"/>
+    <!-- 지붕 삼각형 -->
+    <polygon points="447,260 483,235 518,260" fill="#3a5a80"/>
+    <rect x="458" y="275" width="8" height="10" rx="1" fill="#F59E0B" opacity="0.2"/>
+    <rect x="474" y="275" width="8" height="10" rx="1" fill="#F59E0B" opacity="0.15"/>
+    <rect x="490" y="275" width="8" height="10" rx="1" fill="#F59E0B" opacity="0.25"/>
+    <rect x="458" y="300" width="8" height="10" rx="1" fill="#F59E0B" opacity="0.2"/>
+    <rect x="474" y="300" width="8" height="10" rx="1" fill="#F59E0B" opacity="0.3"/>
+    <text x="483" y="255" text-anchor="middle" font-size="14">📚</text>
+    <text x="483" y="352" text-anchor="middle" class="dc-text" font-size="8" fill="#8b949e" opacity="0.7">Docs</text>
+  </g>
+
+  <!-- 🏛️ 시청 (프로필 README) -->
+  <g class="dc-building" style="animation-delay: 0.5s" filter="url(#cityShadow)">
+    <rect x="560" y="220" width="75" height="120" rx="2" fill="#2d4a6f" stroke="#3a5a80" stroke-width="0.5"/>
+    <!-- 기둥들 -->
+    <rect x="570" y="240" width="6" height="100" fill="#3a5a80"/>
+    <rect x="585" y="240" width="6" height="100" fill="#3a5a80"/>
+    <rect x="600" y="240" width="6" height="100" fill="#3a5a80"/>
+    <rect x="615" y="240" width="6" height="100" fill="#3a5a80"/>
+    <!-- 지붕 -->
+    <polygon points="555,220 598,195 640,220" fill="#3a5a80"/>
+    <!-- 깃발 -->
+    <line x1="598" y1="195" x2="598" y2="175" stroke="#8b949e" stroke-width="1.5"/>
+    <rect x="598" y="175" width="15" height="10" fill="#58a6ff" opacity="0.6" class="dc-neon"/>
+    <text x="598" y="215" text-anchor="middle" font-size="14">🏛️</text>
+    <text x="598" y="352" text-anchor="middle" class="dc-text" font-size="8" fill="#8b949e" opacity="0.7">City Hall</text>
+  </g>
+
+  <!-- 📦 창고 (패키지) -->
+  <g class="dc-building" style="animation-delay: 0.6s" filter="url(#cityShadow)">
+    <rect x="680" y="280" width="55" height="60" rx="1" fill="#2d4a6f" stroke="#3a5a80" stroke-width="0.5"/>
+    <rect x="680" y="280" width="55" height="9" fill="#F59E0B" opacity="0.3"/>
+    <line x1="680" y1="310" x2="735" y2="310" stroke="#3a5a80" stroke-width="0.5" opacity="0.4"/>
+    <text x="708" y="276" text-anchor="middle" font-size="14">📦</text>
+    <text x="708" y="352" text-anchor="middle" class="dc-text" font-size="8" fill="#8b949e" opacity="0.7">npm pkg</text>
+  </g>
+
+  <!-- 가로등 -->
+  <g>
+    <rect x="170" y="320" width="3" height="25" fill="#8b949e" opacity="0.5"/>
+    <circle cx="171" cy="318" r="5" fill="#F59E0B" opacity="0.15"/>
+    <circle cx="171" cy="318" r="2" fill="#F59E0B" opacity="0.5"/>
+
+    <rect x="320" y="320" width="3" height="25" fill="#8b949e" opacity="0.5"/>
+    <circle cx="321" cy="318" r="5" fill="#F59E0B" opacity="0.15"/>
+    <circle cx="321" cy="318" r="2" fill="#F59E0B" opacity="0.5"/>
+
+    <rect x="530" y="320" width="3" height="25" fill="#8b949e" opacity="0.5"/>
+    <circle cx="531" cy="318" r="5" fill="#F59E0B" opacity="0.15"/>
+    <circle cx="531" cy="318" r="2" fill="#F59E0B" opacity="0.5"/>
+
+    <rect x="660" y="320" width="3" height="25" fill="#8b949e" opacity="0.5"/>
+    <circle cx="661" cy="318" r="5" fill="#F59E0B" opacity="0.15"/>
+    <circle cx="661" cy="318" r="2" fill="#F59E0B" opacity="0.5"/>
+  </g>
+
+  <!-- 자동차들 -->
+  <g class="dc-car" style="animation-delay: 0s">
+    <rect x="0" y="365" width="18" height="8" rx="3" fill="#EF4444" opacity="0.7"/>
+    <rect x="14" y="367" width="4" height="4" rx="1" fill="#F59E0B" opacity="0.8"/>
+  </g>
+  <g class="dc-car-rev" style="animation-delay: 3s">
+    <rect x="0" y="372" width="16" height="7" rx="3" fill="#3B82F6" opacity="0.6"/>
+    <rect x="0" y="374" width="4" height="3" rx="1" fill="#EF4444" opacity="0.7"/>
+  </g>
+  <g class="dc-car" style="animation-delay: 6s">
+    <rect x="0" y="405" width="14" height="7" rx="3" fill="#3fb950" opacity="0.5"/>
+    <rect x="10" y="407" width="4" height="3" rx="1" fill="#F59E0B" opacity="0.6"/>
+  </g>
+
+  <!-- 공원 나무 -->
+  <g transform="translate(30, 395)">
+    <rect x="8" y="15" width="4" height="12" fill="#5a3825"/>
+    <circle cx="10" cy="12" r="10" fill="#3fb950" opacity="0.4"/>
+    <circle cx="10" cy="8" r="7" fill="#3fb950" opacity="0.3"/>
+  </g>
+  <g transform="translate(760, 390)">
+    <rect x="8" y="18" width="3" height="10" fill="#5a3825"/>
+    <circle cx="10" cy="15" r="8" fill="#3fb950" opacity="0.35"/>
+  </g>
+
+  <!-- 푸터 -->
+  <rect x="0" y="455" width="800" height="45" rx="0" fill="#0a0e27" opacity="0.7"/>
+  <text x="40" y="478" class="dc-text" font-size="9" fill="#8b949e">🏙️ gitpro Dev City</text>
+  <text x="200" y="478" class="dc-text" font-size="9" fill="#8b949e">🏢 건물 6개</text>
+  <text x="320" y="478" class="dc-text" font-size="9" fill="#8b949e">🌆 Tier 3: 도시</text>
+  <text x="460" y="478" class="dc-text" font-size="9" fill="#8b949e">☀️ 맑음 (오늘 5커밋)</text>
+  <text x="760" y="478" text-anchor="end" class="dc-text" font-size="9" fill="#8b949e">2026-02-10</text>
+
+  <!-- 외곽 -->
+  <rect x="1" y="1" width="798" height="498" rx="15" fill="none" stroke="#2a3754" stroke-width="1" opacity="0.4"/>
+</svg>
