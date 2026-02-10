@@ -32,8 +32,11 @@ const MODULE_REGISTRY: Record<string, () => Promise<GitProModule>> = {
     const { CodePetModule } = await import('../modules/code-pet');
     return new CodePetModule();
   },
+  'code-dna': async () => {
+    const { CodeDNAModule } = await import('../modules/code-dna');
+    return new CodeDNAModule();
+  },
   // 향후 모듈 추가 시 여기에 등록
-  // 'code-dna': async () => { ... },
   // 'chronicle': async () => { ... },
   // 'constellation': async () => { ... },
   // 'dev-city': async () => { ... },
