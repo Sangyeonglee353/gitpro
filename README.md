@@ -56,9 +56,7 @@
 
 포켓몬/유희왕 카드처럼 **나만의 개발자 수집 카드**를 자동 생성합니다.
 
-<p align="center">
-  <img src="./assets/previews/trading-card-preview.svg" alt="Dev Trading Card Preview" width="420" />
-</p>
+<img src="./assets/previews/trading-card-preview.svg" alt="Dev Trading Card Preview" width="420" />
 
 - **스탯 시스템** — ⚔ATK(공격력), 🛡DEF(방어력), 🧠INT(지능), ⚡SPD(스피드) 자동 산출
 - **레어도 시스템** — 🟤Common → 🟢Uncommon → 🔵Rare → 🟣Epic → 🟡Legendary
@@ -69,9 +67,7 @@
 
 커밋 패턴, 언어 분포, 코딩 시간대를 분석하여 **세상에 단 하나뿐인 DNA 시각 지문**을 생성합니다.
 
-<p align="center">
-  <img src="./assets/previews/code-dna-preview.svg" alt="Code DNA Preview" width="480" />
-</p>
+<img src="./assets/previews/code-dna-preview.svg" alt="Code DNA Preview" width="480" />
 
 - **고유 시드** — 같은 데이터 = 같은 패턴 (재현 가능)
 - **코딩 스타일 분류** — 야행성, 아침형, 주간형, 밸런스
@@ -82,9 +78,7 @@
 
 GitHub 마일스톤을 RPG 퀘스트 로그 스타일의 **개발자 연대기**로 변환합니다.
 
-<p align="center">
-  <img src="./assets/previews/chronicle-preview.svg" alt="Dev Chronicle Preview" width="480" />
-</p>
+<img src="./assets/previews/chronicle-preview.svg" alt="Dev Chronicle Preview" width="480" />
 
 - **자동 챕터 생성** — 첫 커밋, 첫 PR 머지, 새 언어 학습, 스타 달성 등
 - **활성 퀘스트** — 30일 연속 커밋 챌린지 등 진행 중인 퀘스트 감지
@@ -95,9 +89,7 @@ GitHub 마일스톤을 RPG 퀘스트 로그 스타일의 **개발자 연대기**
 
 GitHub 활동으로 키우는 **다마고치 스타일의 가상 펫**입니다.
 
-<p align="center">
-  <img src="./assets/previews/code-pet-preview.svg" alt="Code Pet Preview" width="480" />
-</p>
+<img src="./assets/previews/code-pet-preview.svg" alt="Code Pet Preview" width="480" />
 
 - **언어별 펫** — TypeScript→🐲드래곤, Python→🐍피닉스뱀, JavaScript→🐿️다람쥐 등
 - **진화 시스템** — 🥚알 → 🐣1진화 → 🐥2진화 → 🐲3진화 → 👑최종진화
@@ -108,9 +100,7 @@ GitHub 활동으로 키우는 **다마고치 스타일의 가상 펫**입니다.
 
 레포지토리를 별자리로, 커밋을 별로, PR을 유성으로 변환하는 **밤하늘 별자리 맵**입니다.
 
-<p align="center">
-  <img src="./assets/previews/constellation-preview.svg" alt="Commit Constellation Preview" width="700" />
-</p>
+<img src="./assets/previews/constellation-preview.svg" alt="Commit Constellation Preview" width="700" />
 
 - **레포→별자리** — 레포 내 커밋들이 선으로 연결된 별자리 형태
 - **유성(☄️)** — 머지된 PR은 꼬리 달린 유성으로 표현
@@ -121,9 +111,7 @@ GitHub 활동으로 키우는 **다마고치 스타일의 가상 펫**입니다.
 
 GitHub 레포지토리를 건물로 변환하는 **아이소메트릭 픽셀아트 도시**입니다.
 
-<p align="center">
-  <img src="./assets/previews/dev-city-preview.svg" alt="Dev City Preview" width="700" />
-</p>
+<img src="./assets/previews/dev-city-preview.svg" alt="Dev City Preview" width="700" />
 
 - **건물 타입** — 프론트엔드→🏬쇼핑몰, 백엔드→🏗️공장, ML/AI→🔬연구소 등
 - **도시 Tier** — 🏕️캠핑장 → 🏘️마을 → 🏙️소도시 → 🌆도시 → 🏙️메트로폴리스 → 🌃메가시티
