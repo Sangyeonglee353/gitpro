@@ -129,27 +129,27 @@ GitHub 레포지토리를 건물로 변환하는 **아이소메트릭 픽셀아�
 
 > 🌟 **이 프로젝트가 마음에 드셨다면 [⭐ Star](https://github.com/Sangyeonglee353/gitpro)를 눌러주세요!** 더 좋은 모듈을 만드는 데 큰 힘이 됩니다.
 
-### 사전 준비물
+gitpro로 생성한 SVG를 프로필에 표시하는 방법은 **2가지**입니다:
 
-- GitHub 계정
-- [GitHub Personal Access Token](https://github.com/settings/tokens) (repo, gist 스코프)
+| 방식 | 설명 | 추천 대상 |
+|------|------|----------|
+| 📌 **[방법 A: Pinned Gist](#방법-a--pinned-gist-프로필-고정)** | Gist에 SVG를 업로드하여 프로필에 Pin 고정 | 기존 README를 건드리고 싶지 않은 분 |
+| 📝 **[방법 B: 기존 README에 추가](#방법-b--기존-프로필-readme에-추가)** | 기존 프로필 README에 SVG 이미지 태그 삽입 | 프로필 README를 자유롭게 꾸미고 싶은 분 |
 
-### Step 1️⃣ — Fork & 레포지토리 설정
+> 💡 두 방법을 **동시에** 사용할 수도 있습니다!
+
+---
+
+### 공통 준비 단계
+
+#### Step 1️⃣ — Fork & 레포지토리 설정
 
 1. 이 레포지토리 우측 상단의 **⭐ Star** 버튼을 눌러주세요!
 2. **🍴 Fork** 버튼을 클릭하여 본인 계정으로 Fork 합니다
-3. Fork한 레포의 이름을 **본인의 GitHub 사용자명**(`username`)으로 변경합니다
-   - Fork한 레포 → **Settings** → **Repository name**을 `username`으로 변경
-   - 이렇게 하면 GitHub 프로필 README 레포로 활용됩니다
 
-> 💡 **이미 프로필 레포(`username/username`)가 있는 경우:**
-> Fork 대신, gitpro 레포에 ⭐ Star를 누른 뒤 아래 파일들을 기존 프로필 레포에 복사하세요:
-> - `gitpro.config.yml`
-> - `src/` 디렉토리 전체
-> - `package.json`, `tsconfig.json`, `action.yml`
-> - `.github/workflows/gitpro.yml`
+> ⚠️ Fork한 레포 이름은 변경하지 않아도 됩니다. gitpro는 **별도의 SVG 생성 레포**로 사용되며, 기존 프로필 README를 대체하지 않습니다.
 
-### Step 2️⃣ — Personal Access Token 생성
+#### Step 2️⃣ — Personal Access Token 생성
 
 1. [GitHub Settings → Developer settings → Personal access tokens (classic)](https://github.com/settings/tokens) 이동
 2. **Generate new token (classic)** 클릭
@@ -157,13 +157,13 @@ GitHub 레포지토리를 건물로 변환하는 **아이소메트릭 픽셀아�
 
 | 스코프 | 필수 여부 | 용도 |
 |--------|----------|------|
-| `repo` | ✅ 필수 | 프로필 README 업데이트, 레포 데이터 접근 |
-| `gist` | 선택 | Gist 연동 시 필요 |
+| `repo` | ✅ 필수 | 레포 데이터 접근, 프로필 README 업데이트 (방법 B) |
+| `gist` | ✅ 필수 (방법 A) | Gist에 SVG 업로드 |
 | `read:user` | ✅ 필수 | 사용자 프로필 데이터 읽기 |
 
 4. 생성된 토큰을 복사합니다 (⚠️ 한 번만 보여지므로 잘 보관하세요!)
 
-### Step 3️⃣ — Secret 등록
+#### Step 3️⃣ — Secret 등록
 
 Fork한 레포의 **Settings → Secrets and variables → Actions** 에서 시크릿을 등록합니다:
 
@@ -171,7 +171,7 @@ Fork한 레포의 **Settings → Secrets and variables → Actions** 에서 시�
 |-------------|---|
 | `GH_TOKEN` | 위에서 복사한 Personal Access Token |
 
-### Step 4️⃣ — 설정 파일 수정
+#### Step 4️⃣ — 설정 파일 수정
 
 Fork한 레포의 `gitpro.config.yml` 파일을 본인에 맞게 수정합니다:
 
@@ -217,89 +217,141 @@ modules:
     city_style: "pixel"             # pixel | isometric | flat | neon
     show_weather: true
     animation: true
-
-# 📄 README 자동 생성 설정
-readme:
-  auto_update: true
-  layout: "grid"                    # grid | vertical | tabs
-  header:
-    type: "wave"                    # wave | typing | gradient | none
-    text: "Hello, I'm YourName! 👋"
-    color: "#6C63FF"
-  show_last_updated: true
 ```
 
 > 💡 **팁**: `enabled: false`로 설정하면 해당 모듈이 비활성화됩니다. 필요한 모듈만 골라서 사용하세요!
 
-### Step 5️⃣ — GitHub Actions 워크플로우 확인
+#### Step 5️⃣ — GitHub Actions 워크플로우 확인 & 실행
 
-Fork한 레포에 `.github/workflows/gitpro.yml` 파일이 이미 포함되어 있습니다. 아래와 같은 형태인지 확인하세요:
-
-```yaml
-name: 🎮 gitpro - Update Profile
-
-on:
-  schedule:
-    - cron: '0 */6 * * *'          # 6시간마다 자동 실행
-  workflow_dispatch:                # 수동 실행 지원
-  push:
-    branches: [main]
-    paths:
-      - 'gitpro.config.yml'        # 설정 변경 시 자동 실행
-
-jobs:
-  generate:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    steps:
-      - uses: actions/checkout@v4
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      - run: npm ci
-      - run: npm run build
-
-      - name: 🎮 Run gitpro
-        env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
-        run: npm start
-
-      - name: 📤 Commit changes
-        run: |
-          git config --local user.email "github-actions[bot]@users.noreply.github.com"
-          git config --local user.name "github-actions[bot]"
-          git add -A output/ state/ README.md
-          git diff --staged --quiet || git commit -m "🎮 gitpro: Update profile" && git push
-```
-
-### Step 6️⃣ — 실행!
-
-| 실행 방법 | 설명 |
-|----------|------|
-| **자동 실행** | 설정 파일 수정 후 Push하면 Actions가 자동으로 실행됩니다 |
-| **수동 실행** | Fork한 레포 → **Actions** 탭 → `gitpro - Update Profile` → **Run workflow** |
-| **스케줄 실행** | 6시간마다 자동으로 실행됩니다 (cron) |
+Fork한 레포에 `.github/workflows/gitpro.yml` 파일이 이미 포함되어 있습니다.
 
 > ⚠️ **Fork한 레포에서는 Actions가 기본적으로 비활성화**되어 있습니다. Fork 후 **Actions** 탭에 들어가 **"I understand my workflows, go ahead and enable them"** 버튼을 눌러 활성화하세요.
 
+| 실행 방법 | 설명 |
+|----------|------|
+| **수동 실행** | Fork한 레포 → **Actions** 탭 → `gitpro - Update Profile` → **Run workflow** |
+| **자동 실행** | 설정 파일 수정 후 Push하면 Actions가 자동으로 실행됩니다 |
+| **스케줄 실행** | 6시간마다 자동으로 실행됩니다 (cron) |
+
 ```bash
-# 설정 수정 후 Push하여 자동 실행
+# 또는 설정 수정 후 Push하여 자동 실행
 git add .
 git commit -m "🎮 Configure gitpro for my profile"
 git push origin main
 ```
 
-> Push 후 Actions 탭에서 실행 상태를 확인하세요! ✅ 완료되면 프로필 README와 `output/` 디렉토리에 SVG 파일이 생성됩니다.
+> ✅ 실행이 완료되면 `output/` 디렉토리에 SVG 파일들이 생성됩니다. 이제 아래 **방법 A** 또는 **방법 B**를 따라 프로필에 적용하세요!
+
+---
+
+### 방법 A — 📌 Pinned Gist (프로필 고정)
+
+> 기존 프로필 README를 전혀 수정하지 않고, GitHub 프로필에 SVG를 **Pin(고정)** 하는 방법입니다.
+
+**1. Gist 생성**
+
+1. [gist.github.com](https://gist.github.com)에서 **새 Gist 생성** (파일명: `gitpro.md`, 내용은 아무거나)
+2. Gist URL에서 **Gist ID** 복사
+   - 예: `https://gist.github.com/username/abc123def456` → `abc123def456`
+
+**2. gitpro.config.yml에 Gist 설정 추가**
+
+```yaml
+# 📌 Gist 연동 설정
+gist:
+  enabled: true
+  gist_id: "abc123def456"                              # 복사한 Gist ID
+  modules: ["trading-card", "code-pet"]                 # 업로드할 모듈 (빈 배열이면 전부)
+```
+
+> ⚠️ GH_TOKEN에 **gist** 스코프 권한이 반드시 필요합니다.
+
+**3. Actions 재실행**
+
+설정을 Push하거나 Actions를 수동 실행하면 SVG가 Gist에 자동 업로드됩니다.
+
+**4. Gist를 프로필에 Pin 고정**
+
+1. 본인 GitHub 프로필 페이지 (`github.com/username`) 이동
+2. **"Customize your pins"** 클릭
+3. 방금 생성한 Gist를 선택하여 **Pin** 고정
+
+```
+✅ 결과: 프로필 방문자가 Pinned Gist를 통해 gitpro SVG를 바로 볼 수 있습니다!
+```
+
+---
+
+### 방법 B — 📝 기존 프로필 README에 추가
+
+> 이미 사용 중인 프로필 README (`username/username`)에 gitpro SVG 이미지를 직접 삽입하는 방법입니다.
+
+**1. Actions 실행 후 SVG 확인**
+
+gitpro Actions가 완료되면 Fork한 레포의 `output/` 디렉토리에 SVG 파일들이 생성됩니다:
+
+```
+output/
+├── trading-card.svg
+├── code-dna.svg
+├── chronicle.svg
+├── code-pet.svg
+├── constellation.svg
+└── dev-city.svg
+```
+
+**2. 프로필 README에 이미지 태그 추가**
+
+프로필 레포 (`username/username`)의 `README.md`에 아래와 같이 이미지를 삽입합니다.
+gitpro가 생성한 SVG는 Fork한 레포의 `output/` 경로에 있으므로, **절대 URL**로 참조합니다:
+
+```markdown
+<!-- 🎮 gitpro Modules -->
+## 🎮 My Dev Stats
+
+### 🃏 Trading Card
+<img src="https://raw.githubusercontent.com/{username}/gitpro/main/output/trading-card.svg" alt="Dev Trading Card" width="420" />
+
+### 🧬 Code DNA
+<img src="https://raw.githubusercontent.com/{username}/gitpro/main/output/code-dna.svg" alt="Code DNA" width="480" />
+
+### 📜 Dev Chronicle
+<img src="https://raw.githubusercontent.com/{username}/gitpro/main/output/chronicle.svg" alt="Dev Chronicle" width="480" />
+
+### 🐾 Code Pet
+<img src="https://raw.githubusercontent.com/{username}/gitpro/main/output/code-pet.svg" alt="Code Pet" width="480" />
+
+### 🌌 Commit Constellation
+<img src="https://raw.githubusercontent.com/{username}/gitpro/main/output/constellation.svg" alt="Commit Constellation" width="700" />
+
+### 🏙️ Dev City
+<img src="https://raw.githubusercontent.com/{username}/gitpro/main/output/dev-city.svg" alt="Dev City" width="700" />
+```
+
+> 💡 `{username}`을 본인의 GitHub 아이디로 변경하세요!
+
+**3. 원하는 모듈만 골라서 추가**
+
+모든 모듈을 사용할 필요 없이, 원하는 것만 골라서 프로필 README에 추가하면 됩니다:
+
+```markdown
+<!-- 트레이딩 카드와 코드 펫만 사용하는 예시 -->
+<p>
+  <img src="https://raw.githubusercontent.com/{username}/gitpro/main/output/trading-card.svg" alt="Dev Trading Card" width="420" />
+  <img src="https://raw.githubusercontent.com/{username}/gitpro/main/output/code-pet.svg" alt="Code Pet" width="420" />
+</p>
+```
+
+> ✅ gitpro Actions가 6시간마다 자동으로 SVG를 업데이트하므로, 프로필 README를 다시 수정할 필요 없이 항상 최신 상태를 유지합니다!
 
 ---
 
 ### 📌 한눈에 보는 전체 흐름
 
 ```
-⭐ Star 누르기 → 🍴 Fork → ✏️ config 수정 → 🔑 Secret 등록 → ▶️ Actions 활성화 → 🎮 자동 실행!
+⭐ Star → 🍴 Fork → ✏️ config 수정 → 🔑 Secret 등록 → ▶️ Actions 실행
+    ├── 📌 방법 A: Gist에 업로드 → 프로필에 Pin 고정
+    └── 📝 방법 B: 프로필 README에 SVG 이미지 태그 추가
 ```
 
 ---
@@ -489,22 +541,7 @@ custom_theme:
 
 ### Gist 연동 (Pinned Gist)
 
-SVG를 GitHub Gist에 업로드하여 프로필에 고정할 수 있습니다:
-
-**설정 방법:**
-
-1. [gist.github.com](https://gist.github.com)에서 새 Gist 생성 (내용은 아무거나)
-2. Gist URL에서 ID 복사 (예: `https://gist.github.com/username/abc123def456` → `abc123def456`)
-3. `gitpro.config.yml`에 설정 추가:
-
-```yaml
-gist:
-  enabled: true
-  gist_id: "abc123def456"           # 복사한 Gist ID
-  modules: ["trading-card", "code-pet"]  # 업로드할 모듈 (빈 배열이면 전부)
-```
-
-> ⚠️ GH_TOKEN에 **gist** 스코프 권한이 필요합니다.
+> 📌 Gist 연동 설정 방법은 위의 [**방법 A — Pinned Gist**](#방법-a--pinned-gist-프로필-고정) 섹션을 참고하세요.
 
 ### 디버그 모드
 
@@ -562,7 +599,7 @@ gitpro가 생성한 콘텐츠는 README.md 내의 마커 사이에 삽입됩니�
 
 ## 📂 출력 파일
 
-실행 후 다음 파일들이 생성/업데이트됩니다:
+Actions 실행 후 다음 파일들이 Fork한 레포에 생성/업데이트됩니다:
 
 ```
 gitpro/
@@ -574,10 +611,11 @@ gitpro/
 │   ├── constellation.svg           # 🌌 별자리
 │   ├── dev-city.svg                # 🏙️ 개발자 도시
 │   └── header.svg                  # 🎨 프로필 헤더
-├── state/
-│   └── gitpro-state.json           # 💾 영구 상태 (펫 EXP, 도시 레벨 등)
-└── README.md                       # 📄 자동 업데이트된 README
+└── state/
+    └── gitpro-state.json           # 💾 영구 상태 (펫 EXP, 도시 레벨 등)
 ```
+
+> 💡 이 SVG 파일들을 [**방법 A (Gist Pin)**](#방법-a--pinned-gist-프로필-고정) 또는 [**방법 B (프로필 README)**](#방법-b--기존-프로필-readme에-추가)로 프로필에 표시합니다.
 
 ---
 

@@ -129,27 +129,27 @@ Transforms GitHub repositories into buildings — an **isometric pixel-art city*
 
 > 🌟 **If you like this project, please hit [⭐ Star](https://github.com/Sangyeonglee353/gitpro)!** It helps us build even better modules.
 
-### Prerequisites
+There are **2 ways** to display gitpro-generated SVGs on your profile:
 
-- GitHub account
-- [GitHub Personal Access Token](https://github.com/settings/tokens) (with `repo` and `gist` scopes)
+| Method | Description | Best For |
+|--------|-------------|----------|
+| 📌 **[Method A: Pinned Gist](#method-a--pinned-gist)** | Upload SVGs to a Gist and pin it to your profile | Those who don't want to touch their existing README |
+| 📝 **[Method B: Add to Existing README](#method-b--add-to-existing-profile-readme)** | Insert SVG image tags into your existing profile README | Those who want full control over their profile layout |
 
-### Step 1️⃣ — Fork & Repository Setup
+> 💡 You can use **both methods** simultaneously!
+
+---
+
+### Common Setup Steps
+
+#### Step 1️⃣ — Fork & Repository Setup
 
 1. Click the **⭐ Star** button at the top right of this repository!
 2. Click **🍴 Fork** to fork the repo to your account
-3. Rename your forked repo to your **GitHub username**
-   - Forked repo → **Settings** → Change **Repository name** to your `username`
-   - This turns it into your GitHub profile README repository
 
-> 💡 **Already have a profile repo (`username/username`)?**
-> Instead of forking, give the gitpro repo a ⭐ Star, then copy these files into your existing profile repo:
-> - `gitpro.config.yml`
-> - `src/` directory
-> - `package.json`, `tsconfig.json`, `action.yml`
-> - `.github/workflows/gitpro.yml`
+> ⚠️ You do **not** need to rename the forked repo. gitpro is used as a **separate SVG generation repo** and does not replace your existing profile README.
 
-### Step 2️⃣ — Create Personal Access Token
+#### Step 2️⃣ — Create Personal Access Token
 
 1. Go to [GitHub Settings → Developer settings → Personal access tokens (classic)](https://github.com/settings/tokens)
 2. Click **Generate new token (classic)**
@@ -157,13 +157,13 @@ Transforms GitHub repositories into buildings — an **isometric pixel-art city*
 
 | Scope | Required | Purpose |
 |-------|----------|---------|
-| `repo` | ✅ Required | Profile README updates, repo data access |
-| `gist` | Optional | Required for Gist integration |
+| `repo` | ✅ Required | Repo data access, profile README update (Method B) |
+| `gist` | ✅ Required (Method A) | Upload SVGs to Gist |
 | `read:user` | ✅ Required | Read user profile data |
 
 4. Copy the generated token (⚠️ It's only shown once, so save it!)
 
-### Step 3️⃣ — Register Secret
+#### Step 3️⃣ — Register Secret
 
 Go to your forked repo's **Settings → Secrets and variables → Actions** and add the secret:
 
@@ -171,7 +171,7 @@ Go to your forked repo's **Settings → Secrets and variables → Actions** and 
 |-------------|-------|
 | `GH_TOKEN` | The Personal Access Token you copied above |
 
-### Step 4️⃣ — Edit Configuration
+#### Step 4️⃣ — Edit Configuration
 
 Edit the `gitpro.config.yml` file in your forked repo:
 
@@ -217,89 +217,140 @@ modules:
     city_style: "pixel"             # pixel | isometric | flat | neon
     show_weather: true
     animation: true
-
-# 📄 README Auto-generation Settings
-readme:
-  auto_update: true
-  layout: "grid"                    # grid | vertical | tabs
-  header:
-    type: "wave"                    # wave | typing | gradient | none
-    text: "Hello, I'm YourName! 👋"
-    color: "#6C63FF"
-  show_last_updated: true
 ```
 
 > 💡 **Tip**: Set `enabled: false` to disable a module. Use only the modules you need!
 
-### Step 5️⃣ — Verify GitHub Actions Workflow
+#### Step 5️⃣ — Verify GitHub Actions Workflow & Run
 
-Your forked repo already includes `.github/workflows/gitpro.yml`. Verify it looks like this:
-
-```yaml
-name: 🎮 gitpro - Update Profile
-
-on:
-  schedule:
-    - cron: '0 */6 * * *'          # Auto-run every 6 hours
-  workflow_dispatch:                # Manual trigger supported
-  push:
-    branches: [main]
-    paths:
-      - 'gitpro.config.yml'        # Auto-run on config changes
-
-jobs:
-  generate:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    steps:
-      - uses: actions/checkout@v4
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      - run: npm ci
-      - run: npm run build
-
-      - name: 🎮 Run gitpro
-        env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
-        run: npm start
-
-      - name: 📤 Commit changes
-        run: |
-          git config --local user.email "github-actions[bot]@users.noreply.github.com"
-          git config --local user.name "github-actions[bot]"
-          git add -A output/ state/ README.md
-          git diff --staged --quiet || git commit -m "🎮 gitpro: Update profile" && git push
-```
-
-### Step 6️⃣ — Run!
-
-| Method | Description |
-|--------|-------------|
-| **Auto Run** | Push config changes and Actions will trigger automatically |
-| **Manual Run** | Forked repo → **Actions** tab → `gitpro - Update Profile` → **Run workflow** |
-| **Scheduled Run** | Runs automatically every 6 hours (cron) |
+Your forked repo already includes `.github/workflows/gitpro.yml`.
 
 > ⚠️ **Actions are disabled by default in forked repos.** After forking, go to the **Actions** tab and click **"I understand my workflows, go ahead and enable them"** to activate.
 
+| Method | Description |
+|--------|-------------|
+| **Manual Run** | Forked repo → **Actions** tab → `gitpro - Update Profile` → **Run workflow** |
+| **Auto Run** | Push config changes and Actions will trigger automatically |
+| **Scheduled Run** | Runs automatically every 6 hours (cron) |
+
 ```bash
-# Push config changes to trigger auto-run
+# Or push config changes to trigger auto-run
 git add .
 git commit -m "🎮 Configure gitpro for my profile"
 git push origin main
 ```
 
-> After pushing, check the Actions tab for run status! ✅ Once complete, your profile README and SVG files in `output/` will be generated.
+> ✅ Once complete, SVG files will be generated in the `output/` directory. Now follow **Method A** or **Method B** below to apply them to your profile!
+
+---
+
+### Method A — 📌 Pinned Gist
+
+> Display gitpro SVGs on your GitHub profile by **pinning a Gist** — no changes to your existing README needed.
+
+**1. Create a Gist**
+
+1. Go to [gist.github.com](https://gist.github.com) and create a **new Gist** (filename: `gitpro.md`, any content)
+2. Copy the **Gist ID** from the URL
+   - e.g., `https://gist.github.com/username/abc123def456` → `abc123def456`
+
+**2. Add Gist Config to gitpro.config.yml**
+
+```yaml
+# 📌 Gist Integration Settings
+gist:
+  enabled: true
+  gist_id: "abc123def456"                              # Your Gist ID
+  modules: ["trading-card", "code-pet"]                 # Modules to upload (empty = all)
+```
+
+> ⚠️ Your GH_TOKEN must have the **gist** scope permission.
+
+**3. Re-run Actions**
+
+Push the config changes or manually re-run Actions to upload SVGs to your Gist.
+
+**4. Pin the Gist to Your Profile**
+
+1. Go to your GitHub profile page (`github.com/username`)
+2. Click **"Customize your pins"**
+3. Select the Gist you just created and **Pin** it
+
+```
+✅ Result: Profile visitors can see your gitpro SVGs right from your Pinned Gist!
+```
+
+---
+
+### Method B — 📝 Add to Existing Profile README
+
+> Insert gitpro SVG images directly into your existing profile README (`username/username`).
+
+**1. Verify SVGs After Actions Run**
+
+After gitpro Actions complete, SVG files are generated in the `output/` directory of your forked repo:
+
+```
+output/
+├── trading-card.svg
+├── code-dna.svg
+├── chronicle.svg
+├── code-pet.svg
+├── constellation.svg
+└── dev-city.svg
+```
+
+**2. Add Image Tags to Your Profile README**
+
+In your profile repo (`username/username`) `README.md`, insert images using **absolute URLs** pointing to the forked gitpro repo's `output/` directory:
+
+```markdown
+<!-- 🎮 gitpro Modules -->
+## 🎮 My Dev Stats
+
+### 🃏 Trading Card
+<img src="https://raw.githubusercontent.com/{username}/gitpro/main/output/trading-card.svg" alt="Dev Trading Card" width="420" />
+
+### 🧬 Code DNA
+<img src="https://raw.githubusercontent.com/{username}/gitpro/main/output/code-dna.svg" alt="Code DNA" width="480" />
+
+### 📜 Dev Chronicle
+<img src="https://raw.githubusercontent.com/{username}/gitpro/main/output/chronicle.svg" alt="Dev Chronicle" width="480" />
+
+### 🐾 Code Pet
+<img src="https://raw.githubusercontent.com/{username}/gitpro/main/output/code-pet.svg" alt="Code Pet" width="480" />
+
+### 🌌 Commit Constellation
+<img src="https://raw.githubusercontent.com/{username}/gitpro/main/output/constellation.svg" alt="Commit Constellation" width="700" />
+
+### 🏙️ Dev City
+<img src="https://raw.githubusercontent.com/{username}/gitpro/main/output/dev-city.svg" alt="Dev City" width="700" />
+```
+
+> 💡 Replace `{username}` with your GitHub username!
+
+**3. Pick and Choose Your Favorite Modules**
+
+You don't have to use all modules — just add the ones you like:
+
+```markdown
+<!-- Example: Trading Card and Code Pet only -->
+<p>
+  <img src="https://raw.githubusercontent.com/{username}/gitpro/main/output/trading-card.svg" alt="Dev Trading Card" width="420" />
+  <img src="https://raw.githubusercontent.com/{username}/gitpro/main/output/code-pet.svg" alt="Code Pet" width="420" />
+</p>
+```
+
+> ✅ gitpro Actions auto-update SVGs every 6 hours, so your profile README always stays fresh — no manual updates needed!
 
 ---
 
 ### 📌 Overview of the Entire Flow
 
 ```
-⭐ Star → 🍴 Fork → ✏️ Edit config → 🔑 Add Secret → ▶️ Enable Actions → 🎮 Auto Run!
+⭐ Star → 🍴 Fork → ✏️ Edit config → 🔑 Add Secret → ▶️ Run Actions
+    ├── 📌 Method A: Upload to Gist → Pin to profile
+    └── 📝 Method B: Add SVG image tags to profile README
 ```
 
 ---
@@ -489,22 +540,7 @@ custom_theme:
 
 ### Gist Integration (Pinned Gist)
 
-Upload SVGs to a GitHub Gist to pin them on your profile:
-
-**Setup:**
-
-1. Create a new Gist at [gist.github.com](https://gist.github.com) (any content)
-2. Copy the Gist ID from the URL (e.g., `https://gist.github.com/username/abc123def456` → `abc123def456`)
-3. Add the configuration to `gitpro.config.yml`:
-
-```yaml
-gist:
-  enabled: true
-  gist_id: "abc123def456"           # Your Gist ID
-  modules: ["trading-card", "code-pet"]  # Modules to upload (empty = all)
-```
-
-> ⚠️ Your GH_TOKEN needs the **gist** scope permission.
+> 📌 For Gist integration setup, see [**Method A — Pinned Gist**](#method-a--pinned-gist) in the Quick Start section above.
 
 ### Debug Mode
 
@@ -562,7 +598,7 @@ Content generated by gitpro is inserted between markers in your README.md:
 
 ## 📂 Output Files
 
-After execution, the following files are generated/updated:
+After Actions run, the following files are generated/updated in your forked repo:
 
 ```
 gitpro/
@@ -574,10 +610,11 @@ gitpro/
 │   ├── constellation.svg           # 🌌 Constellation
 │   ├── dev-city.svg                # 🏙️ Dev City
 │   └── header.svg                  # 🎨 Profile Header
-├── state/
-│   └── gitpro-state.json           # 💾 Persistent state (pet EXP, city level, etc.)
-└── README.md                       # 📄 Auto-updated README
+└── state/
+    └── gitpro-state.json           # 💾 Persistent state (pet EXP, city level, etc.)
 ```
+
+> 💡 Display these SVGs on your profile using [**Method A (Gist Pin)**](#method-a--pinned-gist) or [**Method B (Profile README)**](#method-b--add-to-existing-profile-readme).
 
 ---
 
