@@ -106,7 +106,7 @@
       <text x="67.5" y="250" text-anchor="middle"
             class="card-text stat-label" fill="#EF4444">⚔ ATK</text>
       <text x="67.5" y="278" text-anchor="middle"
-            class="card-text stat-value" fill="#e6edf3">870</text>
+            class="card-text stat-value" fill="#e6edf3">875</text>
     </g>
     <g>
       <rect x="122.5" y="228" width="80" height="65" rx="8" ry="8"

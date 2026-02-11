@@ -26,6 +26,10 @@
       <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>
     
+    <filter id="legendGlow">
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
   </defs>
 
   <style>
@@ -58,6 +62,26 @@
     .heartbeat { animation: heartbeat 1.5s ease-in-out infinite; transform-origin: center; }
 
     
+    @keyframes legendShimmer {
+      0% { opacity: 0; transform: translateX(-50px); }
+      50% { opacity: 0.3; }
+      100% { opacity: 0; transform: translateX(50px); }
+    }
+    .legend-shimmer { animation: legendShimmer 3s ease-in-out infinite; }
+
+    @keyframes rainbowBorder {
+      0% { stop-color: #ff0000; }
+      16% { stop-color: #ff8800; }
+      33% { stop-color: #ffff00; }
+      50% { stop-color: #00ff00; }
+      66% { stop-color: #0088ff; }
+      83% { stop-color: #8800ff; }
+      100% { stop-color: #ff0000; }
+    }
+    #petBorder stop:nth-child(1) { animation: rainbowBorder 4s linear infinite; }
+    #petBorder stop:nth-child(2) { animation: rainbowBorder 4s linear infinite 1.3s; }
+    #petBorder stop:nth-child(3) { animation: rainbowBorder 4s linear infinite 2.6s; }
+    
   </style>
 
   <!-- 카드 외곽 -->
@@ -76,14 +100,17 @@
   <rect x="26" y="22" width="160" height="20" rx="10" ry="10"
         fill="#3572A5" opacity="0.2"/>
   <text x="106" y="36" text-anchor="middle" class="pet-text pet-stage"
-        fill="#3572A5" >
-    🐲 성체</text>
+        fill="#3572A5" filter="url(#legendGlow)">
+    👑 전설 형태</text>
 
   <!-- 펫 픽셀아트 -->
   <g class="pet-bounce">
     <g>
       <animateTransform attributeName="transform" type="translate" values="0,0;0,-3;0,0" dur="2.5s" repeatCount="indefinite"/>
-      <rect x="42" y="46" width="128" height="118" rx="8" ry="8" fill="#3572A5" opacity="0.1"><animate attributeName="opacity" values="0.05;0.15;0.05" dur="2.5s" repeatCount="indefinite"/></rect><rect x="46.0" y="50.0" width="12.5" height="9.7" fill="#ff4500"/><rect x="82.0" y="50.0" width="12.5" height="9.7" fill="#ff4500"/><rect x="94.0" y="50.0" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="106.0" y="50.0" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="118.0" y="50.0" width="12.5" height="9.7" fill="#ff4500"/><rect x="154.0" y="50.0" width="12.5" height="9.7" fill="#ff4500"/><rect x="58.0" y="59.2" width="12.5" height="9.7" fill="#ff4500"/><rect x="70.0" y="59.2" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="82.0" y="59.2" width="12.5" height="9.7" fill="#3572A5"/><rect x="94.0" y="59.2" width="12.5" height="9.7" fill="#3572A5"/><rect x="106.0" y="59.2" width="12.5" height="9.7" fill="#3572A5"/><rect x="118.0" y="59.2" width="12.5" height="9.7" fill="#3572A5"/><rect x="130.0" y="59.2" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="142.0" y="59.2" width="12.5" height="9.7" fill="#ff4500"/><rect x="58.0" y="68.3" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="70.0" y="68.3" width="12.5" height="9.7" fill="#3572A5"/><rect x="82.0" y="68.3" width="12.5" height="9.7" fill="#ffd700"/><rect x="94.0" y="68.3" width="12.5" height="9.7" fill="#3572A5"/><rect x="106.0" y="68.3" width="12.5" height="9.7" fill="#3572A5"/><rect x="118.0" y="68.3" width="12.5" height="9.7" fill="#ffd700"/><rect x="130.0" y="68.3" width="12.5" height="9.7" fill="#3572A5"/><rect x="142.0" y="68.3" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="58.0" y="77.5" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="70.0" y="77.5" width="12.5" height="9.7" fill="#ffcc00"/><rect x="82.0" y="77.5" width="12.5" height="9.7" fill="#3572A5"/><rect x="94.0" y="77.5" width="12.5" height="9.7" fill="#3572A5"/><rect x="106.0" y="77.5" width="12.5" height="9.7" fill="#3572A5"/><rect x="118.0" y="77.5" width="12.5" height="9.7" fill="#3572A5"/><rect x="130.0" y="77.5" width="12.5" height="9.7" fill="#ffcc00"/><rect x="142.0" y="77.5" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="58.0" y="86.7" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="70.0" y="86.7" width="12.5" height="9.7" fill="#3572A5"/><rect x="82.0" y="86.7" width="12.5" height="9.7" fill="#3572A5"/><rect x="94.0" y="86.7" width="12.5" height="9.7" fill="#ff6b6b"/><rect x="106.0" y="86.7" width="12.5" height="9.7" fill="#ff6b6b"/><rect x="118.0" y="86.7" width="12.5" height="9.7" fill="#3572A5"/><rect x="130.0" y="86.7" width="12.5" height="9.7" fill="#3572A5"/><rect x="142.0" y="86.7" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="46.0" y="95.8" width="12.5" height="9.7" fill="#ff4500"/><rect x="70.0" y="95.8" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="82.0" y="95.8" width="12.5" height="9.7" fill="#3572A5"/><rect x="94.0" y="95.8" width="12.5" height="9.7" fill="#3572A5"/><rect x="106.0" y="95.8" width="12.5" height="9.7" fill="#3572A5"/><rect x="118.0" y="95.8" width="12.5" height="9.7" fill="#3572A5"/><rect x="130.0" y="95.8" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="154.0" y="95.8" width="12.5" height="9.7" fill="#ff4500"/><rect x="82.0" y="105.0" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="94.0" y="105.0" width="12.5" height="9.7" fill="#3572A5"/><rect x="106.0" y="105.0" width="12.5" height="9.7" fill="#3572A5"/><rect x="118.0" y="105.0" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="70.0" y="114.2" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="82.0" y="114.2" width="12.5" height="9.7" fill="#ff4500"/><rect x="94.0" y="114.2" width="12.5" height="9.7" fill="#ff4500"/><rect x="106.0" y="114.2" width="12.5" height="9.7" fill="#ff4500"/><rect x="118.0" y="114.2" width="12.5" height="9.7" fill="#ff4500"/><rect x="130.0" y="114.2" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="58.0" y="123.3" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="70.0" y="123.3" width="12.5" height="9.7" fill="#ff4500"/><rect x="82.0" y="123.3" width="12.5" height="9.7" fill="#3572A5"/><rect x="94.0" y="123.3" width="12.5" height="9.7" fill="#ff4500"/><rect x="106.0" y="123.3" width="12.5" height="9.7" fill="#ff4500"/><rect x="118.0" y="123.3" width="12.5" height="9.7" fill="#3572A5"/><rect x="130.0" y="123.3" width="12.5" height="9.7" fill="#ff4500"/><rect x="142.0" y="123.3" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="46.0" y="132.5" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="58.0" y="132.5" width="12.5" height="9.7" fill="#ff4500"/><rect x="70.0" y="132.5" width="12.5" height="9.7" fill="#3572A5"/><rect x="82.0" y="132.5" width="12.5" height="9.7" fill="#ff4500"/><rect x="94.0" y="132.5" width="12.5" height="9.7" fill="#3572A5"/><rect x="106.0" y="132.5" width="12.5" height="9.7" fill="#3572A5"/><rect x="118.0" y="132.5" width="12.5" height="9.7" fill="#ff4500"/><rect x="130.0" y="132.5" width="12.5" height="9.7" fill="#3572A5"/><rect x="142.0" y="132.5" width="12.5" height="9.7" fill="#ff4500"/><rect x="154.0" y="132.5" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="46.0" y="141.7" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="58.0" y="141.7" width="12.5" height="9.7" fill="#3572A5"/><rect x="70.0" y="141.7" width="12.5" height="9.7" fill="#3572A5"/><rect x="82.0" y="141.7" width="12.5" height="9.7" fill="#3572A5"/><rect x="94.0" y="141.7" width="12.5" height="9.7" fill="#3572A5"/><rect x="106.0" y="141.7" width="12.5" height="9.7" fill="#3572A5"/><rect x="118.0" y="141.7" width="12.5" height="9.7" fill="#3572A5"/><rect x="130.0" y="141.7" width="12.5" height="9.7" fill="#3572A5"/><rect x="142.0" y="141.7" width="12.5" height="9.7" fill="#3572A5"/><rect x="154.0" y="141.7" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="58.0" y="150.8" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="70.0" y="150.8" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="82.0" y="150.8" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="94.0" y="150.8" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="106.0" y="150.8" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="118.0" y="150.8" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="130.0" y="150.8" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="142.0" y="150.8" width="12.5" height="9.7" fill="#1a1a1a"/>
+      <circle cx="106" cy="105" r="75" fill="none" stroke="#3572A5" stroke-width="2" opacity="0.3">
+      <animate attributeName="r" values="66.66666666666667;85.71428571428572;66.66666666666667" dur="2s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.3;0.1;0.3" dur="2s" repeatCount="indefinite"/>
+    </circle><rect x="42" y="46" width="128" height="118" rx="8" ry="8" fill="#3572A5" opacity="0.1"><animate attributeName="opacity" values="0.05;0.15;0.05" dur="2.5s" repeatCount="indefinite"/></rect><rect x="46.0" y="50.0" width="12.5" height="9.7" fill="#ff4500"/><rect x="58.0" y="50.0" width="12.5" height="9.7" fill="#ff4500"/><rect x="70.0" y="50.0" width="12.5" height="9.7" fill="#ffd700"/><rect x="82.0" y="50.0" width="12.5" height="9.7" fill="#ff4500"/><rect x="94.0" y="50.0" width="12.5" height="9.7" fill="#ffd700"/><rect x="106.0" y="50.0" width="12.5" height="9.7" fill="#ffd700"/><rect x="118.0" y="50.0" width="12.5" height="9.7" fill="#ff4500"/><rect x="130.0" y="50.0" width="12.5" height="9.7" fill="#ffd700"/><rect x="142.0" y="50.0" width="12.5" height="9.7" fill="#ff4500"/><rect x="154.0" y="50.0" width="12.5" height="9.7" fill="#ff4500"/><rect x="46.0" y="59.2" width="12.5" height="9.7" fill="#ff4500"/><rect x="58.0" y="59.2" width="12.5" height="9.7" fill="#ffd700"/><rect x="70.0" y="59.2" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="82.0" y="59.2" width="12.5" height="9.7" fill="#3572A5"/><rect x="94.0" y="59.2" width="12.5" height="9.7" fill="#3572A5"/><rect x="106.0" y="59.2" width="12.5" height="9.7" fill="#3572A5"/><rect x="118.0" y="59.2" width="12.5" height="9.7" fill="#3572A5"/><rect x="130.0" y="59.2" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="142.0" y="59.2" width="12.5" height="9.7" fill="#ffd700"/><rect x="154.0" y="59.2" width="12.5" height="9.7" fill="#ff4500"/><rect x="58.0" y="68.3" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="70.0" y="68.3" width="12.5" height="9.7" fill="#3572A5"/><rect x="82.0" y="68.3" width="12.5" height="9.7" fill="#ffd700"/><rect x="94.0" y="68.3" width="12.5" height="9.7" fill="#3572A5"/><rect x="106.0" y="68.3" width="12.5" height="9.7" fill="#3572A5"/><rect x="118.0" y="68.3" width="12.5" height="9.7" fill="#ffd700"/><rect x="130.0" y="68.3" width="12.5" height="9.7" fill="#3572A5"/><rect x="142.0" y="68.3" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="58.0" y="77.5" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="70.0" y="77.5" width="12.5" height="9.7" fill="#ffcc00"/><rect x="82.0" y="77.5" width="12.5" height="9.7" fill="#3572A5"/><rect x="94.0" y="77.5" width="12.5" height="9.7" fill="#3572A5"/><rect x="106.0" y="77.5" width="12.5" height="9.7" fill="#3572A5"/><rect x="118.0" y="77.5" width="12.5" height="9.7" fill="#3572A5"/><rect x="130.0" y="77.5" width="12.5" height="9.7" fill="#ffcc00"/><rect x="142.0" y="77.5" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="58.0" y="86.7" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="70.0" y="86.7" width="12.5" height="9.7" fill="#3572A5"/><rect x="82.0" y="86.7" width="12.5" height="9.7" fill="#3572A5"/><rect x="94.0" y="86.7" width="12.5" height="9.7" fill="#ff6b6b"/><rect x="106.0" y="86.7" width="12.5" height="9.7" fill="#ff6b6b"/><rect x="118.0" y="86.7" width="12.5" height="9.7" fill="#3572A5"/><rect x="130.0" y="86.7" width="12.5" height="9.7" fill="#3572A5"/><rect x="142.0" y="86.7" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="46.0" y="95.8" width="12.5" height="9.7" fill="#ff4500"/><rect x="70.0" y="95.8" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="82.0" y="95.8" width="12.5" height="9.7" fill="#3572A5"/><rect x="94.0" y="95.8" width="12.5" height="9.7" fill="#3572A5"/><rect x="106.0" y="95.8" width="12.5" height="9.7" fill="#3572A5"/><rect x="118.0" y="95.8" width="12.5" height="9.7" fill="#3572A5"/><rect x="130.0" y="95.8" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="154.0" y="95.8" width="12.5" height="9.7" fill="#ff4500"/><rect x="46.0" y="105.0" width="12.5" height="9.7" fill="#ff4500"/><rect x="58.0" y="105.0" width="12.5" height="9.7" fill="#ff4500"/><rect x="82.0" y="105.0" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="94.0" y="105.0" width="12.5" height="9.7" fill="#3572A5"/><rect x="106.0" y="105.0" width="12.5" height="9.7" fill="#3572A5"/><rect x="118.0" y="105.0" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="142.0" y="105.0" width="12.5" height="9.7" fill="#ff4500"/><rect x="154.0" y="105.0" width="12.5" height="9.7" fill="#ff4500"/><rect x="58.0" y="114.2" width="12.5" height="9.7" fill="#ff4500"/><rect x="70.0" y="114.2" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="82.0" y="114.2" width="12.5" height="9.7" fill="#ff4500"/><rect x="94.0" y="114.2" width="12.5" height="9.7" fill="#ff4500"/><rect x="106.0" y="114.2" width="12.5" height="9.7" fill="#ff4500"/><rect x="118.0" y="114.2" width="12.5" height="9.7" fill="#ff4500"/><rect x="130.0" y="114.2" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="142.0" y="114.2" width="12.5" height="9.7" fill="#ff4500"/><rect x="58.0" y="123.3" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="70.0" y="123.3" width="12.5" height="9.7" fill="#ff4500"/><rect x="82.0" y="123.3" width="12.5" height="9.7" fill="#ffd700"/><rect x="94.0" y="123.3" width="12.5" height="9.7" fill="#ff4500"/><rect x="106.0" y="123.3" width="12.5" height="9.7" fill="#ff4500"/><rect x="118.0" y="123.3" width="12.5" height="9.7" fill="#ffd700"/><rect x="130.0" y="123.3" width="12.5" height="9.7" fill="#ff4500"/><rect x="142.0" y="123.3" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="46.0" y="132.5" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="58.0" y="132.5" width="12.5" height="9.7" fill="#ff4500"/><rect x="70.0" y="132.5" width="12.5" height="9.7" fill="#ff4500"/><rect x="82.0" y="132.5" width="12.5" height="9.7" fill="#ff4500"/><rect x="94.0" y="132.5" width="12.5" height="9.7" fill="#ff4500"/><rect x="106.0" y="132.5" width="12.5" height="9.7" fill="#ff4500"/><rect x="118.0" y="132.5" width="12.5" height="9.7" fill="#ff4500"/><rect x="130.0" y="132.5" width="12.5" height="9.7" fill="#ff4500"/><rect x="142.0" y="132.5" width="12.5" height="9.7" fill="#ff4500"/><rect x="154.0" y="132.5" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="46.0" y="141.7" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="58.0" y="141.7" width="12.5" height="9.7" fill="#3572A5"/><rect x="70.0" y="141.7" width="12.5" height="9.7" fill="#ff4500"/><rect x="82.0" y="141.7" width="12.5" height="9.7" fill="#ff4500"/><rect x="94.0" y="141.7" width="12.5" height="9.7" fill="#ff4500"/><rect x="106.0" y="141.7" width="12.5" height="9.7" fill="#ff4500"/><rect x="118.0" y="141.7" width="12.5" height="9.7" fill="#ff4500"/><rect x="130.0" y="141.7" width="12.5" height="9.7" fill="#ff4500"/><rect x="142.0" y="141.7" width="12.5" height="9.7" fill="#3572A5"/><rect x="154.0" y="141.7" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="58.0" y="150.8" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="70.0" y="150.8" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="82.0" y="150.8" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="94.0" y="150.8" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="106.0" y="150.8" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="118.0" y="150.8" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="130.0" y="150.8" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="142.0" y="150.8" width="12.5" height="9.7" fill="#1a1a1a"/>
     </g>
   </g>
 
@@ -123,16 +150,16 @@
   <!-- EXP 바 -->
   <text x="214" y="80" class="pet-text pet-label" fill="#8b949e">EXP</text>
   <text x="460" y="80" text-anchor="end" class="pet-text pet-value"
-        fill="#3572A5">37.6k</text>
+        fill="#3572A5">52.8k</text>
   <rect x="214" y="86" width="246" height="8" rx="4" ry="4"
         fill="#161b22"/>
-  <rect x="214" y="86" width="160" height="8" rx="4" ry="4"
+  <rect x="214" y="86" width="246" height="8" rx="4" ry="4"
         fill="url(#expBar)">
-    <animate attributeName="width" from="0" to="160" dur="1.5s" fill="freeze"/>
+    <animate attributeName="width" from="0" to="246" dur="1.5s" fill="freeze"/>
   </rect>
   
-  <text x="214" y="106" class="pet-text pet-small" fill="#8b949e">
-    다음 진화까지: 12.4k EXP (65%)</text>
+  <text x="214" y="106" class="pet-text pet-small" fill="#3572A5">
+    ✦ 최종 진화 달성! ✦</text>
   
 
   
@@ -155,7 +182,7 @@
     <rect x="214" y="184" width="auto" height="18" rx="9" ry="9"
           fill="#3572A5" opacity="0.1"/>
     <text x="222" y="196" class="pet-text pet-label"
-          fill="#3572A5">+15.0k EXP earned!</text>
+          fill="#3572A5">+15.2k EXP earned!</text>
 
   <!-- 최근 획득 EXP -->
   <line x1="214" y1="212" x2="460" y2="212"
@@ -163,13 +190,13 @@
   <text x="214" y="226" class="pet-text pet-label"
       fill="#8b949e">📊 EXP 내역</text>
     <text x="218" y="242" class="pet-text pet-small" fill="#e6edf3">
-      🎉 PR 74개 머지</text>
+      🎉 PR 75개 머지</text>
     <text x="460" y="242" text-anchor="end" class="pet-text pet-small"
-          fill="#3572A5">+8.9k</text>
+          fill="#3572A5">+9.0k</text>
     <text x="218" y="258" class="pet-text pet-small" fill="#e6edf3">
-      🔀 PR 74개 생성</text>
+      🔀 PR 75개 생성</text>
     <text x="460" y="258" text-anchor="end" class="pet-text pet-small"
-          fill="#3572A5">+3.7k</text>
+          fill="#3572A5">+3.8k</text>
     <text x="218" y="274" class="pet-text pet-small" fill="#e6edf3">
       📦 레포지토리 32개</text>
     <text x="460" y="274" text-anchor="end" class="pet-text pet-small"
@@ -191,6 +218,9 @@
         fill="#8b949e">2026-02-11</text>
 
   <!-- 전설 시머 효과 -->
+  
+  <rect x="5" y="5" width="470" height="310" rx="14" ry="14"
+        fill="url(#petBorder)" opacity="0.05" class="legend-shimmer"/>
   
 
   <!-- 스파클 효과 (stage 3+) -->
