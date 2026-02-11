@@ -117,7 +117,7 @@
       <text x="352.5" y="250" text-anchor="middle"
             class="card-text stat-label" fill="#F59E0B">⚡ SPD</text>
       <text x="352.5" y="278" text-anchor="middle"
-            class="card-text stat-value" fill="#e6edf3">780</text>
+            class="card-text stat-value" fill="#e6edf3">500</text>
     </g>
 
   <!-- 구분선 -->

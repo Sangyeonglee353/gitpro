@@ -134,7 +134,7 @@
       🏙️ Sangyeonglee353&apos;s Dev City</text>
     <text x="400" y="36" text-anchor="middle"
           class="dc-text dc-subtitle" fill="#8b949e">
-      Metropolis (Tier 4) · ☀️ Sunny</text>
+      Metropolis (Tier 4) · ☁️ Cloudy</text>
   </g>
 
 <!-- 도시 영역 -->
@@ -173,26 +173,26 @@
     <ellipse cx="94.42857142857143" cy="235" rx="25" ry="4" fill="rgba(0,0,0,0.3)" opacity="0.4"/>
 
     <!-- 건물 본체 -->
-    <rect x="61.42857142857143" y="192.232" width="60" height="40.768" rx="3" fill="#FFD54F" stroke="#222222" stroke-width="0.5"/>
-              <polygon points="58.42857142857143,192.232 91.42857142857143,177.232 124.42857142857143,192.232" fill="#F9A825"/>
+    <rect x="61.42857142857143" y="192.184" width="60" height="40.816" rx="3" fill="#FFD54F" stroke="#222222" stroke-width="0.5"/>
+              <polygon points="58.42857142857143,192.184 91.42857142857143,177.184 124.42857142857143,192.184" fill="#F9A825"/>
               <rect x="85.42857142857143" y="211" width="12" height="18" rx="2" fill="#F9A825" opacity="0.6"/>
-              <rect x="67.42857142857143" y="194.232" width="3" height="24.768" fill="#F9A825" opacity="0.4"/>
-              <rect x="112.42857142857143" y="194.232" width="3" height="24.768" fill="#F9A825" opacity="0.4"/>
-              <rect x="88.42857142857143" y="164.232" width="1.5" height="16" fill="#F9A825"/>
-              <polygon points="88.42857142857143,160.232 95.42857142857143,160.232 95.42857142857143,164.232 88.42857142857143,164.232" fill="#ff4444"/>
+              <rect x="67.42857142857143" y="194.184" width="3" height="24.816000000000003" fill="#F9A825" opacity="0.4"/>
+              <rect x="112.42857142857143" y="194.184" width="3" height="24.816000000000003" fill="#F9A825" opacity="0.4"/>
+              <rect x="88.42857142857143" y="164.184" width="1.5" height="16" fill="#F9A825"/>
+              <polygon points="88.42857142857143,160.184 95.42857142857143,160.184 95.42857142857143,164.184 88.42857142857143,164.184" fill="#ff4444"/>
 
     <!-- 창문 -->
-    <rect x="71.42857142857143" y="190.232" width="7" height="7" rx="1"
+    <rect x="71.42857142857143" y="190.184" width="7" height="7" rx="1"
                         fill="#ffdd57" opacity="0.40"
-                        class="dc-window" style="animation-delay: 0.0s"/><rect x="87.42857142857143" y="190.232" width="7" height="7" rx="1"
+                        class="dc-window" style="animation-delay: 0.0s"/><rect x="87.42857142857143" y="190.184" width="7" height="7" rx="1"
                         fill="#ffdd57" opacity="0.75"
-                        class="dc-window" style="animation-delay: 1.3s"/><rect x="103.42857142857143" y="190.232" width="7" height="7" rx="1"
+                        class="dc-window" style="animation-delay: 1.3s"/><rect x="103.42857142857143" y="190.184" width="7" height="7" rx="1"
                         fill="#ffdd57" opacity="0.60"
-                        class="dc-window" style="animation-delay: 2.6s"/><rect x="71.42857142857143" y="206.232" width="7" height="7" rx="1"
+                        class="dc-window" style="animation-delay: 2.6s"/><rect x="71.42857142857143" y="206.184" width="7" height="7" rx="1"
                         fill="#ffdd57" opacity="0.55"
-                        class="dc-window" style="animation-delay: 0.7s"/><rect x="87.42857142857143" y="206.232" width="7" height="7" rx="1"
+                        class="dc-window" style="animation-delay: 0.7s"/><rect x="87.42857142857143" y="206.184" width="7" height="7" rx="1"
                         fill="#ffdd57" opacity="0.40"
-                        class="dc-window" style="animation-delay: 2.0s"/><rect x="103.42857142857143" y="206.232" width="7" height="7" rx="1"
+                        class="dc-window" style="animation-delay: 2.0s"/><rect x="103.42857142857143" y="206.184" width="7" height="7" rx="1"
                         fill="#ffdd57" opacity="0.75"
                         class="dc-window" style="animation-delay: 3.3s"/>
 
@@ -200,7 +200,7 @@
     
 
     <!-- 건물 아이콘 -->
-    <text x="91.42857142857143" y="172.232" text-anchor="middle" class="dc-text" font-size="12">
+    <text x="91.42857142857143" y="172.184" text-anchor="middle" class="dc-text" font-size="12">
       🏛️</text>
 
     <!-- 건물 이름 -->
@@ -1063,11 +1063,23 @@
       manuals</text>
   </g></g>
 
-<g>
-    <circle cx="680" cy="35" r="20" fill="#ffd700" opacity="0.9" filter="url(#cityGlow)"/>
-    <circle cx="680" cy="35" r="28" fill="#ffd700" opacity="0.15"/>
-    <circle cx="680" cy="35" r="36" fill="#ffd700" opacity="0.06"/>
-  </g>
+<g><g transform="translate(80, 15) scale(0.60)" opacity="0.6">
+      <ellipse cx="0" cy="0" rx="35" ry="12" fill="#cccccc"/>
+      <ellipse cx="-15" cy="3" rx="22" ry="9" fill="#bbbbbb"/>
+      <ellipse cx="18" cy="2" rx="25" ry="10" fill="#bbbbbb"/>
+    </g><g transform="translate(287, 19) scale(0.61)" opacity="0.6">
+      <ellipse cx="0" cy="0" rx="35" ry="12" fill="#cccccc"/>
+      <ellipse cx="-15" cy="3" rx="22" ry="9" fill="#bbbbbb"/>
+      <ellipse cx="18" cy="2" rx="25" ry="10" fill="#bbbbbb"/>
+    </g><g transform="translate(454, 23) scale(0.62)" opacity="0.6">
+      <ellipse cx="0" cy="0" rx="35" ry="12" fill="#cccccc"/>
+      <ellipse cx="-15" cy="3" rx="22" ry="9" fill="#bbbbbb"/>
+      <ellipse cx="18" cy="2" rx="25" ry="10" fill="#bbbbbb"/>
+    </g><g transform="translate(621, 27) scale(0.63)" opacity="0.6">
+      <ellipse cx="0" cy="0" rx="35" ry="12" fill="#cccccc"/>
+      <ellipse cx="-15" cy="3" rx="22" ry="9" fill="#bbbbbb"/>
+      <ellipse cx="18" cy="2" rx="25" ry="10" fill="#bbbbbb"/>
+    </g></g>
 <g><g>
     <rect x="71.5" y="277" width="3" height="8" fill="#8B4513" opacity="0.7"/>
     <polygon points="65,279 73,263 81,279" fill="#2ecc71" opacity="0.7"/>
@@ -1134,7 +1146,7 @@
       🔥 Streak</text>
     <text x="600" y="483" text-anchor="middle"
           class="dc-text dc-footer-val" fill="#e6edf3">
-      28d</text>
+      0d</text>
     <text x="733" y="468" text-anchor="middle"
           class="dc-text dc-footer-text" fill="#8b949e">
       📊 Top Lang</text>

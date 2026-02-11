@@ -1,12 +1,12 @@
 {
-  "lastUpdated": "2026-02-10T18:56:18.101Z",
+  "lastUpdated": "2026-02-11T01:30:29.427Z",
   "pet": {
     "species": "pythonix",
-    "stage": 1,
-    "exp": 3800,
-    "mood": 58,
-    "hunger": 81,
-    "lastFed": "2026-02-10T18:56:17.810Z",
+    "stage": 2,
+    "exp": 5700,
+    "mood": 77,
+    "hunger": 62,
+    "lastFed": "2026-02-11T01:30:29.386Z",
     "birthDate": "2026-02-10T12:55:31.670Z",
     "abilities": []
   },
@@ -14,7 +14,7 @@
     "tier": 4,
     "population": 100,
     "buildings": 24,
-    "lastWeather": "sunny"
+    "lastWeather": "cloudy"
   },
   "chronicle": {
     "currentChapter": 8,
@@ -30,7 +30,7 @@
     ],
     "currentQuest": {
       "type": "The Grind",
-      "progress": 93
+      "progress": 0
     }
   },
   "card": {

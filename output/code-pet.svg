@@ -77,19 +77,19 @@
         fill="#3572A5" opacity="0.2"/>
   <text x="106" y="36" text-anchor="middle" class="pet-text pet-stage"
         fill="#3572A5" >
-    🐣 아기 형태</text>
+    🐥 청소년 형태</text>
 
   <!-- 펫 픽셀아트 -->
   <g class="pet-bounce">
     <g>
       <animateTransform attributeName="transform" type="translate" values="0,0;0,-3;0,0" dur="2.5s" repeatCount="indefinite"/>
-      <rect x="42" y="46" width="128" height="118" rx="8" ry="8" fill="#3572A5" opacity="0.1"><animate attributeName="opacity" values="0.05;0.15;0.05" dur="2.5s" repeatCount="indefinite"/></rect><rect x="94.0" y="50.0" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="106.0" y="50.0" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="82.0" y="59.2" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="94.0" y="59.2" width="12.5" height="9.7" fill="#3572A5"/><rect x="106.0" y="59.2" width="12.5" height="9.7" fill="#3572A5"/><rect x="118.0" y="59.2" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="70.0" y="68.3" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="82.0" y="68.3" width="12.5" height="9.7" fill="#3572A5"/><rect x="94.0" y="68.3" width="12.5" height="9.7" fill="#3572A5"/><rect x="106.0" y="68.3" width="12.5" height="9.7" fill="#3572A5"/><rect x="118.0" y="68.3" width="12.5" height="9.7" fill="#3572A5"/><rect x="130.0" y="68.3" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="70.0" y="77.5" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="82.0" y="77.5" width="12.5" height="9.7" fill="#ffcc00"/><rect x="94.0" y="77.5" width="12.5" height="9.7" fill="#3572A5"/><rect x="106.0" y="77.5" width="12.5" height="9.7" fill="#3572A5"/><rect x="118.0" y="77.5" width="12.5" height="9.7" fill="#ffcc00"/><rect x="130.0" y="77.5" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="70.0" y="86.7" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="82.0" y="86.7" width="12.5" height="9.7" fill="#3572A5"/><rect x="94.0" y="86.7" width="12.5" height="9.7" fill="#ff6b6b"/><rect x="106.0" y="86.7" width="12.5" height="9.7" fill="#3572A5"/><rect x="118.0" y="86.7" width="12.5" height="9.7" fill="#3572A5"/><rect x="130.0" y="86.7" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="82.0" y="95.8" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="94.0" y="95.8" width="12.5" height="9.7" fill="#3572A5"/><rect x="106.0" y="95.8" width="12.5" height="9.7" fill="#3572A5"/><rect x="118.0" y="95.8" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="94.0" y="105.0" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="106.0" y="105.0" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="82.0" y="114.2" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="94.0" y="114.2" width="12.5" height="9.7" fill="#3572A5"/><rect x="106.0" y="114.2" width="12.5" height="9.7" fill="#3572A5"/><rect x="118.0" y="114.2" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="70.0" y="123.3" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="82.0" y="123.3" width="12.5" height="9.7" fill="#3572A5"/><rect x="94.0" y="123.3" width="12.5" height="9.7" fill="#3572A5"/><rect x="106.0" y="123.3" width="12.5" height="9.7" fill="#3572A5"/><rect x="118.0" y="123.3" width="12.5" height="9.7" fill="#3572A5"/><rect x="130.0" y="123.3" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="58.0" y="132.5" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="70.0" y="132.5" width="12.5" height="9.7" fill="#3572A5"/><rect x="82.0" y="132.5" width="12.5" height="9.7" fill="#3572A5"/><rect x="94.0" y="132.5" width="12.5" height="9.7" fill="#3572A5"/><rect x="106.0" y="132.5" width="12.5" height="9.7" fill="#3572A5"/><rect x="118.0" y="132.5" width="12.5" height="9.7" fill="#3572A5"/><rect x="130.0" y="132.5" width="12.5" height="9.7" fill="#3572A5"/><rect x="142.0" y="132.5" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="46.0" y="141.7" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="58.0" y="141.7" width="12.5" height="9.7" fill="#3572A5"/><rect x="70.0" y="141.7" width="12.5" height="9.7" fill="#3572A5"/><rect x="82.0" y="141.7" width="12.5" height="9.7" fill="#3572A5"/><rect x="94.0" y="141.7" width="12.5" height="9.7" fill="#3572A5"/><rect x="106.0" y="141.7" width="12.5" height="9.7" fill="#3572A5"/><rect x="118.0" y="141.7" width="12.5" height="9.7" fill="#3572A5"/><rect x="130.0" y="141.7" width="12.5" height="9.7" fill="#3572A5"/><rect x="142.0" y="141.7" width="12.5" height="9.7" fill="#3572A5"/><rect x="154.0" y="141.7" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="58.0" y="150.8" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="70.0" y="150.8" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="82.0" y="150.8" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="94.0" y="150.8" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="106.0" y="150.8" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="118.0" y="150.8" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="130.0" y="150.8" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="142.0" y="150.8" width="12.5" height="9.7" fill="#1a1a1a"/>
+      <rect x="42" y="46" width="128" height="118" rx="8" ry="8" fill="#3572A5" opacity="0.1"><animate attributeName="opacity" values="0.05;0.15;0.05" dur="2.5s" repeatCount="indefinite"/></rect><rect x="82.0" y="50.0" width="12.5" height="9.7" fill="#ff8c00"/><rect x="94.0" y="50.0" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="106.0" y="50.0" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="118.0" y="50.0" width="12.5" height="9.7" fill="#ff8c00"/><rect x="70.0" y="59.2" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="82.0" y="59.2" width="12.5" height="9.7" fill="#3572A5"/><rect x="94.0" y="59.2" width="12.5" height="9.7" fill="#3572A5"/><rect x="106.0" y="59.2" width="12.5" height="9.7" fill="#3572A5"/><rect x="118.0" y="59.2" width="12.5" height="9.7" fill="#3572A5"/><rect x="130.0" y="59.2" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="58.0" y="68.3" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="70.0" y="68.3" width="12.5" height="9.7" fill="#3572A5"/><rect x="82.0" y="68.3" width="12.5" height="9.7" fill="#3572A5"/><rect x="94.0" y="68.3" width="12.5" height="9.7" fill="#3572A5"/><rect x="106.0" y="68.3" width="12.5" height="9.7" fill="#3572A5"/><rect x="118.0" y="68.3" width="12.5" height="9.7" fill="#3572A5"/><rect x="130.0" y="68.3" width="12.5" height="9.7" fill="#3572A5"/><rect x="142.0" y="68.3" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="58.0" y="77.5" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="70.0" y="77.5" width="12.5" height="9.7" fill="#ffcc00"/><rect x="82.0" y="77.5" width="12.5" height="9.7" fill="#3572A5"/><rect x="94.0" y="77.5" width="12.5" height="9.7" fill="#3572A5"/><rect x="106.0" y="77.5" width="12.5" height="9.7" fill="#3572A5"/><rect x="118.0" y="77.5" width="12.5" height="9.7" fill="#ffcc00"/><rect x="130.0" y="77.5" width="12.5" height="9.7" fill="#3572A5"/><rect x="142.0" y="77.5" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="58.0" y="86.7" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="70.0" y="86.7" width="12.5" height="9.7" fill="#3572A5"/><rect x="82.0" y="86.7" width="12.5" height="9.7" fill="#3572A5"/><rect x="94.0" y="86.7" width="12.5" height="9.7" fill="#ff6b6b"/><rect x="106.0" y="86.7" width="12.5" height="9.7" fill="#ff6b6b"/><rect x="118.0" y="86.7" width="12.5" height="9.7" fill="#3572A5"/><rect x="130.0" y="86.7" width="12.5" height="9.7" fill="#3572A5"/><rect x="142.0" y="86.7" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="70.0" y="95.8" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="82.0" y="95.8" width="12.5" height="9.7" fill="#3572A5"/><rect x="94.0" y="95.8" width="12.5" height="9.7" fill="#3572A5"/><rect x="106.0" y="95.8" width="12.5" height="9.7" fill="#3572A5"/><rect x="118.0" y="95.8" width="12.5" height="9.7" fill="#3572A5"/><rect x="130.0" y="95.8" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="82.0" y="105.0" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="94.0" y="105.0" width="12.5" height="9.7" fill="#3572A5"/><rect x="106.0" y="105.0" width="12.5" height="9.7" fill="#3572A5"/><rect x="118.0" y="105.0" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="70.0" y="114.2" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="82.0" y="114.2" width="12.5" height="9.7" fill="#3572A5"/><rect x="94.0" y="114.2" width="12.5" height="9.7" fill="#ff8c00"/><rect x="106.0" y="114.2" width="12.5" height="9.7" fill="#ff8c00"/><rect x="118.0" y="114.2" width="12.5" height="9.7" fill="#3572A5"/><rect x="130.0" y="114.2" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="58.0" y="123.3" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="70.0" y="123.3" width="12.5" height="9.7" fill="#3572A5"/><rect x="82.0" y="123.3" width="12.5" height="9.7" fill="#3572A5"/><rect x="94.0" y="123.3" width="12.5" height="9.7" fill="#3572A5"/><rect x="106.0" y="123.3" width="12.5" height="9.7" fill="#3572A5"/><rect x="118.0" y="123.3" width="12.5" height="9.7" fill="#3572A5"/><rect x="130.0" y="123.3" width="12.5" height="9.7" fill="#3572A5"/><rect x="142.0" y="123.3" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="46.0" y="132.5" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="58.0" y="132.5" width="12.5" height="9.7" fill="#3572A5"/><rect x="70.0" y="132.5" width="12.5" height="9.7" fill="#3572A5"/><rect x="82.0" y="132.5" width="12.5" height="9.7" fill="#ff8c00"/><rect x="94.0" y="132.5" width="12.5" height="9.7" fill="#3572A5"/><rect x="106.0" y="132.5" width="12.5" height="9.7" fill="#3572A5"/><rect x="118.0" y="132.5" width="12.5" height="9.7" fill="#ff8c00"/><rect x="130.0" y="132.5" width="12.5" height="9.7" fill="#3572A5"/><rect x="142.0" y="132.5" width="12.5" height="9.7" fill="#3572A5"/><rect x="154.0" y="132.5" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="46.0" y="141.7" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="58.0" y="141.7" width="12.5" height="9.7" fill="#3572A5"/><rect x="70.0" y="141.7" width="12.5" height="9.7" fill="#3572A5"/><rect x="82.0" y="141.7" width="12.5" height="9.7" fill="#3572A5"/><rect x="94.0" y="141.7" width="12.5" height="9.7" fill="#3572A5"/><rect x="106.0" y="141.7" width="12.5" height="9.7" fill="#3572A5"/><rect x="118.0" y="141.7" width="12.5" height="9.7" fill="#3572A5"/><rect x="130.0" y="141.7" width="12.5" height="9.7" fill="#3572A5"/><rect x="142.0" y="141.7" width="12.5" height="9.7" fill="#3572A5"/><rect x="154.0" y="141.7" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="58.0" y="150.8" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="70.0" y="150.8" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="82.0" y="150.8" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="94.0" y="150.8" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="106.0" y="150.8" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="118.0" y="150.8" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="130.0" y="150.8" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="142.0" y="150.8" width="12.5" height="9.7" fill="#1a1a1a"/>
     </g>
   </g>
 
   <!-- 기분 이모지 -->
   
-  <text x="156" y="54" font-size="16" class="heartbeat">🙂</text>
+  <text x="156" y="54" font-size="16" class="heartbeat">😊</text>
   
 
   <!-- 활동 상태 -->
@@ -123,34 +123,34 @@
   <!-- EXP 바 -->
   <text x="214" y="80" class="pet-text pet-label" fill="#8b949e">EXP</text>
   <text x="460" y="80" text-anchor="end" class="pet-text pet-value"
-        fill="#3572A5">3.8k</text>
+        fill="#3572A5">5.7k</text>
   <rect x="214" y="86" width="246" height="8" rx="4" ry="4"
         fill="#161b22"/>
-  <rect x="214" y="86" width="172" height="8" rx="4" ry="4"
+  <rect x="214" y="86" width="17" height="8" rx="4" ry="4"
         fill="url(#expBar)">
-    <animate attributeName="width" from="0" to="172" dur="1.5s" fill="freeze"/>
+    <animate attributeName="width" from="0" to="17" dur="1.5s" fill="freeze"/>
   </rect>
   
   <text x="214" y="106" class="pet-text pet-small" fill="#8b949e">
-    다음 진화까지: 1.2k EXP (70%)</text>
+    다음 진화까지: 9.3k EXP (7%)</text>
   
 
   
   <text x="214" y="130" class="pet-text pet-label" fill="#8b949e">
-    🙂 기분</text>
+    😊 기분</text>
   <text x="460" y="130" text-anchor="end" class="pet-text pet-label"
-        fill="#e6edf3">만족</text>
+        fill="#e6edf3">행복</text>
   <rect x="214" y="136" width="246" height="6" rx="3" ry="3"
         fill="#161b22"/>
-  <rect x="214" y="136" width="143" height="6" rx="3" ry="3"
+  <rect x="214" y="136" width="189" height="6" rx="3" ry="3"
         fill="#3fb950"/>
     <text x="214" y="162" class="pet-text pet-label" fill="#8b949e">
       🍖 포만감</text>
     <text x="460" y="162" text-anchor="end" class="pet-text pet-label"
-          fill="#e6edf3">19%</text>
+          fill="#e6edf3">38%</text>
     <rect x="214" y="168" width="246" height="6" rx="3" ry="3"
           fill="#161b22"/>
-    <rect x="214" y="168" width="47" height="6" rx="3" ry="3"
+    <rect x="214" y="168" width="93" height="6" rx="3" ry="3"
           fill="#3572A5"/>
     <rect x="214" y="184" width="auto" height="18" rx="9" ry="9"
           fill="#3572A5" opacity="0.1"/>
@@ -188,7 +188,7 @@
   <text x="20" y="308" class="pet-text pet-small" fill="#8b949e">
     🐾 gitpro Code Pet</text>
   <text x="460" y="308" text-anchor="end" class="pet-text pet-small"
-        fill="#8b949e">2026-02-10</text>
+        fill="#8b949e">2026-02-11</text>
 
   <!-- 전설 시머 효과 -->
   

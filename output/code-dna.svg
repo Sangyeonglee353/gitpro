@@ -128,11 +128,11 @@
   <!-- 중앙 코어 -->
   
   <!-- 코어 글로우 -->
-  <circle cx="260" cy="240" r="35.41961852861036" fill="#3572A5" opacity="0.05" class="dna-pulse"/>
-  <circle cx="260" cy="240" r="30.419618528610357" fill="#3572A5" opacity="0.1"/>
+  <circle cx="260" cy="240" r="35.391304347826086" fill="#3572A5" opacity="0.05" class="dna-pulse"/>
+  <circle cx="260" cy="240" r="30.391304347826086" fill="#3572A5" opacity="0.1"/>
 
   <!-- 코어 -->
-  <circle cx="260" cy="240" r="25.419618528610357" fill="#161b22"
+  <circle cx="260" cy="240" r="25.391304347826086" fill="#161b22"
           stroke="#3572A5" stroke-width="2" opacity="0.9"/>
 
   <!-- 코어 텍스트 -->
