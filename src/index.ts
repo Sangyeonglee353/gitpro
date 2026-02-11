@@ -99,7 +99,7 @@ async function main(): Promise<void> {
 
     // ── 3. GitHub 데이터 수집 ──────────────────────────
     perf.start('데이터 수집');
-    const client = new GitHubClient(token, config.username);
+    const client = new GitHubClient(token, config.username, config.include_private);
     const githubData = await collectGitHubData(client, config.timezone);
     debugLog(`커밋 수: ${githubData.commitHistory.length}`);
     debugLog(`레포 수: ${githubData.repositories.length}`);
