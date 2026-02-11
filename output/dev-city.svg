@@ -173,26 +173,26 @@
     <ellipse cx="94.42857142857143" cy="235" rx="25" ry="4" fill="rgba(0,0,0,0.3)" opacity="0.4"/>
 
     <!-- 건물 본체 -->
-    <rect x="61.42857142857143" y="192.04" width="60" height="40.96" rx="3" fill="#FFD54F" stroke="#222222" stroke-width="0.5"/>
-              <polygon points="58.42857142857143,192.04 91.42857142857143,177.04 124.42857142857143,192.04" fill="#F9A825"/>
+    <rect x="61.42857142857143" y="191.94400000000002" width="60" height="41.056" rx="3" fill="#FFD54F" stroke="#222222" stroke-width="0.5"/>
+              <polygon points="58.42857142857143,191.94400000000002 91.42857142857143,176.94400000000002 124.42857142857143,191.94400000000002" fill="#F9A825"/>
               <rect x="85.42857142857143" y="211" width="12" height="18" rx="2" fill="#F9A825" opacity="0.6"/>
-              <rect x="67.42857142857143" y="194.04" width="3" height="24.96" fill="#F9A825" opacity="0.4"/>
-              <rect x="112.42857142857143" y="194.04" width="3" height="24.96" fill="#F9A825" opacity="0.4"/>
-              <rect x="88.42857142857143" y="164.04" width="1.5" height="16" fill="#F9A825"/>
-              <polygon points="88.42857142857143,160.04 95.42857142857143,160.04 95.42857142857143,164.04 88.42857142857143,164.04" fill="#ff4444"/>
+              <rect x="67.42857142857143" y="193.94400000000002" width="3" height="25.055999999999997" fill="#F9A825" opacity="0.4"/>
+              <rect x="112.42857142857143" y="193.94400000000002" width="3" height="25.055999999999997" fill="#F9A825" opacity="0.4"/>
+              <rect x="88.42857142857143" y="163.94400000000002" width="1.5" height="16" fill="#F9A825"/>
+              <polygon points="88.42857142857143,159.94400000000002 95.42857142857143,159.94400000000002 95.42857142857143,163.94400000000002 88.42857142857143,163.94400000000002" fill="#ff4444"/>
 
     <!-- 창문 -->
-    <rect x="71.42857142857143" y="190.04" width="7" height="7" rx="1"
+    <rect x="71.42857142857143" y="189.94400000000002" width="7" height="7" rx="1"
                         fill="#ffdd57" opacity="0.40"
-                        class="dc-window" style="animation-delay: 0.0s"/><rect x="87.42857142857143" y="190.04" width="7" height="7" rx="1"
+                        class="dc-window" style="animation-delay: 0.0s"/><rect x="87.42857142857143" y="189.94400000000002" width="7" height="7" rx="1"
                         fill="#ffdd57" opacity="0.75"
-                        class="dc-window" style="animation-delay: 1.3s"/><rect x="103.42857142857143" y="190.04" width="7" height="7" rx="1"
+                        class="dc-window" style="animation-delay: 1.3s"/><rect x="103.42857142857143" y="189.94400000000002" width="7" height="7" rx="1"
                         fill="#ffdd57" opacity="0.60"
-                        class="dc-window" style="animation-delay: 2.6s"/><rect x="71.42857142857143" y="206.04" width="7" height="7" rx="1"
+                        class="dc-window" style="animation-delay: 2.6s"/><rect x="71.42857142857143" y="205.94400000000002" width="7" height="7" rx="1"
                         fill="#ffdd57" opacity="0.55"
-                        class="dc-window" style="animation-delay: 0.7s"/><rect x="87.42857142857143" y="206.04" width="7" height="7" rx="1"
+                        class="dc-window" style="animation-delay: 0.7s"/><rect x="87.42857142857143" y="205.94400000000002" width="7" height="7" rx="1"
                         fill="#ffdd57" opacity="0.40"
-                        class="dc-window" style="animation-delay: 2.0s"/><rect x="103.42857142857143" y="206.04" width="7" height="7" rx="1"
+                        class="dc-window" style="animation-delay: 2.0s"/><rect x="103.42857142857143" y="205.94400000000002" width="7" height="7" rx="1"
                         fill="#ffdd57" opacity="0.75"
                         class="dc-window" style="animation-delay: 3.3s"/>
 
@@ -200,7 +200,7 @@
     
 
     <!-- 건물 아이콘 -->
-    <text x="91.42857142857143" y="172.04" text-anchor="middle" class="dc-text" font-size="12">
+    <text x="91.42857142857143" y="171.94400000000002" text-anchor="middle" class="dc-text" font-size="12">
       🏛️</text>
 
     <!-- 건물 이름 -->
@@ -1172,7 +1172,7 @@
       🔥 Streak</text>
     <text x="600" y="483" text-anchor="middle"
           class="dc-text dc-footer-val" fill="#e6edf3">
-      0d</text>
+      42d</text>
     <text x="733" y="468" text-anchor="middle"
           class="dc-text dc-footer-text" fill="#8b949e">
       📊 Top Lang</text>

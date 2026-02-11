@@ -130,7 +130,7 @@
       <text x="352.5" y="250" text-anchor="middle"
             class="card-text stat-label" fill="#F59E0B">⚡ SPD</text>
       <text x="352.5" y="278" text-anchor="middle"
-            class="card-text stat-value" fill="#e6edf3">500</text>
+            class="card-text stat-value" fill="#e6edf3">920</text>
     </g>
 
   <!-- 구분선 -->
@@ -142,7 +142,7 @@
     <text x="40" y="320" class="card-text" font-size="12" font-weight="600" fill="#58a6ff">
       🔥 Streak Master</text>
     <text x="40" y="334" class="card-text ability-text" fill="#8b949e">
-      41일 연속 커밋! 방어력 대폭 상승</text>
+      42일 연속 커밋! 방어력 대폭 상승</text>
     <text x="40" y="348" class="card-text" font-size="12" font-weight="600" fill="#58a6ff">
       🌍 Polyglot</text>
     <text x="40" y="362" class="card-text ability-text" fill="#8b949e">

@@ -123,16 +123,16 @@
   <!-- EXP 바 -->
   <text x="214" y="80" class="pet-text pet-label" fill="#8b949e">EXP</text>
   <text x="460" y="80" text-anchor="end" class="pet-text pet-value"
-        fill="#3572A5">22.6k</text>
+        fill="#3572A5">37.6k</text>
   <rect x="214" y="86" width="246" height="8" rx="4" ry="4"
         fill="#161b22"/>
-  <rect x="214" y="86" width="54" height="8" rx="4" ry="4"
+  <rect x="214" y="86" width="160" height="8" rx="4" ry="4"
         fill="url(#expBar)">
-    <animate attributeName="width" from="0" to="54" dur="1.5s" fill="freeze"/>
+    <animate attributeName="width" from="0" to="160" dur="1.5s" fill="freeze"/>
   </rect>
   
   <text x="214" y="106" class="pet-text pet-small" fill="#8b949e">
-    다음 진화까지: 27.4k EXP (22%)</text>
+    다음 진화까지: 12.4k EXP (65%)</text>
   
 
   
