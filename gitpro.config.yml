@@ -105,7 +105,7 @@ readme:
 # 3. GH_TOKEN에 gist 스코프 권한 필요
 
 gist:
-  enabled: false
-  gist_id: ""
+  enabled: true
+  gist_id: "296b5aa3a419ce40ac9d1bb2eec692ea"
   modules: []                   # 업로드할 모듈 (빈 배열이면 전부 업로드)
                                 # 예: ["trading-card", "code-pet"]
