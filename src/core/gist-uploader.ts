@@ -4,20 +4,23 @@
 //
 // Pinned Gist에 gitpro 출력물을 업로드합니다.
 // 사용자의 GitHub 프로필에 Pinned Gist로 표시됩니다.
+// SVG 대신 마크다운 파일로 업로드하여 Gist 페이지에서 이미지가 렌더링됩니다.
 
-import * as fs from 'fs';
-import * as path from 'path';
 import { Octokit } from '@octokit/rest';
 import { GistConfig } from '../types';
 import { ModuleResult } from './module-runner';
 
 /**
  * 모듈 결과를 Gist에 업로드합니다.
+ * SVG를 직접 업로드하는 대신, 마크다운 파일에 <img> 태그로 SVG를 임베드합니다.
+ * → 핀 카드에서 텍스트 미리보기가 정상 표시되고,
+ * → Gist 페이지에서는 SVG 이미지가 렌더링됩니다.
  */
 export async function uploadToGist(
   token: string,
   gistConfig: GistConfig,
-  results: ModuleResult[]
+  results: ModuleResult[],
+  username: string
 ): Promise<void> {
   if (!gistConfig.enabled) {
     return;
@@ -49,23 +52,26 @@ export async function uploadToGist(
     });
 
     // Gist 파일 구성
-    const files: Record<string, { content: string }> = {};
+    const files: Record<string, { content: string } | null> = {};
 
-    for (const result of targetModules) {
-      // SVG 파일
-      const svgFileName = `gitpro-${result.id}.svg`;
-      files[svgFileName] = { content: result.output.svg };
+    // 기존 SVG 파일 및 이전 summary 파일 삭제
+    if (existingGist.files) {
+      for (const filename of Object.keys(existingGist.files)) {
+        if (filename.endsWith('.svg') || filename === 'gitpro-summary.md') {
+          (files as any)[filename] = null; // null → 파일 삭제
+        }
+      }
     }
 
-    // 요약 마크다운 파일 추가
-    const summaryContent = generateGistSummary(targetModules);
-    files['gitpro-summary.md'] = { content: summaryContent };
+    // 메인 마크다운 파일 생성 (SVG를 이미지로 임베드)
+    const markdownContent = generateGistMarkdown(username, targetModules);
+    files['gitpro.md'] = { content: markdownContent };
 
     // Gist 업데이트
     await octokit.gists.update({
       gist_id: gistConfig.gist_id,
-      description: '🎮 gitpro - GitHub Profile Suite',
-      files,
+      description: `🎮 gitpro — ${username}'s GitHub Profile Suite`,
+      files: files as any,
     });
 
     console.log(`  ✅ Gist 업데이트 완료! (${targetModules.length}개 모듈)`);
@@ -82,30 +88,31 @@ export async function uploadToGist(
 }
 
 /**
- * Gist 요약 마크다운을 생성합니다.
+ * Gist용 마크다운을 생성합니다.
+ * repo의 output/ SVG를 <img> 태그로 임베드하여 Gist 페이지에서 이미지로 렌더링됩니다.
  */
-function generateGistSummary(results: ModuleResult[]): string {
-  const MODULE_NAMES: Record<string, string> = {
-    'trading-card': '🃏 Dev Trading Card',
-    'code-dna': '🧬 Code DNA',
-    chronicle: '📜 Dev Chronicle',
-    'code-pet': '🐾 Code Pet',
-    constellation: '🌌 Commit Constellation',
-    'dev-city': '🏙️ Dev City',
+function generateGistMarkdown(username: string, results: ModuleResult[]): string {
+  const MODULE_INFO: Record<string, { name: string; width: number }> = {
+    'trading-card': { name: '🃏 Dev Trading Card', width: 420 },
+    'code-dna': { name: '🧬 Code DNA', width: 520 },
+    chronicle: { name: '📜 Dev Chronicle', width: 520 },
+    'code-pet': { name: '🐾 Code Pet', width: 480 },
+    constellation: { name: '🌌 Commit Constellation', width: 800 },
+    'dev-city': { name: '🏙️ Dev City', width: 800 },
   };
 
-  let content = `# 🎮 gitpro - GitHub Profile Suite\n\n`;
-  content += `> 자동 생성된 GitHub 프로필 시각화\n\n`;
-  content += `## 📦 포함된 모듈\n\n`;
+  let content = `# 🎮 gitpro — ${username}\n\n`;
 
   for (const result of results) {
-    const name = MODULE_NAMES[result.id] || result.id;
-    content += `- ${name}\n`;
+    const info = MODULE_INFO[result.id] || { name: result.id, width: 520 };
+    const imgUrl = `https://raw.githubusercontent.com/${username}/gitpro/main/output/${result.id}.svg`;
+    content += `### ${info.name}\n\n`;
+    content += `<img src="${imgUrl}" alt="${result.id}" width="${info.width}" />\n\n`;
   }
 
-  content += `\n---\n\n`;
-  content += `*🕐 마지막 업데이트: ${new Date().toISOString()}*\n`;
-  content += `*🔗 [gitpro](https://github.com/Sangyeonglee353/gitpro)로 생성됨*\n`;
+  content += `---\n\n`;
+  content += `*🕐 마지막 업데이트: ${new Date().toISOString()}*\n\n`;
+  content += `*🔗 Powered by [gitpro](https://github.com/Sangyeonglee353/gitpro)*\n`;
 
   return content;
 }
@@ -120,7 +127,7 @@ export async function createGist(token: string): Promise<string> {
     description: '🎮 gitpro - GitHub Profile Suite',
     public: true,
     files: {
-      'gitpro-summary.md': {
+      'gitpro.md': {
         content: '# 🎮 gitpro\n\n> 설정 준비 중입니다...\n',
       },
     },

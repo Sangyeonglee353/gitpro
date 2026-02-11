@@ -143,7 +143,7 @@ async function main(): Promise<void> {
     if (config.gist.enabled && results.length > 0) {
       perf.start('Gist 업로드');
       console.log('');
-      await uploadToGist(token, config.gist, results);
+      await uploadToGist(token, config.gist, results, config.username);
       perf.end('Gist 업로드');
     }
 
