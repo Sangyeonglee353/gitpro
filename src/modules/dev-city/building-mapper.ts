@@ -131,18 +131,13 @@ export function classifyBuilding(repo: GitHubRepository): BuildingType {
   const lang = (repo.primaryLanguage || '').toLowerCase();
   const allText = `${name} ${desc} ${topics.join(' ')}`;
 
-  // 1년 이상 비활성 → 폐허
-  const lastUpdate = new Date(repo.pushedAt || repo.updatedAt).getTime();
-  const oneYearAgo = Date.now() - 365 * 24 * 60 * 60 * 1000;
-  if (lastUpdate < oneYearAgo && !repo.isArchived) {
+  // 아카이브된 레포만 폐허로 분류 (비활성은 analyzer에서 isDormant으로 시각 처리)
+  if (repo.isArchived) {
     return 'ruin';
   }
 
-  // 프로필 README → 시청 (레포 이름이나 토픽에 profile/readme 포함)
-  if (
-    allText.includes('profile') ||
-    allText.includes('readme')
-  ) {
+  // 프로필 README → 시청
+  if (name === name.toLowerCase() && (allText.includes('profile') || allText.includes('readme'))) {
     return 'cityhall';
   }
 
@@ -260,7 +255,13 @@ export function classifyBuilding(repo: GitHubRepository): BuildingType {
     return 'factory';
   }
 
-  // 기타 → 가장 흔한 타입으로 분류
+  // 언어 기반 추가 분류
+  if (lang === 'typescript' || lang === 'javascript') return 'mall';
+  if (lang === 'python' || lang === 'ruby' || lang === 'php') return 'factory';
+  if (lang === 'c' || lang === 'c++' || lang === 'rust') return 'garage';
+  if (lang === 'jupyter notebook' || lang === 'r') return 'lab';
+
+  // 기타 → 창고
   return 'warehouse';
 }
 
