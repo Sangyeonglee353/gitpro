@@ -106,6 +106,6 @@ readme:
 
 gist:
   enabled: true
-  gist_id: "296b5aa3a419ce40ac9d1bb2eec692ea"
+  gist_id: "a4f118fdff9ade03bad93cf8a23e0810"
   modules: []                   # 업로드할 모듈 (빈 배열이면 전부 업로드)
                                 # 예: ["trading-card", "code-pet"]
