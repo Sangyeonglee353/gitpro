@@ -9,9 +9,11 @@ export class GitHubClient {
   private graphqlClient: typeof graphql;
   private restClient: Octokit;
   private username: string;
+  private includePrivate: boolean;
 
-  constructor(token: string, username: string) {
+  constructor(token: string, username: string, includePrivate: boolean = false) {
     this.username = username;
+    this.includePrivate = includePrivate;
 
     this.graphqlClient = graphql.defaults({
       headers: {
@@ -37,6 +39,7 @@ export class GitHubClient {
     createdAt: string;
     publicRepos: number;
   }> {
+    const privacyFilter = this.includePrivate ? '' : 'privacy: PUBLIC';
     const query = `
       query($username: String!) {
         user(login: $username) {
@@ -47,7 +50,7 @@ export class GitHubClient {
           followers { totalCount }
           following { totalCount }
           createdAt
-          repositories(privacy: PUBLIC) { totalCount }
+          repositories(${privacyFilter}) { totalCount }
         }
       }
     `;
@@ -70,6 +73,7 @@ export class GitHubClient {
    * 사용자의 레포지토리 목록을 가져옵니다.
    */
   async getRepositories(): Promise<any[]> {
+    const privacyFilter = this.includePrivate ? '' : 'privacy: PUBLIC,';
     const query = `
       query($username: String!, $after: String) {
         user(login: $username) {
@@ -78,7 +82,7 @@ export class GitHubClient {
             after: $after,
             ownerAffiliations: OWNER,
             orderBy: { field: PUSHED_AT, direction: DESC },
-            privacy: PUBLIC
+            ${privacyFilter}
           ) {
             pageInfo { hasNextPage, endCursor }
             nodes {
@@ -228,10 +232,11 @@ export class GitHubClient {
    * 최근 커밋 히스토리를 가져옵니다 (시간대 분석용).
    */
   async getCommitHistory(timezone: string): Promise<any[]> {
+    const privacyFilter = this.includePrivate ? '' : ', privacy: PUBLIC';
     const query = `
       query($username: String!, $after: String) {
         user(login: $username) {
-          repositories(first: 20, ownerAffiliations: OWNER, orderBy: { field: PUSHED_AT, direction: DESC }, privacy: PUBLIC) {
+          repositories(first: 20, ownerAffiliations: OWNER, orderBy: { field: PUSHED_AT, direction: DESC }${privacyFilter}) {
             nodes {
               name
               defaultBranchRef {
@@ -288,10 +293,11 @@ export class GitHubClient {
    * 사용자의 전체 언어 통계를 가져옵니다.
    */
   async getLanguageStats(): Promise<Record<string, number>> {
+    const privacyFilter = this.includePrivate ? '' : 'privacy: PUBLIC,';
     const query = `
       query($username: String!) {
         user(login: $username) {
-          repositories(first: 100, ownerAffiliations: OWNER, privacy: PUBLIC, isFork: false) {
+          repositories(first: 100, ownerAffiliations: OWNER, ${privacyFilter} isFork: false) {
             nodes {
               languages(first: 10, orderBy: { field: SIZE, direction: DESC }) {
                 edges {

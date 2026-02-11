@@ -9,6 +9,7 @@ username: "Sangyeonglee353"
 timezone: "Asia/Seoul"
 locale: "ko"                    # ko | en | ja
 theme: "dark"                   # dark | light | cyberpunk | retro | pastel | ocean | forest | dracula | nord | sunset | custom
+include_private: true           # true: public + private 레포 포함 / false: public만
 
 # ═══════════════════════════════════════════
 # 🎨 커스텀 테마 (theme: "custom" 설정 시에만 적용)

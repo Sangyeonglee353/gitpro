@@ -143,6 +143,7 @@ export interface GitProConfig {
   timezone: string;
   locale: 'ko' | 'en' | 'ja';
   theme: ThemeName;
+  include_private: boolean;
   custom_theme?: CustomThemeColors;
   modules: ModulesConfig;
   readme: ReadmeConfig;

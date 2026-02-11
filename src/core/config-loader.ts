@@ -12,6 +12,7 @@ const DEFAULT_CONFIG: GitProConfig = {
   timezone: 'UTC',
   locale: 'en',
   theme: 'dark',
+  include_private: false,
   modules: {
     'trading-card': {
       enabled: true,
