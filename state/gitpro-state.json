@@ -1,12 +1,12 @@
 {
-  "lastUpdated": "2026-02-11T06:53:41.137Z",
+  "lastUpdated": "2026-02-11T11:53:35.300Z",
   "pet": {
     "species": "pythonix",
-    "stage": 2,
-    "exp": 7600,
-    "mood": 96,
-    "hunger": 43,
-    "lastFed": "2026-02-11T06:53:40.915Z",
+    "stage": 3,
+    "exp": 22620,
+    "mood": 100,
+    "hunger": 0,
+    "lastFed": "2026-02-11T11:53:34.930Z",
     "birthDate": "2026-02-10T12:55:31.670Z",
     "abilities": []
   },
@@ -14,7 +14,7 @@
     "tier": 4,
     "population": 100,
     "buildings": 24,
-    "lastWeather": "cloudy"
+    "lastWeather": "fireworks"
   },
   "chronicle": {
     "currentChapter": 8,
@@ -36,6 +36,6 @@
   "card": {
     "seasonNumber": 1,
     "cardNumber": 1,
-    "highestRarity": "rare"
+    "highestRarity": "epic"
   }
 }

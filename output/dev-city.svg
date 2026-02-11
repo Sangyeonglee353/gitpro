@@ -134,7 +134,7 @@
       🏙️ Sangyeonglee353&apos;s Dev City</text>
     <text x="400" y="36" text-anchor="middle"
           class="dc-text dc-subtitle" fill="#8b949e">
-      Metropolis (Tier 4) · ☁️ Cloudy</text>
+      Metropolis (Tier 4) · 🎆 Fireworks</text>
   </g>
 
 <!-- 도시 영역 -->
@@ -173,26 +173,26 @@
     <ellipse cx="94.42857142857143" cy="235" rx="25" ry="4" fill="rgba(0,0,0,0.3)" opacity="0.4"/>
 
     <!-- 건물 본체 -->
-    <rect x="61.42857142857143" y="192.136" width="60" height="40.864" rx="3" fill="#FFD54F" stroke="#222222" stroke-width="0.5"/>
-              <polygon points="58.42857142857143,192.136 91.42857142857143,177.136 124.42857142857143,192.136" fill="#F9A825"/>
+    <rect x="61.42857142857143" y="192.04" width="60" height="40.96" rx="3" fill="#FFD54F" stroke="#222222" stroke-width="0.5"/>
+              <polygon points="58.42857142857143,192.04 91.42857142857143,177.04 124.42857142857143,192.04" fill="#F9A825"/>
               <rect x="85.42857142857143" y="211" width="12" height="18" rx="2" fill="#F9A825" opacity="0.6"/>
-              <rect x="67.42857142857143" y="194.136" width="3" height="24.863999999999997" fill="#F9A825" opacity="0.4"/>
-              <rect x="112.42857142857143" y="194.136" width="3" height="24.863999999999997" fill="#F9A825" opacity="0.4"/>
-              <rect x="88.42857142857143" y="164.136" width="1.5" height="16" fill="#F9A825"/>
-              <polygon points="88.42857142857143,160.136 95.42857142857143,160.136 95.42857142857143,164.136 88.42857142857143,164.136" fill="#ff4444"/>
+              <rect x="67.42857142857143" y="194.04" width="3" height="24.96" fill="#F9A825" opacity="0.4"/>
+              <rect x="112.42857142857143" y="194.04" width="3" height="24.96" fill="#F9A825" opacity="0.4"/>
+              <rect x="88.42857142857143" y="164.04" width="1.5" height="16" fill="#F9A825"/>
+              <polygon points="88.42857142857143,160.04 95.42857142857143,160.04 95.42857142857143,164.04 88.42857142857143,164.04" fill="#ff4444"/>
 
     <!-- 창문 -->
-    <rect x="71.42857142857143" y="190.136" width="7" height="7" rx="1"
+    <rect x="71.42857142857143" y="190.04" width="7" height="7" rx="1"
                         fill="#ffdd57" opacity="0.40"
-                        class="dc-window" style="animation-delay: 0.0s"/><rect x="87.42857142857143" y="190.136" width="7" height="7" rx="1"
+                        class="dc-window" style="animation-delay: 0.0s"/><rect x="87.42857142857143" y="190.04" width="7" height="7" rx="1"
                         fill="#ffdd57" opacity="0.75"
-                        class="dc-window" style="animation-delay: 1.3s"/><rect x="103.42857142857143" y="190.136" width="7" height="7" rx="1"
+                        class="dc-window" style="animation-delay: 1.3s"/><rect x="103.42857142857143" y="190.04" width="7" height="7" rx="1"
                         fill="#ffdd57" opacity="0.60"
-                        class="dc-window" style="animation-delay: 2.6s"/><rect x="71.42857142857143" y="206.136" width="7" height="7" rx="1"
+                        class="dc-window" style="animation-delay: 2.6s"/><rect x="71.42857142857143" y="206.04" width="7" height="7" rx="1"
                         fill="#ffdd57" opacity="0.55"
-                        class="dc-window" style="animation-delay: 0.7s"/><rect x="87.42857142857143" y="206.136" width="7" height="7" rx="1"
+                        class="dc-window" style="animation-delay: 0.7s"/><rect x="87.42857142857143" y="206.04" width="7" height="7" rx="1"
                         fill="#ffdd57" opacity="0.40"
-                        class="dc-window" style="animation-delay: 2.0s"/><rect x="103.42857142857143" y="206.136" width="7" height="7" rx="1"
+                        class="dc-window" style="animation-delay: 2.0s"/><rect x="103.42857142857143" y="206.04" width="7" height="7" rx="1"
                         fill="#ffdd57" opacity="0.75"
                         class="dc-window" style="animation-delay: 3.3s"/>
 
@@ -200,7 +200,7 @@
     
 
     <!-- 건물 아이콘 -->
-    <text x="91.42857142857143" y="172.136" text-anchor="middle" class="dc-text" font-size="12">
+    <text x="91.42857142857143" y="172.04" text-anchor="middle" class="dc-text" font-size="12">
       🏛️</text>
 
     <!-- 건물 이름 -->
@@ -1063,23 +1063,49 @@
       manuals</text>
   </g></g>
 
-<g><g transform="translate(80, 15) scale(0.60)" opacity="0.6">
-      <ellipse cx="0" cy="0" rx="35" ry="12" fill="#cccccc"/>
-      <ellipse cx="-15" cy="3" rx="22" ry="9" fill="#bbbbbb"/>
-      <ellipse cx="18" cy="2" rx="25" ry="10" fill="#bbbbbb"/>
-    </g><g transform="translate(287, 19) scale(0.61)" opacity="0.6">
-      <ellipse cx="0" cy="0" rx="35" ry="12" fill="#cccccc"/>
-      <ellipse cx="-15" cy="3" rx="22" ry="9" fill="#bbbbbb"/>
-      <ellipse cx="18" cy="2" rx="25" ry="10" fill="#bbbbbb"/>
-    </g><g transform="translate(454, 23) scale(0.62)" opacity="0.6">
-      <ellipse cx="0" cy="0" rx="35" ry="12" fill="#cccccc"/>
-      <ellipse cx="-15" cy="3" rx="22" ry="9" fill="#bbbbbb"/>
-      <ellipse cx="18" cy="2" rx="25" ry="10" fill="#bbbbbb"/>
-    </g><g transform="translate(621, 27) scale(0.63)" opacity="0.6">
-      <ellipse cx="0" cy="0" rx="35" ry="12" fill="#cccccc"/>
-      <ellipse cx="-15" cy="3" rx="22" ry="9" fill="#bbbbbb"/>
-      <ellipse cx="18" cy="2" rx="25" ry="10" fill="#bbbbbb"/>
-    </g></g>
+<g><circle cx="121" cy="43" r="2" fill="#ff0000" opacity="0.9"
+                  class="dc-firework" style="animation-delay: 0.0s"/><circle cx="129.0" cy="43.0" r="1" fill="#ff0000" opacity="0.6"
+                    class="dc-firework" style="animation-delay: 0.3s"/><circle cx="125.0" cy="49.9" r="1" fill="#ff0000" opacity="0.6"
+                    class="dc-firework" style="animation-delay: 0.3s"/><circle cx="117.0" cy="49.9" r="1" fill="#ff0000" opacity="0.6"
+                    class="dc-firework" style="animation-delay: 0.3s"/><circle cx="113.0" cy="43.0" r="1" fill="#ff0000" opacity="0.6"
+                    class="dc-firework" style="animation-delay: 0.3s"/><circle cx="117.0" cy="36.1" r="1" fill="#ff0000" opacity="0.6"
+                    class="dc-firework" style="animation-delay: 0.3s"/><circle cx="125.0" cy="36.1" r="1" fill="#ff0000" opacity="0.6"
+                    class="dc-firework" style="animation-delay: 0.3s"/><circle cx="258" cy="72" r="2" fill="#00ff00" opacity="0.9"
+                  class="dc-firework" style="animation-delay: 1.2s"/><circle cx="266.0" cy="72.0" r="1" fill="#00ff00" opacity="0.6"
+                    class="dc-firework" style="animation-delay: 1.5s"/><circle cx="262.0" cy="78.9" r="1" fill="#00ff00" opacity="0.6"
+                    class="dc-firework" style="animation-delay: 1.5s"/><circle cx="254.0" cy="78.9" r="1" fill="#00ff00" opacity="0.6"
+                    class="dc-firework" style="animation-delay: 1.5s"/><circle cx="250.0" cy="72.0" r="1" fill="#00ff00" opacity="0.6"
+                    class="dc-firework" style="animation-delay: 1.5s"/><circle cx="254.0" cy="65.1" r="1" fill="#00ff00" opacity="0.6"
+                    class="dc-firework" style="animation-delay: 1.5s"/><circle cx="262.0" cy="65.1" r="1" fill="#00ff00" opacity="0.6"
+                    class="dc-firework" style="animation-delay: 1.5s"/><circle cx="395" cy="41" r="2" fill="#ffff00" opacity="0.9"
+                  class="dc-firework" style="animation-delay: 2.4s"/><circle cx="403.0" cy="41.0" r="1" fill="#ffff00" opacity="0.6"
+                    class="dc-firework" style="animation-delay: 2.7s"/><circle cx="399.0" cy="47.9" r="1" fill="#ffff00" opacity="0.6"
+                    class="dc-firework" style="animation-delay: 2.7s"/><circle cx="391.0" cy="47.9" r="1" fill="#ffff00" opacity="0.6"
+                    class="dc-firework" style="animation-delay: 2.7s"/><circle cx="387.0" cy="41.0" r="1" fill="#ffff00" opacity="0.6"
+                    class="dc-firework" style="animation-delay: 2.7s"/><circle cx="391.0" cy="34.1" r="1" fill="#ffff00" opacity="0.6"
+                    class="dc-firework" style="animation-delay: 2.7s"/><circle cx="399.0" cy="34.1" r="1" fill="#ffff00" opacity="0.6"
+                    class="dc-firework" style="animation-delay: 2.7s"/><circle cx="532" cy="70" r="2" fill="#ff00ff" opacity="0.9"
+                  class="dc-firework" style="animation-delay: 3.6s"/><circle cx="540.0" cy="70.0" r="1" fill="#ff00ff" opacity="0.6"
+                    class="dc-firework" style="animation-delay: 3.9s"/><circle cx="536.0" cy="76.9" r="1" fill="#ff00ff" opacity="0.6"
+                    class="dc-firework" style="animation-delay: 3.9s"/><circle cx="528.0" cy="76.9" r="1" fill="#ff00ff" opacity="0.6"
+                    class="dc-firework" style="animation-delay: 3.9s"/><circle cx="524.0" cy="70.0" r="1" fill="#ff00ff" opacity="0.6"
+                    class="dc-firework" style="animation-delay: 3.9s"/><circle cx="528.0" cy="63.1" r="1" fill="#ff00ff" opacity="0.6"
+                    class="dc-firework" style="animation-delay: 3.9s"/><circle cx="536.0" cy="63.1" r="1" fill="#ff00ff" opacity="0.6"
+                    class="dc-firework" style="animation-delay: 3.9s"/><circle cx="669" cy="39" r="2" fill="#00ffff" opacity="0.9"
+                  class="dc-firework" style="animation-delay: 4.8s"/><circle cx="677.0" cy="39.0" r="1" fill="#00ffff" opacity="0.6"
+                    class="dc-firework" style="animation-delay: 5.1s"/><circle cx="673.0" cy="45.9" r="1" fill="#00ffff" opacity="0.6"
+                    class="dc-firework" style="animation-delay: 5.1s"/><circle cx="665.0" cy="45.9" r="1" fill="#00ffff" opacity="0.6"
+                    class="dc-firework" style="animation-delay: 5.1s"/><circle cx="661.0" cy="39.0" r="1" fill="#00ffff" opacity="0.6"
+                    class="dc-firework" style="animation-delay: 5.1s"/><circle cx="665.0" cy="32.1" r="1" fill="#00ffff" opacity="0.6"
+                    class="dc-firework" style="animation-delay: 5.1s"/><circle cx="673.0" cy="32.1" r="1" fill="#00ffff" opacity="0.6"
+                    class="dc-firework" style="animation-delay: 5.1s"/><circle cx="166" cy="68" r="2" fill="#ff8800" opacity="0.9"
+                  class="dc-firework" style="animation-delay: 6.0s"/><circle cx="174.0" cy="68.0" r="1" fill="#ff8800" opacity="0.6"
+                    class="dc-firework" style="animation-delay: 6.3s"/><circle cx="170.0" cy="74.9" r="1" fill="#ff8800" opacity="0.6"
+                    class="dc-firework" style="animation-delay: 6.3s"/><circle cx="162.0" cy="74.9" r="1" fill="#ff8800" opacity="0.6"
+                    class="dc-firework" style="animation-delay: 6.3s"/><circle cx="158.0" cy="68.0" r="1" fill="#ff8800" opacity="0.6"
+                    class="dc-firework" style="animation-delay: 6.3s"/><circle cx="162.0" cy="61.1" r="1" fill="#ff8800" opacity="0.6"
+                    class="dc-firework" style="animation-delay: 6.3s"/><circle cx="170.0" cy="61.1" r="1" fill="#ff8800" opacity="0.6"
+                    class="dc-firework" style="animation-delay: 6.3s"/></g>
 <g><g>
     <rect x="71.5" y="277" width="3" height="8" fill="#8B4513" opacity="0.7"/>
     <polygon points="65,279 73,263 81,279" fill="#2ecc71" opacity="0.7"/>

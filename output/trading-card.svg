@@ -5,18 +5,18 @@
       <stop offset="100%" stop-color="#0d1117"/>
     </linearGradient>
     <linearGradient id="rarityBorder" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#3B82F6"/>
-      <stop offset="50%" stop-color="#2563EB"/>
-      <stop offset="100%" stop-color="#3B82F6"/>
+      <stop offset="0%" stop-color="#A855F7"/>
+      <stop offset="50%" stop-color="#7C3AED"/>
+      <stop offset="100%" stop-color="#A855F7"/>
     </linearGradient>
     <linearGradient id="hologram" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#3B82F6" stop-opacity="0.1">
+      <stop offset="0%" stop-color="#A855F7" stop-opacity="0.1">
         <animate attributeName="stop-opacity" values="0.1;0.3;0.1" dur="3s" repeatCount="indefinite"/>
       </stop>
-      <stop offset="50%" stop-color="#2563EB" stop-opacity="0.05">
+      <stop offset="50%" stop-color="#7C3AED" stop-opacity="0.05">
         <animate attributeName="stop-opacity" values="0.05;0.2;0.05" dur="3s" repeatCount="indefinite"/>
       </stop>
-      <stop offset="100%" stop-color="#3B82F6" stop-opacity="0.1">
+      <stop offset="100%" stop-color="#A855F7" stop-opacity="0.1">
         <animate attributeName="stop-opacity" values="0.1;0.3;0.1" dur="3s" repeatCount="indefinite"/>
       </stop>
     </linearGradient>
@@ -28,6 +28,10 @@
       <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>
     
+    <filter id="particleGlow">
+      <feGaussianBlur stdDeviation="2" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
   </defs>
 
   <style>
@@ -51,6 +55,15 @@
     .shimmer { animation: shimmer 3s ease-in-out infinite; }
 
     
+    @keyframes particle-float {
+      0% { transform: translateY(0) scale(1); opacity: 1; }
+      100% { transform: translateY(-40px) scale(0); opacity: 0; }
+    }
+    .particle { animation: particle-float 2s ease-out infinite; }
+    .particle:nth-child(2) { animation-delay: 0.4s; }
+    .particle:nth-child(3) { animation-delay: 0.8s; }
+    .particle:nth-child(4) { animation-delay: 1.2s; }
+    .particle:nth-child(5) { animation-delay: 1.6s; }
   </style>
 
   <!-- 카드 외곽 -->
@@ -63,19 +76,19 @@
 
   <!-- 레어도 배지 -->
   <text x="210" y="32" text-anchor="middle" class="card-text rarity-text"
-        fill="#3B82F6" filter="url(#glow)">◇ RARE ◇</text>
+        fill="#A855F7" filter="url(#glow)">◆ EPIC ◆</text>
 
   <!-- 캐릭터 영역 -->
   <rect x="30" y="46" width="360" height="120" rx="10" ry="10"
         fill="#161b22" stroke="#30363d" stroke-width="1"/>
   <g>
       <animateTransform attributeName="transform" type="translate" values="0,0;0,-2;0,0" dur="3s" repeatCount="indefinite"/>
-      <rect x="146" y="46" width="128" height="118" rx="6" ry="6" fill="#3B82F6" opacity="0.15"><animate attributeName="opacity" values="0.1;0.25;0.1" dur="2s" repeatCount="indefinite"/></rect><rect x="198.0" y="50.0" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="210.0" y="50.0" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="186.0" y="59.2" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="198.0" y="59.2" width="12.5" height="9.7" fill="#3572A5"/><rect x="210.0" y="59.2" width="12.5" height="9.7" fill="#3572A5"/><rect x="222.0" y="59.2" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="174.0" y="68.3" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="186.0" y="68.3" width="12.5" height="9.7" fill="#3572A5"/><rect x="198.0" y="68.3" width="12.5" height="9.7" fill="#ffd700"/><rect x="210.0" y="68.3" width="12.5" height="9.7" fill="#ffd700"/><rect x="222.0" y="68.3" width="12.5" height="9.7" fill="#3572A5"/><rect x="234.0" y="68.3" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="174.0" y="77.5" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="186.0" y="77.5" width="12.5" height="9.7" fill="#3572A5"/><rect x="198.0" y="77.5" width="12.5" height="9.7" fill="#3572A5"/><rect x="210.0" y="77.5" width="12.5" height="9.7" fill="#3572A5"/><rect x="222.0" y="77.5" width="12.5" height="9.7" fill="#3572A5"/><rect x="234.0" y="77.5" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="162.0" y="86.7" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="174.0" y="86.7" width="12.5" height="9.7" fill="#3572A5"/><rect x="186.0" y="86.7" width="12.5" height="9.7" fill="#ffcc00"/><rect x="198.0" y="86.7" width="12.5" height="9.7" fill="#3572A5"/><rect x="210.0" y="86.7" width="12.5" height="9.7" fill="#ffcc00"/><rect x="222.0" y="86.7" width="12.5" height="9.7" fill="#3572A5"/><rect x="234.0" y="86.7" width="12.5" height="9.7" fill="#3572A5"/><rect x="246.0" y="86.7" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="162.0" y="95.8" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="174.0" y="95.8" width="12.5" height="9.7" fill="#3572A5"/><rect x="186.0" y="95.8" width="12.5" height="9.7" fill="#3572A5"/><rect x="198.0" y="95.8" width="12.5" height="9.7" fill="#ff6b6b"/><rect x="210.0" y="95.8" width="12.5" height="9.7" fill="#3572A5"/><rect x="222.0" y="95.8" width="12.5" height="9.7" fill="#3572A5"/><rect x="234.0" y="95.8" width="12.5" height="9.7" fill="#3572A5"/><rect x="246.0" y="95.8" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="174.0" y="105.0" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="186.0" y="105.0" width="12.5" height="9.7" fill="#3572A5"/><rect x="198.0" y="105.0" width="12.5" height="9.7" fill="#3572A5"/><rect x="210.0" y="105.0" width="12.5" height="9.7" fill="#3572A5"/><rect x="222.0" y="105.0" width="12.5" height="9.7" fill="#3572A5"/><rect x="234.0" y="105.0" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="186.0" y="114.2" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="198.0" y="114.2" width="12.5" height="9.7" fill="#3572A5"/><rect x="210.0" y="114.2" width="12.5" height="9.7" fill="#3572A5"/><rect x="222.0" y="114.2" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="174.0" y="123.3" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="186.0" y="123.3" width="12.5" height="9.7" fill="#3572A5"/><rect x="198.0" y="123.3" width="12.5" height="9.7" fill="#3572A5"/><rect x="210.0" y="123.3" width="12.5" height="9.7" fill="#3572A5"/><rect x="222.0" y="123.3" width="12.5" height="9.7" fill="#3572A5"/><rect x="234.0" y="123.3" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="162.0" y="132.5" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="174.0" y="132.5" width="12.5" height="9.7" fill="#3572A5"/><rect x="186.0" y="132.5" width="12.5" height="9.7" fill="#3572A5"/><rect x="198.0" y="132.5" width="12.5" height="9.7" fill="#3572A5"/><rect x="210.0" y="132.5" width="12.5" height="9.7" fill="#3572A5"/><rect x="222.0" y="132.5" width="12.5" height="9.7" fill="#3572A5"/><rect x="234.0" y="132.5" width="12.5" height="9.7" fill="#3572A5"/><rect x="246.0" y="132.5" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="150.0" y="141.7" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="162.0" y="141.7" width="12.5" height="9.7" fill="#3572A5"/><rect x="174.0" y="141.7" width="12.5" height="9.7" fill="#3572A5"/><rect x="186.0" y="141.7" width="12.5" height="9.7" fill="#4B8BBE"/><rect x="198.0" y="141.7" width="12.5" height="9.7" fill="#4B8BBE"/><rect x="210.0" y="141.7" width="12.5" height="9.7" fill="#4B8BBE"/><rect x="222.0" y="141.7" width="12.5" height="9.7" fill="#4B8BBE"/><rect x="234.0" y="141.7" width="12.5" height="9.7" fill="#3572A5"/><rect x="246.0" y="141.7" width="12.5" height="9.7" fill="#3572A5"/><rect x="258.0" y="141.7" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="162.0" y="150.8" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="174.0" y="150.8" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="186.0" y="150.8" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="198.0" y="150.8" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="210.0" y="150.8" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="222.0" y="150.8" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="234.0" y="150.8" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="246.0" y="150.8" width="12.5" height="9.7" fill="#1a1a1a"/>
+      <rect x="146" y="46" width="128" height="118" rx="6" ry="6" fill="#A855F7" opacity="0.15"><animate attributeName="opacity" values="0.1;0.25;0.1" dur="2s" repeatCount="indefinite"/></rect><rect x="198.0" y="50.0" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="210.0" y="50.0" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="186.0" y="59.2" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="198.0" y="59.2" width="12.5" height="9.7" fill="#3572A5"/><rect x="210.0" y="59.2" width="12.5" height="9.7" fill="#3572A5"/><rect x="222.0" y="59.2" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="174.0" y="68.3" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="186.0" y="68.3" width="12.5" height="9.7" fill="#3572A5"/><rect x="198.0" y="68.3" width="12.5" height="9.7" fill="#ffd700"/><rect x="210.0" y="68.3" width="12.5" height="9.7" fill="#ffd700"/><rect x="222.0" y="68.3" width="12.5" height="9.7" fill="#3572A5"/><rect x="234.0" y="68.3" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="174.0" y="77.5" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="186.0" y="77.5" width="12.5" height="9.7" fill="#3572A5"/><rect x="198.0" y="77.5" width="12.5" height="9.7" fill="#3572A5"/><rect x="210.0" y="77.5" width="12.5" height="9.7" fill="#3572A5"/><rect x="222.0" y="77.5" width="12.5" height="9.7" fill="#3572A5"/><rect x="234.0" y="77.5" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="162.0" y="86.7" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="174.0" y="86.7" width="12.5" height="9.7" fill="#3572A5"/><rect x="186.0" y="86.7" width="12.5" height="9.7" fill="#ffcc00"/><rect x="198.0" y="86.7" width="12.5" height="9.7" fill="#3572A5"/><rect x="210.0" y="86.7" width="12.5" height="9.7" fill="#ffcc00"/><rect x="222.0" y="86.7" width="12.5" height="9.7" fill="#3572A5"/><rect x="234.0" y="86.7" width="12.5" height="9.7" fill="#3572A5"/><rect x="246.0" y="86.7" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="162.0" y="95.8" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="174.0" y="95.8" width="12.5" height="9.7" fill="#3572A5"/><rect x="186.0" y="95.8" width="12.5" height="9.7" fill="#3572A5"/><rect x="198.0" y="95.8" width="12.5" height="9.7" fill="#ff6b6b"/><rect x="210.0" y="95.8" width="12.5" height="9.7" fill="#3572A5"/><rect x="222.0" y="95.8" width="12.5" height="9.7" fill="#3572A5"/><rect x="234.0" y="95.8" width="12.5" height="9.7" fill="#3572A5"/><rect x="246.0" y="95.8" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="174.0" y="105.0" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="186.0" y="105.0" width="12.5" height="9.7" fill="#3572A5"/><rect x="198.0" y="105.0" width="12.5" height="9.7" fill="#3572A5"/><rect x="210.0" y="105.0" width="12.5" height="9.7" fill="#3572A5"/><rect x="222.0" y="105.0" width="12.5" height="9.7" fill="#3572A5"/><rect x="234.0" y="105.0" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="186.0" y="114.2" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="198.0" y="114.2" width="12.5" height="9.7" fill="#3572A5"/><rect x="210.0" y="114.2" width="12.5" height="9.7" fill="#3572A5"/><rect x="222.0" y="114.2" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="174.0" y="123.3" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="186.0" y="123.3" width="12.5" height="9.7" fill="#3572A5"/><rect x="198.0" y="123.3" width="12.5" height="9.7" fill="#3572A5"/><rect x="210.0" y="123.3" width="12.5" height="9.7" fill="#3572A5"/><rect x="222.0" y="123.3" width="12.5" height="9.7" fill="#3572A5"/><rect x="234.0" y="123.3" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="162.0" y="132.5" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="174.0" y="132.5" width="12.5" height="9.7" fill="#3572A5"/><rect x="186.0" y="132.5" width="12.5" height="9.7" fill="#3572A5"/><rect x="198.0" y="132.5" width="12.5" height="9.7" fill="#3572A5"/><rect x="210.0" y="132.5" width="12.5" height="9.7" fill="#3572A5"/><rect x="222.0" y="132.5" width="12.5" height="9.7" fill="#3572A5"/><rect x="234.0" y="132.5" width="12.5" height="9.7" fill="#3572A5"/><rect x="246.0" y="132.5" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="150.0" y="141.7" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="162.0" y="141.7" width="12.5" height="9.7" fill="#3572A5"/><rect x="174.0" y="141.7" width="12.5" height="9.7" fill="#3572A5"/><rect x="186.0" y="141.7" width="12.5" height="9.7" fill="#4B8BBE"/><rect x="198.0" y="141.7" width="12.5" height="9.7" fill="#4B8BBE"/><rect x="210.0" y="141.7" width="12.5" height="9.7" fill="#4B8BBE"/><rect x="222.0" y="141.7" width="12.5" height="9.7" fill="#4B8BBE"/><rect x="234.0" y="141.7" width="12.5" height="9.7" fill="#3572A5"/><rect x="246.0" y="141.7" width="12.5" height="9.7" fill="#3572A5"/><rect x="258.0" y="141.7" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="162.0" y="150.8" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="174.0" y="150.8" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="186.0" y="150.8" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="198.0" y="150.8" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="210.0" y="150.8" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="222.0" y="150.8" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="234.0" y="150.8" width="12.5" height="9.7" fill="#1a1a1a"/><rect x="246.0" y="150.8" width="12.5" height="9.7" fill="#1a1a1a"/>
     </g>
 
   <!-- 캐릭터 타이틀 -->
   <text x="210" y="184" text-anchor="middle" class="card-text title-text"
-        fill="#3B82F6" filter="url(#glow)">🔥 Python Sage 🔥</text>
+        fill="#A855F7" filter="url(#glow)">🔥 Python Sage 🔥</text>
 
   <!-- 유저네임 -->
   <text x="210" y="206" text-anchor="middle" class="card-text username-text"
@@ -93,7 +106,7 @@
       <text x="67.5" y="250" text-anchor="middle"
             class="card-text stat-label" fill="#EF4444">⚔ ATK</text>
       <text x="67.5" y="278" text-anchor="middle"
-            class="card-text stat-value" fill="#e6edf3">510</text>
+            class="card-text stat-value" fill="#e6edf3">870</text>
     </g>
     <g>
       <rect x="122.5" y="228" width="80" height="65" rx="8" ry="8"
@@ -101,7 +114,7 @@
       <text x="162.5" y="250" text-anchor="middle"
             class="card-text stat-label" fill="#3B82F6">🛡 DEF</text>
       <text x="162.5" y="278" text-anchor="middle"
-            class="card-text stat-value" fill="#e6edf3">199</text>
+            class="card-text stat-value" fill="#e6edf3">480</text>
     </g>
     <g>
       <rect x="217.5" y="228" width="80" height="65" rx="8" ry="8"
@@ -127,13 +140,13 @@
   <!-- 어빌리티 영역 -->
   
     <text x="40" y="320" class="card-text" font-size="12" font-weight="600" fill="#58a6ff">
-      🌍 Polyglot</text>
+      🔥 Streak Master</text>
     <text x="40" y="334" class="card-text ability-text" fill="#8b949e">
-      12개 언어 마스터. 지능 상승</text>
+      41일 연속 커밋! 방어력 대폭 상승</text>
     <text x="40" y="348" class="card-text" font-size="12" font-weight="600" fill="#58a6ff">
-      🏗️ Architect</text>
+      🌍 Polyglot</text>
     <text x="40" y="362" class="card-text ability-text" fill="#8b949e">
-      32개 프로젝트 건설. 지능 상승</text>
+      12개 언어 마스터. 지능 상승</text>
 
   <!-- 구분선 -->
   <line x1="30" y1="384" x2="390" y2="384"
@@ -202,4 +215,39 @@
 
   <!-- 파티클 효과 (Epic/Legendary) -->
   
+    <circle cx="50" cy="520" r="2" fill="#A855F7" filter="url(#particleGlow)" class="particle">
+      <animate attributeName="cy" from="520" to="460" dur="2.5s" repeatCount="indefinite" begin="0s"/>
+      <animate attributeName="opacity" from="1" to="0" dur="2.5s" repeatCount="indefinite" begin="0s"/>
+      <animate attributeName="r" from="2" to="0" dur="2.5s" repeatCount="indefinite" begin="0s"/>
+    </circle>
+    <circle cx="120" cy="540" r="1.5" fill="#A855F7" filter="url(#particleGlow)" class="particle">
+      <animate attributeName="cy" from="540" to="480" dur="2.5s" repeatCount="indefinite" begin="0.5s"/>
+      <animate attributeName="opacity" from="1" to="0" dur="2.5s" repeatCount="indefinite" begin="0.5s"/>
+      <animate attributeName="r" from="1.5" to="0" dur="2.5s" repeatCount="indefinite" begin="0.5s"/>
+    </circle>
+    <circle cx="200" cy="510" r="2.5" fill="#A855F7" filter="url(#particleGlow)" class="particle">
+      <animate attributeName="cy" from="510" to="450" dur="2.5s" repeatCount="indefinite" begin="1s"/>
+      <animate attributeName="opacity" from="1" to="0" dur="2.5s" repeatCount="indefinite" begin="1s"/>
+      <animate attributeName="r" from="2.5" to="0" dur="2.5s" repeatCount="indefinite" begin="1s"/>
+    </circle>
+    <circle cx="300" cy="530" r="1.5" fill="#A855F7" filter="url(#particleGlow)" class="particle">
+      <animate attributeName="cy" from="530" to="470" dur="2.5s" repeatCount="indefinite" begin="1.5s"/>
+      <animate attributeName="opacity" from="1" to="0" dur="2.5s" repeatCount="indefinite" begin="1.5s"/>
+      <animate attributeName="r" from="1.5" to="0" dur="2.5s" repeatCount="indefinite" begin="1.5s"/>
+    </circle>
+    <circle cx="370" cy="515" r="2" fill="#A855F7" filter="url(#particleGlow)" class="particle">
+      <animate attributeName="cy" from="515" to="455" dur="2.5s" repeatCount="indefinite" begin="0.3s"/>
+      <animate attributeName="opacity" from="1" to="0" dur="2.5s" repeatCount="indefinite" begin="0.3s"/>
+      <animate attributeName="r" from="2" to="0" dur="2.5s" repeatCount="indefinite" begin="0.3s"/>
+    </circle>
+    <circle cx="80" cy="500" r="1" fill="#A855F7" filter="url(#particleGlow)" class="particle">
+      <animate attributeName="cy" from="500" to="440" dur="2.5s" repeatCount="indefinite" begin="0.8s"/>
+      <animate attributeName="opacity" from="1" to="0" dur="2.5s" repeatCount="indefinite" begin="0.8s"/>
+      <animate attributeName="r" from="1" to="0" dur="2.5s" repeatCount="indefinite" begin="0.8s"/>
+    </circle>
+    <circle cx="340" cy="545" r="1.5" fill="#A855F7" filter="url(#particleGlow)" class="particle">
+      <animate attributeName="cy" from="545" to="485" dur="2.5s" repeatCount="indefinite" begin="1.2s"/>
+      <animate attributeName="opacity" from="1" to="0" dur="2.5s" repeatCount="indefinite" begin="1.2s"/>
+      <animate attributeName="r" from="1.5" to="0" dur="2.5s" repeatCount="indefinite" begin="1.2s"/>
+    </circle>
 </svg>

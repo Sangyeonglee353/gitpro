@@ -125,12 +125,40 @@
 <g transform="translate(0, 40)" clip-path="url(#skyClip)">
   <rect x="0" y="0" width="800" height="415" fill="url(#skyBg)"/>
 <circle cx="486.4" cy="221.6"
-                    r="12.4" fill="#FF6B9D"
+                    r="20.8" fill="#FF6B9D"
                     opacity="0.150"
                     filter="url(#nebulaBlur)"
                     class="cst-nebula-anim"
                     style="animation-delay: 0.0s;
                            transform-origin: 486px 222px"/>
+<circle cx="178.8" cy="299.4"
+                    r="20.8" fill="#C44DFF"
+                    opacity="0.180"
+                    filter="url(#nebulaBlur)"
+                    class="cst-nebula-anim"
+                    style="animation-delay: 2.0s;
+                           transform-origin: 179px 299px"/>
+<circle cx="459.9" cy="122.4"
+                    r="20.8" fill="#4DA6FF"
+                    opacity="0.210"
+                    filter="url(#nebulaBlur)"
+                    class="cst-nebula-anim"
+                    style="animation-delay: 4.0s;
+                           transform-origin: 460px 122px"/>
+<circle cx="549.8" cy="269.5"
+                    r="20.8" fill="#47D4A0"
+                    opacity="0.240"
+                    filter="url(#nebulaBlur)"
+                    class="cst-nebula-anim"
+                    style="animation-delay: 6.0s;
+                           transform-origin: 550px 270px"/>
+<circle cx="86.0" cy="150.6"
+                    r="20.8" fill="#FFB74D"
+                    opacity="0.270"
+                    filter="url(#nebulaBlur)"
+                    class="cst-nebula-anim"
+                    style="animation-delay: 8.0s;
+                           transform-origin: 86px 151px"/>
 <g opacity="0.6">
     <!-- 은하수 메인 밴드 -->
     <path d="M-80,124.5 Q240,62.25 400,166
@@ -476,6 +504,90 @@
               fill="#ffffff" opacity="0.92"
               filter="url(#strongGlow)"/>
     </g>
+<g class="cst-meteor-anim" style="animation-delay: 5.1s; transform-origin: 208px 130px;">
+      <!-- 유성 꼬리 -->
+      <line x1="208.0" y1="130.3"
+            x2="173.8" y2="99.5"
+            stroke="#ffffff" stroke-width="1.5"
+            opacity="0.36"
+            stroke-linecap="round" filter="url(#meteorGlow)"/>
+      <!-- 유성 헤드 -->
+      <circle cx="208.0" cy="130.3" r="2"
+              fill="#ffffff" opacity="0.60"
+              filter="url(#strongGlow)"/>
+    </g>
+<g class="cst-meteor-anim" style="animation-delay: 5.9s; transform-origin: 445px 57px;">
+      <!-- 유성 꼬리 -->
+      <line x1="444.8" y1="56.9"
+            x2="422.0" y2="9.6"
+            stroke="#ffffff" stroke-width="1.5"
+            opacity="0.47"
+            stroke-linecap="round" filter="url(#meteorGlow)"/>
+      <!-- 유성 헤드 -->
+      <circle cx="444.8" cy="56.9" r="2"
+              fill="#ffffff" opacity="0.78"
+              filter="url(#strongGlow)"/>
+    </g>
+<g class="cst-meteor-anim" style="animation-delay: 9.6s; transform-origin: 682px 108px;">
+      <!-- 유성 꼬리 -->
+      <line x1="681.6" y1="107.9"
+            x2="677.9" y2="49.1"
+            stroke="#ffffff" stroke-width="1.5"
+            opacity="0.58"
+            stroke-linecap="round" filter="url(#meteorGlow)"/>
+      <!-- 유성 헤드 -->
+      <circle cx="681.6" cy="107.9" r="2"
+              fill="#ffffff" opacity="0.97"
+              filter="url(#strongGlow)"/>
+    </g>
+<g class="cst-meteor-anim" style="animation-delay: 10.3s; transform-origin: 278px 34px;">
+      <!-- 유성 꼬리 -->
+      <line x1="278.4" y1="34.4"
+            x2="246.7" y2="-1.5"
+            stroke="#ffffff" stroke-width="1.5"
+            opacity="0.39"
+            stroke-linecap="round" filter="url(#meteorGlow)"/>
+      <!-- 유성 헤드 -->
+      <circle cx="278.4" cy="34.4" r="2"
+              fill="#ffffff" opacity="0.66"
+              filter="url(#strongGlow)"/>
+    </g>
+<g class="cst-meteor-anim" style="animation-delay: 14.1s; transform-origin: 515px 85px;">
+      <!-- 유성 꼬리 -->
+      <line x1="515.2" y1="85.5"
+            x2="497.3" y2="34.1"
+            stroke="#ffffff" stroke-width="1.5"
+            opacity="0.50"
+            stroke-linecap="round" filter="url(#meteorGlow)"/>
+      <!-- 유성 헤드 -->
+      <circle cx="515.2" cy="85.5" r="2"
+              fill="#ffffff" opacity="0.84"
+              filter="url(#strongGlow)"/>
+    </g>
+<g class="cst-meteor-anim" style="animation-delay: 17.8s; transform-origin: 112px 137px;">
+      <!-- 유성 꼬리 -->
+      <line x1="112.0" y1="136.5"
+            x2="75.6" y2="112.9"
+            stroke="#ffffff" stroke-width="1.5"
+            opacity="0.32"
+            stroke-linecap="round" filter="url(#meteorGlow)"/>
+      <!-- 유성 헤드 -->
+      <circle cx="112.0" cy="136.5" r="2"
+              fill="#ffffff" opacity="0.53"
+              filter="url(#strongGlow)"/>
+    </g>
+<g class="cst-meteor-anim" style="animation-delay: 18.5s; transform-origin: 349px 63px;">
+      <!-- 유성 꼬리 -->
+      <line x1="348.8" y1="63.1"
+            x2="320.3" y2="22.1"
+            stroke="#ffffff" stroke-width="1.5"
+            opacity="0.43"
+            stroke-linecap="round" filter="url(#meteorGlow)"/>
+      <!-- 유성 헤드 -->
+      <circle cx="348.8" cy="63.1" r="2"
+              fill="#ffffff" opacity="0.71"
+              filter="url(#strongGlow)"/>
+    </g>
 </g>
 
 <!-- 푸터 -->
@@ -501,13 +613,13 @@
       ☄️ Meteors</text>
     <text x="333" y="487" text-anchor="middle"
           class="cst-text cst-footer-val" fill="#e6edf3">
-      1</text>
+      8</text>
     <text x="467" y="473" text-anchor="middle"
           class="cst-text cst-footer" fill="#8b949e">
       ✦ Nebulas</text>
     <text x="467" y="487" text-anchor="middle"
           class="cst-text cst-footer-val" fill="#e6edf3">
-      1</text>
+      5</text>
     <text x="600" y="473" text-anchor="middle"
           class="cst-text cst-footer" fill="#8b949e">
       💻 Commits</text>
