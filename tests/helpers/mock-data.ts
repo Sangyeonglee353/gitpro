@@ -173,6 +173,7 @@ export function createMockConfig(overrides?: Partial<GitProConfig>): GitProConfi
     timezone: 'Asia/Seoul',
     locale: 'ko',
     theme: 'dark',
+    include_private: false,
     modules: {
       'trading-card': {
         enabled: true,
