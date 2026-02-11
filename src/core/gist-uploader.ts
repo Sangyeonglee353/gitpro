@@ -54,10 +54,11 @@ export async function uploadToGist(
     // Gist 파일 구성
     const files: Record<string, { content: string } | null> = {};
 
-    // 기존 SVG 파일 및 이전 summary 파일 삭제
+    // 기존 파일 정리: gitpro.md를 제외한 모든 기존 파일 삭제
+    // (처음 Gist 생성 시 임의로 넣은 파일도 자동 정리됨)
     if (existingGist.files) {
       for (const filename of Object.keys(existingGist.files)) {
-        if (filename.endsWith('.svg') || filename === 'gitpro-summary.md') {
+        if (filename !== 'gitpro.md') {
           (files as any)[filename] = null; // null → 파일 삭제
         }
       }
