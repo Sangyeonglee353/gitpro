@@ -153,7 +153,7 @@ export class GitHubClient {
     createdAt: string;
     publicRepos: number;
   }> {
-    const privacyFilter = this.includePrivate ? '' : 'privacy: PUBLIC';
+    const privacyArgs = this.includePrivate ? '' : '(privacy: PUBLIC)';
     const query = `
       query($username: String!) {
         user(login: $username) {
@@ -164,7 +164,7 @@ export class GitHubClient {
           followers { totalCount }
           following { totalCount }
           createdAt
-          repositories(${privacyFilter}) { totalCount }
+          repositories${privacyArgs} { totalCount }
         }
       }
     `;
@@ -187,7 +187,7 @@ export class GitHubClient {
    * 사용자의 레포지토리 목록을 가져옵니다.
    */
   async getRepositories(): Promise<GitHubRepository[]> {
-    const privacyFilter = this.includePrivate ? '' : 'privacy: PUBLIC,';
+    const privacyFilter = this.includePrivate ? '' : ', privacy: PUBLIC';
     const query = `
       query($username: String!, $after: String) {
         user(login: $username) {
@@ -195,8 +195,7 @@ export class GitHubClient {
             first: 100,
             after: $after,
             ownerAffiliations: OWNER,
-            orderBy: { field: PUSHED_AT, direction: DESC },
-            ${privacyFilter}
+            orderBy: { field: PUSHED_AT, direction: DESC }${privacyFilter}
           ) {
             pageInfo { hasNextPage, endCursor }
             nodes {
