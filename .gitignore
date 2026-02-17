@@ -26,3 +26,4 @@ coverage/
 
 /.claude
 .claude/
+.claude/setting.local.json
