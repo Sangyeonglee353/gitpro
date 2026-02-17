@@ -353,7 +353,7 @@
     
     <!-- 별 -->
     <circle cx="255.6" cy="276.1"
-                    r="1.0" fill="#c8d6e5"
+                    r="1.0" fill="#6b5bff"
                     opacity="0.30" 
                     class="cst-bg-star-slow" style="animation-delay: 1.3s"/>
             
@@ -361,7 +361,7 @@
     <text x="255.6" y="308.9"
           text-anchor="middle" class="cst-text cst-name"
           fill="#e6edf3" opacity="0.70">
-      ⭐ Sangyeonglee&apos;s Star</text>
+      🛡️ tistory-book&apos;s Shiel…</text>
     
   </g>
 <g class="cst-constellation" style="animation-delay: 0.40s">
@@ -369,7 +369,7 @@
     
     <!-- 별 -->
     <circle cx="419.9" cy="90.0"
-                    r="1.0" fill="#e34c26"
+                    r="1.0" fill="#58a6ff"
                     opacity="0.30" 
                     class="cst-bg-star-slow" style="animation-delay: 2.6s"/>
             
@@ -377,7 +377,7 @@
     <text x="419.9" y="122.8"
           text-anchor="middle" class="cst-text cst-name"
           fill="#e6edf3" opacity="0.70">
-      🛡️ pdfPicker&apos;s Shield</text>
+      👁️ ai-literacy-&apos;s Eye</text>
     
   </g>
 <g class="cst-constellation" style="animation-delay: 0.60s">
@@ -385,15 +385,15 @@
     
     <!-- 별 -->
     <circle cx="553.0" cy="311.0"
-                    r="0.7" fill="#cc4444"
-                    opacity="0.12" 
+                    r="1.0" fill="#58a6ff"
+                    opacity="0.30" 
                     class="cst-bg-star-slow" style="animation-delay: 3.9s"/>
             
     <!-- 이름 -->
     <text x="553.0" y="343.8"
           text-anchor="middle" class="cst-text cst-name"
-          fill="#e6edf3" opacity="0.28">
-      👁️ ai-musthave&apos;s Eye</text>
+          fill="#e6edf3" opacity="0.70">
+      ⭐ inyeon&apos;s Star</text>
     
   </g>
 <g class="cst-constellation" style="animation-delay: 0.80s">
@@ -401,15 +401,15 @@
     
     <!-- 별 -->
     <circle cx="132.4" cy="182.9"
-                    r="0.7" fill="#cc4444"
-                    opacity="0.12" 
+                    r="1.0" fill="#58a6ff"
+                    opacity="0.30" 
                     class="cst-bg-star-slow" style="animation-delay: 5.2s"/>
             
     <!-- 이름 -->
     <text x="132.4" y="215.7"
           text-anchor="middle" class="cst-text cst-name"
-          fill="#e6edf3" opacity="0.28">
-      ⭐ 24NewsBot&apos;s Star</text>
+          fill="#e6edf3" opacity="0.70">
+      ⭐ vibe-tracker&apos;s Star</text>
     
   </g>
 <g class="cst-constellation" style="animation-delay: 1.00s">
@@ -417,15 +417,15 @@
     
     <!-- 별 -->
     <circle cx="644.4" cy="126.8"
-                    r="0.7" fill="#cc4444"
-                    opacity="0.12" 
+                    r="1.0" fill="#6bbd6e"
+                    opacity="0.30" 
                     class="cst-bg-star-slow" style="animation-delay: 6.5s"/>
             
     <!-- 이름 -->
     <text x="644.4" y="159.6"
           text-anchor="middle" class="cst-text cst-name"
-          fill="#e6edf3" opacity="0.28">
-      👁️ ai-hongong&apos;s Eye</text>
+          fill="#e6edf3" opacity="0.70">
+      ⭐ multipaste&apos;s Star</text>
     
   </g>
 <g class="cst-constellation" style="animation-delay: 1.20s">
@@ -433,15 +433,15 @@
     
     <!-- 별 -->
     <circle cx="320.6" cy="352.8"
-                    r="0.7" fill="#cc4444"
-                    opacity="0.12" 
+                    r="1.0" fill="#58a6ff"
+                    opacity="0.30" 
                     class="cst-bg-star-slow" style="animation-delay: 7.8s"/>
             
     <!-- 이름 -->
     <text x="320.6" y="385.5"
           text-anchor="middle" class="cst-text cst-name"
-          fill="#e6edf3" opacity="0.28">
-      🛡️ react-useful&apos;s Shiel…</text>
+          fill="#e6edf3" opacity="0.70">
+      🏗️ fastHRD&apos;s Tower</text>
     
   </g>
 <g class="cst-constellation" style="animation-delay: 1.40s">
@@ -449,15 +449,15 @@
     
     <!-- 별 -->
     <circle cx="252.1" cy="62.3"
-                    r="0.7" fill="#cc4444"
-                    opacity="0.12" 
+                    r="1.0" fill="#58a6ff"
+                    opacity="0.30" 
                     class="cst-bg-star-slow" style="animation-delay: 9.1s"/>
             
     <!-- 이름 -->
     <text x="252.1" y="95.0"
           text-anchor="middle" class="cst-text cst-name"
-          fill="#e6edf3" opacity="0.28">
-      🛡️ react&apos;s Shield</text>
+          fill="#e6edf3" opacity="0.70">
+      ⭐ pdf-preview&apos;s Star</text>
     
   </g>
 <g class="cst-constellation" style="animation-delay: 1.60s">
@@ -465,15 +465,15 @@
     
     <!-- 별 -->
     <circle cx="704.0" cy="267.1"
-                    r="0.7" fill="#cc4444"
-                    opacity="0.12" 
+                    r="1.0" fill="#f0db4f"
+                    opacity="0.30" 
                     class="cst-bg-star-slow" style="animation-delay: 10.4s"/>
             
     <!-- 이름 -->
     <text x="704.0" y="299.8"
           text-anchor="middle" class="cst-text cst-name"
-          fill="#e6edf3" opacity="0.28">
-      🛡️ react-ppt-de&apos;s Shiel…</text>
+          fill="#e6edf3" opacity="0.70">
+      ⭐ desktop-cale&apos;s Star</text>
     
   </g>
 <g class="cst-constellation" style="animation-delay: 1.80s">
@@ -481,15 +481,15 @@
     
     <!-- 별 -->
     <circle cx="96.0" cy="276.3"
-                    r="0.7" fill="#cc4444"
-                    opacity="0.12" 
+                    r="1.0" fill="#c8d6e5"
+                    opacity="0.30" 
                     class="cst-bg-star-slow" style="animation-delay: 11.7s"/>
             
     <!-- 이름 -->
     <text x="96.0" y="309.1"
           text-anchor="middle" class="cst-text cst-name"
-          fill="#e6edf3" opacity="0.28">
-      📜 blog-comment&apos;s Scrol…</text>
+          fill="#e6edf3" opacity="0.70">
+      ⭐ portmanager&apos;s Star</text>
     
   </g>
 <g class="cst-meteor-anim" style="animation-delay: 1.4s; transform-origin: 611px 79px;">

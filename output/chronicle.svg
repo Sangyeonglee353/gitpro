@@ -284,13 +284,13 @@
     <text x="70" y="530" class="chr-text chr-chapter-title" fill="#e6edf3">
       Ch.7 새로운 무기 습득</text>
     <text x="70" y="545" class="chr-text chr-chapter-sub" fill="#8b949e">
-      Stylus를 배웠습니다</text>
+      HTML를 배웠습니다</text>
     <text x="70" y="560" class="chr-text chr-desc" fill="#8b949e" opacity="0.7">
-      Stylus의 힘을 얻었습니다! &quot;dandelion.github.io&quot; 프로젝트에서 처음 사용했습…</text>
+      HTML의 힘을 얻었습니다! &quot;Project&quot; 프로젝트에서 처음 사용했습니다.</text>
 
     <!-- 날짜 -->
     <text x="500" y="530" text-anchor="end" class="chr-text chr-date" fill="#8b949e">
-      2021.09.05</text>
+      2021.07.14</text>
 
     <!-- 구분선 -->
     <line x1="70" y1="572" x2="500" y2="572"
@@ -312,9 +312,9 @@
     <text x="70" y="598" class="chr-text chr-chapter-title" fill="#e6edf3">
       Ch.8 새로운 무기 습득</text>
     <text x="70" y="613" class="chr-text chr-chapter-sub" fill="#8b949e">
-      HTML를 배웠습니다</text>
+      Stylus를 배웠습니다</text>
     <text x="70" y="628" class="chr-text chr-desc" fill="#8b949e" opacity="0.7">
-      HTML의 힘을 얻었습니다! &quot;Sangyeonglee353.github.io&quot; 프로젝트에서 처음 …</text>
+      Stylus의 힘을 얻었습니다! &quot;dandelion.github.io&quot; 프로젝트에서 처음 사용했습…</text>
 
     <!-- 날짜 -->
     <text x="500" y="598" text-anchor="end" class="chr-text chr-date" fill="#8b949e">
@@ -335,7 +335,7 @@
     🎯 진행 중인 퀘스트</text>
 
   <text x="26" y="684" class="chr-text chr-chapter-sub" fill="#e6edf3">
-    🔥 The Grind — 42/30일</text>
+    🔥 The Grind — 48/30일</text>
 
   <!-- 프로그레스 바 -->
   <rect x="26" y="690" width="300" height="4" rx="2" fill="#30363d" opacity="0.3"/>
@@ -352,9 +352,9 @@
   <text x="80" y="750" text-anchor="middle"
         class="chr-text chr-small" fill="#8b949e">💻 0 커밋</text>
   <text x="200" y="750" text-anchor="middle"
-        class="chr-text chr-small" fill="#8b949e">📦 32 레포</text>
+        class="chr-text chr-small" fill="#8b949e">📦 111 레포</text>
   <text x="320" y="750" text-anchor="middle"
-        class="chr-text chr-small" fill="#8b949e">🌍 12 언어</text>
+        class="chr-text chr-small" fill="#8b949e">🌍 17 언어</text>
   <text x="440" y="750" text-anchor="middle"
         class="chr-text chr-small" fill="#8b949e">⭐ 0 스타</text>
 

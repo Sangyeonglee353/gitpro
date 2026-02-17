@@ -1,19 +1,19 @@
 {
-  "lastUpdated": "2026-02-11T12:30:06.480Z",
+  "lastUpdated": "2026-02-17T11:11:18.945Z",
   "pet": {
     "species": "pythonix",
     "stage": 4,
-    "exp": 68190,
+    "exp": 89790,
     "mood": 100,
-    "hunger": 0,
-    "lastFed": "2026-02-11T12:30:05.998Z",
+    "hunger": 50,
+    "lastFed": "2026-02-17T11:11:18.915Z",
     "birthDate": "2026-02-10T12:55:31.670Z",
     "abilities": []
   },
   "city": {
-    "tier": 4,
+    "tier": 3,
     "population": 100,
-    "buildings": 24,
+    "buildings": 16,
     "lastWeather": "fireworks"
   },
   "chronicle": {
