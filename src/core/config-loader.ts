@@ -6,6 +6,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as yaml from 'js-yaml';
 import { GitProConfig } from '../types';
+import { deepMerge } from './utils';
 
 const DEFAULT_CONFIG: GitProConfig = {
   username: '',
@@ -71,11 +72,6 @@ const DEFAULT_CONFIG: GitProConfig = {
     },
     module_order: [],
     show_last_updated: true,
-  },
-  gist: {
-    enabled: false,
-    gist_id: '',
-    modules: [],
   },
 };
 
@@ -143,6 +139,64 @@ function validateConfig(config: GitProConfig): void {
     console.warn(`⚠️  알 수 없는 로케일 "${config.locale}", "en"으로 기본 설정됩니다.`);
     config.locale = 'en';
   }
+
+  // 모듈별 설정값 검증
+  validateModuleConfigs(config);
+}
+
+/**
+ * 모듈별 설정값의 유효성을 검증합니다.
+ */
+function validateModuleConfigs(config: GitProConfig): void {
+  const tc = config.modules['trading-card'];
+  const validTCStyles = ['hologram', 'pixel', 'minimal', 'anime'];
+  if (!validTCStyles.includes(tc.style)) {
+    console.warn(`⚠️  trading-card.style "${tc.style}"이(가) 잘못되었습니다. "hologram"으로 기본 설정됩니다.`);
+    tc.style = 'hologram';
+  }
+
+  const cd = config.modules['code-dna'];
+  const validCDShapes = ['circular', 'helix', 'spiral', 'fingerprint'];
+  if (!validCDShapes.includes(cd.shape)) {
+    console.warn(`⚠️  code-dna.shape "${cd.shape}"이(가) 잘못되었습니다. "circular"로 기본 설정됩니다.`);
+    cd.shape = 'circular';
+  }
+  const validCDColorSchemes = ['language', 'mood', 'rainbow', 'monochrome'];
+  if (!validCDColorSchemes.includes(cd.color_scheme)) {
+    console.warn(`⚠️  code-dna.color_scheme "${cd.color_scheme}"이(가) 잘못되었습니다. "language"로 기본 설정됩니다.`);
+    cd.color_scheme = 'language';
+  }
+  const validCDComplexity = ['simple', 'detailed'];
+  if (!validCDComplexity.includes(cd.complexity)) {
+    console.warn(`⚠️  code-dna.complexity "${cd.complexity}"이(가) 잘못되었습니다. "detailed"로 기본 설정됩니다.`);
+    cd.complexity = 'detailed';
+  }
+
+  const ch = config.modules.chronicle;
+  const validChStyles = ['rpg', 'book', 'timeline', 'comic'];
+  if (!validChStyles.includes(ch.style)) {
+    console.warn(`⚠️  chronicle.style "${ch.style}"이(가) 잘못되었습니다. "rpg"로 기본 설정됩니다.`);
+    ch.style = 'rpg';
+  }
+  const validChLanguages = ['ko', 'en'];
+  if (!validChLanguages.includes(ch.language)) {
+    console.warn(`⚠️  chronicle.language "${ch.language}"이(가) 잘못되었습니다. "ko"로 기본 설정됩니다.`);
+    ch.language = 'ko';
+  }
+
+  const cn = config.modules.constellation;
+  const validCNSkyThemes = ['midnight', 'aurora', 'sunset', 'deep_space'];
+  if (!validCNSkyThemes.includes(cn.sky_theme)) {
+    console.warn(`⚠️  constellation.sky_theme "${cn.sky_theme}"이(가) 잘못되었습니다. "midnight"로 기본 설정됩니다.`);
+    cn.sky_theme = 'midnight';
+  }
+
+  const dc = config.modules['dev-city'];
+  const validDCCityStyles = ['pixel', 'isometric', 'flat', 'neon'];
+  if (!validDCCityStyles.includes(dc.city_style)) {
+    console.warn(`⚠️  dev-city.city_style "${dc.city_style}"이(가) 잘못되었습니다. "pixel"로 기본 설정됩니다.`);
+    dc.city_style = 'pixel';
+  }
 }
 
 /**
@@ -154,32 +208,3 @@ export function getEnabledModules(config: GitProConfig): string[] {
     .map(([id]) => id);
 }
 
-/**
- * 깊은 병합 유틸리티
- */
-function deepMerge(target: Record<string, unknown>, source: Record<string, unknown>): Record<string, unknown> {
-  const result: Record<string, unknown> = { ...target };
-
-  for (const key of Object.keys(source)) {
-    const targetVal = target[key];
-    const sourceVal = source[key];
-
-    if (
-      sourceVal &&
-      typeof sourceVal === 'object' &&
-      !Array.isArray(sourceVal) &&
-      targetVal &&
-      typeof targetVal === 'object' &&
-      !Array.isArray(targetVal)
-    ) {
-      result[key] = deepMerge(
-        targetVal as Record<string, unknown>,
-        sourceVal as Record<string, unknown>
-      );
-    } else if (sourceVal !== undefined) {
-      result[key] = sourceVal;
-    }
-  }
-
-  return result;
-}

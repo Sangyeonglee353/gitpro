@@ -48,7 +48,6 @@
 | 🎨 | **11 Built-in Themes** | dark, light, cyberpunk, retro, pastel, ocean, forest, dracula, nord, sunset + custom |
 | ⚡ | **Single YAML Config** | Manage all modules and themes with one `gitpro.config.yml` file |
 | 🔄 | **GitHub Actions Automation** | Auto-runs every 6 hours, manual trigger supported |
-| 📌 | **Gist Integration** | Upload SVGs to Pinned Gists for profile display |
 | 🌍 | **Multi-language** | English (`en`), Korean (`ko`), Japanese (`ja`) |
 | 💾 | **Persistent State** | Pet growth, city progression, chronicle data saved cumulatively |
 | 🧩 | **Plugin Architecture** | Extend with custom modules via `GitProModule` interface |
@@ -129,14 +128,7 @@ Transforms GitHub repositories into buildings — an **isometric pixel-art city*
 
 > 🌟 **If you like this project, please hit [⭐ Star](https://github.com/Sangyeonglee353/gitpro)!** It helps us build even better modules.
 
-There are **2 ways** to display gitpro-generated SVGs on your profile:
-
-| Method | Description | Best For |
-|--------|-------------|----------|
-| 📌 **[Method A: Pinned Gist](#method-a)** | Upload SVGs to a Gist and pin it to your profile | Those who don't want to touch their existing README |
-| 📝 **[Method B: Add to Existing README](#method-b)** | Insert SVG image tags into your existing profile README | Those who want full control over their profile layout |
-
-> 💡 You can use **both methods** simultaneously!
+To display gitpro-generated SVGs on your profile, simply **add image tags to your profile README**.
 
 ---
 
@@ -157,8 +149,7 @@ There are **2 ways** to display gitpro-generated SVGs on your profile:
 
 | Scope | Required | Purpose |
 |-------|----------|---------|
-| `repo` | ✅ Required | Repo data access, profile README update (Method B) |
-| `gist` | ✅ Required (Method A) | Upload SVGs to Gist |
+| `repo` | ✅ Required | Repo data access, profile README update |
 | `read:user` | ✅ Required | Read user profile data |
 
 4. Copy the generated token (⚠️ It's only shown once, so save it!)
@@ -240,53 +231,11 @@ git commit -m "🎮 Configure gitpro for my profile"
 git push origin main
 ```
 
-> ✅ Once complete, SVG files will be generated in the `output/` directory. Now follow **Method A** or **Method B** below to apply them to your profile!
+> ✅ Once complete, SVG files will be generated in the `output/` directory. Now follow the guide below to apply them to your profile!
 
 ---
 
-<a id="method-a"></a>
-
-### Method A — 📌 Pinned Gist
-
-> Display gitpro SVGs on your GitHub profile by **pinning a Gist** — no changes to your existing README needed.
-
-**1. Create a Gist**
-
-1. Go to [gist.github.com](https://gist.github.com) and create a **new Gist** (filename: `gitpro.md`, any content)
-2. Copy the **Gist ID** from the URL
-   - e.g., `https://gist.github.com/username/abc123def456` → `abc123def456`
-
-**2. Add Gist Config to gitpro.config.yml**
-
-```yaml
-# 📌 Gist Integration Settings
-gist:
-  enabled: true
-  gist_id: "abc123def456"                              # Your Gist ID
-  modules: ["trading-card", "code-pet"]                 # Modules to upload (empty = all)
-```
-
-> ⚠️ Your GH_TOKEN must have the **gist** scope permission.
-
-**3. Re-run Actions**
-
-Push the config changes or manually re-run Actions to upload SVGs to your Gist.
-
-**4. Pin the Gist to Your Profile**
-
-1. Go to your GitHub profile page (`github.com/username`)
-2. Click **"Customize your pins"**
-3. Select the Gist you just created and **Pin** it
-
-```
-✅ Result: Profile visitors can see your gitpro SVGs right from your Pinned Gist!
-```
-
----
-
-<a id="method-b"></a>
-
-### Method B — 📝 Add to Existing Profile README
+### 📝 Add SVGs to Your Profile README
 
 > Insert gitpro SVG images directly into your existing profile README (`username/username`).
 
@@ -352,9 +301,7 @@ You don't have to use all modules — just add the ones you like:
 ### 📌 Overview of the Entire Flow
 
 ```
-⭐ Star → 🍴 Fork → ✏️ Edit config → 🔑 Add Secret → ▶️ Run Actions
-    ├── 📌 Method A: Upload to Gist → Pin to profile
-    └── 📝 Method B: Add SVG image tags to profile README
+⭐ Star → 🍴 Fork → ✏️ Edit config → 🔑 Add Secret → ▶️ Run Actions → 📝 Add SVG image tags to profile README
 ```
 
 ---
@@ -542,10 +489,6 @@ custom_theme:
 
 ## 🔧 Advanced Usage
 
-### Gist Integration (Pinned Gist)
-
-> 📌 For Gist integration setup, see [**Method A — Pinned Gist**](#method-a) in the Quick Start section above.
-
 ### Debug Mode
 
 Enable detailed logging for troubleshooting:
@@ -618,7 +561,7 @@ gitpro/
     └── gitpro-state.json           # 💾 Persistent state (pet EXP, city level, etc.)
 ```
 
-> 💡 Display these SVGs on your profile using [**Method A (Gist Pin)**](#method-a) or [**Method B (Profile README)**](#method-b).
+> 💡 Display these SVGs on your profile by adding image tags to your profile README.
 
 ---
 
@@ -638,8 +581,7 @@ gitpro/
 │   │   ├── svg-engine.ts           # SVG builder engine
 │   │   ├── module-runner.ts        # Module runner
 │   │   ├── header-generator.ts     # Header SVG generation
-│   │   ├── readme-generator.ts     # README auto-generation
-│   │   └── gist-uploader.ts        # Gist uploader
+│   │   └── readme-generator.ts     # README auto-generation
 │   └── modules/
 │       ├── trading-card/           # 🃏 Trading Card module
 │       ├── code-dna/               # 🧬 Code DNA module

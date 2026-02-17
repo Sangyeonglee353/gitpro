@@ -161,12 +161,12 @@ function buildCityBuildings(
       return scoreB - scoreA;
     });
 
-  // 최대 30개 건물로 제한
-  const maxBuildings = 30;
+  // 최대 16개 건물로 제한 (아이소메트릭 뷰에 최적)
+  const maxBuildings = 16;
   const selectedRepos = validRepos.slice(0, maxBuildings);
 
-  // 그리드 배치 계산
-  const gridCols = Math.min(6, Math.ceil(Math.sqrt(selectedRepos.length * 1.5)));
+  // 그리드 배치 계산 (최대 4열)
+  const gridCols = Math.min(4, selectedRepos.length);
 
   return selectedRepos.map((repo, index) => {
     const buildingType = classifyBuilding(repo);
@@ -181,9 +181,9 @@ function buildCityBuildings(
     const gridRow = Math.floor(index / gridCols);
     const gridCol = index % gridCols;
 
-    // 건물 높이: 기본 30px + (높이계수 * 20px)
-    const baseHeight = 30;
-    const height = baseHeight + info.heightFactor * 20;
+    // 건물 높이: 기본 50px + (높이계수 * 28px) → 범위 78~134px
+    const baseHeight = 50;
+    const height = baseHeight + info.heightFactor * 28;
 
     return {
       repoName: repo.name,

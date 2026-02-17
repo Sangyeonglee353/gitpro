@@ -96,17 +96,3 @@ readme:
                                 # 예: ["trading-card", "code-pet", "code-dna"]
   show_last_updated: true       # 마지막 업데이트 시간 표시
 
-# ═══════════════════════════════════════════
-# 📌 Gist 연동 (선택사항)
-# ═══════════════════════════════════════════
-# Pinned Gist에 SVG를 업로드하여 프로필에 고정할 수 있습니다.
-# 사용법:
-# 1. https://gist.github.com 에서 새 Gist 생성
-# 2. Gist ID를 아래에 입력
-# 3. GH_TOKEN에 gist 스코프 권한 필요
-
-gist:
-  enabled: true
-  gist_id: "a4f118fdff9ade03bad93cf8a23e0810"
-  modules: []                   # 업로드할 모듈 (빈 배열이면 전부 업로드)
-                                # 예: ["trading-card", "code-pet"]

@@ -240,7 +240,7 @@ describe('Building Mapper', () => {
       expect(classifyBuilding(repo)).toBe('factory');
     });
 
-    it('1년 이상 비활성 레포를 ruin으로 분류한다', () => {
+    it('아카이브된 레포를 ruin으로 분류한다', () => {
       const repo: GitHubRepository = {
         name: 'abandoned-repo',
         description: 'Long abandoned',
@@ -251,7 +251,7 @@ describe('Building Mapper', () => {
         createdAt: '2018-01-01T00:00:00Z',
         updatedAt: '2020-01-01T00:00:00Z',
         pushedAt: '2020-01-01T00:00:00Z',
-        isArchived: false,
+        isArchived: true,
         isFork: false,
         topics: [],
       };

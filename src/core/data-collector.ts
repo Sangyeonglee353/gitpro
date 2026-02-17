@@ -65,10 +65,10 @@ export async function collectGitHubData(
 
   // 마일스톤 이벤트 감지
   const milestones = detectMilestones(
-    userProfile as GitHubUser,
-    repositories as GitHubRepository[],
-    commitHistory as CommitRecord[],
-    contributionCalendar as ContributionDay[],
+    userProfile,
+    repositories,
+    commitHistory,
+    contributionCalendar,
     prStats,
     languages
   );
@@ -77,13 +77,13 @@ export async function collectGitHubData(
   console.log('📊 GitHub 데이터 수집 완료!\n');
 
   return {
-    user: userProfile as GitHubUser,
-    repositories: repositories as GitHubRepository[],
-    commitHistory: commitHistory as CommitRecord[],
+    user: userProfile,
+    repositories,
+    commitHistory,
     pullRequests: prStats,
     issues: issueStats,
     languages,
-    contributionCalendar: contributionCalendar as ContributionDay[],
+    contributionCalendar,
     milestones,
   };
 }

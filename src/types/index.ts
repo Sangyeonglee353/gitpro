@@ -49,7 +49,7 @@ export interface ModuleOutput {
   markdown: string;
 
   /** 다음 실행을 위해 저장할 상태 업데이트 */
-  stateUpdate?: Record<string, unknown>;
+  stateUpdate?: Partial<GitProState>;
 }
 
 // ── GitHub 데이터 ──────────────────────────
@@ -147,7 +147,6 @@ export interface GitProConfig {
   custom_theme?: CustomThemeColors;
   modules: ModulesConfig;
   readme: ReadmeConfig;
-  gist: GistConfig;
 }
 
 export type ThemeName =
@@ -234,11 +233,6 @@ export interface ReadmeConfig {
   show_last_updated: boolean;
 }
 
-export interface GistConfig {
-  enabled: boolean;
-  gist_id: string;
-  modules: string[];
-}
 
 export interface CustomThemeColors {
   background: string;

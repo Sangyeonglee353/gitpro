@@ -23,3 +23,7 @@ coverage/
 
 # state도 커밋 대상 (펫 상태 등 영구 데이터)
 # state/
+
+/.claude
+.claude/
+.claude/setting.local.json

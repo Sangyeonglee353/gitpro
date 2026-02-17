@@ -149,17 +149,17 @@ export function createMockCommitHistory(): CommitRecord[] {
   return commits;
 }
 
-/** 테스트용 기여 캘린더 (최근 90일) */
+/** 테스트용 기여 캘린더 (고정된 90일 기간) */
 export function createMockContributionCalendar(): ContributionDay[] {
   const days: ContributionDay[] = [];
-  const now = new Date();
+  const baseDate = new Date('2026-02-01');
 
   for (let i = 90; i >= 0; i--) {
-    const date = new Date(now);
+    const date = new Date(baseDate);
     date.setDate(date.getDate() - i);
     days.push({
       date: date.toISOString().split('T')[0],
-      count: i % 3 === 0 ? 0 : Math.floor(Math.random() * 8) + 1,
+      count: i % 3 === 0 ? 0 : ((i * 7 + 3) % 8) + 1,
     });
   }
 
@@ -232,11 +232,6 @@ export function createMockConfig(overrides?: Partial<GitProConfig>): GitProConfi
       },
       module_order: [],
       show_last_updated: true,
-    },
-    gist: {
-      enabled: false,
-      gist_id: '',
-      modules: [],
     },
     ...overrides,
   };

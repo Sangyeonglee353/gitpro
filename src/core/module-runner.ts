@@ -14,12 +14,23 @@ import {
   GitProState,
   ThemeColors,
 } from '../types';
-import { SVGEngine } from './svg-engine';
-
 /** 모듈 실행 결과 */
 export interface ModuleResult {
   id: string;
   output: ModuleOutput;
+}
+
+/** 모듈 실행 중 발생한 에러 */
+export interface ModuleError {
+  moduleId: string;
+  error: Error;
+  message: string;
+}
+
+/** 모듈 실행 전체 결과 */
+export interface RunModulesResult {
+  results: ModuleResult[];
+  errors: ModuleError[];
 }
 
 /** 모듈 레지스트리 - 지연 로딩을 위해 팩토리 패턴 사용 */
@@ -58,7 +69,7 @@ export async function runModules(
   githubData: GitHubData,
   state: GitProState,
   theme: ThemeColors
-): Promise<ModuleResult[]> {
+): Promise<RunModulesResult> {
   // 1. 활성화된 모듈 필터링
   const enabledModuleIds = Object.entries(config.modules)
     .filter(([_, modConfig]) => (modConfig as { enabled: boolean }).enabled)
@@ -67,16 +78,14 @@ export async function runModules(
 
   if (enabledModuleIds.length === 0) {
     console.warn('⚠️  활성화된 모듈이 없습니다. gitpro.config.yml을 확인하세요.');
-    return [];
+    return { results: [], errors: [] };
   }
 
   console.log(`🎯 ${enabledModuleIds.length}개 모듈 실행 시작...\n`);
 
-  // 2. SVG 엔진 생성
-  const svgEngine = new SVGEngine(theme);
-
-  // 3. 각 모듈 실행
+  // 2. 각 모듈 실행
   const results: ModuleResult[] = [];
+  const errors: ModuleError[] = [];
 
   for (const moduleId of enabledModuleIds) {
     try {
@@ -106,13 +115,22 @@ export async function runModules(
 
       results.push({ id: moduleId, output });
       console.log(`  ✅ [${moduleId}] 완료!`);
-    } catch (error) {
-      console.error(`  ❌ [${moduleId}] 오류 발생:`, error);
+    } catch (err) {
+      const error = err instanceof Error ? err : new Error(String(err));
+      errors.push({
+        moduleId,
+        error,
+        message: error.message,
+      });
+      console.error(`  ❌ [${moduleId}] 오류 발생: ${error.message}`);
     }
   }
 
   console.log(`\n🎉 총 ${results.length}개 모듈 생성 완료!`);
-  return results;
+  if (errors.length > 0) {
+    console.warn(`⚠️  ${errors.length}개 모듈에서 오류 발생`);
+  }
+  return { results, errors };
 }
 
 /**

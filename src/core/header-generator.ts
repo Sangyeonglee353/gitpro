@@ -3,6 +3,7 @@
 // ═══════════════════════════════════════════
 
 import { ThemeColors } from '../types';
+import { escapeXml } from './utils';
 
 /**
  * 헤더 타입에 따라 SVG 헤더를 생성합니다.
@@ -248,15 +249,6 @@ function generateGradientHeader(text: string, color: string, theme: ThemeColors)
 }
 
 // ── 유틸리티 함수 ──────────────────────────
-
-function escapeXml(text: string): string {
-  return text
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&apos;');
-}
 
 /**
  * 색상을 밝기 조정합니다.

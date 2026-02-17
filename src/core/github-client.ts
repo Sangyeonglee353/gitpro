@@ -4,6 +4,120 @@
 
 import { graphql } from '@octokit/graphql';
 import { Octokit } from '@octokit/rest';
+import { GitHubRepository, CommitRecord } from '../types';
+
+// ── GraphQL 응답 타입 정의 ──────────────────────────
+
+interface GQLUserProfileResponse {
+  user: {
+    login: string;
+    name: string | null;
+    avatarUrl: string;
+    bio: string | null;
+    followers: { totalCount: number };
+    following: { totalCount: number };
+    createdAt: string;
+    repositories: { totalCount: number };
+  };
+}
+
+interface GQLRepositoryNode {
+  name: string;
+  description: string | null;
+  primaryLanguage: { name: string } | null;
+  stargazerCount: number;
+  forkCount: number;
+  createdAt: string;
+  updatedAt: string;
+  pushedAt: string;
+  isArchived: boolean;
+  isFork: boolean;
+  repositoryTopics: { nodes: Array<{ topic: { name: string } }> };
+  defaultBranchRef: {
+    target: {
+      history: { totalCount: number };
+    };
+  } | null;
+}
+
+interface GQLRepositoriesResponse {
+  user: {
+    repositories: {
+      pageInfo: { hasNextPage: boolean; endCursor: string | null };
+      nodes: GQLRepositoryNode[];
+    };
+  };
+}
+
+interface GQLContributionCalendarResponse {
+  user: {
+    contributionsCollection: {
+      contributionCalendar: {
+        weeks: Array<{
+          contributionDays: Array<{
+            date: string;
+            contributionCount: number;
+          }>;
+        }>;
+      };
+    };
+  };
+}
+
+interface GQLPRStatsResponse {
+  user: {
+    pullRequests: { totalCount: number };
+    mergedPRs: { totalCount: number };
+    openPRs: { totalCount: number };
+  };
+}
+
+interface GQLIssueStatsResponse {
+  user: {
+    issues: { totalCount: number };
+    closedIssues: { totalCount: number };
+    openIssues: { totalCount: number };
+  };
+}
+
+interface GQLCommitNode {
+  committedDate: string;
+  additions: number;
+  deletions: number;
+  message: string;
+}
+
+interface GQLCommitHistoryResponse {
+  user: {
+    repositories: {
+      nodes: Array<{
+        name: string;
+        defaultBranchRef: {
+          target: {
+            history: {
+              nodes: GQLCommitNode[];
+            };
+          };
+        } | null;
+      }>;
+    };
+  };
+}
+
+interface GQLLanguageStatsResponse {
+  user: {
+    repositories: {
+      nodes: Array<{
+        languages: {
+          edges: Array<{
+            size: number;
+            node: { name: string };
+          }>;
+        };
+      }>;
+    };
+  };
+}
 
 export class GitHubClient {
   private graphqlClient: typeof graphql;
@@ -55,7 +169,7 @@ export class GitHubClient {
       }
     `;
 
-    const result: any = await this.graphqlClient(query, { username: this.username });
+    const result = await this.graphqlClient<GQLUserProfileResponse>(query, { username: this.username });
 
     return {
       login: result.user.login,
@@ -72,7 +186,7 @@ export class GitHubClient {
   /**
    * 사용자의 레포지토리 목록을 가져옵니다.
    */
-  async getRepositories(): Promise<any[]> {
+  async getRepositories(): Promise<GitHubRepository[]> {
     const privacyFilter = this.includePrivate ? '' : 'privacy: PUBLIC,';
     const query = `
       query($username: String!, $after: String) {
@@ -112,12 +226,12 @@ export class GitHubClient {
       }
     `;
 
-    const allRepos: any[] = [];
+    const allRepos: GQLRepositoryNode[] = [];
     let after: string | null = null;
     let hasNextPage = true;
 
     while (hasNextPage) {
-      const result: any = await this.graphqlClient(query, {
+      const result: GQLRepositoriesResponse = await this.graphqlClient(query, {
         username: this.username,
         after,
       });
@@ -129,7 +243,7 @@ export class GitHubClient {
       after = repos.pageInfo.endCursor;
     }
 
-    return allRepos.map((repo: any) => ({
+    return allRepos.map((repo) => ({
       name: repo.name,
       description: repo.description,
       primaryLanguage: repo.primaryLanguage?.name || null,
@@ -141,7 +255,7 @@ export class GitHubClient {
       pushedAt: repo.pushedAt,
       isArchived: repo.isArchived,
       isFork: repo.isFork,
-      topics: repo.repositoryTopics.nodes.map((t: any) => t.topic.name),
+      topics: repo.repositoryTopics.nodes.map((t) => t.topic.name),
     }));
   }
 
@@ -166,7 +280,7 @@ export class GitHubClient {
       }
     `;
 
-    const result: any = await this.graphqlClient(query, { username: this.username });
+    const result = await this.graphqlClient<GQLContributionCalendarResponse>(query, { username: this.username });
     const weeks = result.user.contributionsCollection.contributionCalendar.weeks;
 
     const days: { date: string; count: number }[] = [];
@@ -196,7 +310,7 @@ export class GitHubClient {
       }
     `;
 
-    const result: any = await this.graphqlClient(query, { username: this.username });
+    const result = await this.graphqlClient<GQLPRStatsResponse>(query, { username: this.username });
 
     return {
       total: result.user.pullRequests.totalCount,
@@ -219,7 +333,7 @@ export class GitHubClient {
       }
     `;
 
-    const result: any = await this.graphqlClient(query, { username: this.username });
+    const result = await this.graphqlClient<GQLIssueStatsResponse>(query, { username: this.username });
 
     return {
       total: result.user.issues.totalCount,
@@ -231,7 +345,7 @@ export class GitHubClient {
   /**
    * 최근 커밋 히스토리를 가져옵니다 (시간대 분석용).
    */
-  async getCommitHistory(timezone: string): Promise<any[]> {
+  async getCommitHistory(timezone: string): Promise<CommitRecord[]> {
     const privacyFilter = this.includePrivate ? '' : ', privacy: PUBLIC';
     const query = `
       query($username: String!, $after: String) {
@@ -242,7 +356,7 @@ export class GitHubClient {
               defaultBranchRef {
                 target {
                   ... on Commit {
-                    history(first: 100, after: $after, author: { id: null }) {
+                    history(first: 100, after: $after) {
                       nodes {
                         committedDate
                         additions
@@ -260,20 +374,35 @@ export class GitHubClient {
     `;
 
     try {
-      const result: any = await this.graphqlClient(query, {
+      const result = await this.graphqlClient<GQLCommitHistoryResponse>(query, {
         username: this.username,
         after: null,
       });
 
-      const commits: any[] = [];
+      const commits: CommitRecord[] = [];
+      const hourFormatter = new Intl.DateTimeFormat('en-US', {
+        timeZone: timezone,
+        hour: 'numeric',
+        hour12: false,
+      });
+      const dayFormatter = new Intl.DateTimeFormat('en-US', {
+        timeZone: timezone,
+        weekday: 'short',
+      });
+      const dayMap: Record<string, number> = {
+        Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6,
+      };
+
       for (const repo of result.user.repositories.nodes) {
         const history = repo.defaultBranchRef?.target?.history?.nodes || [];
         for (const commit of history) {
           const date = new Date(commit.committedDate);
+          const hour = parseInt(hourFormatter.format(date), 10);
+          const dayStr = dayFormatter.format(date);
           commits.push({
             date: commit.committedDate,
-            hour: date.getHours(),
-            dayOfWeek: date.getDay(),
+            hour,
+            dayOfWeek: dayMap[dayStr] ?? date.getDay(),
             repo: repo.name,
             additions: commit.additions,
             deletions: commit.deletions,
@@ -311,7 +440,7 @@ export class GitHubClient {
       }
     `;
 
-    const result: any = await this.graphqlClient(query, { username: this.username });
+    const result = await this.graphqlClient<GQLLanguageStatsResponse>(query, { username: this.username });
     const langMap: Record<string, number> = {};
 
     for (const repo of result.user.repositories.nodes) {
