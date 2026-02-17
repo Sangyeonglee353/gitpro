@@ -150,7 +150,7 @@
   <!-- EXP 바 -->
   <text x="214" y="80" class="pet-text pet-label" fill="#8b949e">EXP</text>
   <text x="460" y="80" text-anchor="end" class="pet-text pet-value"
-        fill="#3572A5">89.8k</text>
+        fill="#3572A5">111.4k</text>
   <rect x="214" y="86" width="246" height="8" rx="4" ry="4"
         fill="#161b22"/>
   <rect x="214" y="86" width="246" height="8" rx="4" ry="4"
@@ -174,10 +174,10 @@
     <text x="214" y="162" class="pet-text pet-label" fill="#8b949e">
       🍖 포만감</text>
     <text x="460" y="162" text-anchor="end" class="pet-text pet-label"
-          fill="#e6edf3">50%</text>
+          fill="#e6edf3">100%</text>
     <rect x="214" y="168" width="246" height="6" rx="3" ry="3"
           fill="#161b22"/>
-    <rect x="214" y="168" width="123" height="6" rx="3" ry="3"
+    <rect x="214" y="168" width="246" height="6" rx="3" ry="3"
           fill="#3572A5"/>
     <rect x="214" y="184" width="auto" height="18" rx="9" ry="9"
           fill="#3572A5" opacity="0.1"/>

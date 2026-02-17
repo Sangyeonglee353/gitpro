@@ -74,22 +74,22 @@
 <g>
   <g class="dc-bld" style="animation-delay:0.00s" opacity="1">
     <ellipse cx="402.0" cy="195.5" rx="30.0" ry="15.5" fill="black" opacity="0.18"/>
-    <polygon points="400.0,192.5 400.0,111.7 375.0,99.2 375.0,180.0" fill="#ccaa3f" stroke="#1a1a2e" stroke-width="0.5"/>
-    <polygon points="400.0,192.5 425.0,180.0 425.0,99.2 400.0,111.7" fill="#FFD54F" stroke="#1a1a2e" stroke-width="0.5"/>
-    <polygon points="400.0,111.7 425.0,99.2 400.0,86.7 375.0,99.2" fill="#ffe284" stroke="#1a1a2e" stroke-width="0.5"/>
-    <polygon points="404.5,180.6 409.0,178.3 409.0,173.5 404.5,175.7"
-        fill="#ffdd57" opacity="0.30" class="dc-win" style="animation-delay:0.0s"/><polygon points="395.5,180.6 391.0,178.3 391.0,173.5 395.5,175.7"
-        fill="#ffdd57" opacity="0.20" class="dc-win" style="animation-delay:0.5s"/><polygon points="414.0,175.8 418.5,173.6 418.5,168.7 414.0,171.0"
-        fill="#ffdd57" opacity="0.77" class="dc-win" style="animation-delay:1.3s"/><polygon points="386.0,175.8 381.5,173.6 381.5,168.7 386.0,171.0"
-        fill="#ffdd57" opacity="0.50" class="dc-win" style="animation-delay:1.8s"/><polygon points="404.5,151.5 409.0,149.2 409.0,144.4 404.5,146.6"
-        fill="#ffdd57" opacity="0.50" class="dc-win" style="animation-delay:0.7s"/><polygon points="395.5,151.5 391.0,149.2 391.0,144.4 395.5,146.6"
-        fill="#ffdd57" opacity="0.33" class="dc-win" style="animation-delay:1.2s"/><polygon points="414.0,146.7 418.5,144.5 418.5,139.6 414.0,141.9"
-        fill="#ffdd57" opacity="0.30" class="dc-win" style="animation-delay:2.0s"/><polygon points="386.0,146.7 381.5,144.5 381.5,139.6 386.0,141.9"
+    <polygon points="400.0,192.5 400.0,111.6 375.0,99.1 375.0,180.0" fill="#ccaa3f" stroke="#1a1a2e" stroke-width="0.5"/>
+    <polygon points="400.0,192.5 425.0,180.0 425.0,99.1 400.0,111.6" fill="#FFD54F" stroke="#1a1a2e" stroke-width="0.5"/>
+    <polygon points="400.0,111.6 425.0,99.1 400.0,86.6 375.0,99.1" fill="#ffe284" stroke="#1a1a2e" stroke-width="0.5"/>
+    <polygon points="404.5,180.5 409.0,178.3 409.0,173.4 404.5,175.7"
+        fill="#ffdd57" opacity="0.30" class="dc-win" style="animation-delay:0.0s"/><polygon points="395.5,180.5 391.0,178.3 391.0,173.4 395.5,175.7"
+        fill="#ffdd57" opacity="0.20" class="dc-win" style="animation-delay:0.5s"/><polygon points="414.0,175.8 418.5,173.5 418.5,168.7 414.0,170.9"
+        fill="#ffdd57" opacity="0.77" class="dc-win" style="animation-delay:1.3s"/><polygon points="386.0,175.8 381.5,173.5 381.5,168.7 386.0,170.9"
+        fill="#ffdd57" opacity="0.50" class="dc-win" style="animation-delay:1.8s"/><polygon points="404.5,151.4 409.0,149.2 409.0,144.3 404.5,146.6"
+        fill="#ffdd57" opacity="0.50" class="dc-win" style="animation-delay:0.7s"/><polygon points="395.5,151.4 391.0,149.2 391.0,144.3 395.5,146.6"
+        fill="#ffdd57" opacity="0.33" class="dc-win" style="animation-delay:1.2s"/><polygon points="414.0,146.7 418.5,144.4 418.5,139.6 414.0,141.8"
+        fill="#ffdd57" opacity="0.30" class="dc-win" style="animation-delay:2.0s"/><polygon points="386.0,146.7 381.5,144.4 381.5,139.6 386.0,141.8"
         fill="#ffdd57" opacity="0.20" class="dc-win" style="animation-delay:2.5s"/>
-    <line x1="400.0" y1="77.2" x2="400.0" y2="101.2" stroke="#F9A825" stroke-width="1"/>
-        <polygon points="400.0,77.2 409.0,81.2 400.0,85.2" fill="#ff4444"/>
+    <line x1="400.0" y1="77.1" x2="400.0" y2="101.1" stroke="#F9A825" stroke-width="1"/>
+        <polygon points="400.0,77.1 409.0,81.1 400.0,85.1" fill="#ff4444"/>
     
-    <text x="400.0" y="71.2" text-anchor="middle" font-size="14">🏛️</text>
+    <text x="400.0" y="71.1" text-anchor="middle" font-size="14">🏛️</text>
     <text x="400.0" y="219.0" text-anchor="middle"
     class="dc-t dc-lbl" fill="#8b949e" opacity="0.85">gitpro</text>
   </g>
