@@ -12,14 +12,52 @@ import { getTheme } from './theme-manager';
 const GITPRO_START = '<!-- GITPRO:START -->';
 const GITPRO_END = '<!-- GITPRO:END -->';
 
-/** 모듈별 제목 */
-const MODULE_TITLES: Record<string, { icon: string; title: string; description: string }> = {
-  'trading-card': { icon: '🃏', title: 'Dev Trading Card', description: '나만의 개발자 수집 카드' },
-  'code-dna': { icon: '🧬', title: 'Code DNA', description: '세상에 하나뿐인 코드 지문' },
-  chronicle: { icon: '📜', title: 'Dev Chronicle', description: '개발자 RPG 연대기' },
-  'code-pet': { icon: '🐾', title: 'Code Pet', description: 'GitHub 활동으로 키우는 펫' },
-  constellation: { icon: '🌌', title: 'Commit Constellation', description: '커밋 별자리 지도' },
-  'dev-city': { icon: '🏙️', title: 'Dev City', description: '나만의 개발자 도시' },
+/** 로케일별 모듈 제목 */
+type ModuleTitleInfo = { icon: string; title: string; description: string };
+const MODULE_TITLES_BY_LOCALE: Record<string, Record<string, ModuleTitleInfo>> = {
+  ko: {
+    'trading-card': { icon: '🃏', title: 'Dev Trading Card', description: '나만의 개발자 수집 카드' },
+    'code-dna': { icon: '🧬', title: 'Code DNA', description: '세상에 하나뿐인 코드 지문' },
+    chronicle: { icon: '📜', title: 'Dev Chronicle', description: '개발자 RPG 연대기' },
+    'code-pet': { icon: '🐾', title: 'Code Pet', description: 'GitHub 활동으로 키우는 펫' },
+    constellation: { icon: '🌌', title: 'Commit Constellation', description: '커밋 별자리 지도' },
+    'dev-city': { icon: '🏙️', title: 'Dev City', description: '나만의 개발자 도시' },
+  },
+  en: {
+    'trading-card': { icon: '🃏', title: 'Dev Trading Card', description: 'Your developer collectible card' },
+    'code-dna': { icon: '🧬', title: 'Code DNA', description: 'Your unique code fingerprint' },
+    chronicle: { icon: '📜', title: 'Dev Chronicle', description: 'Developer RPG chronicle' },
+    'code-pet': { icon: '🐾', title: 'Code Pet', description: 'Pet raised by GitHub activity' },
+    constellation: { icon: '🌌', title: 'Commit Constellation', description: 'Commit star map' },
+    'dev-city': { icon: '🏙️', title: 'Dev City', description: 'Your developer city' },
+  },
+  ja: {
+    'trading-card': { icon: '🃏', title: 'Dev Trading Card', description: '開発者コレクションカード' },
+    'code-dna': { icon: '🧬', title: 'Code DNA', description: '唯一無二のコード指紋' },
+    chronicle: { icon: '📜', title: 'Dev Chronicle', description: '開発者RPGクロニクル' },
+    'code-pet': { icon: '🐾', title: 'Code Pet', description: 'GitHub活動で育てるペット' },
+    constellation: { icon: '🌌', title: 'Commit Constellation', description: 'コミット星座マップ' },
+    'dev-city': { icon: '🏙️', title: 'Dev City', description: '自分だけの開発者都市' },
+  },
+};
+
+/** ロケールに応じたモジュールタイトルを取得 */
+function getModuleTitles(locale: string): Record<string, ModuleTitleInfo> {
+  return MODULE_TITLES_BY_LOCALE[locale] || MODULE_TITLES_BY_LOCALE['en'];
+}
+
+/** 로케일별 타임스탬프 라벨 */
+const LAST_UPDATED_LABELS: Record<string, string> = {
+  ko: '마지막 업데이트',
+  en: 'Last updated',
+  ja: '最終更新',
+};
+
+/** 로케일에 해당하는 BCP 47 태그 */
+const LOCALE_TAGS: Record<string, string> = {
+  ko: 'ko-KR',
+  en: 'en-US',
+  ja: 'ja-JP',
 };
 
 /**
@@ -141,25 +179,29 @@ function generateGitproSection(config: GitProConfig, results: ModuleResult[]): s
     markdown += `</div>\n\n`;
   }
 
+  const moduleTitles = getModuleTitles(config.locale);
+
   // 모듈 레이아웃
   switch (layout) {
     case 'grid':
-      markdown += generateGridLayout(results);
+      markdown += generateGridLayout(results, moduleTitles);
       break;
     case 'tabs':
-      markdown += generateTabsLayout(results);
+      markdown += generateTabsLayout(results, moduleTitles);
       break;
     case 'vertical':
     default:
-      markdown += generateVerticalLayout(results);
+      markdown += generateVerticalLayout(results, moduleTitles);
       break;
   }
 
   // 마지막 업데이트 시간 표시
   if (config.readme.show_last_updated) {
     const now = new Date();
-    const timeStr = now.toLocaleString('ko-KR', { timeZone: config.timezone || 'UTC' });
-    markdown += `\n<p align="center"><sub>🕐 마지막 업데이트: ${timeStr}</sub></p>\n\n`;
+    const localeTag = LOCALE_TAGS[config.locale] || 'en-US';
+    const timeStr = now.toLocaleString(localeTag, { timeZone: config.timezone || 'UTC' });
+    const label = LAST_UPDATED_LABELS[config.locale] || LAST_UPDATED_LABELS['en'];
+    markdown += `\n<p align="center"><sub>🕐 ${label}: ${timeStr}</sub></p>\n\n`;
   }
 
   // 푸터
@@ -173,11 +215,11 @@ function generateGitproSection(config: GitProConfig, results: ModuleResult[]): s
 /**
  * 세로 나열 레이아웃
  */
-function generateVerticalLayout(results: ModuleResult[]): string {
+function generateVerticalLayout(results: ModuleResult[], moduleTitles: Record<string, ModuleTitleInfo>): string {
   let markdown = `<div align="center">\n\n`;
 
   for (const result of results) {
-    const info = MODULE_TITLES[result.id] || { icon: '📦', title: result.id, description: '' };
+    const info = moduleTitles[result.id] || { icon: '📦', title: result.id, description: '' };
     markdown += `### ${info.icon} ${info.title}\n\n`;
     if (info.description) {
       markdown += `<sub>${info.description}</sub>\n\n`;
@@ -193,17 +235,17 @@ function generateVerticalLayout(results: ModuleResult[]): string {
 /**
  * 2열 그리드 레이아웃
  */
-function generateGridLayout(results: ModuleResult[]): string {
+function generateGridLayout(results: ModuleResult[], moduleTitles: Record<string, ModuleTitleInfo>): string {
   let markdown = `<div align="center">\n\n`;
 
   // 2개씩 묶어서 테이블로
   for (let i = 0; i < results.length; i += 2) {
     const left = results[i];
     const right = results[i + 1];
-    const leftInfo = MODULE_TITLES[left.id] || { icon: '📦', title: left.id, description: '' };
+    const leftInfo = moduleTitles[left.id] || { icon: '📦', title: left.id, description: '' };
 
     if (right) {
-      const rightInfo = MODULE_TITLES[right.id] || { icon: '📦', title: right.id, description: '' };
+      const rightInfo = moduleTitles[right.id] || { icon: '📦', title: right.id, description: '' };
       markdown += `<table><tr>\n`;
       markdown += `<td align="center" width="50%">\n\n`;
       markdown += `### ${leftInfo.icon} ${leftInfo.title}\n`;
@@ -228,12 +270,12 @@ function generateGridLayout(results: ModuleResult[]): string {
 /**
  * 탭(접기) 레이아웃
  */
-function generateTabsLayout(results: ModuleResult[]): string {
+function generateTabsLayout(results: ModuleResult[], moduleTitles: Record<string, ModuleTitleInfo>): string {
   let markdown = `<div align="center">\n\n`;
 
   for (let i = 0; i < results.length; i++) {
     const result = results[i];
-    const info = MODULE_TITLES[result.id] || { icon: '📦', title: result.id, description: '' };
+    const info = moduleTitles[result.id] || { icon: '📦', title: result.id, description: '' };
     const isOpen = i === 0 ? ' open' : '';
 
     markdown += `<details${isOpen}>\n`;
@@ -309,10 +351,11 @@ function generateStatsFooter(config: GitProConfig): string {
   markdown += `<td align="center">\n\n`;
   markdown += `📊 **활성 모듈**\n\n`;
 
+  const moduleTitles = getModuleTitles(config.locale);
   const enabledModules = Object.entries(config.modules)
     .filter(([_, modConfig]) => (modConfig as { enabled: boolean }).enabled)
     .map(([id]) => {
-      const info = MODULE_TITLES[id];
+      const info = moduleTitles[id];
       return info ? `${info.icon} ${info.title}` : id;
     });
 

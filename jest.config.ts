@@ -12,7 +12,6 @@ const config: Config = {
     '!src/**/index.ts',
     '!src/core/github-client.ts',
     '!src/core/data-collector.ts',
-    '!src/core/gist-uploader.ts',
   ],
   coverageDirectory: 'coverage',
   coverageReporters: ['text', 'text-summary', 'lcov'],

@@ -13,7 +13,6 @@ import { getTheme, getAvailableThemes } from './core/theme-manager';
 import { StateManager } from './core/state-manager';
 import { runModules } from './core/module-runner';
 import { updateReadme } from './core/readme-generator';
-import { uploadToGist } from './core/gist-uploader';
 
 /** 성능 측정용 타이머 */
 class PerfTimer {
@@ -70,14 +69,14 @@ async function main(): Promise<void> {
     // ── 1. 설정 파일 로드 ──────────────────────────
     perf.start('설정 로드');
     console.log('📄 설정 파일 로드 중...');
-    const config = loadConfig();
+    const configPath = process.env.INPUT_CONFIG_PATH || undefined;
+    const config = loadConfig(configPath);
     const enabledModules = getEnabledModules(config);
     console.log(`   사용자: ${config.username}`);
     console.log(`   테마: ${config.theme}`);
     console.log(`   로케일: ${config.locale}`);
     console.log(`   활성 모듈: ${enabledModules.join(', ') || '없음'}`);
     console.log(`   README 자동 업데이트: ${config.readme.auto_update ? '✅' : '❌'}`);
-    console.log(`   Gist 연동: ${config.gist.enabled ? '✅' : '❌'}`);
     debugLog('사용 가능한 테마:', getAvailableThemes().join(', '));
     perf.end('설정 로드');
     console.log('');
@@ -117,14 +116,14 @@ async function main(): Promise<void> {
 
     // ── 5. 모듈 실행 ──────────────────────────
     perf.start('모듈 실행');
-    const results = await runModules(config, githubData, state, theme);
+    const { results, errors } = await runModules(config, githubData, state, theme);
     perf.end('모듈 실행');
 
     // ── 6. 상태 업데이트 및 저장 ──────────────────────────
     perf.start('상태 저장');
     for (const result of results) {
       if (result.output.stateUpdate) {
-        stateManager.merge(result.output.stateUpdate as any);
+        stateManager.merge(result.output.stateUpdate);
       }
     }
     await stateManager.save();
@@ -139,15 +138,7 @@ async function main(): Promise<void> {
       perf.end('README 업데이트');
     }
 
-    // ── 8. Gist 업로드 ──────────────────────────
-    if (config.gist.enabled && results.length > 0) {
-      perf.start('Gist 업로드');
-      console.log('');
-      await uploadToGist(token, config.gist, results, config.username);
-      perf.end('Gist 업로드');
-    }
-
-    // ── 9. 실행 완료 요약 ──────────────────────────
+    // ── 8. 실행 완료 요약 ──────────────────────────
     perf.end('전체 실행');
 
     console.log('');
@@ -158,8 +149,12 @@ async function main(): Promise<void> {
     if (config.readme.auto_update) {
       console.log(`  📄 README.md 업데이트됨 (레이아웃: ${config.readme.layout})`);
     }
-    if (config.gist.enabled) {
-      console.log(`  📌 Gist 업로드됨`);
+    if (errors.length > 0) {
+      console.log('');
+      console.log(`  ⚠️  ${errors.length}개 모듈 오류:`);
+      for (const err of errors) {
+        console.log(`     - [${err.moduleId}] ${err.message}`);
+      }
     }
     console.log('═══════════════════════════════════════════');
 

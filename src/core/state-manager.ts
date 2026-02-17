@@ -5,6 +5,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import { GitProState } from '../types';
+import { deepMerge } from './utils';
 
 const DEFAULT_STATE: GitProState = {
   lastUpdated: null,
@@ -54,8 +55,11 @@ export class StateManager {
       if (fs.existsSync(this.filePath)) {
         const content = fs.readFileSync(this.filePath, 'utf-8');
         const parsed = JSON.parse(content) as Partial<GitProState>;
-        // 기본값과 병합 (새 필드가 추가되어도 안전)
-        return { ...DEFAULT_STATE, ...parsed };
+        // 기본값과 깊은 병합 (새 필드가 추가되어도 안전)
+        return deepMerge(
+          DEFAULT_STATE as unknown as Record<string, unknown>,
+          parsed as unknown as Record<string, unknown>
+        ) as unknown as GitProState;
       }
     } catch (error) {
       console.warn(`⚠️  상태 파일 로드 실패, 기본값 사용: ${error}`);
@@ -81,7 +85,10 @@ export class StateManager {
    * 부분 업데이트를 적용합니다.
    */
   merge(updates: Partial<GitProState>): void {
-    this.state = { ...this.state, ...updates };
+    this.state = deepMerge(
+      this.state as unknown as Record<string, unknown>,
+      updates as unknown as Record<string, unknown>
+    ) as unknown as GitProState;
   }
 
   /**

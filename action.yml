@@ -4,7 +4,7 @@ author: 'Sangyeonglee353'
 
 inputs:
   gh_token:
-    description: 'GitHub Personal Access Token (repo, gist scope required)'
+    description: 'GitHub Personal Access Token (repo scope required)'
     required: true
   config_path:
     description: 'Path to gitpro.config.yml (default: ./gitpro.config.yml)'

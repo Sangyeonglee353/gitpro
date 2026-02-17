@@ -69,8 +69,6 @@ describe('Config Loader', () => {
       // 기본값 확인
       expect(config.readme).toBeDefined();
       expect(config.readme.auto_update).toBe(true);
-      expect(config.gist).toBeDefined();
-      expect(config.gist.enabled).toBe(false);
     });
 
     it('username이 없으면 환경변수에서 가져온다', () => {

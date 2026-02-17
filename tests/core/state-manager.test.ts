@@ -112,6 +112,62 @@ describe('StateManager', () => {
       // 다른 상태는 유지
       expect(state.pet.exp).toBe(0);
     });
+
+    it('깊은 병합으로 중첩 객체의 다른 속성을 보존한다', () => {
+      mockFs.existsSync.mockReturnValue(false);
+
+      const manager = new StateManager('/test/state');
+      // pet의 exp만 업데이트해도 species, mood 등이 보존되어야 한다
+      manager.merge({ pet: { exp: 100 } } as any);
+
+      const state = manager.getState();
+      expect(state.pet.exp).toBe(100);
+      expect(state.pet.species).toBeNull();
+      expect(state.pet.stage).toBe(0);
+      expect(state.pet.mood).toBe(50);
+      expect(state.pet.hunger).toBe(50);
+      expect(state.pet.abilities).toEqual([]);
+    });
+
+    it('여러 번 merge해도 이전 속성이 소실되지 않는다', () => {
+      mockFs.existsSync.mockReturnValue(false);
+
+      const manager = new StateManager('/test/state');
+      manager.merge({ pet: { species: 'TypeScriptodon' } } as any);
+      manager.merge({ pet: { exp: 200 } } as any);
+      manager.merge({ city: { tier: 2 } } as any);
+
+      const state = manager.getState();
+      expect(state.pet.species).toBe('TypeScriptodon');
+      expect(state.pet.exp).toBe(200);
+      expect(state.pet.mood).toBe(50);
+      expect(state.city.tier).toBe(2);
+      expect(state.city.population).toBe(0);
+    });
+  });
+
+  describe('load (깊은 병합)', () => {
+    it('부분 저장 상태에서도 기본값 필드가 보존된다', () => {
+      // pet의 일부 필드만 저장된 경우
+      const partialState = JSON.stringify({
+        pet: { exp: 500 },
+        city: { tier: 3 },
+      });
+
+      mockFs.existsSync.mockReturnValue(true);
+      mockFs.readFileSync.mockReturnValue(partialState);
+
+      const manager = new StateManager('/test/state');
+      const state = manager.getState();
+
+      expect(state.pet.exp).toBe(500);
+      expect(state.pet.species).toBeNull();
+      expect(state.pet.mood).toBe(50);
+      expect(state.pet.hunger).toBe(50);
+      expect(state.pet.abilities).toEqual([]);
+      expect(state.city.tier).toBe(3);
+      expect(state.city.population).toBe(0);
+    });
   });
 
   describe('save', () => {

@@ -48,7 +48,6 @@
 | 🎨 | **11가지 빌트인 테마** | dark, light, cyberpunk, retro, pastel, ocean, forest, dracula, nord, sunset + 커스텀 |
 | ⚡ | **YAML 설정 하나로 제어** | `gitpro.config.yml` 파일 하나로 모든 모듈과 테마를 관리 |
 | 🔄 | **GitHub Actions 자동화** | 6시간마다 자동 실행, 수동 실행도 지원 |
-| 📌 | **Gist 연동** | Pinned Gist에 SVG를 업로드하여 프로필에 고정 |
 | 🌍 | **다국어 지원** | 한국어 (`ko`), 영어 (`en`), 일본어 (`ja`) |
 | 💾 | **영구 상태 관리** | 펫 성장, 도시 발전, 연대기 진행 등 데이터가 누적 저장 |
 | 🧩 | **플러그인 아키텍처** | `GitProModule` 인터페이스로 커스텀 모듈 확장 가능 |
@@ -129,14 +128,7 @@ GitHub 레포지토리를 건물로 변환하는 **아이소메트릭 픽셀아�
 
 > 🌟 **이 프로젝트가 마음에 드셨다면 [⭐ Star](https://github.com/Sangyeonglee353/gitpro)를 눌러주세요!** 더 좋은 모듈을 만드는 데 큰 힘이 됩니다.
 
-gitpro로 생성한 SVG를 프로필에 표시하는 방법은 **2가지**입니다:
-
-| 방식 | 설명 | 추천 대상 |
-|------|------|----------|
-| 📌 **[방법 A: Pinned Gist](#방법-a)** | Gist에 SVG를 업로드하여 프로필에 Pin 고정 | 기존 README를 건드리고 싶지 않은 분 |
-| 📝 **[방법 B: 기존 README에 추가](#방법-b)** | 기존 프로필 README에 SVG 이미지 태그 삽입 | 프로필 README를 자유롭게 꾸미고 싶은 분 |
-
-> 💡 두 방법을 **동시에** 사용할 수도 있습니다!
+gitpro로 생성한 SVG를 프로필에 표시하려면 **프로필 README에 이미지 태그를 추가**하면 됩니다.
 
 ---
 
@@ -157,8 +149,7 @@ gitpro로 생성한 SVG를 프로필에 표시하는 방법은 **2가지**입니
 
 | 스코프 | 필수 여부 | 용도 |
 |--------|----------|------|
-| `repo` | ✅ 필수 | 레포 데이터 접근, 프로필 README 업데이트 (방법 B) |
-| `gist` | ✅ 필수 (방법 A) | Gist에 SVG 업로드 |
+| `repo` | ✅ 필수 | 레포 데이터 접근, 프로필 README 업데이트 |
 | `read:user` | ✅ 필수 | 사용자 프로필 데이터 읽기 |
 
 4. 생성된 토큰을 복사합니다 (⚠️ 한 번만 보여지므로 잘 보관하세요!)
@@ -240,53 +231,11 @@ git commit -m "🎮 Configure gitpro for my profile"
 git push origin main
 ```
 
-> ✅ 실행이 완료되면 `output/` 디렉토리에 SVG 파일들이 생성됩니다. 이제 아래 **방법 A** 또는 **방법 B**를 따라 프로필에 적용하세요!
+> ✅ 실행이 완료되면 `output/` 디렉토리에 SVG 파일들이 생성됩니다. 이제 아래 가이드를 따라 프로필에 적용하세요!
 
 ---
 
-<a id="방법-a"></a>
-
-### 방법 A — 📌 Pinned Gist (프로필 고정)
-
-> 기존 프로필 README를 전혀 수정하지 않고, GitHub 프로필에 SVG를 **Pin(고정)** 하는 방법입니다.
-
-**1. Gist 생성**
-
-1. [gist.github.com](https://gist.github.com)에서 **새 Gist 생성** (파일명: `gitpro.md`, 내용은 아무거나)
-2. Gist URL에서 **Gist ID** 복사
-   - 예: `https://gist.github.com/username/abc123def456` → `abc123def456`
-
-**2. gitpro.config.yml에 Gist 설정 추가**
-
-```yaml
-# 📌 Gist 연동 설정
-gist:
-  enabled: true
-  gist_id: "abc123def456"                              # 복사한 Gist ID
-  modules: ["trading-card", "code-pet"]                 # 업로드할 모듈 (빈 배열이면 전부)
-```
-
-> ⚠️ GH_TOKEN에 **gist** 스코프 권한이 반드시 필요합니다.
-
-**3. Actions 재실행**
-
-설정을 Push하거나 Actions를 수동 실행하면 SVG가 Gist에 자동 업로드됩니다.
-
-**4. Gist를 프로필에 Pin 고정**
-
-1. 본인 GitHub 프로필 페이지 (`github.com/username`) 이동
-2. **"Customize your pins"** 클릭
-3. 방금 생성한 Gist를 선택하여 **Pin** 고정
-
-```
-✅ 결과: 프로필 방문자가 Pinned Gist를 통해 gitpro SVG를 바로 볼 수 있습니다!
-```
-
----
-
-<a id="방법-b"></a>
-
-### 방법 B — 📝 기존 프로필 README에 추가
+### 📝 프로필 README에 SVG 추가
 
 > 이미 사용 중인 프로필 README (`username/username`)에 gitpro SVG 이미지를 직접 삽입하는 방법입니다.
 
@@ -353,9 +302,7 @@ gitpro가 생성한 SVG는 Fork한 레포의 `output/` 경로에 있으므로, *
 ### 📌 한눈에 보는 전체 흐름
 
 ```
-⭐ Star → 🍴 Fork → ✏️ config 수정 → 🔑 Secret 등록 → ▶️ Actions 실행
-    ├── 📌 방법 A: Gist에 업로드 → 프로필에 Pin 고정
-    └── 📝 방법 B: 프로필 README에 SVG 이미지 태그 추가
+⭐ Star → 🍴 Fork → ✏️ config 수정 → 🔑 Secret 등록 → ▶️ Actions 실행 → 📝 프로필 README에 SVG 이미지 태그 추가
 ```
 
 ---
@@ -543,10 +490,6 @@ custom_theme:
 
 ## 🔧 고급 사용법
 
-### Gist 연동 (Pinned Gist)
-
-> 📌 Gist 연동 설정 방법은 위의 [**방법 A — Pinned Gist**](#방법-a) 섹션을 참고하세요.
-
 ### 디버그 모드
 
 문제가 발생했을 때 상세한 로그를 확인할 수 있습니다:
@@ -693,7 +636,7 @@ gitpro/
     └── gitpro-state.json           # 💾 영구 상태 (펫 EXP, 도시 레벨 등)
 ```
 
-> 💡 이 SVG 파일들을 [**방법 A (Gist Pin)**](#방법-a) 또는 [**방법 B (프로필 README)**](#방법-b)로 프로필에 표시합니다.
+> 💡 이 SVG 파일들을 프로필 README에 이미지 태그로 삽입하여 프로필에 표시합니다.
 
 ---
 
@@ -713,8 +656,7 @@ gitpro/
 │   │   ├── svg-engine.ts           # SVG 빌더 엔진
 │   │   ├── module-runner.ts        # 모듈 실행기
 │   │   ├── header-generator.ts     # 헤더 SVG 생성
-│   │   ├── readme-generator.ts     # README 자동 생성
-│   │   └── gist-uploader.ts        # Gist 업로더
+│   │   └── readme-generator.ts     # README 자동 생성
 │   └── modules/
 │       ├── trading-card/           # 🃏 트레이딩 카드 모듈
 │       ├── code-dna/               # 🧬 코드 DNA 모듈

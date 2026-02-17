@@ -3,6 +3,7 @@
 // ═══════════════════════════════════════════
 
 import { ThemeColors } from '../types';
+import { escapeXml } from './utils';
 
 /**
  * SVG 빌더 - 체이닝 방식으로 SVG를 구성합니다.
@@ -349,18 +350,6 @@ ${this.elements.join('\n')}
 }
 
 // ── 유틸리티 ──────────────────────────
-
-/**
- * XML 특수문자를 이스케이프합니다.
- */
-function escapeXml(text: string): string {
-  return text
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&apos;');
-}
 
 /**
  * 프로그레스 바 문자열을 생성합니다.
