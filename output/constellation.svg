@@ -345,7 +345,7 @@
     <text x="520.0" y="240.3"
           text-anchor="middle" class="cst-text cst-name"
           fill="#e6edf3" opacity="0.70">
-      ⭐ gitpro&apos;s Star</text>
+      ⭐ plan-b&apos;s Star</text>
     
   </g>
 <g class="cst-constellation" style="animation-delay: 0.20s">
@@ -353,7 +353,7 @@
     
     <!-- 별 -->
     <circle cx="255.6" cy="276.1"
-                    r="1.0" fill="#6b5bff"
+                    r="1.0" fill="#58a6ff"
                     opacity="0.30" 
                     class="cst-bg-star-slow" style="animation-delay: 1.3s"/>
             
@@ -361,7 +361,7 @@
     <text x="255.6" y="308.9"
           text-anchor="middle" class="cst-text cst-name"
           fill="#e6edf3" opacity="0.70">
-      🛡️ tistory-book&apos;s Shiel…</text>
+      ⭐ gitpro&apos;s Star</text>
     
   </g>
 <g class="cst-constellation" style="animation-delay: 0.40s">
@@ -369,7 +369,7 @@
     
     <!-- 별 -->
     <circle cx="419.9" cy="90.0"
-                    r="1.0" fill="#58a6ff"
+                    r="1.0" fill="#6b5bff"
                     opacity="0.30" 
                     class="cst-bg-star-slow" style="animation-delay: 2.6s"/>
             
@@ -377,7 +377,7 @@
     <text x="419.9" y="122.8"
           text-anchor="middle" class="cst-text cst-name"
           fill="#e6edf3" opacity="0.70">
-      👁️ ai-literacy-&apos;s Eye</text>
+      🛡️ tistory-book&apos;s Shiel…</text>
     
   </g>
 <g class="cst-constellation" style="animation-delay: 0.60s">
@@ -393,7 +393,7 @@
     <text x="553.0" y="343.8"
           text-anchor="middle" class="cst-text cst-name"
           fill="#e6edf3" opacity="0.70">
-      ⭐ inyeon&apos;s Star</text>
+      👁️ ai-literacy-&apos;s Eye</text>
     
   </g>
 <g class="cst-constellation" style="animation-delay: 0.80s">
@@ -409,7 +409,7 @@
     <text x="132.4" y="215.7"
           text-anchor="middle" class="cst-text cst-name"
           fill="#e6edf3" opacity="0.70">
-      ⭐ vibe-tracker&apos;s Star</text>
+      ⭐ inyeon&apos;s Star</text>
     
   </g>
 <g class="cst-constellation" style="animation-delay: 1.00s">
@@ -417,7 +417,7 @@
     
     <!-- 별 -->
     <circle cx="644.4" cy="126.8"
-                    r="1.0" fill="#6bbd6e"
+                    r="1.0" fill="#58a6ff"
                     opacity="0.30" 
                     class="cst-bg-star-slow" style="animation-delay: 6.5s"/>
             
@@ -425,7 +425,7 @@
     <text x="644.4" y="159.6"
           text-anchor="middle" class="cst-text cst-name"
           fill="#e6edf3" opacity="0.70">
-      ⭐ multipaste&apos;s Star</text>
+      ⭐ vibe-tracker&apos;s Star</text>
     
   </g>
 <g class="cst-constellation" style="animation-delay: 1.20s">
@@ -433,7 +433,7 @@
     
     <!-- 별 -->
     <circle cx="320.6" cy="352.8"
-                    r="1.0" fill="#58a6ff"
+                    r="1.0" fill="#6bbd6e"
                     opacity="0.30" 
                     class="cst-bg-star-slow" style="animation-delay: 7.8s"/>
             
@@ -441,7 +441,7 @@
     <text x="320.6" y="385.5"
           text-anchor="middle" class="cst-text cst-name"
           fill="#e6edf3" opacity="0.70">
-      🏗️ fastHRD&apos;s Tower</text>
+      ⭐ multipaste&apos;s Star</text>
     
   </g>
 <g class="cst-constellation" style="animation-delay: 1.40s">
@@ -457,7 +457,7 @@
     <text x="252.1" y="95.0"
           text-anchor="middle" class="cst-text cst-name"
           fill="#e6edf3" opacity="0.70">
-      ⭐ pdf-preview&apos;s Star</text>
+      🏗️ fastHRD&apos;s Tower</text>
     
   </g>
 <g class="cst-constellation" style="animation-delay: 1.60s">
@@ -465,7 +465,7 @@
     
     <!-- 별 -->
     <circle cx="704.0" cy="267.1"
-                    r="1.0" fill="#f0db4f"
+                    r="1.0" fill="#58a6ff"
                     opacity="0.30" 
                     class="cst-bg-star-slow" style="animation-delay: 10.4s"/>
             
@@ -473,7 +473,7 @@
     <text x="704.0" y="299.8"
           text-anchor="middle" class="cst-text cst-name"
           fill="#e6edf3" opacity="0.70">
-      ⭐ desktop-cale&apos;s Star</text>
+      ⭐ pdf-preview&apos;s Star</text>
     
   </g>
 <g class="cst-constellation" style="animation-delay: 1.80s">
@@ -481,7 +481,7 @@
     
     <!-- 별 -->
     <circle cx="96.0" cy="276.3"
-                    r="1.0" fill="#c8d6e5"
+                    r="1.0" fill="#f0db4f"
                     opacity="0.30" 
                     class="cst-bg-star-slow" style="animation-delay: 11.7s"/>
             
@@ -489,7 +489,7 @@
     <text x="96.0" y="309.1"
           text-anchor="middle" class="cst-text cst-name"
           fill="#e6edf3" opacity="0.70">
-      ⭐ portmanager&apos;s Star</text>
+      ⭐ desktop-cale&apos;s Star</text>
     
   </g>
 <g class="cst-meteor-anim" style="animation-delay: 1.4s; transform-origin: 611px 79px;">
