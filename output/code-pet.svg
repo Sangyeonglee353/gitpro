@@ -150,7 +150,7 @@
   <!-- EXP 바 -->
   <text x="214" y="80" class="pet-text pet-label" fill="#8b949e">EXP</text>
   <text x="460" y="80" text-anchor="end" class="pet-text pet-value"
-        fill="#3572A5">133.0k</text>
+        fill="#3572A5">154.6k</text>
   <rect x="214" y="86" width="246" height="8" rx="4" ry="4"
         fill="#161b22"/>
   <rect x="214" y="86" width="246" height="8" rx="4" ry="4"
@@ -215,7 +215,7 @@
   <text x="20" y="308" class="pet-text pet-small" fill="#8b949e">
     🐾 gitpro Code Pet</text>
   <text x="460" y="308" text-anchor="end" class="pet-text pet-small"
-        fill="#8b949e">2026-02-17</text>
+        fill="#8b949e">2026-02-18</text>
 
   <!-- 전설 시머 효과 -->
   

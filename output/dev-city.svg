@@ -81,10 +81,10 @@
         fill="#ffdd57" opacity="0.30" class="dc-win" style="animation-delay:0.0s"/><polygon points="395.5,180.5 391.0,178.3 391.0,173.4 395.5,175.7"
         fill="#ffdd57" opacity="0.20" class="dc-win" style="animation-delay:0.5s"/><polygon points="414.0,175.8 418.5,173.5 418.5,168.7 414.0,170.9"
         fill="#ffdd57" opacity="0.77" class="dc-win" style="animation-delay:1.3s"/><polygon points="386.0,175.8 381.5,173.5 381.5,168.7 386.0,170.9"
-        fill="#ffdd57" opacity="0.50" class="dc-win" style="animation-delay:1.8s"/><polygon points="404.5,151.4 409.0,149.1 409.0,144.3 404.5,146.5"
-        fill="#ffdd57" opacity="0.50" class="dc-win" style="animation-delay:0.7s"/><polygon points="395.5,151.4 391.0,149.1 391.0,144.3 395.5,146.5"
-        fill="#ffdd57" opacity="0.33" class="dc-win" style="animation-delay:1.2s"/><polygon points="414.0,146.6 418.5,144.4 418.5,139.5 414.0,141.8"
-        fill="#ffdd57" opacity="0.30" class="dc-win" style="animation-delay:2.0s"/><polygon points="386.0,146.6 381.5,144.4 381.5,139.5 386.0,141.8"
+        fill="#ffdd57" opacity="0.50" class="dc-win" style="animation-delay:1.8s"/><polygon points="404.5,151.4 409.0,149.1 409.0,144.2 404.5,146.5"
+        fill="#ffdd57" opacity="0.50" class="dc-win" style="animation-delay:0.7s"/><polygon points="395.5,151.4 391.0,149.1 391.0,144.2 395.5,146.5"
+        fill="#ffdd57" opacity="0.33" class="dc-win" style="animation-delay:1.2s"/><polygon points="414.0,146.6 418.5,144.4 418.5,139.5 414.0,141.7"
+        fill="#ffdd57" opacity="0.30" class="dc-win" style="animation-delay:2.0s"/><polygon points="386.0,146.6 381.5,144.4 381.5,139.5 386.0,141.7"
         fill="#ffdd57" opacity="0.20" class="dc-win" style="animation-delay:2.5s"/>
     <line x1="400.0" y1="77.0" x2="400.0" y2="101.0" stroke="#F9A825" stroke-width="1"/>
         <polygon points="400.0,77.0 409.0,81.0 400.0,85.0" fill="#ff4444"/>
