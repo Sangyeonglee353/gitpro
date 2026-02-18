@@ -1,14 +1,14 @@
-// ═══════════════════════════════════════════
-// 🏙️ City Renderer - 아이소메트릭 도시 SVG 렌더링
-// ═══════════════════════════════════════════
+// ???????????????????????????????????????????
+// ??? City Renderer - ���̼Ҹ�Ʈ�� ���� SVG ������
+// ???????????????????????????????????????????
 //
-// Dev City를 진짜 아이소메트릭 3D 픽셀아트 도시 SVG로 렌더링합니다.
-// - 3면(top/left/right) 폴리곤 기반 아이소메트릭 건물
-// - 아이소메트릭 지면 다이아몬드 + 그리드 라인
-// - 건물 타입별 고유 장식 (굴뚝, 안테나, 돔 등)
-// - 아이소메트릭 창문 (면 기울기에 맞춤)
-// - 정확한 z-order (뒤→앞 렌더링)
-// - 4가지 도시 스타일: pixel, isometric, flat, neon
+// Dev City�� ��¥ ���̼Ҹ�Ʈ�� 3D �ȼ���Ʈ ���� SVG�� �������մϴ�.
+// - 3��(top/left/right) ������ ��� ���̼Ҹ�Ʈ�� �ǹ�
+// - ���̼Ҹ�Ʈ�� ���� ���̾Ƹ�� + �׸��� ����
+// - �ǹ� Ÿ�Ժ� ���� ��� (����, ���׳�, �� ��)
+// - ���̼Ҹ�Ʈ�� â�� (�� ���⿡ ����)
+// - ��Ȯ�� z-order (�ڡ�� ������)
+// - 4���� ���� ��Ÿ��: pixel, isometric, flat, neon
 
 import { ThemeColors, DevCityConfig } from '../../types';
 import {
@@ -19,9 +19,9 @@ import {
 } from './city-analyzer';
 import { CityTier, WeatherInfo, BuildingType } from './building-mapper';
 
-// ═══════════════════════════════════════════
-// 📐 상수
-// ═══════════════════════════════════════════
+// ???????????????????????????????????????????
+// ?? ���
+// ???????????????????????????????????????????
 
 const SVG_WIDTH = 800;
 const SVG_HEIGHT = 500;
@@ -30,21 +30,21 @@ const FOOTER_HEIGHT = 50;
 const CITY_Y = HEADER_HEIGHT;
 const CITY_HEIGHT = SVG_HEIGHT - HEADER_HEIGHT - FOOTER_HEIGHT; // 405
 
-// 아이소메트릭 그리드
+// ���̼Ҹ�Ʈ�� �׸���
 const GRID_ORIGIN_X = 400;
 const GRID_ORIGIN_Y = 275;
 const TILE_W = 110;
 const TILE_H = 55;
 
-// 건물 치수
-const BUILDING_HW = 25;  // 반폭 (half-width)
-const BUILDING_HD = 12.5; // 반깊이 (half-depth)
+// �ǹ� ġ��
+const BUILDING_HW = 25;  // ���� (half-width)
+const BUILDING_HD = 12.5; // �ݱ��� (half-depth)
 
-// ═══════════════════════════════════════════
-// 🔧 유틸리티
-// ═══════════════════════════════════════════
+// ???????????????????????????????????????????
+// ?? ��ƿ��Ƽ
+// ???????????????????????????????????????????
 
-/** 소수점 1자리 반올림 */
+/** �Ҽ��� 1�ڸ� �ݿø� */
 function n(v: number): string {
   return v.toFixed(1);
 }
@@ -81,7 +81,7 @@ function darkenHex(hex: string, amount: number): string {
   return `#${Math.round(rv * (1 - amount)).toString(16).padStart(2, '0')}${Math.round(gv * (1 - amount)).toString(16).padStart(2, '0')}${Math.round(bv * (1 - amount)).toString(16).padStart(2, '0')}`;
 }
 
-/** 아이소메트릭 그리드 → 스크린 좌표 변환 */
+/** ���̼Ҹ�Ʈ�� �׸��� �� ��ũ�� ��ǥ ��ȯ */
 function gridToScreen(
   col: number, row: number,
   centerCol: number, centerRow: number,
@@ -92,9 +92,9 @@ function gridToScreen(
   };
 }
 
-// ═══════════════════════════════════════════
-// 🎨 도시 스타일 색상 시스템
-// ═══════════════════════════════════════════
+// ???????????????????????????????????????????
+// ?? ���� ��Ÿ�� ���� �ý���
+// ???????????????????????????????????????????
 
 export interface CityStyleColors {
   skyTop: string;
@@ -199,9 +199,9 @@ function getCityStyleColors(
   }
 }
 
-// ═══════════════════════════════════════════
-// 📐 Defs (그라데이션, 필터)
-// ═══════════════════════════════════════════
+// ???????????????????????????????????????????
+// ?? Defs (�׶��̼�, ����)
+// ???????????????????????????????????????????
 
 function buildDefs(colors: CityStyleColors, isNeon: boolean): string {
   return `<defs>
@@ -231,9 +231,9 @@ function buildDefs(colors: CityStyleColors, isNeon: boolean): string {
 </defs>`;
 }
 
-// ═══════════════════════════════════════════
-// 💫 Styles (애니메이션)
-// ═══════════════════════════════════════════
+// ???????????????????????????????????????????
+// ?? Styles (�ִϸ��̼�)
+// ???????????????????????????????????????????
 
 function buildStyles(colors: CityStyleColors, animate: boolean): string {
   const anim = animate ? `
@@ -273,9 +273,9 @@ function buildStyles(colors: CityStyleColors, animate: boolean): string {
 </style>`;
 }
 
-// ═══════════════════════════════════════════
-// 🌿 아이소메트릭 지면 렌더링
-// ═══════════════════════════════════════════
+// ???????????????????????????????????????????
+// ?? ���̼Ҹ�Ʈ�� ���� ������
+// ???????????????????????????????????????????
 
 function renderIsometricGround(
   buildings: CityBuilding[],
@@ -287,7 +287,7 @@ function renderIsometricGround(
   const centerCol = (gridCols - 1) / 2;
   const centerRow = (gridRows - 1) / 2;
 
-  // 지면 다이아몬드 (그리드 + 패딩)
+  // ���� ���̾Ƹ�� (�׸��� + �е�)
   const pad = 1.2;
   const corners = [
     gridToScreen(-pad, -pad, centerCol, centerRow),           // back (top)
@@ -299,7 +299,7 @@ function renderIsometricGround(
   const groundDiamond = `<polygon points="${corners.map(c => `${n(c.x)},${n(c.y)}`).join(' ')}"
     fill="url(#groundGrad)" stroke="${colors.groundDark}" stroke-width="0.5"/>`;
 
-  // 그리드 라인 (아이소메트릭 타일)
+  // �׸��� ���� (���̼Ҹ�Ʈ�� Ÿ��)
   let gridLines = '';
   for (let row = -0.5; row <= gridRows + 0.5; row += 1) {
     const s = gridToScreen(-pad, row, centerCol, centerRow);
@@ -312,7 +312,7 @@ function renderIsometricGround(
     gridLines += `<line x1="${n(s.x)}" y1="${n(s.y)}" x2="${n(e.x)}" y2="${n(e.y)}" stroke="${colors.gridLine}" stroke-width="0.5"/>`;
   }
 
-  // 도로 (지면 하단 가로 스트라이프)
+  // ���� (���� �ϴ� ���� ��Ʈ������)
   const roadY = corners[2].y + 5;
   const road = buildings.length >= 3
     ? `<rect x="0" y="${n(roadY)}" width="${SVG_WIDTH}" height="14" fill="${colors.roadColor}"/>
@@ -322,14 +322,14 @@ function renderIsometricGround(
   return `<g>${groundDiamond}${gridLines}${road}</g>`;
 }
 
-// ═══════════════════════════════════════════
-// 🧱 아이소메트릭 3D 박스 코어
-// ═══════════════════════════════════════════
+// ???????????????????????????????????????????
+// ?? ���̼Ҹ�Ʈ�� 3D �ڽ� �ھ�
+// ???????????????????????????????????????????
 
 /**
- * 아이소메트릭 3면 박스를 그립니다.
- * cx, cy: 전면 꼭짓점 (바닥 중앙)
- * hw: 반폭, hd: 반깊이, bh: 높이
+ * ���̼Ҹ�Ʈ�� 3�� �ڽ��� �׸��ϴ�.
+ * cx, cy: ���� ������ (�ٴ� �߾�)
+ * hw: ����, hd: �ݱ���, bh: ����
  */
 function drawIsoBox(
   cx: number, cy: number,
@@ -337,21 +337,21 @@ function drawIsoBox(
   topColor: string, rightColor: string, leftColor: string,
   outline: string,
 ): string {
-  // Left face: (cx,cy) → (cx,cy-bh) → (cx-hw,cy-hd-bh) → (cx-hw,cy-hd)
+  // Left face: (cx,cy) �� (cx,cy-bh) �� (cx-hw,cy-hd-bh) �� (cx-hw,cy-hd)
   const leftFace = `<polygon points="${n(cx)},${n(cy)} ${n(cx)},${n(cy - bh)} ${n(cx - hw)},${n(cy - hd - bh)} ${n(cx - hw)},${n(cy - hd)}" fill="${leftColor}" stroke="${outline}" stroke-width="0.5"/>`;
 
-  // Right face: (cx,cy) → (cx+hw,cy-hd) → (cx+hw,cy-hd-bh) → (cx,cy-bh)
+  // Right face: (cx,cy) �� (cx+hw,cy-hd) �� (cx+hw,cy-hd-bh) �� (cx,cy-bh)
   const rightFace = `<polygon points="${n(cx)},${n(cy)} ${n(cx + hw)},${n(cy - hd)} ${n(cx + hw)},${n(cy - hd - bh)} ${n(cx)},${n(cy - bh)}" fill="${rightColor}" stroke="${outline}" stroke-width="0.5"/>`;
 
-  // Top face: (cx,cy-bh) → (cx+hw,cy-hd-bh) → (cx,cy-2*hd-bh) → (cx-hw,cy-hd-bh)
+  // Top face: (cx,cy-bh) �� (cx+hw,cy-hd-bh) �� (cx,cy-2*hd-bh) �� (cx-hw,cy-hd-bh)
   const topFace = `<polygon points="${n(cx)},${n(cy - bh)} ${n(cx + hw)},${n(cy - hd - bh)} ${n(cx)},${n(cy - 2 * hd - bh)} ${n(cx - hw)},${n(cy - hd - bh)}" fill="${topColor}" stroke="${outline}" stroke-width="0.5"/>`;
 
   return `${leftFace}\n    ${rightFace}\n    ${topFace}`;
 }
 
-// ═══════════════════════════════════════════
-// 🪟 아이소메트릭 창문
-// ═══════════════════════════════════════════
+// ???????????????????????????????????????????
+// ?? ���̼Ҹ�Ʈ�� â��
+// ???????????????????????????????????????????
 
 function drawIsoWindows(
   cx: number, cy: number,
@@ -367,9 +367,9 @@ function drawIsoWindows(
   const windowCols = 2;
   let wins = '';
 
-  // 창문 파라미터 (면 좌표계 u,v)
-  const wu = 0.18; // 창문 폭 (면 기준)
-  const wv = 0.06; // 창문 높이 (면 기준)
+  // â�� �Ķ���� (�� ��ǥ�� u,v)
+  const wu = 0.18; // â�� �� (�� ����)
+  const wv = 0.06; // â�� ���� (�� ����)
 
   for (let wr = 0; wr < windowRows; wr++) {
     for (let wc = 0; wc < windowCols; wc++) {
@@ -403,7 +403,7 @@ function drawIsoWindows(
       const lx4 = cx - u * hw;
       const ly4 = cy - u * hd - (v + wv) * bh;
 
-      const leftOp = baseOp * 0.65; // left face는 더 어두움
+      const leftOp = baseOp * 0.65; // left face�� �� ��ο�
       const lAnimDel = (parseFloat(animDel) + 0.5).toFixed(1);
       wins += `<polygon points="${n(lx1)},${n(ly1)} ${n(lx2)},${n(ly2)} ${n(lx3)},${n(ly3)} ${n(lx4)},${n(ly4)}"
         fill="${winColor}" opacity="${leftOp.toFixed(2)}" class="dc-win" style="animation-delay:${lAnimDel}s"/>`;
@@ -413,9 +413,9 @@ function drawIsoWindows(
   return wins;
 }
 
-// ═══════════════════════════════════════════
-// 🎨 건물 타입별 장식
-// ═══════════════════════════════════════════
+// ???????????????????????????????????????????
+// ?? �ǹ� Ÿ�Ժ� ���
+// ???????????????????????????????????????????
 
 function drawBuildingDecor(
   type: BuildingType,
@@ -424,12 +424,12 @@ function drawBuildingDecor(
   mainColor: string, accentColor: string,
   isNeon: boolean, colors: CityStyleColors,
 ): string {
-  // 건물 상단 중심 (top face center)
+  // �ǹ� ��� �߽� (top face center)
   const topCy = cy - hd - bh;
 
   switch (type) {
     case 'factory': {
-      // 🏗️ 굴뚝 (작은 아이소 박스 + 연기)
+      // ??? ���� (���� ���̼� �ڽ� + ����)
       const chX = cx - hw * 0.25;
       const chY = cy - bh - hd * 0.4;
       return drawIsoBox(chX, chY, 4, 2, 16, '#aaa', '#999', '#888', colors.buildingOutline) +
@@ -437,59 +437,59 @@ function drawBuildingDecor(
          <circle cx="${n(chX)}" cy="${n(chY - 26)}" r="2" fill="#aaa" opacity="0.25" class="dc-smk" style="animation-delay:0.6s"/>`;
     }
     case 'lab':
-      // 🔬 안테나 + 빨간 불
+      // ?? ���׳� + ���� ��
       return `<line x1="${n(cx)}" y1="${n(topCy - 18)}" x2="${n(cx)}" y2="${n(topCy + 2)}" stroke="${accentColor}" stroke-width="1.5"/>
         <circle cx="${n(cx)}" cy="${n(topCy - 20)}" r="2.5" fill="${isNeon ? colors.glowColor : '#ff4444'}" class="dc-pls"/>
         <circle cx="${n(cx)}" cy="${n(topCy - 20)}" r="5" fill="${isNeon ? colors.glowColor : '#ff4444'}" opacity="0.15"/>`;
 
     case 'cityhall': {
-      // 🏛️ 깃발
+      // ??? ���
       const flagX = cx;
       const flagY = topCy;
       return `<line x1="${n(flagX)}" y1="${n(flagY - 22)}" x2="${n(flagX)}" y2="${n(flagY + 2)}" stroke="${accentColor}" stroke-width="1"/>
         <polygon points="${n(flagX)},${n(flagY - 22)} ${n(flagX + 9)},${n(flagY - 18)} ${n(flagX)},${n(flagY - 14)}" fill="#ff4444"/>`;
     }
     case 'telecom':
-      // 📱 안테나 타워
+      // ?? ���׳� Ÿ��
       return `<line x1="${n(cx + 8)}" y1="${n(topCy - 24)}" x2="${n(cx + 8)}" y2="${n(topCy + 2)}" stroke="${accentColor}" stroke-width="1.5"/>
         <line x1="${n(cx + 3)}" y1="${n(topCy - 18)}" x2="${n(cx + 13)}" y2="${n(topCy - 18)}" stroke="${accentColor}" stroke-width="0.8"/>
         <line x1="${n(cx + 5)}" y1="${n(topCy - 12)}" x2="${n(cx + 11)}" y2="${n(topCy - 12)}" stroke="${accentColor}" stroke-width="0.8"/>
         <circle cx="${n(cx + 8)}" cy="${n(topCy - 26)}" r="1.5" fill="${isNeon ? colors.glowColor : '#ff0000'}" class="dc-pls"/>`;
 
     case 'library': {
-      // 📚 삼각 지붕 (아이소메트릭)
+      // ?? �ﰢ ���� (���̼Ҹ�Ʈ��)
       const roofH = 14;
       const lf = cx - hw;
       const rf = cx + hw;
       const lfY = cy - hd - bh;
       const rfY = cy - hd - bh;
       const peakY = topCy - roofH;
-      // 지붕 좌측면
+      // ���� ������
       return `<polygon points="${n(cx)},${n(peakY)} ${n(lf)},${n(lfY)} ${n(cx)},${n(cy - bh)}" fill="${darkenHex(accentColor, 0.15)}" stroke="${colors.buildingOutline}" stroke-width="0.3"/>
         <polygon points="${n(cx)},${n(peakY)} ${n(cx)},${n(cy - bh)} ${n(rf)},${n(rfY)}" fill="${accentColor}" stroke="${colors.buildingOutline}" stroke-width="0.3"/>
         <polygon points="${n(cx)},${n(peakY)} ${n(rf)},${n(rfY)} ${n(cx)},${n(cy - 2 * hd - bh)} ${n(lf)},${n(lfY)}" fill="${lightenHex(accentColor, 0.2)}" stroke="${colors.buildingOutline}" stroke-width="0.3"/>`;
     }
     case 'arcade':
-      // 🎮 네온 간판
+      // ?? �׿� ����
       return `<rect x="${n(cx - 9)}" y="${n(topCy - 3)}" width="18" height="7" rx="1.5" fill="${accentColor}" opacity="0.85" filter="url(#glow)"/>
         <text x="${n(cx)}" y="${n(topCy + 2.5)}" text-anchor="middle" font-size="4" fill="white" opacity="0.9" class="dc-t">GAME</text>`;
 
     case 'mall':
-      // 🏬 유리 돔
+      // ?? ���� ��
       return `<ellipse cx="${n(cx)}" cy="${n(topCy)}" rx="10" ry="5" fill="${lightenHex(mainColor, 0.5)}" opacity="0.3" stroke="${lightenHex(mainColor, 0.7)}" stroke-width="0.3"/>`;
 
     case 'warehouse':
-      // 📦 지붕 위 화물 표시
+      // ?? ���� �� ȭ�� ǥ��
       return drawIsoBox(cx + 6, cy - bh - hd * 0.3, 4, 2, 5, '#c4a050', '#b08a40', '#967030', colors.buildingOutline);
 
     case 'garage':
-      // 🔧 셔터 도어 (우측면 하단)
+      // ?? ���� ���� (������ �ϴ�)
       return `<polygon points="${n(cx)},${n(cy)} ${n(cx + hw * 0.7)},${n(cy - hd * 0.7)} ${n(cx + hw * 0.7)},${n(cy - hd * 0.7 - bh * 0.35)} ${n(cx)},${n(cy - bh * 0.35)}" fill="${darkenHex(accentColor, 0.3)}" opacity="0.6"/>
         <line x1="${n(cx)}" y1="${n(cy - bh * 0.12)}" x2="${n(cx + hw * 0.65)}" y2="${n(cy - hd * 0.65 - bh * 0.12)}" stroke="${mainColor}" stroke-width="0.5" opacity="0.4"/>
         <line x1="${n(cx)}" y1="${n(cy - bh * 0.22)}" x2="${n(cx + hw * 0.65)}" y2="${n(cy - hd * 0.65 - bh * 0.22)}" stroke="${mainColor}" stroke-width="0.5" opacity="0.4"/>`;
 
     case 'ruin':
-      // 🏚️ 균열
+      // ??? �տ�
       return `<line x1="${n(cx - hw * 0.3)}" y1="${n(cy - bh * 0.2)}" x2="${n(cx - hw * 0.05)}" y2="${n(cy - bh * 0.7)}" stroke="#555" stroke-width="1" opacity="0.5"/>
         <line x1="${n(cx + hw * 0.15)}" y1="${n(cy - bh * 0.5)}" x2="${n(cx + hw * 0.4)}" y2="${n(cy - bh * 0.15)}" stroke="#555" stroke-width="1" opacity="0.4"/>
         <circle cx="${n(cx + hw * 0.3)}" cy="${n(cy - bh * 0.6)}" r="2" fill="#888" opacity="0.15"/>`;
@@ -499,9 +499,9 @@ function drawBuildingDecor(
   }
 }
 
-// ═══════════════════════════════════════════
-// 🏢 건물 렌더링 (메인)
-// ═══════════════════════════════════════════
+// ???????????????????????????????????????????
+// ?? �ǹ� ������ (����)
+// ???????????????????????????????????????????
 
 function renderBuildings(
   buildings: CityBuilding[],
@@ -517,7 +517,7 @@ function renderBuildings(
   const centerCol = (gridCols - 1) / 2;
   const centerRow = (gridRows - 1) / 2;
 
-  // z-order: (col + row) 오름차순 (뒤 → 앞)
+  // z-order: (col + row) �������� (�� �� ��)
   const sorted = [...buildings].sort((a, b) => {
     const depthA = a.gridCol + a.gridRow;
     const depthB = b.gridCol + b.gridRow;
@@ -546,7 +546,7 @@ function renderSingleIsoBuilding(
   const hd = BUILDING_HD;
   const bh = building.height;
 
-  // 색상 (비활성은 탈색)
+  // ���� (��Ȱ���� Ż��)
   const mainColor = building.isDormant ? '#777777' : building.info.colorMain;
   const accentColor = building.isDormant ? '#666666' : building.info.colorAccent;
   const topColor = building.isDormant ? '#888888' : lightenHex(mainColor, 0.3);
@@ -554,32 +554,32 @@ function renderSingleIsoBuilding(
   const leftColor = building.isDormant ? '#666666' : darkenHex(mainColor, 0.2);
   const opacity = building.isDormant ? 0.7 : 1;
 
-  // 그림자
+  // �׸���
   const shadow = `<ellipse cx="${n(cx + 2)}" cy="${n(cy + 3)}" rx="${n(hw + 5)}" ry="${n(hd + 3)}" fill="black" opacity="0.18"/>`;
 
-  // 아이소 3D 박스
+  // ���̼� 3D �ڽ�
   const box = drawIsoBox(cx, cy, hw, hd, bh, topColor, rightColor, leftColor, colors.buildingOutline);
 
-  // 창문
+  // â��
   const windows = drawIsoWindows(cx, cy, hw, hd, bh, building, colors, isNeon);
 
-  // 건물 타입 장식
+  // �ǹ� Ÿ�� ���
   const decor = drawBuildingDecor(building.buildingType, cx, cy, hw, hd, bh, mainColor, accentColor, isNeon, colors);
 
-  // 네온 아웃라인
+  // �׿� �ƿ�����
   const neonLine = isNeon ? drawNeonOutline(cx, cy, hw, hd, bh, colors) : '';
 
-  // 아이콘 (건물 위)
+  // ������ (�ǹ� ��)
   const iconY = cy - hd - bh - (building.buildingType === 'library' ? 22 : building.buildingType === 'factory' ? 28 : building.buildingType === 'cityhall' ? 28 : building.buildingType === 'telecom' ? 32 : 10);
   const icon = `<text x="${n(cx)}" y="${n(iconY)}" text-anchor="middle" font-size="14">${building.info.icon}</text>`;
 
-  // 이름 레이블
+  // �̸� ���̺�
   const labelY = cy + hd + 14;
   const maxLen = 12;
   const displayName = building.repoName.length > maxLen
-    ? building.repoName.substring(0, maxLen) + '…'
+    ? building.repoName.substring(0, maxLen) + '��'
     : building.repoName;
-  const starBadge = building.stars > 0 ? ` ⭐${building.stars}` : '';
+  const starBadge = building.stars > 0 ? ` ?${building.stars}` : '';
   const label = `<text x="${n(cx)}" y="${n(labelY)}" text-anchor="middle"
     class="dc-t dc-lbl" fill="${colors.textSecondary}" opacity="0.85">${escapeXml(displayName)}${starBadge}</text>`;
 
@@ -600,7 +600,7 @@ function drawNeonOutline(
   hw: number, hd: number, bh: number,
   colors: CityStyleColors,
 ): string {
-  // 건물 외곽을 따라 네온 라인
+  // �ǹ� �ܰ��� ���� �׿� ����
   const points = [
     `${n(cx)},${n(cy)}`,
     `${n(cx + hw)},${n(cy - hd)}`,
@@ -617,7 +617,7 @@ function renderEmptyCity(colors: CityStyleColors): string {
   return `<g>
     <text x="${SVG_WIDTH / 2}" y="${midY - 20}" text-anchor="middle"
       class="dc-t dc-sub" fill="${colors.textSecondary}">
-      🏕️ 아직 건물이 없습니다... 레포를 만들어보세요!</text>
+      ??? ���� �ǹ��� �����ϴ�... ������ ��������!</text>
     <polygon points="${SVG_WIDTH / 2 - 20},${midY + 10} ${SVG_WIDTH / 2},${midY - 20} ${SVG_WIDTH / 2 + 20},${midY + 10}"
       fill="#8B4513" opacity="0.7"/>
     <circle cx="${SVG_WIDTH / 2 + 35}" cy="${midY + 8}" r="4" fill="#ff6600" opacity="0.8"/>
@@ -625,9 +625,9 @@ function renderEmptyCity(colors: CityStyleColors): string {
   </g>`;
 }
 
-// ═══════════════════════════════════════════
-// 🚗 교통 렌더링
-// ═══════════════════════════════════════════
+// ???????????????????????????????????????????
+// ?? ���� ������
+// ???????????????????????????????????????????
 
 function renderTraffic(
   traffic: CityTraffic,
@@ -663,9 +663,9 @@ function renderTraffic(
   return `<g>${vehicles}</g>`;
 }
 
-// ═══════════════════════════════════════════
-// 🌦️ 날씨 효과
-// ═══════════════════════════════════════════
+// ???????????????????????????????????????????
+// ??? ���� ȿ��
+// ???????????????????????????????????????????
 
 function renderWeather(weather: WeatherInfo, colors: CityStyleColors): string {
   switch (weather.type) {
@@ -775,9 +775,9 @@ function renderVolcano(): string {
   return `<g>${smoke}</g>`;
 }
 
-// ═══════════════════════════════════════════
-// 🎄 장식 요소 (나무, 가로등 등)
-// ═══════════════════════════════════════════
+// ???????????????????????????????????????????
+// ?? ��� ��� (����, ���ε� ��)
+// ???????????????????????????????????????????
 
 function renderDecorations(
   tier: CityTier,
@@ -794,7 +794,7 @@ function renderDecorations(
 
   let deco = '';
 
-  // 나무 (Tier 1+)
+  // ���� (Tier 1+)
   if (tier.tier >= 1) {
     const treePositions = [
       gridToScreen(-1, 0.5, centerCol, centerRow),
@@ -809,7 +809,7 @@ function renderDecorations(
     }
   }
 
-  // 가로등 (Tier 2+)
+  // ���ε� (Tier 2+)
   if (tier.tier >= 2) {
     const lampPositions = [
       gridToScreen(-0.3, gridRows - 0.2, centerCol, centerRow),
@@ -820,7 +820,7 @@ function renderDecorations(
     }
   }
 
-  // 분수 (Tier 3+)
+  // �м� (Tier 3+)
   if (tier.tier >= 3) {
     const fPos = gridToScreen(gridCols + 0.8, gridRows * 0.4, centerCol, centerRow);
     deco += `<ellipse cx="${n(fPos.x)}" cy="${n(fPos.y)}" rx="10" ry="5" fill="#4FC3F7" opacity="0.35"/>
@@ -828,12 +828,12 @@ function renderDecorations(
       <circle cx="${n(fPos.x)}" cy="${n(fPos.y - 12)}" r="2" fill="#4FC3F7" opacity="0.25"/>`;
   }
 
-  // 헬기 (Tier 4+)
+  // ��� (Tier 4+)
   if (tier.tier >= 4) {
     deco += renderHelicopter(130, 25, colors);
   }
 
-  // 비행선 (Tier 5)
+  // ���༱ (Tier 5)
   if (tier.tier >= 5) {
     deco += renderAirship(SVG_WIDTH * 0.7, 18, colors);
   }
@@ -879,9 +879,9 @@ function renderAirship(x: number, y: number, colors: CityStyleColors): string {
   </g>`;
 }
 
-// ═══════════════════════════════════════════
-// 📊 헤더 & 푸터
-// ═══════════════════════════════════════════
+// ???????????????????????????????????????????
+// ?? ��� & Ǫ��
+// ???????????????????????????????????????????
 
 function renderHeader(
   username: string,
@@ -895,19 +895,19 @@ function renderHeader(
       ${tier.icon} ${escapeXml(username)}&apos;s Dev City</text>
     <text x="${SVG_WIDTH / 2}" y="36" text-anchor="middle"
       class="dc-t dc-sub" fill="${colors.textSecondary}">
-      ${tier.name} (Tier ${tier.tier}) · ${weather.icon} ${weather.label}</text>
+      ${tier.name} (Tier ${tier.tier}) �� ${weather.icon} ${weather.label}</text>
   </g>`;
 }
 
 function renderFooter(stats: CityStats, colors: CityStyleColors): string {
   const y = SVG_HEIGHT - FOOTER_HEIGHT;
   const items = [
-    { icon: '🏢', label: 'Buildings', value: stats.totalBuildings.toString() },
-    { icon: '👥', label: 'Population', value: formatPopulation(stats.population) },
-    { icon: '💻', label: 'Commits', value: stats.totalCommits.toString() },
-    { icon: '⭐', label: 'Stars', value: stats.totalStars.toString() },
-    { icon: '🔥', label: 'Streak', value: `${stats.streakDays}d` },
-    { icon: '📊', label: 'Top Lang', value: stats.topLanguage },
+    { icon: '??', label: 'Buildings', value: stats.totalBuildings.toString() },
+    { icon: '??', label: 'Population', value: formatPopulation(stats.population) },
+    { icon: '??', label: 'Commits', value: stats.totalCommits.toString() },
+    { icon: '?', label: 'Stars', value: stats.totalStars.toString() },
+    { icon: '??', label: 'Streak', value: `${stats.streakDays}d` },
+    { icon: '??', label: 'Top Lang', value: stats.topLanguage },
   ];
   const sp = SVG_WIDTH / items.length;
 
@@ -923,10 +923,325 @@ function renderFooter(stats: CityStats, colors: CityStyleColors): string {
   </g>`;
 }
 
-// ═══════════════════════════════════════════
-// 🎬 메인 렌더 함수
-// ═══════════════════════════════════════════
+// ???????????????????????????????????????????
+// ?? ���� ���� �Լ�
+// ???????????????????????????????????????????
 
+
+// ?�═?�═?�═?�═?�═?�═?�═?�═?�═?�═?�═?�═?�═?�═?�═?�═?�═?�═?�═?�═?�═??
+// Flat City (2D) renderer - preview-style
+// ?�═?�═?�═?�═?�═?�═?�═?�═?�═?�═?�═?�═?�═?�═?�═?�═?�═?�═?�═?�═?�═??
+
+interface FlatCityColors {
+  skyTop: string;
+  skyMid: string;
+  skyBottom: string;
+  groundTop: string;
+  groundBottom: string;
+  road: string;
+  roadStroke: string;
+  roadLine: string;
+  buildingFill: string;
+  buildingStroke: string;
+  textPrimary: string;
+  textSecondary: string;
+  border: string;
+  neon: string;
+  window: string;
+  smoke: string;
+  moon: string;
+}
+
+function getFlatColors(): FlatCityColors {
+  return {
+    skyTop: '#1a1040',
+    skyMid: '#0d1534',
+    skyBottom: '#0a192f',
+    groundTop: '#1a2744',
+    groundBottom: '#0d1b30',
+    road: '#1a2744',
+    roadStroke: '#2a3754',
+    roadLine: '#F59E0B',
+    buildingFill: '#2d4a6f',
+    buildingStroke: '#3a5a80',
+    textPrimary: '#58a6ff',
+    textSecondary: '#8b949e',
+    border: '#2a3754',
+    neon: '#A855F7',
+    window: '#58a6ff',
+    smoke: '#8b949e',
+    moon: '#ddd8c4',
+  };
+}
+
+function buildFlatDefs(colors: FlatCityColors): string {
+  return `<defs>
+  <linearGradient id="skyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+    <stop offset="0%" stop-color="${colors.skyTop}"/>
+    <stop offset="50%" stop-color="${colors.skyMid}"/>
+    <stop offset="100%" stop-color="${colors.skyBottom}"/>
+  </linearGradient>
+  <linearGradient id="groundGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+    <stop offset="0%" stop-color="${colors.groundTop}"/>
+    <stop offset="100%" stop-color="${colors.groundBottom}"/>
+  </linearGradient>
+  <filter id="cityShadow">
+    <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#000" flood-opacity="0.4"/>
+  </filter>
+  <filter id="neonGlow">
+    <feGaussianBlur stdDeviation="2" result="blur"/>
+    <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+</defs>`;
+}
+
+function buildFlatStyles(animate: boolean): string {
+  const anim = animate ? `
+  @keyframes dc-smoke { 0%{transform:translateY(0);opacity:0.4} 100%{transform:translateY(-15px);opacity:0} }
+  @keyframes dc-neon { 0%,100%{opacity:0.6} 50%{opacity:1} }
+  @keyframes dc-car { 0%{transform:translateX(-20px)} 100%{transform:translateX(820px)} }
+  @keyframes dc-car-rev { 0%{transform:translateX(820px)} 100%{transform:translateX(-20px)} }
+  @keyframes dc-rain { 0%{transform:translateY(-10px);opacity:0} 50%{opacity:0.4} 100%{transform:translateY(460px);opacity:0} }
+  @keyframes dc-building-appear { from{transform:scaleY(0);opacity:0} to{transform:scaleY(1);opacity:1} }
+  .dc-smoke{animation:dc-smoke 3s ease-out infinite}
+  .dc-neon{animation:dc-neon 2s ease-in-out infinite}
+  .dc-car{animation:dc-car 12s linear infinite}
+  .dc-car-rev{animation:dc-car-rev 15s linear infinite}
+  .dc-building{animation:dc-building-appear 0.6s ease-out forwards;transform-origin:bottom}
+  ` : `
+  .dc-building{opacity:1}
+  `;
+
+  return `<style>
+  .dc-text{font-family:'Segoe UI','Noto Sans KR',sans-serif}
+  ${anim}
+</style>`;
+}
+
+function renderFlatHeader(
+  username: string,
+  tier: CityTier,
+  weather: WeatherInfo,
+  colors: FlatCityColors,
+): string {
+  return `<text x="400" y="30" text-anchor="middle" class="dc-text" font-size="14" font-weight="700" fill="${colors.textPrimary}" letter-spacing="2">
+  DEV CITY</text>
+<text x="400" y="46" text-anchor="middle" class="dc-text" font-size="10" fill="${colors.textSecondary}">
+  ${escapeXml(username)} �� ${tier.icon} Tier ${tier.tier}: ${tier.name} �� ${weather.label}</text>`;
+}
+
+function renderFlatFooter(
+  stats: CityStats,
+  tier: CityTier,
+  weather: WeatherInfo,
+  colors: FlatCityColors,
+): string {
+  const y = 455;
+  return `<rect x="0" y="${y}" width="800" height="45" rx="0" fill="#0a0e27" opacity="0.7"/>
+<text x="40" y="${y + 23}" class="dc-text" font-size="9" fill="${colors.textSecondary}">gitpro Dev City</text>
+<text x="200" y="${y + 23}" class="dc-text" font-size="9" fill="${colors.textSecondary}">Buildings ${stats.totalBuildings}</text>
+<text x="320" y="${y + 23}" class="dc-text" font-size="9" fill="${colors.textSecondary}">Tier ${tier.tier}: ${tier.name}</text>
+<text x="470" y="${y + 23}" class="dc-text" font-size="9" fill="${colors.textSecondary}">${weather.label} (${stats.todayCommits} commits)</text>
+<text x="760" y="${y + 23}" text-anchor="end" class="dc-text" font-size="9" fill="${colors.textSecondary}">${new Date().toISOString().split('T')[0]}</text>`;
+}
+
+function renderFlatSky(colors: FlatCityColors): string {
+  return `<rect width="800" height="500" rx="16" fill="url(#skyGrad)"/>
+<circle cx="680" cy="80" r="25" fill="${colors.moon}" opacity="0.15"/>
+<circle cx="686" cy="76" r="25" fill="${colors.skyTop}" opacity="0.9"/>
+<circle cx="100" cy="60" r="1" fill="#fff" opacity="0.5"/>
+<circle cx="250" cy="40" r="0.8" fill="#fff" opacity="0.4"/>
+<circle cx="450" cy="55" r="1.2" fill="#fff" opacity="0.6"/>
+<circle cx="550" cy="35" r="0.7" fill="#fff" opacity="0.3"/>
+<circle cx="720" cy="50" r="0.9" fill="#fff" opacity="0.5"/>
+<circle cx="350" cy="70" r="0.6" fill="#fff" opacity="0.35"/>`;
+}
+
+function renderFlatGround(colors: FlatCityColors): string {
+  return `<rect x="0" y="340" width="800" height="160" rx="0" fill="url(#groundGrad)"/>
+<rect x="0" y="355" width="800" height="30" fill="${colors.road}" stroke="${colors.roadStroke}" stroke-width="0.5"/>
+<line x1="0" y1="370" x2="800" y2="370" stroke="${colors.roadLine}" stroke-width="1" stroke-dasharray="20 15" opacity="0.4"/>
+<rect x="0" y="400" width="800" height="20" fill="${colors.road}" stroke="${colors.roadStroke}" stroke-width="0.5"/>
+<line x1="0" y1="410" x2="800" y2="410" stroke="${colors.roadLine}" stroke-width="0.8" stroke-dasharray="15 12" opacity="0.3"/>`;
+}
+
+function renderFlatTraffic(traffic: CityTraffic): string {
+  if (traffic.vehicleCount === 0) return '';
+  const colors = ['#EF4444', '#3B82F6', '#3fb950', '#F59E0B'];
+  const base = [
+    { y: 365, w: 18, h: 8, cls: 'dc-car' },
+    { y: 372, w: 16, h: 7, cls: 'dc-car-rev' },
+    { y: 405, w: 14, h: 7, cls: 'dc-car' },
+  ];
+  let out = '';
+  for (let i = 0; i < Math.min(traffic.vehicleCount, 6); i++) {
+    const b = base[i % base.length];
+    const c = colors[i % colors.length];
+    const del = (i * 3).toFixed(1);
+    out += `<g class="${b.cls}" style="animation-delay:${del}s">
+  <rect x="0" y="${b.y}" width="${b.w}" height="${b.h}" rx="3" fill="${c}" opacity="0.7"/>
+  <rect x="${b.w - 4}" y="${b.y + 2}" width="4" height="4" rx="1" fill="#F59E0B" opacity="0.8"/>
+</g>`;
+  }
+  return out;
+}
+
+function renderFlatBuilding(
+  building: CityBuilding,
+  x: number,
+  y: number,
+  width: number,
+  height: number,
+  colors: FlatCityColors,
+  delay: number,
+): string {
+  const main = building.isDormant ? '#5f6b7a' : colors.buildingFill;
+  const stroke = building.isDormant ? '#4a5566' : colors.buildingStroke;
+  const winColor = building.isDormant ? '#9aa4b2' : colors.window;
+  const rows = Math.max(2, Math.floor(height / 30));
+  const cols = Math.max(2, Math.floor(width / 20));
+  const winW = Math.max(6, Math.floor((width - 16) / cols));
+  const winH = 10;
+  let wins = '';
+  for (let r = 0; r < rows; r++) {
+    for (let c = 0; c < cols; c++) {
+      const wx = x + 8 + c * (winW + 4);
+      const wy = y + 15 + r * (winH + 8);
+      const op = building.isDormant ? 0.15 : 0.2 + ((r * 3 + c * 2) % 5) * 0.05;
+      wins += `<rect x="${wx}" y="${wy}" width="${winW}" height="${winH}" rx="1" fill="${winColor}" opacity="${op.toFixed(2)}"/>`;
+    }
+  }
+
+  let decor = '';
+  switch (building.buildingType) {
+    case 'factory':
+      decor = `<rect x="${x + 5}" y="${y - 15}" width="12" height="15" fill="${stroke}"/>
+<circle cx="${x + 11}" cy="${y - 17}" r="5" fill="${colors.smoke}" opacity="0.3" class="dc-smoke"/>
+<circle cx="${x + 11}" cy="${y - 22}" r="4" fill="${colors.smoke}" opacity="0.2" class="dc-smoke" style="animation-delay:0.5s"/>`;
+      break;
+    case 'mall':
+      decor = `<rect x="${x}" y="${y}" width="${width}" height="10" rx="3" fill="#61DAFB" opacity="0.4"/>`;
+      break;
+    case 'lab':
+      decor = `<line x1="${x + width / 2}" y1="${y}" x2="${x + width / 2}" y2="${y - 30}" stroke="${colors.neon}" stroke-width="2"/>
+<circle cx="${x + width / 2}" cy="${y - 32}" r="3" fill="${colors.neon}" opacity="0.6" class="dc-neon"/>
+<circle cx="${x + width / 2}" cy="${y - 32}" r="10" fill="none" stroke="${colors.neon}" stroke-width="0.5" opacity="0.2" class="dc-neon"/>`;
+      break;
+    case 'library':
+      decor = `<polygon points="${x - 3},${y} ${x + width / 2},${y - 25} ${x + width + 3},${y}" fill="${stroke}"/>`;
+      break;
+    case 'cityhall':
+      decor = `<polygon points="${x - 5},${y} ${x + width / 2},${y - 25} ${x + width + 5},${y}" fill="${stroke}"/>
+<line x1="${x + width / 2}" y1="${y - 25}" x2="${x + width / 2}" y2="${y - 45}" stroke="${colors.textSecondary}" stroke-width="1.5"/>
+<rect x="${x + width / 2}" y="${y - 45}" width="15" height="10" fill="${colors.textPrimary}" opacity="0.6" class="dc-neon"/>`;
+      break;
+    case 'warehouse':
+      decor = `<rect x="${x}" y="${y}" width="${width}" height="9" fill="#F59E0B" opacity="0.3"/>
+<line x1="${x}" y1="${y + height / 2}" x2="${x + width}" y2="${y + height / 2}" stroke="${stroke}" stroke-width="0.5" opacity="0.4"/>`;
+      break;
+    case 'telecom':
+      decor = `<line x1="${x + width / 2}" y1="${y}" x2="${x + width / 2}" y2="${y - 20}" stroke="${colors.neon}" stroke-width="1.5"/>
+<circle cx="${x + width / 2}" cy="${y - 22}" r="3" fill="${colors.neon}" opacity="0.6" class="dc-neon"/>`;
+      break;
+    case 'arcade':
+      decor = `<rect x="${x + 6}" y="${y + 6}" width="${width - 12}" height="6" fill="#FF4081" opacity="0.4"/>`;
+      break;
+    case 'garage':
+      decor = `<rect x="${x + 8}" y="${y + height - 20}" width="${width - 16}" height="14" fill="${stroke}" opacity="0.35"/>`;
+      break;
+    case 'ruin':
+      decor = `<line x1="${x}" y1="${y + height - 10}" x2="${x + width}" y2="${y + height - 20}" stroke="${stroke}" stroke-width="1" opacity="0.4"/>`;
+      break;
+    default:
+      break;
+  }
+
+  const label = escapeXml(building.repoName.length > 12 ? `${building.repoName.slice(0, 12)}...` : building.repoName);
+  return `<g class="dc-building" style="animation-delay:${delay.toFixed(2)}s" filter="url(#cityShadow)">
+  <rect x="${x}" y="${y}" width="${width}" height="${height}" rx="2" fill="${main}" stroke="${stroke}" stroke-width="0.5"/>
+  ${decor}
+  ${wins}
+  <text x="${x + width / 2}" y="${y - 6}" text-anchor="middle" font-size="14">${building.info.icon}</text>
+  <text x="${x + width / 2}" y="${y + height + 12}" text-anchor="middle" class="dc-text" font-size="8" fill="${colors.textSecondary}" opacity="0.8">${label}</text>
+</g>`;
+}
+
+function renderFlatBuildings(
+  buildings: CityBuilding[],
+  colors: FlatCityColors,
+): string {
+  if (buildings.length === 0) {
+    return `<text x="400" y="260" text-anchor="middle" class="dc-text" font-size="12" fill="${colors.textSecondary}">No buildings yet</text>`;
+  }
+
+  const maxPerRow = buildings.length > 8 ? 5 : 6;
+  const baseX = maxPerRow === 5 ? 90 : 80;
+  const gap = maxPerRow === 5 ? 135 : 120;
+  let out = '';
+  buildings.forEach((b, i) => {
+    const row = Math.floor(i / maxPerRow);
+    const col = i % maxPerRow;
+    const baseY = 340 - row * 115;
+    const width = [70, 80, 60, 65, 75, 55][col % 6];
+    const height = [140, 110, 170, 80, 120, 60][col % 6] * (row === 0 ? 1 : 0.8);
+    const x = baseX + col * gap;
+    const y = baseY - height;
+    out += renderFlatBuilding(b, x, y, width, height, colors, i * 0.08);
+  });
+  return out;
+}
+
+function renderFlatDecorations(): string {
+  return `<g>
+  <rect x="170" y="320" width="3" height="25" fill="#8b949e" opacity="0.5"/>
+  <circle cx="171" cy="318" r="5" fill="#F59E0B" opacity="0.15"/>
+  <circle cx="171" cy="318" r="2" fill="#F59E0B" opacity="0.5"/>
+  <rect x="320" y="320" width="3" height="25" fill="#8b949e" opacity="0.5"/>
+  <circle cx="321" cy="318" r="5" fill="#F59E0B" opacity="0.15"/>
+  <circle cx="321" cy="318" r="2" fill="#F59E0B" opacity="0.5"/>
+  <rect x="530" y="320" width="3" height="25" fill="#8b949e" opacity="0.5"/>
+  <circle cx="531" cy="318" r="5" fill="#F59E0B" opacity="0.15"/>
+  <circle cx="531" cy="318" r="2" fill="#F59E0B" opacity="0.5"/>
+  <rect x="660" y="320" width="3" height="25" fill="#8b949e" opacity="0.5"/>
+  <circle cx="661" cy="318" r="5" fill="#F59E0B" opacity="0.15"/>
+  <circle cx="661" cy="318" r="2" fill="#F59E0B" opacity="0.5"/>
+  <g transform="translate(30, 395)">
+    <rect x="8" y="15" width="4" height="12" fill="#5a3825"/>
+    <circle cx="10" cy="12" r="10" fill="#3fb950" opacity="0.4"/>
+    <circle cx="10" cy="8" r="7" fill="#3fb950" opacity="0.3"/>
+  </g>
+  <g transform="translate(760, 390)">
+    <rect x="8" y="18" width="3" height="10" fill="#5a3825"/>
+    <circle cx="10" cy="15" r="8" fill="#3fb950" opacity="0.35"/>
+  </g>
+</g>`;
+}
+
+function renderFlatCity(
+  username: string,
+  profile: CityProfile,
+  config: DevCityConfig,
+): string {
+  const colors = getFlatColors();
+  const defs = buildFlatDefs(colors);
+  const styles = buildFlatStyles(config.animation !== false);
+  const city = [
+    renderFlatSky(colors),
+    renderFlatHeader(username, profile.tier, profile.weather, colors),
+    renderFlatGround(colors),
+    renderFlatBuildings(profile.buildings, colors),
+    renderFlatDecorations(),
+    config.show_traffic !== false ? renderFlatTraffic(profile.traffic) : '',
+    renderFlatFooter(profile.stats, profile.tier, profile.weather, colors),
+    `<rect x="1" y="1" width="798" height="498" rx="15" fill="none" stroke="${colors.border}" stroke-width="1" opacity="0.4"/>`,
+  ].join('\n');
+
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${SVG_WIDTH}" height="${SVG_HEIGHT}" viewBox="0 0 ${SVG_WIDTH} ${SVG_HEIGHT}">
+${defs}
+${styles}
+${city}
+</svg>`;
+}
 export interface CityRenderData {
   username: string;
   profile: CityProfile;
@@ -937,13 +1252,16 @@ export interface CityRenderData {
 export function renderCity(data: CityRenderData): string {
   const { username, profile, config, theme } = data;
   const style = config.city_style || 'pixel';
+  if (style === 'pixel' || style === 'flat') {
+    return renderFlatCity(username, profile, config);
+  }
   const isNeon = style === 'neon';
   const colors = getCityStyleColors(style, theme);
 
   const defs = buildDefs(colors, isNeon);
   const styles = buildStyles(colors, config.animation !== false);
 
-  // 도시 요소 (city 좌표계 내부)
+  // ���� ��� (city ��ǥ�� ����)
   const cityElements = [
     renderIsometricGround(profile.buildings, colors, isNeon),
     renderBuildings(profile.buildings, colors, isNeon),
@@ -956,22 +1274,23 @@ export function renderCity(data: CityRenderData): string {
 ${defs}
 ${styles}
 
-<!-- 배경 -->
+<!-- ��� -->
 <rect width="${SVG_WIDTH}" height="${SVG_HEIGHT}" rx="16" fill="url(#skyGrad)"/>
 
-<!-- 헤더 -->
+<!-- ��� -->
 ${renderHeader(username, profile.tier, profile.weather, colors)}
 
-<!-- 도시 영역 -->
+<!-- ���� ���� -->
 <g transform="translate(0,${CITY_Y})">
   ${cityElements}
 </g>
 
-<!-- 푸터 -->
+<!-- Ǫ�� -->
 ${renderFooter(profile.stats, colors)}
 
-<!-- 외곽 테두리 -->
+<!-- �ܰ� �׵θ� -->
 <rect x="1" y="1" width="${SVG_WIDTH - 2}" height="${SVG_HEIGHT - 2}" rx="15"
   fill="none" stroke="${colors.border}" stroke-width="1" opacity="0.5"/>
 </svg>`;
 }
+
