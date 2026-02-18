@@ -150,7 +150,7 @@
   <!-- EXP 바 -->
   <text x="214" y="80" class="pet-text pet-label" fill="#8b949e">EXP</text>
   <text x="460" y="80" text-anchor="end" class="pet-text pet-value"
-        fill="#3572A5">176.2k</text>
+        fill="#3572A5">198.0k</text>
   <rect x="214" y="86" width="246" height="8" rx="4" ry="4"
         fill="#161b22"/>
   <rect x="214" y="86" width="246" height="8" rx="4" ry="4"
@@ -182,7 +182,7 @@
     <rect x="214" y="184" width="auto" height="18" rx="9" ry="9"
           fill="#3572A5" opacity="0.1"/>
     <text x="222" y="196" class="pet-text pet-label"
-          fill="#3572A5">+21.6k EXP earned!</text>
+          fill="#3572A5">+21.8k EXP earned!</text>
 
   <!-- 최근 획득 EXP -->
   <line x1="214" y1="212" x2="460" y2="212"
@@ -190,13 +190,13 @@
   <text x="214" y="226" class="pet-text pet-label"
       fill="#8b949e">📊 EXP 내역</text>
     <text x="218" y="242" class="pet-text pet-small" fill="#e6edf3">
-      🎉 PR 97개 머지</text>
+      🎉 PR 98개 머지</text>
     <text x="460" y="242" text-anchor="end" class="pet-text pet-small"
-          fill="#3572A5">+11.6k</text>
+          fill="#3572A5">+11.8k</text>
     <text x="218" y="258" class="pet-text pet-small" fill="#e6edf3">
-      🔀 PR 98개 생성</text>
+      🔀 PR 99개 생성</text>
     <text x="460" y="258" text-anchor="end" class="pet-text pet-small"
-          fill="#3572A5">+4.9k</text>
+          fill="#3572A5">+5.0k</text>
     <text x="218" y="274" class="pet-text pet-small" fill="#e6edf3">
       📦 레포지토리 112개</text>
     <text x="460" y="274" text-anchor="end" class="pet-text pet-small"
