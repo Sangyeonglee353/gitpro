@@ -72,7 +72,7 @@ modules:
   # 🏙️ 개발자 도시
   dev-city:
     enabled: true
-    city_style: "pixel"         # pixel | isometric | flat | neon
+    city_style: "flat"         # pixel | isometric | flat | neon
     show_weather: true
     show_traffic: true
     animation: true
