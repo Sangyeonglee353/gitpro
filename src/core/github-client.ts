@@ -1,12 +1,12 @@
-// ═══════════════════════════════════════════
-// 🐙 GitHub Client - GitHub API 통합 클라이언트
-// ═══════════════════════════════════════════
+// ?�═?�═?�═?�═?�═?�═?�═?�═?�═?�═?�═?�═?�═?�═?�═?�═?�═?�═?�═?�═?�═??
+// ?�� GitHub Client - GitHub API ?�합 ?�라?�언??
+// ?�═?�═?�═?�═?�═?�═?�═?�═?�═?�═?�═?�═?�═?�═?�═?�═?�═?�═?�═?�═?�═??
 
 import { graphql } from '@octokit/graphql';
 import { Octokit } from '@octokit/rest';
 import { GitHubRepository, CommitRecord } from '../types';
 
-// ── GraphQL 응답 타입 정의 ──────────────────────────
+// ?�?� GraphQL ?�답 ?�???�의 ?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�
 
 interface GQLUserProfileResponse {
   user: {
@@ -17,7 +17,8 @@ interface GQLUserProfileResponse {
     followers: { totalCount: number };
     following: { totalCount: number };
     createdAt: string;
-    repositories: { totalCount: number };
+    publicRepos: { totalCount: number };
+    privateRepos?: { totalCount: number };
   };
 }
 
@@ -141,7 +142,7 @@ export class GitHubClient {
   }
 
   /**
-   * 사용자 프로필 기본 정보를 가져옵니다.
+   * ?�용???�로??기본 ?�보�?가?�옵?�다.
    */
   async getUserProfile(): Promise<{
     login: string;
@@ -153,23 +154,39 @@ export class GitHubClient {
     createdAt: string;
     publicRepos: number;
   }> {
-    const privacyArgs = this.includePrivate ? '' : '(privacy: PUBLIC)';
-    const query = `
-      query($username: String!) {
-        user(login: $username) {
-          login
-          name
-          avatarUrl
-          bio
-          followers { totalCount }
-          following { totalCount }
-          createdAt
-          repositories${privacyArgs} { totalCount }
+    const query = this.includePrivate
+      ? `
+        query($username: String!) {
+          user(login: $username) {
+            login
+            name
+            avatarUrl
+            bio
+            followers { totalCount }
+            following { totalCount }
+            createdAt
+            publicRepos: repositories(privacy: PUBLIC) { totalCount }
+            privateRepos: repositories(privacy: PRIVATE) { totalCount }
+          }
         }
-      }
-    `;
+      `
+      : `
+        query($username: String!) {
+          user(login: $username) {
+            login
+            name
+            avatarUrl
+            bio
+            followers { totalCount }
+            following { totalCount }
+            createdAt
+            publicRepos: repositories(privacy: PUBLIC) { totalCount }
+          }
+        }
+      `;
 
     const result = await this.graphqlClient<GQLUserProfileResponse>(query, { username: this.username });
+    const privateCount = result.user.privateRepos?.totalCount ?? 0;
 
     return {
       login: result.user.login,
@@ -179,15 +196,34 @@ export class GitHubClient {
       followers: result.user.followers.totalCount,
       following: result.user.following.totalCount,
       createdAt: result.user.createdAt,
-      publicRepos: result.user.repositories.totalCount,
+      publicRepos: result.user.publicRepos.totalCount + privateCount,
     };
   }
 
   /**
-   * 사용자의 레포지토리 목록을 가져옵니다.
+   * ?�용?�의 ?�포지?�리 목록??가?�옵?�다.
    */
   async getRepositories(): Promise<GitHubRepository[]> {
-    const privacyFilter = this.includePrivate ? '' : ', privacy: PUBLIC';
+    if (!this.includePrivate) {
+      const publicRepos = await this.fetchRepositories('PUBLIC');
+      return this.mapRepositories(publicRepos);
+    }
+
+    const [publicRepos, privateRepos] = await Promise.all([
+      this.fetchRepositories('PUBLIC'),
+      this.fetchRepositories('PRIVATE'),
+    ]);
+
+    const merged = new Map<string, GQLRepositoryNode>();
+    for (const repo of [...publicRepos, ...privateRepos]) {
+      merged.set(repo.name, repo);
+    }
+
+    return this.mapRepositories([...merged.values()]);
+  }
+
+  private async fetchRepositories(privacy: 'PUBLIC' | 'PRIVATE'): Promise<GQLRepositoryNode[]> {
+    const privacyFilter = `, privacy: ${privacy}`;
     const query = `
       query($username: String!, $after: String) {
         user(login: $username) {
@@ -242,7 +278,11 @@ export class GitHubClient {
       after = repos.pageInfo.endCursor;
     }
 
-    return allRepos.map((repo) => ({
+    return allRepos;
+  }
+
+  private mapRepositories(repos: GQLRepositoryNode[]): GitHubRepository[] {
+    return repos.map((repo) => ({
       name: repo.name,
       description: repo.description,
       primaryLanguage: repo.primaryLanguage?.name || null,
@@ -259,7 +299,7 @@ export class GitHubClient {
   }
 
   /**
-   * Contribution Calendar (잔디) 데이터를 가져옵니다.
+   * Contribution Calendar (?�디) ?�이?��? 가?�옵?�다.
    */
   async getContributionCalendar(): Promise<{ date: string; count: number }[]> {
     const query = `
@@ -296,7 +336,7 @@ export class GitHubClient {
   }
 
   /**
-   * PR 통계를 가져옵니다.
+   * PR ?�계�?가?�옵?�다.
    */
   async getPRStats(): Promise<{ total: number; merged: number; open: number }> {
     const query = `
@@ -319,7 +359,7 @@ export class GitHubClient {
   }
 
   /**
-   * 이슈 통계를 가져옵니다.
+   * ?�슈 ?�계�?가?�옵?�다.
    */
   async getIssueStats(): Promise<{ total: number; closed: number; open: number }> {
     const query = `
@@ -342,10 +382,50 @@ export class GitHubClient {
   }
 
   /**
-   * 최근 커밋 히스토리를 가져옵니다 (시간대 분석용).
+   * 최근 커밋 ?�스?�리�?가?�옵?�다 (?�간?� 분석??.
    */
   async getCommitHistory(timezone: string): Promise<CommitRecord[]> {
-    const privacyFilter = this.includePrivate ? '' : ', privacy: PUBLIC';
+    try {
+      const commits = this.includePrivate
+        ? [
+            ...(await this.fetchCommitHistory(timezone, 'PUBLIC')),
+            ...(await this.fetchCommitHistory(timezone, 'PRIVATE')),
+          ]
+        : await this.fetchCommitHistory(timezone, 'PUBLIC');
+
+      return commits;
+    } catch (error) {
+      console.warn('?�️  커밋 ?�스?�리 ?�집 �??��? ?�류 발생, 부�??�이???�용');
+      return [];
+    }
+  }
+
+  /**
+   * ?�용?�의 ?�체 ?�어 ?�계�?가?�옵?�다.
+   */
+  async getLanguageStats(): Promise<Record<string, number>> {
+    if (!this.includePrivate) {
+      return this.fetchLanguageStats('PUBLIC');
+    }
+
+    const [publicStats, privateStats] = await Promise.all([
+      this.fetchLanguageStats('PUBLIC'),
+      this.fetchLanguageStats('PRIVATE'),
+    ]);
+
+    const merged: Record<string, number> = { ...publicStats };
+    for (const [lang, size] of Object.entries(privateStats)) {
+      merged[lang] = (merged[lang] || 0) + size;
+    }
+
+    return merged;
+  }
+
+  private async fetchCommitHistory(
+    timezone: string,
+    privacy: 'PUBLIC' | 'PRIVATE'
+  ): Promise<CommitRecord[]> {
+    const privacyFilter = `, privacy: ${privacy}`;
     const query = `
       query($username: String!, $after: String) {
         user(login: $username) {
@@ -372,56 +452,48 @@ export class GitHubClient {
       }
     `;
 
-    try {
-      const result = await this.graphqlClient<GQLCommitHistoryResponse>(query, {
-        username: this.username,
-        after: null,
-      });
+    const result = await this.graphqlClient<GQLCommitHistoryResponse>(query, {
+      username: this.username,
+      after: null,
+    });
 
-      const commits: CommitRecord[] = [];
-      const hourFormatter = new Intl.DateTimeFormat('en-US', {
-        timeZone: timezone,
-        hour: 'numeric',
-        hour12: false,
-      });
-      const dayFormatter = new Intl.DateTimeFormat('en-US', {
-        timeZone: timezone,
-        weekday: 'short',
-      });
-      const dayMap: Record<string, number> = {
-        Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6,
-      };
+    const commits: CommitRecord[] = [];
+    const hourFormatter = new Intl.DateTimeFormat('en-US', {
+      timeZone: timezone,
+      hour: 'numeric',
+      hour12: false,
+    });
+    const dayFormatter = new Intl.DateTimeFormat('en-US', {
+      timeZone: timezone,
+      weekday: 'short',
+    });
+    const dayMap: Record<string, number> = {
+      Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6,
+    };
 
-      for (const repo of result.user.repositories.nodes) {
-        const history = repo.defaultBranchRef?.target?.history?.nodes || [];
-        for (const commit of history) {
-          const date = new Date(commit.committedDate);
-          const hour = parseInt(hourFormatter.format(date), 10);
-          const dayStr = dayFormatter.format(date);
-          commits.push({
-            date: commit.committedDate,
-            hour,
-            dayOfWeek: dayMap[dayStr] ?? date.getDay(),
-            repo: repo.name,
-            additions: commit.additions,
-            deletions: commit.deletions,
-            message: commit.message,
-          });
-        }
+    for (const repo of result.user.repositories.nodes) {
+      const history = repo.defaultBranchRef?.target?.history?.nodes || [];
+      for (const commit of history) {
+        const date = new Date(commit.committedDate);
+        const hour = parseInt(hourFormatter.format(date), 10);
+        const dayStr = dayFormatter.format(date);
+        commits.push({
+          date: commit.committedDate,
+          hour,
+          dayOfWeek: dayMap[dayStr] ?? date.getDay(),
+          repo: repo.name,
+          additions: commit.additions,
+          deletions: commit.deletions,
+          message: commit.message,
+        });
       }
-
-      return commits;
-    } catch (error) {
-      console.warn('⚠️  커밋 히스토리 수집 중 일부 오류 발생, 부분 데이터 사용');
-      return [];
     }
+
+    return commits;
   }
 
-  /**
-   * 사용자의 전체 언어 통계를 가져옵니다.
-   */
-  async getLanguageStats(): Promise<Record<string, number>> {
-    const privacyFilter = this.includePrivate ? '' : 'privacy: PUBLIC,';
+  private async fetchLanguageStats(privacy: 'PUBLIC' | 'PRIVATE'): Promise<Record<string, number>> {
+    const privacyFilter = `privacy: ${privacy},`;
     const query = `
       query($username: String!) {
         user(login: $username) {
@@ -452,3 +524,7 @@ export class GitHubClient {
     return langMap;
   }
 }
+
+
+
+
