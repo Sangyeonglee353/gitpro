@@ -335,7 +335,7 @@
     🎯 진행 중인 퀘스트</text>
 
   <text x="26" y="684" class="chr-text chr-chapter-sub" fill="#e6edf3">
-    🔥 The Grind — 50/30일</text>
+    🔥 The Grind — 51/30일</text>
 
   <!-- 프로그레스 바 -->
   <rect x="26" y="690" width="300" height="4" rx="2" fill="#30363d" opacity="0.3"/>
@@ -354,7 +354,7 @@
   <text x="200" y="750" text-anchor="middle"
         class="chr-text chr-small" fill="#8b949e">📦 113 레포</text>
   <text x="320" y="750" text-anchor="middle"
-        class="chr-text chr-small" fill="#8b949e">🌍 17 언어</text>
+        class="chr-text chr-small" fill="#8b949e">🌍 18 언어</text>
   <text x="440" y="750" text-anchor="middle"
         class="chr-text chr-small" fill="#8b949e">⭐ 0 스타</text>
 
