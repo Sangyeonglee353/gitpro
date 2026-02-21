@@ -133,7 +133,7 @@
 
   <!-- 나이 -->
   <text x="116" y="205" class="pet-text pet-small" fill="#8b949e">
-    Day 10</text>
+    Day 11</text>
 
   <!-- ═══ 우측 영역: 정보 + EXP ═══ -->
 
@@ -150,7 +150,7 @@
   <!-- EXP 바 -->
   <text x="214" y="80" class="pet-text pet-label" fill="#8b949e">EXP</text>
   <text x="460" y="80" text-anchor="end" class="pet-text pet-value"
-        fill="#3572A5">509.1k</text>
+        fill="#3572A5">531.5k</text>
   <rect x="214" y="86" width="246" height="8" rx="4" ry="4"
         fill="#161b22"/>
   <rect x="214" y="86" width="246" height="8" rx="4" ry="4"
