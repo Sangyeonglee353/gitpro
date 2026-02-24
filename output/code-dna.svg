@@ -128,11 +128,11 @@
   <!-- 중앙 코어 -->
   
   <!-- 코어 글로우 -->
-  <circle cx="260" cy="240" r="36.41144414168937" fill="#3572A5" opacity="0.05" class="dna-pulse"/>
-  <circle cx="260" cy="240" r="31.411444141689373" fill="#3572A5" opacity="0.1"/>
+  <circle cx="260" cy="240" r="36.55313351498638" fill="#3572A5" opacity="0.05" class="dna-pulse"/>
+  <circle cx="260" cy="240" r="31.553133514986378" fill="#3572A5" opacity="0.1"/>
 
   <!-- 코어 -->
-  <circle cx="260" cy="240" r="26.411444141689373" fill="#161b22"
+  <circle cx="260" cy="240" r="26.553133514986378" fill="#161b22"
           stroke="#3572A5" stroke-width="2" opacity="0.9"/>
 
   <!-- 코어 텍스트 -->
@@ -154,17 +154,17 @@
     <text x="34" y="424" class="dna-text" font-size="9" fill="#e6edf3">
       Jupyter Notebook</text>
     <text x="120" y="424" class="dna-text dna-small" fill="#8b949e" font-size="8">
-      27.5%</text>
+      27.3%</text>
     <circle cx="25" cy="436" r="3" fill="#3178c6"/>
     <text x="34" y="440" class="dna-text" font-size="9" fill="#e6edf3">
       TypeScript</text>
     <text x="120" y="440" class="dna-text dna-small" fill="#8b949e" font-size="8">
-      17.4%</text>
+      17.7%</text>
     <circle cx="25" cy="452" r="3" fill="#e34c26"/>
     <text x="34" y="456" class="dna-text" font-size="9" fill="#e6edf3">
       HTML</text>
     <text x="120" y="456" class="dna-text dna-small" fill="#8b949e" font-size="8">
-      11.2%</text>
+      11.1%</text>
     <circle cx="25" cy="468" r="3" fill="#f1e05a"/>
     <text x="34" y="472" class="dna-text" font-size="9" fill="#e6edf3">
       JavaScript</text>
@@ -187,7 +187,7 @@
 
   <!-- 다양성 지수 -->
   <text x="260" y="496" text-anchor="middle" class="dna-text" font-size="9" fill="#8b949e">
-    다양성: 0% · 밀도: 57%</text>
+    다양성: 0% · 밀도: 58%</text>
 
   <!-- 레포/언어 수 -->
   <text x="500" y="496" text-anchor="end" class="dna-text" font-size="9" fill="#8b949e">
