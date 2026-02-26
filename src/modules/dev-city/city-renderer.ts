@@ -1,52 +1,60 @@
-// ???????????????????????????????????????????
-// ??? City Renderer - æ∆¿Ãº“∏ﬁ∆Æ∏Ø µµΩ√ SVG ∑ª¥ı∏µ
-// ???????????????????????????????????????????
-//
-// Dev City∏¶ ¡¯¬• æ∆¿Ãº“∏ﬁ∆Æ∏Ø 3D «»ºøæ∆∆Æ µµΩ√ SVG∑Œ ∑ª¥ı∏µ«’¥œ¥Ÿ.
-// - 3∏È(top/left/right) ∆˙∏Æ∞Ô ±‚π› æ∆¿Ãº“∏ﬁ∆Æ∏Ø ∞«π∞
-// - æ∆¿Ãº“∏ﬁ∆Æ∏Ø ¡ˆ∏È ¥Ÿ¿Ãæ∆∏ÛµÂ + ±◊∏ÆµÂ ∂Û¿Œ
-// - ∞«π∞ ≈∏¿‘∫∞ ∞Ì¿Ø ¿ÂΩƒ (±º∂“, æ»≈◊≥™, µº µÓ)
-// - æ∆¿Ãº“∏ﬁ∆Æ∏Ø √¢πÆ (∏È ±‚øÔ±‚ø° ∏¬√„)
-// - ¡§»Æ«— z-order (µ⁄°Êæ’ ∑ª¥ı∏µ)
-// - 4∞°¡ˆ µµΩ√ Ω∫≈∏¿œ: pixel, isometric, flat, neon
-
-import { ThemeColors, DevCityConfig } from '../../types';
-import {
-  CityProfile,
-  CityBuilding,
-  CityTraffic,
-  CityStats,
-} from './city-analyzer';
+Ôªøimport { ThemeColors, DevCityConfig } from '../../types';
+import { CityProfile, CityBuilding, CityTraffic, CityStats } from './city-analyzer';
 import { CityTier, WeatherInfo, BuildingType } from './building-mapper';
-
-// ???????????????????????????????????????????
-// ?? ªÛºˆ
-// ???????????????????????????????????????????
 
 const SVG_WIDTH = 800;
 const SVG_HEIGHT = 500;
-const HEADER_HEIGHT = 45;
-const FOOTER_HEIGHT = 50;
+const HEADER_HEIGHT = 50;
+const FOOTER_HEIGHT = 52;
 const CITY_Y = HEADER_HEIGHT;
-const CITY_HEIGHT = SVG_HEIGHT - HEADER_HEIGHT - FOOTER_HEIGHT; // 405
+const CITY_HEIGHT = SVG_HEIGHT - HEADER_HEIGHT - FOOTER_HEIGHT;
 
-// æ∆¿Ãº“∏ﬁ∆Æ∏Ø ±◊∏ÆµÂ
 const GRID_ORIGIN_X = 400;
-const GRID_ORIGIN_Y = 275;
+const GRID_ORIGIN_Y = 276;
 const TILE_W = 110;
-const TILE_H = 55;
+const TILE_H = 56;
 
-// ∞«π∞ ƒ°ºˆ
-const BUILDING_HW = 25;  // π›∆¯ (half-width)
-const BUILDING_HD = 12.5; // π›±Ì¿Ã (half-depth)
+type CityStyle = 'tycoon' | 'simcity' | 'neon';
+type BuildingZone = 'residential' | 'commercial' | 'industrial' | 'civic';
+type TimeBand = 'morning' | 'day' | 'evening' | 'night';
 
-// ???????????????????????????????????????????
-// ?? ¿Ø∆ø∏Æ∆º
-// ???????????????????????????????????????????
+interface GridInfo {
+  cols: number;
+  rows: number;
+  centerCol: number;
+  centerRow: number;
+}
 
-/** º“ºˆ¡° 1¿⁄∏Æ π›ø√∏≤ */
+interface Pt {
+  x: number;
+  y: number;
+}
+
+interface Palette {
+  skyTop: string;
+  skyBottom: string;
+  haze: string;
+  groundTop: string;
+  groundBottom: string;
+  grass: string;
+  water: string;
+  road: string;
+  lane: string;
+  text: string;
+  textMuted: string;
+  border: string;
+  outline: string;
+  shadow: string;
+  glow: string;
+  window: string;
+}
+
 function n(v: number): string {
   return v.toFixed(1);
+}
+
+function clamp(v: number, min: number, max: number): number {
+  return Math.max(min, Math.min(max, v));
 }
 
 function escapeXml(text: string): string {
@@ -58,1190 +66,1097 @@ function escapeXml(text: string): string {
     .replace(/'/g, '&apos;');
 }
 
-function formatPopulation(pop: number): string {
-  if (pop >= 1_000_000) return `${(pop / 1_000_000).toFixed(1)}M`;
-  if (pop >= 1_000) return `${(pop / 1_000).toFixed(1)}K`;
-  return pop.toString();
-}
-
 function lightenHex(hex: string, amount: number): string {
-  const rv = parseInt(hex.slice(1, 3), 16);
-  const gv = parseInt(hex.slice(3, 5), 16);
-  const bv = parseInt(hex.slice(5, 7), 16);
-  const lr = Math.min(255, Math.round(rv + (255 - rv) * amount));
-  const lg = Math.min(255, Math.round(gv + (255 - gv) * amount));
-  const lb = Math.min(255, Math.round(bv + (255 - bv) * amount));
-  return `#${lr.toString(16).padStart(2, '0')}${lg.toString(16).padStart(2, '0')}${lb.toString(16).padStart(2, '0')}`;
+  const r = parseInt(hex.slice(1, 3), 16);
+  const g = parseInt(hex.slice(3, 5), 16);
+  const b = parseInt(hex.slice(5, 7), 16);
+  const nr = Math.min(255, Math.round(r + (255 - r) * amount));
+  const ng = Math.min(255, Math.round(g + (255 - g) * amount));
+  const nb = Math.min(255, Math.round(b + (255 - b) * amount));
+  return `#${nr.toString(16).padStart(2, '0')}${ng.toString(16).padStart(2, '0')}${nb.toString(16).padStart(2, '0')}`;
 }
 
 function darkenHex(hex: string, amount: number): string {
-  const rv = parseInt(hex.slice(1, 3), 16);
-  const gv = parseInt(hex.slice(3, 5), 16);
-  const bv = parseInt(hex.slice(5, 7), 16);
-  return `#${Math.round(rv * (1 - amount)).toString(16).padStart(2, '0')}${Math.round(gv * (1 - amount)).toString(16).padStart(2, '0')}${Math.round(bv * (1 - amount)).toString(16).padStart(2, '0')}`;
+  const r = parseInt(hex.slice(1, 3), 16);
+  const g = parseInt(hex.slice(3, 5), 16);
+  const b = parseInt(hex.slice(5, 7), 16);
+  const nr = Math.round(r * (1 - amount));
+  const ng = Math.round(g * (1 - amount));
+  const nb = Math.round(b * (1 - amount));
+  return `#${nr.toString(16).padStart(2, '0')}${ng.toString(16).padStart(2, '0')}${nb.toString(16).padStart(2, '0')}`;
 }
 
-/** æ∆¿Ãº“∏ﬁ∆Æ∏Ø ±◊∏ÆµÂ °Ê Ω∫≈©∏∞ ¡¬«• ∫Ø»Ø */
-function gridToScreen(
-  col: number, row: number,
-  centerCol: number, centerRow: number,
-): { x: number; y: number } {
+// right/left/top coordinates inspired by @elchininet/isometric.
+function isoToScreen(right: number, left: number, top: number): Pt {
   return {
-    x: GRID_ORIGIN_X + (col - centerCol - (row - centerRow)) * TILE_W / 2,
-    y: GRID_ORIGIN_Y + (col - centerCol + (row - centerRow)) * TILE_H / 2,
+    x: GRID_ORIGIN_X + (right - left) * (TILE_W / 2),
+    y: GRID_ORIGIN_Y + (right + left) * (TILE_H / 2) - top,
   };
 }
 
-// ???????????????????????????????????????????
-// ?? µµΩ√ Ω∫≈∏¿œ ªˆªÛ Ω√Ω∫≈€
-// ???????????????????????????????????????????
-
-export interface CityStyleColors {
-  skyTop: string;
-  skyBottom: string;
-  groundMain: string;
-  groundLight: string;
-  groundDark: string;
-  roadColor: string;
-  roadLine: string;
-  gridLine: string;
-  textColor: string;
-  textSecondary: string;
-  border: string;
-  buildingOutline: string;
-  shadowColor: string;
-  glowColor: string;
-  windowColor: string;
-  vehicleColor: string;
+function hashCode(text: string): number {
+  let h = 2166136261;
+  for (let i = 0; i < text.length; i++) {
+    h ^= text.charCodeAt(i);
+    h += (h << 1) + (h << 4) + (h << 7) + (h << 8) + (h << 24);
+  }
+  return Math.abs(h >>> 0);
 }
 
-function getCityStyleColors(
-  style: 'pixel' | 'isometric' | 'flat' | 'neon',
-  _theme: ThemeColors
-): CityStyleColors {
+function gridToScreen(col: number, row: number, grid: GridInfo): Pt {
+  return isoToScreen(col - grid.centerCol, row - grid.centerRow, 0);
+}
+
+function getGrid(buildingCount: number): GridInfo {
+  const cols = Math.min(5, Math.max(1, buildingCount));
+  const rows = Math.max(1, Math.ceil(Math.max(1, buildingCount) / cols));
+  return {
+    cols,
+    rows,
+    centerCol: (cols - 1) / 2,
+    centerRow: (rows - 1) / 2,
+  };
+}
+
+function getZone(type: BuildingType): BuildingZone {
+  switch (type) {
+    case 'factory':
+    case 'warehouse':
+    case 'garage':
+      return 'industrial';
+    case 'mall':
+    case 'arcade':
+    case 'telecom':
+    case 'lab':
+      return 'commercial';
+    case 'cityhall':
+      return 'civic';
+    default:
+      return 'residential';
+  }
+}
+
+function getPalette(style: CityStyle, _theme: ThemeColors): Palette {
   switch (style) {
-    case 'pixel':
+    case 'tycoon':
       return {
-        skyTop: '#0f0f23',
-        skyBottom: '#1a1a3e',
-        groundMain: '#3a7d44',
-        groundLight: '#4a9a54',
-        groundDark: '#2d6033',
-        roadColor: '#555555',
-        roadLine: '#dddd66',
-        gridLine: 'rgba(255,255,255,0.08)',
-        textColor: '#e6edf3',
-        textSecondary: '#8b949e',
-        border: '#30363d',
-        buildingOutline: '#1a1a2e',
-        shadowColor: 'rgba(0,0,0,0.35)',
-        glowColor: '#ffdd57',
-        windowColor: '#ffdd57',
-        vehicleColor: '#ff6b6b',
+        skyTop: '#203459',
+        skyBottom: '#3e6c93',
+        haze: 'rgba(255,255,255,0.10)',
+        groundTop: '#5d8b54',
+        groundBottom: '#345a33',
+        grass: '#7eac66',
+        water: '#4a8fd1',
+        road: '#52606d',
+        lane: '#f7d67e',
+        text: '#ecf4ff',
+        textMuted: '#c5d8eb',
+        border: '#27435e',
+        outline: '#1d2d3d',
+        shadow: 'rgba(0,0,0,0.30)',
+        glow: '#ffd978',
+        window: '#ffe39a',
       };
-    case 'isometric':
+    case 'simcity':
       return {
-        skyTop: '#0a1628',
-        skyBottom: '#162040',
-        groundMain: '#4a7c59',
-        groundLight: '#5c9a6e',
-        groundDark: '#3a6045',
-        roadColor: '#666666',
-        roadLine: '#e8d44d',
-        gridLine: 'rgba(255,255,255,0.06)',
-        textColor: '#f0f6fc',
-        textSecondary: '#9eaab6',
-        border: '#2a3a4e',
-        buildingOutline: '#111122',
-        shadowColor: 'rgba(0,0,0,0.3)',
-        glowColor: '#ffd700',
-        windowColor: '#ffd700',
-        vehicleColor: '#4ecdc4',
-      };
-    case 'flat':
-      return {
-        skyTop: '#74b9ff',
-        skyBottom: '#a29bfe',
-        groundMain: '#55efc4',
-        groundLight: '#6ef5d4',
-        groundDark: '#00b894',
-        roadColor: '#636e72',
-        roadLine: '#ffeaa7',
-        gridLine: 'rgba(0,0,0,0.06)',
-        textColor: '#2d3436',
-        textSecondary: '#636e72',
-        border: '#b2bec3',
-        buildingOutline: '#2d3436',
-        shadowColor: 'rgba(0,0,0,0.15)',
-        glowColor: '#fdcb6e',
-        windowColor: '#ffeaa7',
-        vehicleColor: '#e17055',
+        skyTop: '#79b8ff',
+        skyBottom: '#dbf1ff',
+        haze: 'rgba(255,255,255,0.25)',
+        groundTop: '#73ab5e',
+        groundBottom: '#4f7d41',
+        grass: '#92c876',
+        water: '#73b7e9',
+        road: '#6c737b',
+        lane: '#fff1a3',
+        text: '#203040',
+        textMuted: '#4d6478',
+        border: '#8eaec4',
+        outline: '#37536e',
+        shadow: 'rgba(0,0,0,0.20)',
+        glow: '#ffd05a',
+        window: '#fff4ba',
       };
     case 'neon':
       return {
-        skyTop: '#05000a',
-        skyBottom: '#0f001a',
-        groundMain: '#0a0a1a',
-        groundLight: '#111133',
-        groundDark: '#050510',
-        roadColor: '#111122',
-        roadLine: '#00ffcc',
-        gridLine: 'rgba(0,255,204,0.06)',
-        textColor: '#00ffcc',
-        textSecondary: '#ff00ff',
-        border: '#330066',
-        buildingOutline: '#00ffcc',
-        shadowColor: 'rgba(0,255,204,0.08)',
-        glowColor: '#ff00ff',
-        windowColor: '#00ffcc',
-        vehicleColor: '#00ffcc',
+        skyTop: '#06000e',
+        skyBottom: '#140021',
+        haze: 'rgba(0,255,204,0.09)',
+        groundTop: '#130e2a',
+        groundBottom: '#070512',
+        grass: '#1f2f4f',
+        water: '#1a2f5f',
+        road: '#181a33',
+        lane: '#00ffd5',
+        text: '#00ffd5',
+        textMuted: '#ff54d8',
+        border: '#392461',
+        outline: '#00ffd5',
+        shadow: 'rgba(0,255,213,0.10)',
+        glow: '#ff39cf',
+        window: '#00ffd5',
       };
   }
 }
 
-// ???????????????????????????????????????????
-// ?? Defs (±◊∂Ûµ•¿Ãº«, « ≈Õ)
-// ???????????????????????????????????????????
-
-function buildDefs(colors: CityStyleColors, isNeon: boolean): string {
+function buildDefs(p: Palette, isNeon: boolean): string {
   return `<defs>
-  <linearGradient id="skyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-    <stop offset="0%" stop-color="${colors.skyTop}"/>
-    <stop offset="100%" stop-color="${colors.skyBottom}"/>
+  <linearGradient id="dcSky" x1="0%" y1="0%" x2="0%" y2="100%">
+    <stop offset="0%" stop-color="${p.skyTop}"/>
+    <stop offset="100%" stop-color="${p.skyBottom}"/>
   </linearGradient>
-  <linearGradient id="groundGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-    <stop offset="0%" stop-color="${colors.groundLight}"/>
-    <stop offset="100%" stop-color="${colors.groundDark}"/>
+  <linearGradient id="dcGround" x1="0%" y1="0%" x2="0%" y2="100%">
+    <stop offset="0%" stop-color="${p.groundTop}"/>
+    <stop offset="100%" stop-color="${p.groundBottom}"/>
   </linearGradient>
-  <filter id="bldShadow">
-    <feDropShadow dx="2" dy="3" stdDeviation="2" flood-color="black" flood-opacity="0.3"/>
-  </filter>
-  <filter id="glow">
-    <feGaussianBlur stdDeviation="${isNeon ? '3' : '1.5'}" result="b"/>
-    <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
-  </filter>
-  ${isNeon ? `<filter id="neonGlow">
-    <feGaussianBlur stdDeviation="4" result="b"/>
-    <feMerge><feMergeNode in="b"/><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
-  </filter>` : ''}
-  <filter id="wBlur"><feGaussianBlur stdDeviation="0.5"/></filter>
-  <pattern id="roadDash" x="0" y="0" width="20" height="4" patternUnits="userSpaceOnUse">
-    <rect width="10" height="2" y="1" fill="${colors.roadLine}" opacity="0.6"/>
+  <linearGradient id="dcAsphalt" x1="0%" y1="0%" x2="100%" y2="100%">
+    <stop offset="0%" stop-color="${lightenHex(p.road, 0.08)}"/>
+    <stop offset="100%" stop-color="${darkenHex(p.road, 0.12)}"/>
+  </linearGradient>
+  <linearGradient id="dcGlass" x1="0%" y1="0%" x2="0%" y2="100%">
+    <stop offset="0%" stop-color="#ffffff" stop-opacity="0.24"/>
+    <stop offset="60%" stop-color="#ffffff" stop-opacity="0.08"/>
+    <stop offset="100%" stop-color="#ffffff" stop-opacity="0.02"/>
+  </linearGradient>
+  <pattern id="dcAsphaltNoise" width="6" height="6" patternUnits="userSpaceOnUse">
+    <circle cx="1" cy="2" r="0.4" fill="#000" opacity="0.13"/>
+    <circle cx="4.5" cy="4.2" r="0.35" fill="#fff" opacity="0.08"/>
   </pattern>
+  <filter id="dcGlow"><feGaussianBlur stdDeviation="${isNeon ? '2.4' : '1.2'}" result="g"/><feMerge><feMergeNode in="g"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  <filter id="dcShadow"><feDropShadow dx="1" dy="2" stdDeviation="1.4" flood-color="#000" flood-opacity="0.35"/></filter>
 </defs>`;
 }
 
-// ???????????????????????????????????????????
-// ?? Styles (æ÷¥œ∏ﬁ¿Ãº«)
-// ???????????????????????????????????????????
-
-function buildStyles(colors: CityStyleColors, animate: boolean): string {
-  const anim = animate ? `
-    @keyframes dc-blink { 0%,100%{opacity:0.2} 50%{opacity:0.9} }
-    @keyframes dc-vehicle { 0%{transform:translateX(-60px)} 100%{transform:translateX(860px)} }
-    @keyframes dc-vehicle-rev { 0%{transform:translateX(860px)} 100%{transform:translateX(-60px)} }
-    @keyframes dc-rain { 0%{transform:translateY(-20px);opacity:0} 20%{opacity:1} 100%{transform:translateY(420px);opacity:0.3} }
-    @keyframes dc-snow { 0%{transform:translate(0,-20px);opacity:0} 20%{opacity:0.9} 100%{transform:translate(20px,420px);opacity:0} }
-    @keyframes dc-firework { 0%{r:0;opacity:1} 50%{opacity:0.8} 100%{r:15;opacity:0} }
-    @keyframes dc-smoke { 0%{transform:translateY(0);opacity:0.6} 100%{transform:translateY(-30px);opacity:0} }
-    @keyframes dc-fadeIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
-    @keyframes dc-rainbow { 0%{opacity:0} 30%{opacity:0.4} 70%{opacity:0.4} 100%{opacity:0} }
-    @keyframes dc-pulse { 0%,100%{opacity:0.5} 50%{opacity:1} }
-    .dc-win{animation:dc-blink 4s ease-in-out infinite}
-    .dc-veh{animation:dc-vehicle 12s linear infinite}
-    .dc-veh-r{animation:dc-vehicle-rev 15s linear infinite}
-    .dc-rain{animation:dc-rain 1.5s linear infinite}
-    .dc-snow{animation:dc-snow 4s ease-in-out infinite}
-    .dc-fw{animation:dc-firework 2s ease-out infinite}
-    .dc-smk{animation:dc-smoke 3s ease-out infinite}
-    .dc-bld{animation:dc-fadeIn 0.6s ease-out forwards;opacity:0}
-    .dc-rb{animation:dc-rainbow 8s ease-in-out infinite}
-    .dc-pls{animation:dc-pulse 2s ease-in-out infinite}
-  ` : `
-    .dc-win{opacity:0.6} .dc-bld{opacity:1}
-  `;
+function buildStyles(animate: boolean): string {
+  const motion = animate
+    ? `
+    @keyframes dcTwinkle { 0%,100%{opacity:0.35} 50%{opacity:1} }
+    @keyframes dcIdle { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-0.6px)} }
+    .dc-win{animation:dcTwinkle 3.2s ease-in-out infinite}
+    .dc-idle{animation:dcIdle 1.7s ease-in-out infinite}
+    `
+    : '.dc-win{opacity:0.7}';
 
   return `<style>
-  .dc-t{font-family:'Segoe UI','Noto Sans KR',sans-serif}
-  .dc-title{font-size:13px;font-weight:700;letter-spacing:1.5px}
+  .dc-text{font-family:'Segoe UI','Noto Sans KR',sans-serif}
+  .dc-title{font-size:13px;font-weight:700;letter-spacing:1.2px}
   .dc-sub{font-size:9px;font-weight:500}
-  .dc-lbl{font-size:7.5px;font-weight:500}
-  .dc-lbl-s{font-size:6px;font-weight:400}
-  .dc-ft{font-size:9px;font-weight:500}
-  .dc-fv{font-size:10px;font-weight:700}
-  ${anim}
+  .dc-small{font-size:7px;font-weight:500}
+  ${motion}
 </style>`;
 }
 
-// ???????????????????????????????????????????
-// ?? æ∆¿Ãº“∏ﬁ∆Æ∏Ø ¡ˆ∏È ∑ª¥ı∏µ
-// ???????????????????????????????????????????
+function loopCorners(grid: GridInfo, pad: number): { back: Pt; right: Pt; front: Pt; left: Pt } {
+  return {
+    back: gridToScreen(-pad, -pad, grid),
+    right: gridToScreen(grid.cols - 1 + pad, -pad, grid),
+    front: gridToScreen(grid.cols - 1 + pad, grid.rows - 1 + pad, grid),
+    left: gridToScreen(-pad, grid.rows - 1 + pad, grid),
+  };
+}
 
-function renderIsometricGround(
-  buildings: CityBuilding[],
-  colors: CityStyleColors,
-  isNeon: boolean,
-): string {
-  const gridCols = Math.min(4, buildings.length || 1);
-  const gridRows = Math.max(1, Math.ceil(buildings.length / gridCols));
-  const centerCol = (gridCols - 1) / 2;
-  const centerRow = (gridRows - 1) / 2;
+function renderGround(grid: GridInfo, p: Palette, style: CityStyle): string {
+  const terrain = loopCorners(grid, 1.35);
+  const terrainPts = `${n(terrain.back.x)},${n(terrain.back.y)} ${n(terrain.right.x)},${n(terrain.right.y)} ${n(terrain.front.x)},${n(terrain.front.y)} ${n(terrain.left.x)},${n(terrain.left.y)}`;
 
-  // ¡ˆ∏È ¥Ÿ¿Ãæ∆∏ÛµÂ (±◊∏ÆµÂ + ∆–µ˘)
-  const pad = 1.2;
-  const corners = [
-    gridToScreen(-pad, -pad, centerCol, centerRow),           // back (top)
-    gridToScreen(gridCols - 1 + pad, -pad, centerCol, centerRow),  // right
-    gridToScreen(gridCols - 1 + pad, gridRows - 1 + pad, centerCol, centerRow), // front (bottom)
-    gridToScreen(-pad, gridRows - 1 + pad, centerCol, centerRow),  // left
-  ];
-
-  const groundDiamond = `<polygon points="${corners.map(c => `${n(c.x)},${n(c.y)}`).join(' ')}"
-    fill="url(#groundGrad)" stroke="${colors.groundDark}" stroke-width="0.5"/>`;
-
-  // ±◊∏ÆµÂ ∂Û¿Œ (æ∆¿Ãº“∏ﬁ∆Æ∏Ø ≈∏¿œ)
   let gridLines = '';
-  for (let row = -0.5; row <= gridRows + 0.5; row += 1) {
-    const s = gridToScreen(-pad, row, centerCol, centerRow);
-    const e = gridToScreen(gridCols - 1 + pad, row, centerCol, centerRow);
-    gridLines += `<line x1="${n(s.x)}" y1="${n(s.y)}" x2="${n(e.x)}" y2="${n(e.y)}" stroke="${colors.gridLine}" stroke-width="0.5"/>`;
+  for (let r = -0.2; r <= grid.rows - 1 + 0.2; r += 1) {
+    const a = gridToScreen(0, r, grid);
+    const b = gridToScreen(grid.cols - 1, r, grid);
+    gridLines += `<line x1="${n(a.x)}" y1="${n(a.y)}" x2="${n(b.x)}" y2="${n(b.y)}" stroke="${p.border}" stroke-width="0.45" opacity="0.28"/>`;
   }
-  for (let col = -0.5; col <= gridCols + 0.5; col += 1) {
-    const s = gridToScreen(col, -pad, centerCol, centerRow);
-    const e = gridToScreen(col, gridRows - 1 + pad, centerCol, centerRow);
-    gridLines += `<line x1="${n(s.x)}" y1="${n(s.y)}" x2="${n(e.x)}" y2="${n(e.y)}" stroke="${colors.gridLine}" stroke-width="0.5"/>`;
+  for (let c = -0.2; c <= grid.cols - 1 + 0.2; c += 1) {
+    const a = gridToScreen(c, 0, grid);
+    const b = gridToScreen(c, grid.rows - 1, grid);
+    gridLines += `<line x1="${n(a.x)}" y1="${n(a.y)}" x2="${n(b.x)}" y2="${n(b.y)}" stroke="${p.border}" stroke-width="0.45" opacity="0.28"/>`;
   }
 
-  // µµ∑Œ (¡ˆ∏È «œ¥‹ ∞°∑Œ Ω∫∆Æ∂Û¿Ã«¡)
-  const roadY = corners[2].y + 5;
-  const road = buildings.length >= 3
-    ? `<rect x="0" y="${n(roadY)}" width="${SVG_WIDTH}" height="14" fill="${colors.roadColor}"/>
-       <rect x="0" y="${n(roadY + 5)}" width="${SVG_WIDTH}" height="2" fill="url(#roadDash)"/>`
+  const river = style === 'simcity'
+    ? `<polygon points="${n(terrain.left.x + 18)},${n(terrain.left.y - 12)} ${n(terrain.front.x - 28)},${n(terrain.front.y - 6)} ${n(terrain.front.x - 6)},${n(terrain.front.y + 8)} ${n(terrain.left.x + 42)},${n(terrain.left.y + 6)}"
+        fill="${p.water}" opacity="0.62"/>`
     : '';
-
-  return `<g>${groundDiamond}${gridLines}${road}</g>`;
-}
-
-// ???????????????????????????????????????????
-// ?? æ∆¿Ãº“∏ﬁ∆Æ∏Ø 3D π⁄Ω∫ ƒ⁄æÓ
-// ???????????????????????????????????????????
-
-/**
- * æ∆¿Ãº“∏ﬁ∆Æ∏Ø 3∏È π⁄Ω∫∏¶ ±◊∏≥¥œ¥Ÿ.
- * cx, cy: ¿¸∏È ≤¿¡˛¡° (πŸ¥⁄ ¡ﬂæ”)
- * hw: π›∆¯, hd: π›±Ì¿Ã, bh: ≥Ù¿Ã
- */
-function drawIsoBox(
-  cx: number, cy: number,
-  hw: number, hd: number, bh: number,
-  topColor: string, rightColor: string, leftColor: string,
-  outline: string,
-): string {
-  // Left face: (cx,cy) °Ê (cx,cy-bh) °Ê (cx-hw,cy-hd-bh) °Ê (cx-hw,cy-hd)
-  const leftFace = `<polygon points="${n(cx)},${n(cy)} ${n(cx)},${n(cy - bh)} ${n(cx - hw)},${n(cy - hd - bh)} ${n(cx - hw)},${n(cy - hd)}" fill="${leftColor}" stroke="${outline}" stroke-width="0.5"/>`;
-
-  // Right face: (cx,cy) °Ê (cx+hw,cy-hd) °Ê (cx+hw,cy-hd-bh) °Ê (cx,cy-bh)
-  const rightFace = `<polygon points="${n(cx)},${n(cy)} ${n(cx + hw)},${n(cy - hd)} ${n(cx + hw)},${n(cy - hd - bh)} ${n(cx)},${n(cy - bh)}" fill="${rightColor}" stroke="${outline}" stroke-width="0.5"/>`;
-
-  // Top face: (cx,cy-bh) °Ê (cx+hw,cy-hd-bh) °Ê (cx,cy-2*hd-bh) °Ê (cx-hw,cy-hd-bh)
-  const topFace = `<polygon points="${n(cx)},${n(cy - bh)} ${n(cx + hw)},${n(cy - hd - bh)} ${n(cx)},${n(cy - 2 * hd - bh)} ${n(cx - hw)},${n(cy - hd - bh)}" fill="${topColor}" stroke="${outline}" stroke-width="0.5"/>`;
-
-  return `${leftFace}\n    ${rightFace}\n    ${topFace}`;
-}
-
-// ???????????????????????????????????????????
-// ?? æ∆¿Ãº“∏ﬁ∆Æ∏Ø √¢πÆ
-// ???????????????????????????????????????????
-
-function drawIsoWindows(
-  cx: number, cy: number,
-  hw: number, hd: number, bh: number,
-  building: CityBuilding,
-  colors: CityStyleColors,
-  isNeon: boolean,
-): string {
-  if (bh < 50) return '';
-
-  const winColor = isNeon ? colors.glowColor : colors.windowColor;
-  const windowRows = Math.min(4, Math.floor(bh / 28));
-  const windowCols = 2;
-  let wins = '';
-
-  // √¢πÆ ∆ƒ∂ÛπÃ≈Õ (∏È ¡¬«•∞Ë u,v)
-  const wu = 0.18; // √¢πÆ ∆¯ (∏È ±‚¡ÿ)
-  const wv = 0.06; // √¢πÆ ≥Ù¿Ã (∏È ±‚¡ÿ)
-
-  for (let wr = 0; wr < windowRows; wr++) {
-    for (let wc = 0; wc < windowCols; wc++) {
-      const u = 0.18 + wc * 0.38;
-      const v = 0.12 + wr * (0.72 / Math.max(1, windowRows));
-      const baseOp = building.isDormant
-        ? 0.05 + ((wr * 7 + wc * 3) % 10) / 80
-        : 0.3 + ((wr * 3 + wc * 7) % 10) / 15;
-      const animDel = (wr * 0.7 + wc * 1.3).toFixed(1);
-
-      // Right face window
-      const rx1 = cx + u * hw;
-      const ry1 = cy - u * hd - v * bh;
-      const rx2 = cx + (u + wu) * hw;
-      const ry2 = cy - (u + wu) * hd - v * bh;
-      const rx3 = cx + (u + wu) * hw;
-      const ry3 = cy - (u + wu) * hd - (v + wv) * bh;
-      const rx4 = cx + u * hw;
-      const ry4 = cy - u * hd - (v + wv) * bh;
-
-      wins += `<polygon points="${n(rx1)},${n(ry1)} ${n(rx2)},${n(ry2)} ${n(rx3)},${n(ry3)} ${n(rx4)},${n(ry4)}"
-        fill="${winColor}" opacity="${baseOp.toFixed(2)}" class="dc-win" style="animation-delay:${animDel}s"/>`;
-
-      // Left face window (mirrored)
-      const lx1 = cx - u * hw;
-      const ly1 = cy - u * hd - v * bh;
-      const lx2 = cx - (u + wu) * hw;
-      const ly2 = cy - (u + wu) * hd - v * bh;
-      const lx3 = cx - (u + wu) * hw;
-      const ly3 = cy - (u + wu) * hd - (v + wv) * bh;
-      const lx4 = cx - u * hw;
-      const ly4 = cy - u * hd - (v + wv) * bh;
-
-      const leftOp = baseOp * 0.65; // left face¥¬ ¥ı æÓµŒøÚ
-      const lAnimDel = (parseFloat(animDel) + 0.5).toFixed(1);
-      wins += `<polygon points="${n(lx1)},${n(ly1)} ${n(lx2)},${n(ly2)} ${n(lx3)},${n(ly3)} ${n(lx4)},${n(ly4)}"
-        fill="${winColor}" opacity="${leftOp.toFixed(2)}" class="dc-win" style="animation-delay:${lAnimDel}s"/>`;
+  let lots = '';
+  for (let r = 0; r < grid.rows; r++) {
+    for (let c = 0; c < grid.cols; c++) {
+      const t = gridToScreen(c, r, grid);
+      const alt = (r + c) % 2 === 0;
+      lots += `<polygon points="${n(t.x)},${n(t.y - 12.5)} ${n(t.x + 24)},${n(t.y)} ${n(t.x)},${n(t.y + 12.5)} ${n(t.x - 24)},${n(t.y)}"
+        fill="${alt ? lightenHex(p.grass, 0.06) : darkenHex(p.grass, 0.06)}" opacity="0.12"/>`;
     }
   }
 
-  return wins;
+  return `<g>
+  <polygon points="${terrainPts}" fill="url(#dcGround)" stroke="${p.border}" stroke-width="0.8"/>
+  <polygon points="${n(terrain.back.x)},${n(terrain.back.y + 14)} ${n(terrain.right.x)},${n(terrain.right.y + 14)} ${n(terrain.right.x - 10)},${n(terrain.right.y + 30)} ${n(terrain.back.x + 10)},${n(terrain.back.y + 30)}" fill="${p.haze}"/>
+  ${river}
+  ${lots}
+  ${gridLines}
+</g>`;
 }
 
-// ???????????????????????????????????????????
-// ?? ∞«π∞ ≈∏¿‘∫∞ ¿ÂΩƒ
-// ???????????????????????????????????????????
+function renderRoads(grid: GridInfo, p: Palette): string {
+  const outer = loopCorners(grid, 1.05);
+  const inner = loopCorners(grid, 0.45);
+  const outerPath = `M ${n(outer.back.x)} ${n(outer.back.y)} L ${n(outer.right.x)} ${n(outer.right.y)} L ${n(outer.front.x)} ${n(outer.front.y)} L ${n(outer.left.x)} ${n(outer.left.y)} Z`;
+  const innerPath = `M ${n(inner.back.x)} ${n(inner.back.y)} L ${n(inner.right.x)} ${n(inner.right.y)} L ${n(inner.front.x)} ${n(inner.front.y)} L ${n(inner.left.x)} ${n(inner.left.y)} Z`;
+  const crosswalk = (x: number, y: number, w: number, h: number, rot: number): string =>
+    `<g transform="translate(${n(x)} ${n(y)}) rotate(${n(rot)})">${[0, 1, 2, 3].map((i) =>
+      `<rect x="${n(-w / 2)}" y="${n(-h / 2 + i * (h / 4) + 0.3)}" width="${n(w)}" height="0.7" fill="#f8fafc" opacity="0.55"/>`).join('')}</g>`;
 
-function drawBuildingDecor(
-  type: BuildingType,
-  cx: number, cy: number,
-  hw: number, hd: number, bh: number,
-  mainColor: string, accentColor: string,
-  isNeon: boolean, colors: CityStyleColors,
+  const lights = [
+    { x: outer.back.x - 10, y: outer.back.y + 4 },
+    { x: outer.right.x - 5, y: outer.right.y + 9 },
+    { x: outer.front.x + 10, y: outer.front.y - 4 },
+    { x: outer.left.x + 4, y: outer.left.y - 8 },
+  ];
+  return `<g>
+  <path d="${outerPath}" fill="none" stroke="${darkenHex(p.road, 0.2)}" stroke-width="19" opacity="0.25"/>
+  <path d="${innerPath}" fill="none" stroke="${darkenHex(p.road, 0.2)}" stroke-width="15" opacity="0.22"/>
+  <path id="dcRoadOuter" d="${outerPath}" fill="none" stroke="url(#dcAsphalt)" stroke-width="16" opacity="0.78"/>
+  <path id="dcRoadInner" d="${innerPath}" fill="none" stroke="url(#dcAsphalt)" stroke-width="13" opacity="0.72"/>
+  <path d="${outerPath}" fill="none" stroke="url(#dcAsphaltNoise)" stroke-width="16" opacity="0.35"/>
+  <path d="${innerPath}" fill="none" stroke="url(#dcAsphaltNoise)" stroke-width="13" opacity="0.3"/>
+  <path d="${outerPath}" fill="none" stroke="${p.lane}" stroke-width="1" opacity="0.45" stroke-dasharray="9 8"/>
+  <path d="${innerPath}" fill="none" stroke="${p.lane}" stroke-width="0.9" opacity="0.36" stroke-dasharray="6 7"/>
+  ${crosswalk(outer.back.x - 2, outer.back.y + 1, 8, 6, -32)}
+  ${crosswalk(outer.right.x - 2, outer.right.y + 3, 8, 6, 32)}
+  ${crosswalk(outer.front.x + 3, outer.front.y + 1, 8, 6, -32)}
+  ${crosswalk(outer.left.x + 1, outer.left.y - 2, 8, 6, 32)}
+  ${lights.map((l, i) => `<g>
+    <line x1="${n(l.x)}" y1="${n(l.y)}" x2="${n(l.x)}" y2="${n(l.y - 9)}" stroke="${darkenHex(p.border, 0.2)}" stroke-width="1"/>
+    <circle cx="${n(l.x)}" cy="${n(l.y - 9.8)}" r="1.6" fill="${i % 2 === 0 ? '#ffe08a' : '#c7deff'}" opacity="0.75"/>
+  </g>`).join('')}
+</g>`;
+}
+
+function prism(cx: number, cy: number, hw: number, hd: number, h: number, top: string, right: string, left: string, outline: string): string {
+  return `<polygon points="${n(cx)},${n(cy - h)} ${n(cx + hw)},${n(cy - hd - h)} ${n(cx)},${n(cy - 2 * hd - h)} ${n(cx - hw)},${n(cy - hd - h)}" fill="${top}" stroke="${outline}" stroke-width="0.5"/>
+  <polygon points="${n(cx)},${n(cy)} ${n(cx + hw)},${n(cy - hd)} ${n(cx + hw)},${n(cy - hd - h)} ${n(cx)},${n(cy - h)}" fill="${right}" stroke="${outline}" stroke-width="0.5"/>
+  <polygon points="${n(cx)},${n(cy)} ${n(cx)},${n(cy - h)} ${n(cx - hw)},${n(cy - hd - h)} ${n(cx - hw)},${n(cy - hd)}" fill="${left}" stroke="${outline}" stroke-width="0.5"/>`;
+}
+
+type RoofKind = 'flat' | 'mech' | 'spire' | 'dome' | 'gable' | 'saw' | 'terrace';
+type FacadeKind = 'grid' | 'ribs' | 'panels' | 'stack' | 'sparse';
+type DetailLevel = 'high' | 'mid' | 'low';
+
+interface MassProfile {
+  hwScale: number;
+  hdScale: number;
+  hScale: number;
+  facade: FacadeKind;
+  roof: RoofKind;
+  podium: boolean;
+  setback: boolean;
+}
+
+function getArchetype(type: BuildingType, zone: BuildingZone): 'tower' | 'campus' | 'plant' | 'civic' | 'resi' {
+  if (type === 'telecom' || type === 'arcade') return 'tower';
+  if (type === 'mall' || type === 'lab' || type === 'library') return 'campus';
+  if (type === 'factory' || type === 'warehouse' || type === 'garage' || zone === 'industrial') return 'plant';
+  if (type === 'cityhall' || zone === 'civic') return 'civic';
+  return 'resi';
+}
+
+function renderArchetypeMass(
+  archetype: 'tower' | 'campus' | 'plant' | 'civic' | 'resi',
+  detail: DetailLevel,
+  pos: Pt,
+  hw: number,
+  hd: number,
+  h: number,
+  top: string,
+  right: string,
+  left: string,
+  outline: string
 ): string {
-  // ∞«π∞ ªÛ¥‹ ¡ﬂΩ… (top face center)
-  const topCy = cy - hd - bh;
+  if (detail === 'low') return '';
+  if (archetype === 'tower') {
+    return prism(pos.x, pos.y - h * 0.28, hw * 0.22, hd * 0.22, h * 0.48, lightenHex(top, 0.12), lightenHex(right, 0.06), lightenHex(left, 0.04), outline);
+  }
+  if (archetype === 'campus') {
+    return `${prism(pos.x - hw * 0.36, pos.y + hd * 0.04, hw * 0.34, hd * 0.32, h * 0.28, lightenHex(top, 0.06), darkenHex(right, 0.04), darkenHex(left, 0.07), outline)}
+      ${detail === 'high' ? prism(pos.x + hw * 0.28, pos.y - hd * 0.03, hw * 0.26, hd * 0.26, h * 0.22, lightenHex(top, 0.08), darkenHex(right, 0.03), darkenHex(left, 0.05), outline) : ''}`;
+  }
+  if (archetype === 'plant') {
+    return `${prism(pos.x - hw * 0.28, pos.y + hd * 0.02, hw * 0.3, hd * 0.28, h * 0.18, lightenHex(top, 0.04), darkenHex(right, 0.06), darkenHex(left, 0.09), outline)}
+      ${prism(pos.x + hw * 0.26, pos.y + hd * 0.03, hw * 0.24, hd * 0.24, h * 0.16, lightenHex(top, 0.02), darkenHex(right, 0.08), darkenHex(left, 0.1), outline)}`;
+  }
+  if (archetype === 'civic') {
+    return prism(pos.x, pos.y - h * 0.08, hw * 0.48, hd * 0.4, h * 0.24, lightenHex(top, 0.08), darkenHex(right, 0.02), darkenHex(left, 0.04), outline);
+  }
+  return detail === 'high'
+    ? prism(pos.x + hw * 0.22, pos.y - h * 0.06, hw * 0.22, hd * 0.22, h * 0.2, lightenHex(top, 0.06), darkenHex(right, 0.04), darkenHex(left, 0.06), outline)
+    : '';
+}
 
-  switch (type) {
-    case 'factory': {
-      // ??? ±º∂“ (¿€¿∫ æ∆¿Ãº“ π⁄Ω∫ + ø¨±‚)
-      const chX = cx - hw * 0.25;
-      const chY = cy - bh - hd * 0.4;
-      return drawIsoBox(chX, chY, 4, 2, 16, '#aaa', '#999', '#888', colors.buildingOutline) +
-        `<circle cx="${n(chX)}" cy="${n(chY - 20)}" r="3" fill="#aaa" opacity="0.4" class="dc-smk"/>
-         <circle cx="${n(chX)}" cy="${n(chY - 26)}" r="2" fill="#aaa" opacity="0.25" class="dc-smk" style="animation-delay:0.6s"/>`;
-    }
-    case 'lab':
-      // ?? æ»≈◊≥™ + ª°∞£ ∫“
-      return `<line x1="${n(cx)}" y1="${n(topCy - 18)}" x2="${n(cx)}" y2="${n(topCy + 2)}" stroke="${accentColor}" stroke-width="1.5"/>
-        <circle cx="${n(cx)}" cy="${n(topCy - 20)}" r="2.5" fill="${isNeon ? colors.glowColor : '#ff4444'}" class="dc-pls"/>
-        <circle cx="${n(cx)}" cy="${n(topCy - 20)}" r="5" fill="${isNeon ? colors.glowColor : '#ff4444'}" opacity="0.15"/>`;
+function renderMassKit(
+  kit: number,
+  detail: DetailLevel,
+  pos: Pt,
+  hw: number,
+  hd: number,
+  h: number,
+  top: string,
+  right: string,
+  left: string,
+  outline: string
+): string {
+  if (detail === 'low') return '';
+  switch (kit % 24) {
+    case 0:
+      return prism(pos.x - hw * 0.18, pos.y - h * 0.16, hw * 0.28, hd * 0.28, h * 0.34, lightenHex(top, 0.1), lightenHex(right, 0.05), lightenHex(left, 0.04), outline);
+    case 1:
+      return `${prism(pos.x + hw * 0.22, pos.y - h * 0.12, hw * 0.24, hd * 0.24, h * 0.3, lightenHex(top, 0.08), darkenHex(right, 0.03), darkenHex(left, 0.05), outline)}
+        ${detail === 'high' ? prism(pos.x - hw * 0.24, pos.y - h * 0.08, hw * 0.2, hd * 0.2, h * 0.22, lightenHex(top, 0.06), darkenHex(right, 0.05), darkenHex(left, 0.07), outline) : ''}`;
+    case 2:
+      return prism(pos.x, pos.y - h * 0.22, hw * 0.2, hd * 0.2, h * 0.4, lightenHex(top, 0.12), lightenHex(right, 0.06), lightenHex(left, 0.04), outline);
+    case 3:
+      return `${prism(pos.x - hw * 0.3, pos.y + hd * 0.04, hw * 0.26, hd * 0.24, h * 0.2, lightenHex(top, 0.05), darkenHex(right, 0.06), darkenHex(left, 0.08), outline)}
+        ${prism(pos.x + hw * 0.28, pos.y + hd * 0.03, hw * 0.24, hd * 0.22, h * 0.18, lightenHex(top, 0.03), darkenHex(right, 0.08), darkenHex(left, 0.1), outline)}`;
+    case 4:
+      return `<ellipse cx="${n(pos.x - hw * 0.2)}" cy="${n(pos.y - h * 0.18)}" rx="${n(hw * 0.17)}" ry="${n(hd * 0.16)}" fill="${lightenHex(top, 0.12)}" stroke="${outline}" stroke-width="0.45" opacity="0.9"/>
+        <rect x="${n(pos.x - hw * 0.36)}" y="${n(pos.y - h * 0.18)}" width="${n(hw * 0.32)}" height="${n(h * 0.28)}" fill="${darkenHex(right, 0.03)}" opacity="0.82"/>`;
+    case 5:
+      return `${prism(pos.x + hw * 0.14, pos.y - h * 0.18, hw * 0.33, hd * 0.3, h * 0.25, lightenHex(top, 0.1), darkenHex(right, 0.04), darkenHex(left, 0.07), outline)}
+        <polygon points="${n(pos.x + hw * 0.1)},${n(pos.y - h * 0.43)} ${n(pos.x + hw * 0.26)},${n(pos.y - h * 0.3)} ${n(pos.x + hw * 0.08)},${n(pos.y - h * 0.18)} ${n(pos.x - hw * 0.06)},${n(pos.y - h * 0.3)}"
+          fill="${lightenHex(top, 0.18)}" opacity="0.85" stroke="${outline}" stroke-width="0.4"/>`;
+    case 6:
+      return `${prism(pos.x - hw * 0.1, pos.y - h * 0.1, hw * 0.3, hd * 0.28, h * 0.2, lightenHex(top, 0.07), darkenHex(right, 0.03), darkenHex(left, 0.05), outline)}
+        ${prism(pos.x + hw * 0.24, pos.y - h * 0.22, hw * 0.16, hd * 0.16, h * 0.34, lightenHex(top, 0.12), lightenHex(right, 0.08), lightenHex(left, 0.06), outline)}`;
+    case 7:
+      return `${prism(pos.x, pos.y - h * 0.14, hw * 0.24, hd * 0.24, h * 0.24, lightenHex(top, 0.08), darkenHex(right, 0.02), darkenHex(left, 0.04), outline)}
+        ${detail === 'high' ? `<rect x="${n(pos.x - hw * 0.14)}" y="${n(pos.y - h * 0.35)}" width="${n(hw * 0.28)}" height="${n(h * 0.1)}" rx="0.8" fill="${lightenHex(top, 0.2)}" opacity="0.82"/>` : ''}`;
+    case 8:
+      return `${prism(pos.x - hw * 0.32, pos.y - h * 0.06, hw * 0.22, hd * 0.2, h * 0.18, lightenHex(top, 0.05), darkenHex(right, 0.05), darkenHex(left, 0.08), outline)}
+        ${prism(pos.x + hw * 0.08, pos.y - h * 0.22, hw * 0.2, hd * 0.2, h * 0.34, lightenHex(top, 0.14), lightenHex(right, 0.08), lightenHex(left, 0.06), outline)}`;
+    case 9:
+      return `${prism(pos.x + hw * 0.26, pos.y - h * 0.08, hw * 0.2, hd * 0.2, h * 0.2, lightenHex(top, 0.06), darkenHex(right, 0.04), darkenHex(left, 0.07), outline)}
+        <ellipse cx="${n(pos.x - hw * 0.24)}" cy="${n(pos.y - h * 0.14)}" rx="${n(hw * 0.15)}" ry="${n(hd * 0.14)}" fill="${lightenHex(top, 0.16)}" stroke="${outline}" stroke-width="0.4" opacity="0.9"/>`;
+    case 10:
+      return `${prism(pos.x, pos.y - h * 0.3, hw * 0.16, hd * 0.16, h * 0.5, lightenHex(top, 0.18), lightenHex(right, 0.1), lightenHex(left, 0.08), outline)}
+        ${detail === 'high' ? prism(pos.x - hw * 0.18, pos.y - h * 0.08, hw * 0.16, hd * 0.16, h * 0.22, lightenHex(top, 0.08), darkenHex(right, 0.03), darkenHex(left, 0.06), outline) : ''}`;
+    case 11:
+      return `${prism(pos.x - hw * 0.18, pos.y + hd * 0.04, hw * 0.2, hd * 0.18, h * 0.16, lightenHex(top, 0.03), darkenHex(right, 0.07), darkenHex(left, 0.1), outline)}
+        ${prism(pos.x + hw * 0.18, pos.y + hd * 0.02, hw * 0.22, hd * 0.2, h * 0.15, lightenHex(top, 0.02), darkenHex(right, 0.08), darkenHex(left, 0.1), outline)}
+        ${prism(pos.x, pos.y - h * 0.06, hw * 0.18, hd * 0.18, h * 0.22, lightenHex(top, 0.08), darkenHex(right, 0.03), darkenHex(left, 0.05), outline)}`;
+    case 12:
+      return `${prism(pos.x + hw * 0.14, pos.y - h * 0.14, hw * 0.28, hd * 0.26, h * 0.26, lightenHex(top, 0.1), darkenHex(right, 0.04), darkenHex(left, 0.07), outline)}
+        <polygon points="${n(pos.x + hw * 0.04)},${n(pos.y - h * 0.36)} ${n(pos.x + hw * 0.22)},${n(pos.y - h * 0.24)} ${n(pos.x + hw * 0.03)},${n(pos.y - h * 0.1)} ${n(pos.x - hw * 0.12)},${n(pos.y - h * 0.24)}"
+          fill="${lightenHex(top, 0.2)}" opacity="0.82" stroke="${outline}" stroke-width="0.4"/>`;
+    case 13:
+      return `${prism(pos.x - hw * 0.24, pos.y - h * 0.18, hw * 0.22, hd * 0.22, h * 0.3, lightenHex(top, 0.1), lightenHex(right, 0.05), lightenHex(left, 0.04), outline)}
+        ${prism(pos.x + hw * 0.22, pos.y - h * 0.06, hw * 0.16, hd * 0.16, h * 0.18, lightenHex(top, 0.05), darkenHex(right, 0.04), darkenHex(left, 0.06), outline)}`;
+    case 14:
+      return `<ellipse cx="${n(pos.x)}" cy="${n(pos.y - h * 0.22)}" rx="${n(hw * 0.2)}" ry="${n(hd * 0.18)}" fill="${lightenHex(top, 0.18)}" stroke="${outline}" stroke-width="0.45" opacity="0.9"/>
+        <rect x="${n(pos.x - hw * 0.14)}" y="${n(pos.y - h * 0.22)}" width="${n(hw * 0.28)}" height="${n(h * 0.28)}" fill="${darkenHex(right, 0.05)}" opacity="0.84"/>`;
+    case 15:
+      return `${prism(pos.x - hw * 0.08, pos.y - h * 0.12, hw * 0.22, hd * 0.22, h * 0.24, lightenHex(top, 0.08), darkenHex(right, 0.03), darkenHex(left, 0.05), outline)}
+        ${detail === 'high' ? prism(pos.x + hw * 0.2, pos.y - h * 0.26, hw * 0.14, hd * 0.14, h * 0.32, lightenHex(top, 0.14), lightenHex(right, 0.08), lightenHex(left, 0.06), outline) : ''}`;
+    case 16:
+      return `${prism(pos.x - hw * 0.26, pos.y - h * 0.1, hw * 0.2, hd * 0.2, h * 0.2, lightenHex(top, 0.07), darkenHex(right, 0.05), darkenHex(left, 0.08), outline)}
+        ${prism(pos.x + hw * 0.06, pos.y - h * 0.26, hw * 0.18, hd * 0.18, h * 0.36, lightenHex(top, 0.15), lightenHex(right, 0.09), lightenHex(left, 0.07), outline)}`;
+    case 17:
+      return `${prism(pos.x + hw * 0.26, pos.y - h * 0.1, hw * 0.22, hd * 0.22, h * 0.24, lightenHex(top, 0.09), darkenHex(right, 0.03), darkenHex(left, 0.06), outline)}
+        <rect x="${n(pos.x - hw * 0.3)}" y="${n(pos.y - h * 0.22)}" width="${n(hw * 0.26)}" height="${n(h * 0.24)}" fill="${darkenHex(right, 0.08)}" opacity="0.76"/>`;
+    case 18:
+      return `${prism(pos.x, pos.y - h * 0.28, hw * 0.14, hd * 0.14, h * 0.52, lightenHex(top, 0.2), lightenHex(right, 0.12), lightenHex(left, 0.1), outline)}
+        ${detail === 'high' ? `<ellipse cx="${n(pos.x)}" cy="${n(pos.y - h * 0.32)}" rx="${n(hw * 0.12)}" ry="${n(hd * 0.1)}" fill="${lightenHex(top, 0.24)}" opacity="0.88"/>` : ''}`;
+    case 19:
+      return `${prism(pos.x - hw * 0.2, pos.y + hd * 0.02, hw * 0.2, hd * 0.18, h * 0.14, lightenHex(top, 0.03), darkenHex(right, 0.08), darkenHex(left, 0.1), outline)}
+        ${prism(pos.x + hw * 0.22, pos.y + hd * 0.01, hw * 0.2, hd * 0.18, h * 0.14, lightenHex(top, 0.02), darkenHex(right, 0.09), darkenHex(left, 0.11), outline)}
+        ${prism(pos.x, pos.y - h * 0.08, hw * 0.18, hd * 0.18, h * 0.24, lightenHex(top, 0.08), darkenHex(right, 0.03), darkenHex(left, 0.05), outline)}`;
+    case 20:
+      return `<ellipse cx="${n(pos.x - hw * 0.08)}" cy="${n(pos.y - h * 0.18)}" rx="${n(hw * 0.18)}" ry="${n(hd * 0.16)}" fill="${lightenHex(top, 0.18)}" stroke="${outline}" stroke-width="0.42" opacity="0.9"/>
+        <rect x="${n(pos.x - hw * 0.24)}" y="${n(pos.y - h * 0.18)}" width="${n(hw * 0.32)}" height="${n(h * 0.24)}" fill="${darkenHex(right, 0.04)}" opacity="0.8"/>`;
+    case 21:
+      return `${prism(pos.x + hw * 0.12, pos.y - h * 0.16, hw * 0.28, hd * 0.26, h * 0.26, lightenHex(top, 0.1), darkenHex(right, 0.04), darkenHex(left, 0.07), outline)}
+        <polygon points="${n(pos.x + hw * 0.02)},${n(pos.y - h * 0.38)} ${n(pos.x + hw * 0.2)},${n(pos.y - h * 0.24)} ${n(pos.x + hw * 0.02)},${n(pos.y - h * 0.1)} ${n(pos.x - hw * 0.14)},${n(pos.y - h * 0.24)}"
+          fill="${lightenHex(top, 0.22)}" opacity="0.84" stroke="${outline}" stroke-width="0.4"/>`;
+    case 22:
+      return `${prism(pos.x - hw * 0.22, pos.y - h * 0.2, hw * 0.2, hd * 0.2, h * 0.28, lightenHex(top, 0.11), lightenHex(right, 0.06), lightenHex(left, 0.05), outline)}
+        ${prism(pos.x + hw * 0.22, pos.y - h * 0.08, hw * 0.16, hd * 0.16, h * 0.2, lightenHex(top, 0.05), darkenHex(right, 0.04), darkenHex(left, 0.06), outline)}
+        ${detail === 'high' ? prism(pos.x, pos.y - h * 0.32, hw * 0.12, hd * 0.12, h * 0.2, lightenHex(top, 0.2), lightenHex(right, 0.1), lightenHex(left, 0.08), outline) : ''}`;
+    default:
+      return `${prism(pos.x - hw * 0.06, pos.y - h * 0.1, hw * 0.22, hd * 0.22, h * 0.22, lightenHex(top, 0.08), darkenHex(right, 0.03), darkenHex(left, 0.05), outline)}
+        ${detail === 'high' ? `<rect x="${n(pos.x - hw * 0.16)}" y="${n(pos.y - h * 0.34)}" width="${n(hw * 0.32)}" height="${n(h * 0.1)}" rx="0.8" fill="${lightenHex(top, 0.2)}" opacity="0.82"/>` : ''}`;
+  }
+}
 
-    case 'cityhall': {
-      // ??? ±Íπﬂ
-      const flagX = cx;
-      const flagY = topCy;
-      return `<line x1="${n(flagX)}" y1="${n(flagY - 22)}" x2="${n(flagX)}" y2="${n(flagY + 2)}" stroke="${accentColor}" stroke-width="1"/>
-        <polygon points="${n(flagX)},${n(flagY - 22)} ${n(flagX + 9)},${n(flagY - 18)} ${n(flagX)},${n(flagY - 14)}" fill="#ff4444"/>`;
-    }
-    case 'telecom':
-      // ?? æ»≈◊≥™ ≈∏øˆ
-      return `<line x1="${n(cx + 8)}" y1="${n(topCy - 24)}" x2="${n(cx + 8)}" y2="${n(topCy + 2)}" stroke="${accentColor}" stroke-width="1.5"/>
-        <line x1="${n(cx + 3)}" y1="${n(topCy - 18)}" x2="${n(cx + 13)}" y2="${n(topCy - 18)}" stroke="${accentColor}" stroke-width="0.8"/>
-        <line x1="${n(cx + 5)}" y1="${n(topCy - 12)}" x2="${n(cx + 11)}" y2="${n(topCy - 12)}" stroke="${accentColor}" stroke-width="0.8"/>
-        <circle cx="${n(cx + 8)}" cy="${n(topCy - 26)}" r="1.5" fill="${isNeon ? colors.glowColor : '#ff0000'}" class="dc-pls"/>`;
-
-    case 'library': {
-      // ?? ªÔ∞¢ ¡ˆ∫ÿ (æ∆¿Ãº“∏ﬁ∆Æ∏Ø)
-      const roofH = 14;
-      const lf = cx - hw;
-      const rf = cx + hw;
-      const lfY = cy - hd - bh;
-      const rfY = cy - hd - bh;
-      const peakY = topCy - roofH;
-      // ¡ˆ∫ÿ ¡¬√¯∏È
-      return `<polygon points="${n(cx)},${n(peakY)} ${n(lf)},${n(lfY)} ${n(cx)},${n(cy - bh)}" fill="${darkenHex(accentColor, 0.15)}" stroke="${colors.buildingOutline}" stroke-width="0.3"/>
-        <polygon points="${n(cx)},${n(peakY)} ${n(cx)},${n(cy - bh)} ${n(rf)},${n(rfY)}" fill="${accentColor}" stroke="${colors.buildingOutline}" stroke-width="0.3"/>
-        <polygon points="${n(cx)},${n(peakY)} ${n(rf)},${n(rfY)} ${n(cx)},${n(cy - 2 * hd - bh)} ${n(lf)},${n(lfY)}" fill="${lightenHex(accentColor, 0.2)}" stroke="${colors.buildingOutline}" stroke-width="0.3"/>`;
-    }
-    case 'arcade':
-      // ?? ≥◊ø¬ ∞£∆«
-      return `<rect x="${n(cx - 9)}" y="${n(topCy - 3)}" width="18" height="7" rx="1.5" fill="${accentColor}" opacity="0.85" filter="url(#glow)"/>
-        <text x="${n(cx)}" y="${n(topCy + 2.5)}" text-anchor="middle" font-size="4" fill="white" opacity="0.9" class="dc-t">GAME</text>`;
-
-    case 'mall':
-      // ?? ¿Ø∏Æ µº
-      return `<ellipse cx="${n(cx)}" cy="${n(topCy)}" rx="10" ry="5" fill="${lightenHex(mainColor, 0.5)}" opacity="0.3" stroke="${lightenHex(mainColor, 0.7)}" stroke-width="0.3"/>`;
-
+function renderTypeAccessory(
+  building: CityBuilding,
+  zone: BuildingZone,
+  detail: DetailLevel,
+  pos: Pt,
+  hw: number,
+  hd: number,
+  h: number,
+  p: Palette
+): string {
+  if (detail === 'low') return '';
+  const topY = pos.y - hd - h;
+  const accent = building.isDormant ? '#6b7280' : building.info.colorAccent;
+  switch (building.buildingType) {
+    case 'factory':
+      return `<ellipse cx="${n(pos.x - hw * 0.34)}" cy="${n(pos.y + hd * 0.18)}" rx="4.2" ry="1.7" fill="#98a3af" opacity="0.8"/>
+        <rect x="${n(pos.x - hw * 0.38)}" y="${n(pos.y - 2.4)}" width="7.4" height="2.2" rx="0.5" fill="#8a96a3" opacity="0.78"/>`;
     case 'warehouse':
-      // ?? ¡ˆ∫ÿ ¿ß »≠π∞ «•Ω√
-      return drawIsoBox(cx + 6, cy - bh - hd * 0.3, 4, 2, 5, '#c4a050', '#b08a40', '#967030', colors.buildingOutline);
-
+      return `<rect x="${n(pos.x - hw * 0.62)}" y="${n(pos.y + hd * 0.24)}" width="${n(hw * 0.34)}" height="2.5" rx="0.4" fill="#8f9dad" opacity="0.72"/>
+        <rect x="${n(pos.x + hw * 0.26)}" y="${n(pos.y - hd * 0.08)}" width="${n(hw * 0.3)}" height="2.5" rx="0.4" fill="#8f9dad" opacity="0.72"/>`;
     case 'garage':
-      // ?? º≈≈Õ µµæÓ (øÏ√¯∏È «œ¥‹)
-      return `<polygon points="${n(cx)},${n(cy)} ${n(cx + hw * 0.7)},${n(cy - hd * 0.7)} ${n(cx + hw * 0.7)},${n(cy - hd * 0.7 - bh * 0.35)} ${n(cx)},${n(cy - bh * 0.35)}" fill="${darkenHex(accentColor, 0.3)}" opacity="0.6"/>
-        <line x1="${n(cx)}" y1="${n(cy - bh * 0.12)}" x2="${n(cx + hw * 0.65)}" y2="${n(cy - hd * 0.65 - bh * 0.12)}" stroke="${mainColor}" stroke-width="0.5" opacity="0.4"/>
-        <line x1="${n(cx)}" y1="${n(cy - bh * 0.22)}" x2="${n(cx + hw * 0.65)}" y2="${n(cy - hd * 0.65 - bh * 0.22)}" stroke="${mainColor}" stroke-width="0.5" opacity="0.4"/>`;
+      return `<polygon points="${n(pos.x - hw * 0.48)},${n(pos.y + hd * 0.06)} ${n(pos.x - hw * 0.16)},${n(pos.y + hd * 0.24)} ${n(pos.x - hw * 0.08)},${n(pos.y + hd * 0.2)} ${n(pos.x - hw * 0.4)},${n(pos.y + hd * 0.02)}"
+        fill="#f3f4f6" opacity="0.68"/>`;
+    case 'mall':
+      return `<rect x="${n(pos.x - hw * 0.52)}" y="${n(pos.y - hd * 0.1)}" width="${n(hw * 1.04)}" height="3.2" rx="0.7" fill="${accent}" opacity="0.32"/>
+        <rect x="${n(pos.x - hw * 0.48)}" y="${n(pos.y + hd * 0.14)}" width="${n(hw * 0.96)}" height="1.2" rx="0.5" fill="#eef2ff" opacity="0.75"/>`;
+    case 'arcade':
+      return `<rect x="${n(pos.x - hw * 0.36)}" y="${n(topY + 5)}" width="${n(hw * 0.72)}" height="2.1" rx="0.6" fill="${accent}" opacity="0.45"/>`;
+    case 'telecom':
+      return detail === 'high'
+        ? `<ellipse cx="${n(pos.x + hw * 0.18)}" cy="${n(topY - 8)}" rx="4.1" ry="1.5" fill="#d7e2f0" opacity="0.78" stroke="${p.outline}" stroke-width="0.4"/>`
+        : '';
+    case 'lab':
+      return `<polygon points="${n(pos.x - hw * 0.26)},${n(topY + 2)} ${n(pos.x - hw * 0.02)},${n(topY + 0.8)} ${n(pos.x + hw * 0.1)},${n(topY + 4)} ${n(pos.x - hw * 0.14)},${n(topY + 5.3)}"
+        fill="#9ac4ff" opacity="0.72"/>`;
+    case 'cityhall':
+      return `<rect x="${n(pos.x - hw * 0.26)}" y="${n(pos.y - h * 0.34)}" width="${n(hw * 0.1)}" height="${n(h * 0.28)}" fill="#dde5ef" opacity="0.8"/>
+        <rect x="${n(pos.x - hw * 0.06)}" y="${n(pos.y - h * 0.34)}" width="${n(hw * 0.1)}" height="${n(h * 0.28)}" fill="#dde5ef" opacity="0.8"/>
+        <rect x="${n(pos.x + hw * 0.14)}" y="${n(pos.y - h * 0.34)}" width="${n(hw * 0.1)}" height="${n(h * 0.28)}" fill="#dde5ef" opacity="0.8"/>`;
+    case 'library':
+      return `<polygon points="${n(pos.x - hw * 0.4)},${n(pos.y + hd * 0.22)} ${n(pos.x + hw * 0.4)},${n(pos.y + hd * 0.22)} ${n(pos.x + hw * 0.32)},${n(pos.y + hd * 0.34)} ${n(pos.x - hw * 0.32)},${n(pos.y + hd * 0.34)}"
+        fill="#f5efe1" opacity="0.78"/>`;
+    default:
+      if (zone === 'residential' && detail === 'high') {
+        return `<circle cx="${n(pos.x - hw * 0.56)}" cy="${n(pos.y + hd * 0.2)}" r="1.8" fill="#49a967" opacity="0.82"/>
+          <circle cx="${n(pos.x + hw * 0.52)}" cy="${n(pos.y - hd * 0.14)}" r="1.7" fill="#4db970" opacity="0.8"/>`;
+      }
+      return '';
+  }
+}
 
-    case 'ruin':
-      // ??? ±’ø≠
-      return `<line x1="${n(cx - hw * 0.3)}" y1="${n(cy - bh * 0.2)}" x2="${n(cx - hw * 0.05)}" y2="${n(cy - bh * 0.7)}" stroke="#555" stroke-width="1" opacity="0.5"/>
-        <line x1="${n(cx + hw * 0.15)}" y1="${n(cy - bh * 0.5)}" x2="${n(cx + hw * 0.4)}" y2="${n(cy - bh * 0.15)}" stroke="#555" stroke-width="1" opacity="0.4"/>
-        <circle cx="${n(cx + hw * 0.3)}" cy="${n(cy - bh * 0.6)}" r="2" fill="#888" opacity="0.15"/>`;
+function getMassProfile(type: BuildingType, zone: BuildingZone): MassProfile {
+  switch (type) {
+    case 'factory':
+      return { hwScale: 1.28, hdScale: 1.2, hScale: 0.72, facade: 'panels', roof: 'saw', podium: true, setback: false };
+    case 'warehouse':
+      return { hwScale: 1.35, hdScale: 1.16, hScale: 0.68, facade: 'panels', roof: 'flat', podium: true, setback: false };
+    case 'garage':
+      return { hwScale: 1.22, hdScale: 1.08, hScale: 0.78, facade: 'stack', roof: 'flat', podium: true, setback: false };
+    case 'mall':
+      return { hwScale: 1.22, hdScale: 1.1, hScale: 0.9, facade: 'ribs', roof: 'terrace', podium: true, setback: false };
+    case 'arcade':
+      return { hwScale: 1.08, hdScale: 1.02, hScale: 1.08, facade: 'ribs', roof: 'spire', podium: false, setback: true };
+    case 'telecom':
+      return { hwScale: 0.96, hdScale: 0.94, hScale: 1.28, facade: 'grid', roof: 'spire', podium: false, setback: true };
+    case 'lab':
+      return { hwScale: 1.04, hdScale: 1.0, hScale: 1.06, facade: 'grid', roof: 'mech', podium: true, setback: true };
+    case 'cityhall':
+      return { hwScale: 1.18, hdScale: 1.08, hScale: 1.1, facade: 'sparse', roof: 'dome', podium: true, setback: false };
+    case 'library':
+      return { hwScale: 1.1, hdScale: 1.04, hScale: 0.94, facade: 'sparse', roof: 'gable', podium: true, setback: false };
+    default:
+      if (zone === 'industrial') return { hwScale: 1.2, hdScale: 1.12, hScale: 0.82, facade: 'panels', roof: 'flat', podium: true, setback: false };
+      if (zone === 'commercial') return { hwScale: 1.06, hdScale: 1.0, hScale: 1.08, facade: 'grid', roof: 'mech', podium: false, setback: true };
+      if (zone === 'civic') return { hwScale: 1.15, hdScale: 1.06, hScale: 1.05, facade: 'sparse', roof: 'dome', podium: true, setback: false };
+      return { hwScale: 1.02, hdScale: 0.98, hScale: 0.98, facade: 'stack', roof: 'gable', podium: true, setback: false };
+  }
+}
 
+function renderBuilding(building: CityBuilding, grid: GridInfo, p: Palette, isNeon: boolean, idx: number, totalBuildings: number): string {
+  const pos = gridToScreen(building.gridCol, building.gridRow, grid);
+  const zone = getZone(building.buildingType);
+  const profile = getMassProfile(building.buildingType, zone);
+  const archetype = getArchetype(building.buildingType, zone);
+  const modelKit = hashCode(`${building.repoName}:${building.buildingType}`) % 24;
+  const depth = clamp((building.gridCol + building.gridRow) / Math.max(1, grid.cols + grid.rows - 2), 0, 1);
+  const densityPenalty = totalBuildings >= 26 ? 0.26 : totalBuildings >= 18 ? 0.14 : totalBuildings >= 12 ? 0.06 : 0;
+  const lodScore = clamp(depth + densityPenalty, 0, 1.15);
+  const detail: DetailLevel = lodScore > 0.9 ? 'low' : lodScore > 0.62 ? 'mid' : 'high';
+  const nearBoost = 1 - depth * 0.18;
+
+  let hw = 24;
+  let hd = 12;
+  let h = clamp(building.height, 46, 142);
+  hw *= profile.hwScale;
+  hd *= profile.hdScale;
+  h *= profile.hScale * nearBoost;
+
+  const base = building.isDormant ? '#6b7280' : building.info.colorMain;
+  const accent = building.isDormant ? '#4b5563' : building.info.colorAccent;
+  const top = building.isDormant ? '#838c98' : lightenHex(base, 0.28);
+  const right = base;
+  const left = building.isDormant ? '#5d6672' : darkenHex(base, 0.2);
+  const lotFill = zone === 'industrial' ? '#9aa488' : zone === 'commercial' ? '#95aebb' : zone === 'civic' ? '#a7b0ca' : '#87a97e';
+
+  let body = prism(pos.x, pos.y, hw, hd, h, top, right, left, p.outline);
+  if (profile.podium) {
+    const podiumHScale = zone === 'commercial' ? 0.22 : zone === 'industrial' ? 0.15 : zone === 'civic' ? 0.2 : 0.16;
+    const podiumWScale = zone === 'commercial' ? 1.08 : zone === 'industrial' ? 1.02 : zone === 'civic' ? 1.06 : 1.03;
+    body = prism(
+      pos.x,
+      pos.y,
+      hw * podiumWScale,
+      hd * podiumWScale,
+      Math.max(9, h * podiumHScale),
+      lightenHex(top, 0.08),
+      darkenHex(right, 0.04),
+      darkenHex(left, 0.08),
+      p.outline
+    ) + body;
+  }
+  if (profile.setback) {
+    body += prism(
+      pos.x,
+      pos.y - h * 0.26,
+      hw * 0.72,
+      hd * 0.74,
+      h * 0.4,
+      lightenHex(top, 0.14),
+      lightenHex(right, 0.05),
+      lightenHex(left, 0.03),
+      p.outline
+    );
+  }
+  body += renderArchetypeMass(archetype, detail, pos, hw, hd, h, top, right, left, p.outline);
+  body += renderMassKit(modelKit, detail, pos, hw, hd, h, top, right, left, p.outline);
+  const silhouetteVariant = hashCode(building.repoName) % 4;
+  if (detail !== 'low') {
+    if (silhouetteVariant === 0) {
+      body += prism(
+        pos.x - hw * 0.24,
+        pos.y - h * 0.14,
+        hw * 0.32,
+        hd * 0.32,
+        h * 0.36,
+        lightenHex(top, 0.1),
+        lightenHex(right, 0.04),
+        lightenHex(left, 0.03),
+        p.outline
+      );
+    } else if (silhouetteVariant === 1) {
+      body += prism(
+        pos.x + hw * 0.22,
+        pos.y - h * 0.1,
+        hw * 0.28,
+        hd * 0.28,
+        h * 0.3,
+        lightenHex(top, 0.08),
+        darkenHex(right, 0.03),
+        darkenHex(left, 0.05),
+        p.outline
+      );
+      if (detail === 'high') {
+        body += prism(
+          pos.x - hw * 0.18,
+          pos.y - h * 0.08,
+          hw * 0.24,
+          hd * 0.24,
+          h * 0.24,
+          lightenHex(top, 0.06),
+          darkenHex(right, 0.05),
+          darkenHex(left, 0.08),
+          p.outline
+        );
+      }
+    } else if (silhouetteVariant === 2) {
+      body += prism(
+        pos.x,
+        pos.y - h * 0.2,
+        hw * 0.22,
+        hd * 0.22,
+        h * 0.42,
+        lightenHex(top, 0.14),
+        lightenHex(right, 0.08),
+        lightenHex(left, 0.06),
+        p.outline
+      );
+    } else {
+      body += prism(
+        pos.x + hw * 0.1,
+        pos.y - h * 0.16,
+        hw * 0.4,
+        hd * 0.35,
+        h * 0.2,
+        lightenHex(top, 0.07),
+        darkenHex(right, 0.04),
+        darkenHex(left, 0.07),
+        p.outline
+      );
+    }
+  }
+  if (detail === 'high' && (building.buildingType === 'mall' || building.buildingType === 'lab' || building.buildingType === 'cityhall')) {
+    body += prism(
+      pos.x - hw * 0.34,
+      pos.y + hd * 0.03,
+      hw * 0.38,
+      hd * 0.36,
+      h * 0.34,
+      lightenHex(top, 0.06),
+      darkenHex(right, 0.06),
+      darkenHex(left, 0.1),
+      p.outline
+    );
+  }
+  const lot = `<polygon points="${n(pos.x)},${n(pos.y - hd * 1.05)} ${n(pos.x + hw * 1.08)},${n(pos.y)} ${n(pos.x)},${n(pos.y + hd * 1.08)} ${n(pos.x - hw * 1.08)},${n(pos.y)}"
+    fill="${lotFill}" opacity="0.28" stroke="${p.border}" stroke-width="0.35"/>`;
+  const lotProps = detail === 'low' ? '' : zone === 'residential'
+    ? `<circle cx="${n(pos.x - hw * 0.62)}" cy="${n(pos.y + hd * 0.18)}" r="2.8" fill="#3fa764" opacity="0.8"/>
+      <circle cx="${n(pos.x + hw * 0.58)}" cy="${n(pos.y - hd * 0.14)}" r="2.5" fill="#4bb76e" opacity="0.74"/>`
+    : zone === 'commercial'
+      ? `<rect x="${n(pos.x - hw * 0.56)}" y="${n(pos.y + hd * 0.12)}" width="${n(hw * 0.2)}" height="3.5" rx="0.7" fill="#d8e4f7" opacity="0.65"/>
+        <rect x="${n(pos.x + hw * 0.32)}" y="${n(pos.y - hd * 0.22)}" width="${n(hw * 0.22)}" height="3.5" rx="0.7" fill="#d8e4f7" opacity="0.65"/>`
+      : zone === 'industrial'
+        ? `<rect x="${n(pos.x - hw * 0.58)}" y="${n(pos.y + hd * 0.05)}" width="${n(hw * 0.34)}" height="2.4" rx="0.5" fill="#8b95a1" opacity="0.66"/>
+          <rect x="${n(pos.x + hw * 0.26)}" y="${n(pos.y - hd * 0.24)}" width="${n(hw * 0.3)}" height="2.4" rx="0.5" fill="#8b95a1" opacity="0.66"/>`
+        : `<circle cx="${n(pos.x - hw * 0.5)}" cy="${n(pos.y + hd * 0.1)}" r="2.4" fill="#c6d4eb" opacity="0.75"/>
+          <circle cx="${n(pos.x + hw * 0.46)}" cy="${n(pos.y - hd * 0.16)}" r="2.4" fill="#c6d4eb" opacity="0.75"/>`;
+
+  const rowsBase = detail === 'high' ? 7 : detail === 'mid' ? 5 : 3;
+  const colsBase = detail === 'high' ? 4 : detail === 'mid' ? 3 : 2;
+  const rows = Math.min(rowsBase, Math.max(1, Math.floor(h / (detail === 'low' ? 24 : 18))));
+  const colsRaw = profile.facade === 'grid' ? colsBase : profile.facade === 'ribs' ? Math.max(2, colsBase - 1) : profile.facade === 'panels' ? Math.max(2, colsBase - 1) : 2;
+  const cols = detail === 'low' ? Math.min(2, colsRaw) : colsRaw;
+  const wu = profile.facade === 'grid' ? (detail === 'high' ? 0.095 : 0.11) : profile.facade === 'ribs' ? 0.115 : profile.facade === 'panels' ? 0.125 : 0.16;
+  const wv = 0.06;
+  const uStart = profile.facade === 'sparse' ? 0.2 : 0.12;
+  const uStep = cols > 1 ? ((profile.facade === 'sparse' ? 0.55 : 0.66) - wu) / (cols - 1) : 0;
+
+  let windows = '';
+  for (let r = 0; r < rows; r++) {
+    for (let c = 0; c < cols; c++) {
+      if (profile.facade === 'stack' && c === 1 && r % 2 === 1) continue;
+      if (profile.facade === 'sparse' && (r % 2 === 1 || c === 1)) continue;
+      if (detail === 'low' && r % 2 === 1) continue;
+      const u = uStart + c * uStep;
+      const v = 0.12 + r * (0.72 / Math.max(1, rows));
+      const op = building.isDormant ? 0.12 : (zone === 'industrial' ? 0.2 : 0.28) + ((r + c) % 3) * 0.07;
+
+      const rx1 = pos.x + u * hw;
+      const ry1 = pos.y - u * hd - v * h;
+      const rx2 = pos.x + (u + wu) * hw;
+      const ry2 = pos.y - (u + wu) * hd - v * h;
+      const rx3 = pos.x + (u + wu) * hw;
+      const ry3 = pos.y - (u + wu) * hd - (v + wv) * h;
+      const rx4 = pos.x + u * hw;
+      const ry4 = pos.y - u * hd - (v + wv) * h;
+      windows += `<polygon points="${n(rx1)},${n(ry1)} ${n(rx2)},${n(ry2)} ${n(rx3)},${n(ry3)} ${n(rx4)},${n(ry4)}" fill="${p.window}" opacity="${clamp(op, 0.1, 0.8).toFixed(2)}" class="dc-win"/>`;
+
+      const lx1 = pos.x - u * hw;
+      const ly1 = pos.y - u * hd - v * h;
+      const lx2 = pos.x - (u + wu) * hw;
+      const ly2 = pos.y - (u + wu) * hd - v * h;
+      const lx3 = pos.x - (u + wu) * hw;
+      const ly3 = pos.y - (u + wu) * hd - (v + wv) * h;
+      const lx4 = pos.x - u * hw;
+      const ly4 = pos.y - u * hd - (v + wv) * h;
+      windows += `<polygon points="${n(lx1)},${n(ly1)} ${n(lx2)},${n(ly2)} ${n(lx3)},${n(ly3)} ${n(lx4)},${n(ly4)}" fill="${p.window}" opacity="${clamp(op * 0.65, 0.1, 0.65).toFixed(2)}" class="dc-win"/>`;
+    }
+  }
+
+  if (profile.facade === 'ribs' && detail === 'high') {
+    for (let i = 1; i <= 3; i++) {
+      const u = 0.14 + i * 0.16;
+      const rx = pos.x + u * hw;
+      const ry1 = pos.y - u * hd - h * 0.08;
+      const ry2 = pos.y - u * hd - h * 0.95;
+      const lx = pos.x - u * hw;
+      const ly1 = pos.y - u * hd - h * 0.08;
+      const ly2 = pos.y - u * hd - h * 0.95;
+      windows += `<line x1="${n(rx)}" y1="${n(ry1)}" x2="${n(rx)}" y2="${n(ry2)}" stroke="${lightenHex(right, 0.42)}" stroke-width="0.9" opacity="0.5"/>`;
+      windows += `<line x1="${n(lx)}" y1="${n(ly1)}" x2="${n(lx)}" y2="${n(ly2)}" stroke="${lightenHex(left, 0.42)}" stroke-width="0.9" opacity="0.43"/>`;
+    }
+  }
+  const glassRight = detail === 'low' ? '' : `<polygon points="${n(pos.x + hw * 0.08)},${n(pos.y - hd * 0.08 - h * 0.1)} ${n(pos.x + hw * 0.22)},${n(pos.y - hd * 0.22 - h * 0.22)} ${n(pos.x + hw * 0.2)},${n(pos.y - hd * 0.2 - h * 0.88)} ${n(pos.x + hw * 0.06)},${n(pos.y - hd * 0.06 - h * 0.76)}"
+    fill="url(#dcGlass)" opacity="${zone === 'commercial' ? '0.75' : '0.58'}"/>`;
+  const glassLeft = detail === 'low' ? '' : `<polygon points="${n(pos.x - hw * 0.06)},${n(pos.y - hd * 0.06 - h * 0.14)} ${n(pos.x - hw * 0.19)},${n(pos.y - hd * 0.19 - h * 0.24)} ${n(pos.x - hw * 0.17)},${n(pos.y - hd * 0.17 - h * 0.8)} ${n(pos.x - hw * 0.04)},${n(pos.y - hd * 0.04 - h * 0.7)}"
+    fill="url(#dcGlass)" opacity="${zone === 'commercial' ? '0.52' : '0.4'}"/>`;
+
+  const topY = pos.y - hd - h;
+  let roof = '';
+  if (profile.roof === 'saw') {
+    for (let i = -1; i <= 1; i++) {
+      const cx = pos.x + i * hw * 0.24;
+      roof += `<polygon points="${n(cx - hw * 0.18)},${n(topY + 8)} ${n(cx)},${n(topY - 5)} ${n(cx + hw * 0.18)},${n(topY + 8)}" fill="#b7c1ca" opacity="0.78" stroke="${p.outline}" stroke-width="0.4"/>`;
+    }
+  } else if (profile.roof === 'mech') {
+    roof = `${prism(pos.x - hw * 0.22, pos.y - h - hd * 0.18, 4.6, 2.4, 6.5, '#aab4be', '#8f98a1', '#7a848f', p.outline)}
+      ${prism(pos.x + hw * 0.24, pos.y - h - hd * 0.3, 3.6, 1.9, 4.9, '#94a3b8', '#7f8d9f', '#6a7687', p.outline)}
+      <rect x="${n(pos.x - hw * 0.3)}" y="${n(topY - 2)}" width="${n(hw * 0.6)}" height="2.4" rx="0.6" fill="${accent}" opacity="0.32"/>`;
+  } else if (profile.roof === 'spire') {
+    roof = `<polygon points="${n(pos.x)},${n(topY - 18)} ${n(pos.x + hw * 0.2)},${n(topY + 1)} ${n(pos.x)},${n(topY + 8)} ${n(pos.x - hw * 0.2)},${n(topY + 1)}" fill="${lightenHex(accent, 0.3)}" opacity="0.86" stroke="${p.outline}" stroke-width="0.5"/>`;
+  } else if (profile.roof === 'dome') {
+    roof = `<ellipse cx="${n(pos.x)}" cy="${n(topY)}" rx="${n(hw * 0.34)}" ry="${n(hd * 0.58)}" fill="#d3deea" stroke="${p.outline}" stroke-width="0.5" opacity="0.92"/>`;
+  } else if (profile.roof === 'gable') {
+    roof = `<polygon points="${n(pos.x)},${n(topY - 12)} ${n(pos.x + hw * 0.52)},${n(topY - 1)} ${n(pos.x)},${n(topY + 8)} ${n(pos.x - hw * 0.52)},${n(topY - 1)}" fill="${lightenHex(accent, 0.2)}" opacity="0.48"/>`;
+  } else if (profile.roof === 'terrace') {
+    roof = `${prism(pos.x, pos.y - h - hd * 0.22, hw * 0.44, hd * 0.42, 7.4, '#dbeafe', '#bdd9ff', '#9fc4f5', p.outline)}
+      <rect x="${n(pos.x - hw * 0.28)}" y="${n(topY - 1.8)}" width="${n(hw * 0.56)}" height="3.2" rx="0.8" fill="${accent}" opacity="0.32"/>`;
+  } else {
+    roof = `<rect x="${n(pos.x - hw * 0.23)}" y="${n(topY + 2)}" width="${n(hw * 0.46)}" height="1.8" rx="0.6" fill="${lightenHex(top, 0.25)}" opacity="0.55"/>`;
+  }
+  if (detail !== 'low') {
+    if (zone === 'commercial') {
+      roof += `<rect x="${n(pos.x - hw * 0.3)}" y="${n(topY + 1.1)}" width="${n(hw * 0.6)}" height="1.4" rx="0.5" fill="#d8e9ff" opacity="0.7"/>`;
+    } else if (zone === 'industrial') {
+      roof += `<rect x="${n(pos.x - hw * 0.24)}" y="${n(topY + 1.3)}" width="${n(hw * 0.16)}" height="1.8" rx="0.3" fill="#adb8c3" opacity="0.74"/>
+        <rect x="${n(pos.x + hw * 0.08)}" y="${n(topY + 1.1)}" width="${n(hw * 0.18)}" height="1.9" rx="0.3" fill="#a4afbb" opacity="0.74"/>`;
+    } else if (zone === 'civic') {
+      roof += `<rect x="${n(pos.x - hw * 0.2)}" y="${n(topY + 1.3)}" width="${n(hw * 0.4)}" height="1.6" rx="0.5" fill="#f7efd8" opacity="0.8"/>`;
+    } else if (detail === 'high') {
+      roof += `<rect x="${n(pos.x - hw * 0.16)}" y="${n(topY + 1.5)}" width="${n(hw * 0.32)}" height="1.3" rx="0.4" fill="#d8e6d6" opacity="0.62"/>`;
+    }
+  }
+  if (detail === 'high') {
+    if (archetype === 'tower') {
+      roof += `<rect x="${n(pos.x - 4.8)}" y="${n(topY - 1.6)}" width="9.6" height="1.8" rx="0.6" fill="#dbe8f9" opacity="0.72"/>`;
+    } else if (archetype === 'plant') {
+      roof += `<ellipse cx="${n(pos.x - hw * 0.18)}" cy="${n(topY + 2.6)}" rx="3.8" ry="1.4" fill="#c3ccd6" opacity="0.75"/>
+        <ellipse cx="${n(pos.x + hw * 0.2)}" cy="${n(topY + 2.1)}" rx="3.1" ry="1.2" fill="#bac4ce" opacity="0.72"/>`;
+    } else if (archetype === 'campus') {
+      roof += `<polygon points="${n(pos.x - hw * 0.24)},${n(topY + 1.5)} ${n(pos.x + hw * 0.04)},${n(topY + 0.2)} ${n(pos.x + hw * 0.18)},${n(topY + 3.1)} ${n(pos.x - hw * 0.1)},${n(topY + 4.3)}"
+        fill="#7cc0ff" opacity="0.42"/>`;
+    } else if (archetype === 'civic') {
+      roof += `<rect x="${n(pos.x - hw * 0.18)}" y="${n(topY + 1.4)}" width="${n(hw * 0.36)}" height="1.8" rx="0.6" fill="#f2ead1" opacity="0.78"/>`;
+    }
+  }
+  if (detail !== 'low') {
+    if (modelKit === 2 || modelKit === 6 || modelKit === 10 || modelKit === 13 || modelKit === 18 || modelKit === 22) {
+      roof += `<ellipse cx="${n(pos.x)}" cy="${n(topY + 1.8)}" rx="${n(hw * 0.16)}" ry="${n(hd * 0.13)}" fill="#d8e3ef" opacity="0.78"/>`;
+    } else if (modelKit === 4 || modelKit === 14 || modelKit === 20) {
+      roof += `<rect x="${n(pos.x - hw * 0.22)}" y="${n(topY + 1.2)}" width="${n(hw * 0.44)}" height="1.9" rx="0.6" fill="#d9e8fa" opacity="0.72"/>`;
+    } else if ((modelKit === 7 || modelKit === 12 || modelKit === 15 || modelKit === 21 || modelKit === 23) && detail === 'high') {
+      roof += `<polygon points="${n(pos.x - hw * 0.18)},${n(topY + 1.2)} ${n(pos.x + hw * 0.02)},${n(topY - 3.2)} ${n(pos.x + hw * 0.2)},${n(topY + 1.2)} ${n(pos.x + hw * 0.02)},${n(topY + 4.2)}"
+        fill="#c8d7eb" opacity="0.78" stroke="${p.outline}" stroke-width="0.4"/>`;
+    }
+  }
+  if (building.buildingType === 'telecom' && detail !== 'low') {
+    roof += `<line x1="${n(pos.x)}" y1="${n(topY - 17)}" x2="${n(pos.x)}" y2="${n(topY - 30)}" stroke="#e8eef7" stroke-width="1.2"/>
+      <circle cx="${n(pos.x)}" cy="${n(topY - 31.5)}" r="2.2" fill="${p.glow}" opacity="0.52"/>`;
+  } else if (building.buildingType === 'cityhall' && detail !== 'low') {
+    roof += `<rect x="${n(pos.x - 6.2)}" y="${n(topY + 1.8)}" width="12.4" height="2.2" rx="0.6" fill="#f6f1d1" opacity="0.82"/>`;
+  } else if (building.buildingType === 'factory' && detail === 'high') {
+    roof += `<rect x="${n(pos.x + hw * 0.3)}" y="${n(topY - 8.5)}" width="2.4" height="8.5" fill="#8d99a6" opacity="0.9"/>
+      <ellipse cx="${n(pos.x + hw * 0.31)}" cy="${n(topY - 9.3)}" rx="2.6" ry="1.1" fill="#d4d9de" opacity="0.58"/>`;
+  }
+
+  const roofDecor = isNeon && detail !== 'low' ? `<rect x="${n(pos.x - 8)}" y="${n(topY - 2)}" width="16" height="2" fill="${p.glow}" opacity="0.45" filter="url(#dcGlow)"/>` : '';
+  const icon = detail === 'low' ? '' : `<text x="${n(pos.x)}" y="${n(topY - 9)}" text-anchor="middle" font-size="13">${building.info.icon}</text>`;
+
+  const shortName = building.repoName.length > 13 ? `${building.repoName.slice(0, 13)}‚Ä¶` : building.repoName;
+  const badge = building.stars > 0 ? ` ‚òÖ${building.stars}` : '';
+  const label = detail === 'high'
+    ? `<text x="${n(pos.x)}" y="${n(pos.y + hd + 12)}" text-anchor="middle" class="dc-text dc-small" fill="${p.textMuted}" opacity="0.92">${escapeXml(shortName)}${badge}</text>`
+    : detail === 'mid'
+      ? `<text x="${n(pos.x)}" y="${n(pos.y + hd + 11)}" text-anchor="middle" class="dc-text dc-small" fill="${p.textMuted}" opacity="0.78">${escapeXml(shortName.slice(0, 8))}</text>`
+      : '';
+
+  const shadow = `<ellipse cx="${n(pos.x + 2)}" cy="${n(pos.y + 4)}" rx="${n(hw + 6)}" ry="${n(hd + 3)}" fill="${p.shadow}" opacity="0.25"/>`;
+  const depthShade = `<polygon points="${n(pos.x)},${n(pos.y - h)} ${n(pos.x + hw)},${n(pos.y - hd - h)} ${n(pos.x + hw)},${n(pos.y - hd)} ${n(pos.x)},${n(pos.y)}"
+    fill="#000" opacity="${(0.05 + depth * 0.11).toFixed(2)}"/>`;
+  const depthFog = `<ellipse cx="${n(pos.x)}" cy="${n(pos.y - h * 0.42)}" rx="${n(hw * 0.75)}" ry="${n(hd * 0.55)}" fill="#fff" opacity="${(0.02 + depth * 0.06).toFixed(2)}"/>`;
+  const accessory = renderTypeAccessory(building, zone, detail, pos, hw, hd, h, p);
+
+  return `<g style="animation-delay:${(idx * 0.06).toFixed(2)}s" filter="url(#dcShadow)">${shadow}${lot}${lotProps}${body}${depthShade}${roof}${windows}${glassRight}${glassLeft}${depthFog}${accessory}${roofDecor}${icon}${label}</g>`;
+}
+
+function renderBuildings(buildings: CityBuilding[], grid: GridInfo, p: Palette, isNeon: boolean): string {
+  if (buildings.length === 0) {
+    return `<text x="400" y="255" text-anchor="middle" class="dc-text dc-sub" fill="${p.textMuted}">No buildings yet</text>`;
+  }
+  const sorted = [...buildings].sort((a, b) => (a.gridCol + a.gridRow) - (b.gridCol + b.gridRow));
+  return `<g>${sorted.map((b, i) => renderBuilding(b, grid, p, isNeon, i, buildings.length)).join('')}</g>`;
+}
+
+function renderDistrictBlocks(buildings: CityBuilding[], grid: GridInfo, p: Palette): string {
+  if (buildings.length === 0) return '';
+  const zones: BuildingZone[] = ['residential', 'commercial', 'industrial', 'civic'];
+  const zoneColor = (z: BuildingZone): string =>
+    z === 'industrial' ? '#f0ba62' : z === 'commercial' ? '#77b9ff' : z === 'civic' ? '#d8b4fe' : '#8fe19b';
+  const zoneLabel = (z: BuildingZone): string =>
+    z === 'industrial' ? 'IND' : z === 'commercial' ? 'COM' : z === 'civic' ? 'CIV' : 'RES';
+
+  let out = '';
+  for (const z of zones) {
+    const items = buildings.filter((b) => getZone(b.buildingType) === z);
+    if (items.length === 0) continue;
+
+    const pts = items.map((b) => gridToScreen(b.gridCol, b.gridRow, grid));
+    const minX = Math.min(...pts.map((pt) => pt.x));
+    const maxX = Math.max(...pts.map((pt) => pt.x));
+    const minY = Math.min(...pts.map((pt) => pt.y));
+    const maxY = Math.max(...pts.map((pt) => pt.y));
+    const cx = (minX + maxX) / 2;
+    const cy = (minY + maxY) / 2;
+    const padX = 34;
+    const padY = 18;
+
+    out += `<polygon points="${n(cx)},${n(minY - padY)} ${n(maxX + padX)},${n(cy)} ${n(cx)},${n(maxY + padY)} ${n(minX - padX)},${n(cy)}"
+      fill="${zoneColor(z)}" opacity="0.08" stroke="${zoneColor(z)}" stroke-width="0.8" stroke-dasharray="5 4"/>`;
+    out += `<text x="${n(cx)}" y="${n(minY - padY - 3)}" text-anchor="middle" class="dc-text dc-small" fill="${p.textMuted}" opacity="0.72">${zoneLabel(z)}</text>`;
+  }
+
+  return `<g>${out}</g>`;
+}
+
+function renderDistrictRoadAccents(buildings: CityBuilding[], grid: GridInfo, p: Palette): string {
+  if (buildings.length === 0) return '';
+  const zones: BuildingZone[] = ['residential', 'commercial', 'industrial', 'civic'];
+  let out = '';
+
+  for (const z of zones) {
+    const items = buildings.filter((b) => getZone(b.buildingType) === z);
+    if (items.length === 0) continue;
+
+    const pts = items.map((b) => gridToScreen(b.gridCol, b.gridRow, grid));
+    const minX = Math.min(...pts.map((pt) => pt.x));
+    const maxX = Math.max(...pts.map((pt) => pt.x));
+    const minY = Math.min(...pts.map((pt) => pt.y));
+    const maxY = Math.max(...pts.map((pt) => pt.y));
+    const cx = (minX + maxX) / 2;
+    const cy = (minY + maxY) / 2;
+
+    if (z === 'commercial') {
+      out += `<g opacity="0.5">
+        <line x1="${n(minX - 18)}" y1="${n(cy - 6)}" x2="${n(maxX + 18)}" y2="${n(cy - 6)}" stroke="${p.lane}" stroke-width="0.9" stroke-dasharray="4 3"/>
+        <line x1="${n(minX - 18)}" y1="${n(cy + 6)}" x2="${n(maxX + 18)}" y2="${n(cy + 6)}" stroke="${p.lane}" stroke-width="0.9" stroke-dasharray="4 3"/>
+      </g>`;
+    } else if (z === 'industrial') {
+      out += `<g opacity="0.46">
+        <rect x="${n(minX - 14)}" y="${n(cy - 2)}" width="7" height="4" rx="0.5" fill="#a9b4bf"/>
+        <rect x="${n(maxX + 7)}" y="${n(cy - 2)}" width="7" height="4" rx="0.5" fill="#a9b4bf"/>
+        <line x1="${n(minX - 8)}" y1="${n(cy)}" x2="${n(maxX + 8)}" y2="${n(cy)}" stroke="#9ea9b5" stroke-width="0.8" stroke-dasharray="3 4"/>
+      </g>`;
+    } else if (z === 'civic') {
+      out += `<g opacity="0.48">
+        <ellipse cx="${n(cx)}" cy="${n(cy)}" rx="${n(Math.max(12, (maxX - minX) * 0.22))}" ry="${n(Math.max(6, (maxY - minY) * 0.18))}" fill="#dce8f5" stroke="#a8bfd6" stroke-width="0.7"/>
+        <circle cx="${n(cx)}" cy="${n(cy)}" r="2.2" fill="#91b9df"/>
+      </g>`;
+    } else {
+      out += `<g opacity="0.42">
+        <line x1="${n(minX - 12)}" y1="${n(cy - 5)}" x2="${n(maxX + 12)}" y2="${n(cy - 1)}" stroke="#b9dcb2" stroke-width="0.8"/>
+        <line x1="${n(minX - 10)}" y1="${n(cy + 3)}" x2="${n(maxX + 10)}" y2="${n(cy + 7)}" stroke="#b9dcb2" stroke-width="0.8"/>
+      </g>`;
+    }
+  }
+
+  return `<g>${out}</g>`;
+}
+
+function renderSimcityZoning(buildings: CityBuilding[], grid: GridInfo, p: Palette): string {
+  let out = '';
+  for (const b of buildings) {
+    const pos = gridToScreen(b.gridCol, b.gridRow, grid);
+    const zone = getZone(b.buildingType);
+    const zColor = zone === 'industrial' ? '#f8ca7a' : zone === 'commercial' ? '#7ec1ff' : zone === 'civic' ? '#d7c4ff' : '#8fe19b';
+    const zLabel = zone === 'industrial' ? 'I' : zone === 'commercial' ? 'C' : zone === 'civic' ? 'S' : 'R';
+    out += `<polygon points="${n(pos.x)},${n(pos.y - 11)} ${n(pos.x + 22)},${n(pos.y + 1)} ${n(pos.x)},${n(pos.y + 13)} ${n(pos.x - 22)},${n(pos.y + 1)}" fill="${zColor}" opacity="0.22"/>
+      <text x="${n(pos.x)}" y="${n(pos.y + 4)}" text-anchor="middle" class="dc-text dc-small" fill="${p.text}" opacity="0.68">${zLabel}</text>`;
+  }
+  return `<g>${out}</g>`;
+}
+
+function renderParks(grid: GridInfo, p: Palette): string {
+  const cells = [
+    gridToScreen(-0.6, 0.8, grid),
+    gridToScreen(grid.cols - 0.15, grid.rows - 0.25, grid),
+    gridToScreen(grid.cols / 2 - 0.2, -0.6, grid),
+  ];
+  return `<g>${cells.map((c) => `<polygon points="${n(c.x)},${n(c.y - 9)} ${n(c.x + 17)},${n(c.y)} ${n(c.x)},${n(c.y + 9)} ${n(c.x - 17)},${n(c.y)}" fill="${p.grass}" opacity="0.58"/>
+      <circle cx="${n(c.x - 4)}" cy="${n(c.y - 4)}" r="3" fill="#2f9f57" opacity="0.82"/>
+      <circle cx="${n(c.x + 3)}" cy="${n(c.y - 3)}" r="2.6" fill="#3fbf67" opacity="0.76"/>`).join('')}</g>`;
+}
+
+function renderLandmarks(tier: CityTier, grid: GridInfo, p: Palette): string {
+  const plaza = gridToScreen(grid.cols / 2 - 0.4, grid.rows + 0.45, grid);
+  let out = `<ellipse cx="${n(plaza.x)}" cy="${n(plaza.y)}" rx="24" ry="10" fill="#d9e7f4" opacity="0.35" stroke="${p.border}" stroke-width="0.7"/>
+    <circle cx="${n(plaza.x)}" cy="${n(plaza.y - 1)}" r="4" fill="#88c7ff" opacity="0.55"/>`;
+  if (tier.tier >= 3) {
+    const wt = gridToScreen(-0.95, -0.15, grid);
+    out += `<rect x="${n(wt.x - 2)}" y="${n(wt.y - 33)}" width="4" height="24" fill="#99a7b4" opacity="0.9"/>
+      <ellipse cx="${n(wt.x)}" cy="${n(wt.y - 34)}" rx="9" ry="4.2" fill="#bac8d4" opacity="0.9"/>`;
+  }
+  if (tier.tier >= 4) {
+    const st = gridToScreen(grid.cols + 0.55, 0.1, grid);
+    out += `<ellipse cx="${n(st.x)}" cy="${n(st.y - 5)}" rx="20" ry="8" fill="#b7d5ef" opacity="0.35" stroke="#7ca5c7" stroke-width="0.6"/>
+      <rect x="${n(st.x - 14)}" y="${n(st.y - 5)}" width="28" height="7" rx="3" fill="#9fbfd9" opacity="0.46"/>`;
+  }
+  if (tier.tier >= 5) {
+    const mon = gridToScreen(grid.cols / 2 + 0.75, -0.95, grid);
+    out += `<rect x="${n(mon.x - 5)}" y="${n(mon.y - 28)}" width="10" height="19" fill="#cfd9e1" opacity="0.92"/>
+      <polygon points="${n(mon.x - 7)},${n(mon.y - 28)} ${n(mon.x)},${n(mon.y - 37)} ${n(mon.x + 7)},${n(mon.y - 28)}" fill="#a4bfd4" opacity="0.94"/>`;
+  }
+  return `<g>${out}</g>`;
+}
+
+function renderBackdropSkyline(tier: CityTier, p: Palette, style: CityStyle): string {
+  const depth = tier.tier >= 4 ? 13 : tier.tier >= 2 ? 10 : 8;
+  let blocks = '';
+  for (let i = 0; i < depth; i++) {
+    const x = 20 + i * (760 / depth);
+    const w = 22 + ((i * 13) % 25);
+    const h = 30 + ((i * 29) % 78) + tier.tier * 3;
+    const y = 204 - h;
+    const tint = style === 'neon' ? '#2a2950' : style === 'simcity' ? '#9cc0de' : '#4f6e8e';
+    const shade = i % 2 === 0 ? lightenHex(tint, 0.08) : darkenHex(tint, 0.06);
+    blocks += `<rect x="${n(x)}" y="${n(y)}" width="${n(w)}" height="${n(h)}" fill="${shade}" opacity="${style === 'neon' ? '0.34' : '0.28'}"/>`;
+  }
+  const haze = `<rect x="0" y="110" width="800" height="140" fill="${p.haze}" opacity="0.36"/>`;
+  return `<g>${blocks}${haze}</g>`;
+}
+
+function renderStreetLife(grid: GridInfo, p: Palette): string {
+  const corners = loopCorners(grid, 1.02);
+  const props = [
+    { x: corners.back.x + 10, y: corners.back.y + 8, s: 1 },
+    { x: corners.right.x - 9, y: corners.right.y + 12, s: 0.95 },
+    { x: corners.front.x - 5, y: corners.front.y - 1, s: 1.05 },
+    { x: corners.left.x + 9, y: corners.left.y - 7, s: 0.9 },
+  ];
+  return `<g>${props.map((it, i) => `<g transform="translate(${n(it.x)} ${n(it.y)}) scale(${n(it.s)})">
+    <ellipse cx="0" cy="2.2" rx="4.8" ry="2.1" fill="${p.shadow}" opacity="0.22"/>
+    <rect x="-0.45" y="-6.2" width="0.9" height="7.8" fill="${darkenHex(p.border, 0.2)}"/>
+    <rect x="-3.3" y="-7.3" width="6.6" height="1.4" rx="0.5" fill="${lightenHex(p.border, 0.2)}"/>
+    ${i % 2 === 0 ? `<circle cx="2.2" cy="-5.4" r="0.9" fill="#ffd77a" opacity="0.78"/>` : `<circle cx="-2.2" cy="-5.4" r="0.9" fill="#9cc9ff" opacity="0.78"/>`}
+  </g>`).join('')}</g>`;
+}
+
+function renderAtmosphere(p: Palette, style: CityStyle): string {
+  const fog = `<ellipse cx="400" cy="218" rx="328" ry="72" fill="${p.haze}" opacity="${style === 'neon' ? '0.18' : '0.24'}"/>`;
+  const beam = style === 'neon'
+    ? `<polygon points="400,18 462,220 338,220" fill="#00ffd5" opacity="0.05"/>`
+    : `<polygon points="400,16 484,230 316,230" fill="#ffffff" opacity="0.06"/>`;
+  const vignette = `<rect x="0" y="0" width="800" height="398" fill="none" stroke="#000" stroke-width="36" opacity="0.08"/>`;
+  return `<g>${beam}${fog}${vignette}</g>`;
+}
+
+function getTimeBand(now: Date = new Date()): TimeBand {
+  const h = now.getHours();
+  if (h >= 6 && h < 10) return 'morning';
+  if (h >= 10 && h < 17) return 'day';
+  if (h >= 17 && h < 21) return 'evening';
+  return 'night';
+}
+
+function renderTraffic(traffic: CityTraffic, grid: GridInfo, p: Palette): string {
+  if (traffic.vehicleCount <= 0) return '';
+  const timeBand = getTimeBand();
+  const rush = timeBand === 'morning' || timeBand === 'evening' || traffic.level >= 3;
+
+  const outer = loopCorners(grid, 1.05);
+  const inner = loopCorners(grid, 0.45);
+  const outerPath = `M ${n(outer.back.x)} ${n(outer.back.y)} L ${n(outer.right.x)} ${n(outer.right.y)} L ${n(outer.front.x)} ${n(outer.front.y)} L ${n(outer.left.x)} ${n(outer.left.y)} Z`;
+  const innerPath = `M ${n(inner.back.x)} ${n(inner.back.y)} L ${n(inner.right.x)} ${n(inner.right.y)} L ${n(inner.front.x)} ${n(inner.front.y)} L ${n(inner.left.x)} ${n(inner.left.y)} Z`;
+
+  const types = [
+    { kind: 'bus', body: '#ff8f3f', accent: '#ffd6a1', w: 15.5, h: 5.4 },
+    { kind: 'truck', body: '#5f8cf5', accent: '#b7ccff', w: 14.3, h: 5.2 },
+    { kind: 'taxi', body: '#ffd447', accent: '#fff1b6', w: 11.2, h: 4.6 },
+  ] as const;
+
+  let cars = `<path id="dcCarOuter" d="${outerPath}" fill="none" stroke="none"/><path id="dcCarInner" d="${innerPath}" fill="none" stroke="none"/>`;
+  for (let i = 0; i < Math.max(2, traffic.vehicleCount); i++) {
+    const t = types[i % types.length];
+    const laneOuter = i % 2 === 0;
+    const path = laneOuter ? '#dcCarOuter' : '#dcCarInner';
+    const reverse = !laneOuter;
+    const delay = (i * 1.15 + ((i * 17) % 7) / 10).toFixed(1);
+    const baseDur = t.kind === 'taxi' ? 8.5 : t.kind === 'truck' ? 11.2 : 13;
+    const dur = (baseDur + (i % 3) * 0.45).toFixed(1);
+
+    const hl = t.w * 0.42;
+    const hd = t.h * 0.52;
+    const yMid = 1.2;
+    const yDown = yMid + t.h * 0.7;
+
+    cars += `<g>
+      <g>
+        <polygon points="0,${n(-hd)} ${n(hl)},${n(yMid)} 0,${n(hd)} ${n(-hl)},${n(yMid)}" fill="${t.body}" opacity="0.95"/>
+        <polygon points="${n(hl)},${n(yMid)} ${n(hl)},${n(yDown)} 0,${n(yDown + hd * 0.7)} 0,${n(hd)}" fill="${darkenHex(t.body, 0.18)}" opacity="0.9"/>
+        <polygon points="${n(-hl)},${n(yMid)} 0,${n(hd)} 0,${n(yDown + hd * 0.7)} ${n(-hl)},${n(yDown)}" fill="${darkenHex(t.body, 0.28)}" opacity="0.88"/>
+        <polygon points="0,${n(-hd - 1.9)} ${n(hl * 0.55)},${n(-1.8)} 0,${n(hd - 1.8)} ${n(-hl * 0.55)},${n(-1.8)}" fill="${t.accent}" opacity="0.9"/>
+        <ellipse cx="${n(-hl * 0.54)}" cy="${n(yDown + 0.9)}" rx="1.2" ry="0.65" fill="#1f2937"/>
+        <ellipse cx="${n(hl * 0.54)}" cy="${n(yDown + 0.9)}" rx="1.2" ry="0.65" fill="#1f2937"/>
+      </g>
+      <animateMotion dur="${dur}s" begin="${delay}s" repeatCount="indefinite" rotate="auto${reverse ? '-reverse' : ''}"><mpath href="${path}"/></animateMotion>
+    </g>`;
+  }
+
+  const signalCycle = rush ? 8 : 6;
+  const signals = `<g>
+    <circle cx="${n(outer.back.x - 17)}" cy="${n(outer.back.y + 8)}" r="2.3" fill="#ef4444" opacity="0.42"><animate attributeName="opacity" values="1;0.25;0.25;1" dur="${signalCycle}s" repeatCount="indefinite"/></circle>
+    <circle cx="${n(outer.right.x - 10)}" cy="${n(outer.right.y + 14)}" r="2.3" fill="#22c55e" opacity="0.34"><animate attributeName="opacity" values="0.25;1;0.25;0.25" dur="${signalCycle}s" repeatCount="indefinite"/></circle>
+    <circle cx="${n(outer.front.x + 16)}" cy="${n(outer.front.y - 2)}" r="2.3" fill="#f59e0b" opacity="0.28"><animate attributeName="opacity" values="0.25;0.25;1;0.25" dur="${signalCycle}s" repeatCount="indefinite"/></circle>
+  </g>`;
+
+  return `<g>${cars}${signals}</g>`;
+}
+
+function renderWeather(weather: WeatherInfo, p: Palette): string {
+  switch (weather.type) {
+    case 'sunny':
+      return `<g><circle cx="704" cy="72" r="16" fill="#ffd778" opacity="0.9" filter="url(#dcGlow)"/><circle cx="704" cy="72" r="26" fill="#ffd778" opacity="0.18"/></g>`;
+    case 'cloudy':
+    case 'cloudy_s':
+      return `<g opacity="0.55"><ellipse cx="642" cy="72" rx="34" ry="10" fill="#d9e3ef"/><ellipse cx="672" cy="74" rx="24" ry="9" fill="#c4d1df"/></g>`;
+    case 'rainy': {
+      let rain = '';
+      for (let i = 0; i < 22; i++) {
+        const x = 120 + ((i * 37) % 560);
+        const d = ((i * 11) % 14) / 10;
+        rain += `<line x1="${x}" y1="12" x2="${x - 3}" y2="22" stroke="#7fb8e4" stroke-width="1" opacity="0.44"><animate attributeName="transform" values="translate(0,-10);translate(0,410)" dur="1.7s" begin="${d}s" repeatCount="indefinite"/></line>`;
+      }
+      return `<g>${rain}</g>`;
+    }
+    case 'snowy': {
+      let snow = '';
+      for (let i = 0; i < 18; i++) {
+        const x = 140 + ((i * 41) % 520);
+        const d = ((i * 7) % 20) / 10;
+        snow += `<circle cx="${x}" cy="10" r="1.5" fill="#fff" opacity="0.75"><animate attributeName="transform" values="translate(0,-8);translate(16,390)" dur="4.2s" begin="${d}s" repeatCount="indefinite"/></circle>`;
+      }
+      return `<g>${snow}</g>`;
+    }
+    case 'rainbow':
+      return `<g opacity="0.35"><path d="M220,215 A180,180 0 0,1 580,215" fill="none" stroke="#ff5a5a" stroke-width="4"/><path d="M228,215 A172,172 0 0,1 572,215" fill="none" stroke="#ffd35c" stroke-width="4"/><path d="M236,215 A164,164 0 0,1 564,215" fill="none" stroke="#58d68d" stroke-width="4"/></g>`;
+    case 'fireworks':
+      return `<g><circle cx="158" cy="64" r="2" fill="#ff7f50"/><circle cx="632" cy="52" r="2" fill="#5f8cf5"/></g>`;
+    case 'volcano':
+      return `<g><circle cx="390" cy="166" r="8" fill="#ff6b6b" opacity="0.2"/></g>`;
     default:
       return '';
   }
 }
 
-// ???????????????????????????????????????????
-// ?? ∞«π∞ ∑ª¥ı∏µ (∏ﬁ¿Œ)
-// ???????????????????????????????????????????
-
-function renderBuildings(
-  buildings: CityBuilding[],
-  colors: CityStyleColors,
-  isNeon: boolean,
-): string {
-  if (buildings.length === 0) {
-    return renderEmptyCity(colors);
-  }
-
-  const gridCols = Math.min(4, buildings.length);
-  const gridRows = Math.ceil(buildings.length / gridCols);
-  const centerCol = (gridCols - 1) / 2;
-  const centerRow = (gridRows - 1) / 2;
-
-  // z-order: (col + row) ø¿∏ß¬˜º¯ (µ⁄ °Ê æ’)
-  const sorted = [...buildings].sort((a, b) => {
-    const depthA = a.gridCol + a.gridRow;
-    const depthB = b.gridCol + b.gridRow;
-    if (depthA !== depthB) return depthA - depthB;
-    return (a.gridCol - a.gridRow) - (b.gridCol - b.gridRow);
-  });
-
-  let result = '';
-  sorted.forEach((building, idx) => {
-    const pos = gridToScreen(building.gridCol, building.gridRow, centerCol, centerRow);
-    const delay = idx * 0.08;
-    result += renderSingleIsoBuilding(building, pos.x, pos.y, delay, colors, isNeon);
-  });
-
-  return `<g>${result}</g>`;
+function fmtPop(v: number): string {
+  if (v >= 1_000_000) return `${(v / 1_000_000).toFixed(1)}M`;
+  if (v >= 1_000) return `${(v / 1_000).toFixed(1)}K`;
+  return String(v);
 }
 
-function renderSingleIsoBuilding(
-  building: CityBuilding,
-  cx: number, cy: number,
-  delay: number,
-  colors: CityStyleColors,
-  isNeon: boolean,
-): string {
-  const hw = BUILDING_HW;
-  const hd = BUILDING_HD;
-  const bh = building.height;
-
-  // ªˆªÛ (∫Ò»∞º∫¿∫ ≈ªªˆ)
-  const mainColor = building.isDormant ? '#777777' : building.info.colorMain;
-  const accentColor = building.isDormant ? '#666666' : building.info.colorAccent;
-  const topColor = building.isDormant ? '#888888' : lightenHex(mainColor, 0.3);
-  const rightColor = mainColor;
-  const leftColor = building.isDormant ? '#666666' : darkenHex(mainColor, 0.2);
-  const opacity = building.isDormant ? 0.7 : 1;
-
-  // ±◊∏≤¿⁄
-  const shadow = `<ellipse cx="${n(cx + 2)}" cy="${n(cy + 3)}" rx="${n(hw + 5)}" ry="${n(hd + 3)}" fill="black" opacity="0.18"/>`;
-
-  // æ∆¿Ãº“ 3D π⁄Ω∫
-  const box = drawIsoBox(cx, cy, hw, hd, bh, topColor, rightColor, leftColor, colors.buildingOutline);
-
-  // √¢πÆ
-  const windows = drawIsoWindows(cx, cy, hw, hd, bh, building, colors, isNeon);
-
-  // ∞«π∞ ≈∏¿‘ ¿ÂΩƒ
-  const decor = drawBuildingDecor(building.buildingType, cx, cy, hw, hd, bh, mainColor, accentColor, isNeon, colors);
-
-  // ≥◊ø¬ æ∆øÙ∂Û¿Œ
-  const neonLine = isNeon ? drawNeonOutline(cx, cy, hw, hd, bh, colors) : '';
-
-  // æ∆¿Ãƒ‹ (∞«π∞ ¿ß)
-  const iconY = cy - hd - bh - (building.buildingType === 'library' ? 22 : building.buildingType === 'factory' ? 28 : building.buildingType === 'cityhall' ? 28 : building.buildingType === 'telecom' ? 32 : 10);
-  const icon = `<text x="${n(cx)}" y="${n(iconY)}" text-anchor="middle" font-size="14">${building.info.icon}</text>`;
-
-  // ¿Ã∏ß ∑π¿Ã∫Ì
-  const labelY = cy + hd + 14;
-  const maxLen = 12;
-  const displayName = building.repoName.length > maxLen
-    ? building.repoName.substring(0, maxLen) + '°¶'
-    : building.repoName;
-  const starBadge = building.stars > 0 ? ` ?${building.stars}` : '';
-  const label = `<text x="${n(cx)}" y="${n(labelY)}" text-anchor="middle"
-    class="dc-t dc-lbl" fill="${colors.textSecondary}" opacity="0.85">${escapeXml(displayName)}${starBadge}</text>`;
-
-  return `
-  <g class="dc-bld" style="animation-delay:${delay.toFixed(2)}s" opacity="${opacity}">
-    ${shadow}
-    ${box}
-    ${windows}
-    ${decor}
-    ${neonLine}
-    ${icon}
-    ${label}
-  </g>`;
-}
-
-function drawNeonOutline(
-  cx: number, cy: number,
-  hw: number, hd: number, bh: number,
-  colors: CityStyleColors,
-): string {
-  // ∞«π∞ ø‹∞˚¿ª µ˚∂Û ≥◊ø¬ ∂Û¿Œ
-  const points = [
-    `${n(cx)},${n(cy)}`,
-    `${n(cx + hw)},${n(cy - hd)}`,
-    `${n(cx + hw)},${n(cy - hd - bh)}`,
-    `${n(cx)},${n(cy - 2 * hd - bh)}`,
-    `${n(cx - hw)},${n(cy - hd - bh)}`,
-    `${n(cx - hw)},${n(cy - hd)}`,
-  ].join(' ');
-  return `<polygon points="${points}" fill="none" stroke="${colors.buildingOutline}" stroke-width="1.5" opacity="0.7" class="dc-pls" filter="url(#neonGlow)"/>`;
-}
-
-function renderEmptyCity(colors: CityStyleColors): string {
-  const midY = CITY_HEIGHT * 0.45;
+function renderHeader(username: string, tier: CityTier, weather: WeatherInfo, p: Palette): string {
   return `<g>
-    <text x="${SVG_WIDTH / 2}" y="${midY - 20}" text-anchor="middle"
-      class="dc-t dc-sub" fill="${colors.textSecondary}">
-      ??? æ∆¡˜ ∞«π∞¿Ã æ¯Ω¿¥œ¥Ÿ... ∑π∆˜∏¶ ∏∏µÈæÓ∫∏ººø‰!</text>
-    <polygon points="${SVG_WIDTH / 2 - 20},${midY + 10} ${SVG_WIDTH / 2},${midY - 20} ${SVG_WIDTH / 2 + 20},${midY + 10}"
-      fill="#8B4513" opacity="0.7"/>
-    <circle cx="${SVG_WIDTH / 2 + 35}" cy="${midY + 8}" r="4" fill="#ff6600" opacity="0.8"/>
-    <circle cx="${SVG_WIDTH / 2 + 35}" cy="${midY + 3}" r="3" fill="#ff9900" opacity="0.6"/>
-  </g>`;
+  <text x="400" y="24" text-anchor="middle" class="dc-text dc-title" fill="${p.text}">${tier.icon} ${escapeXml(username)}'s Dev City</text>
+  <text x="400" y="39" text-anchor="middle" class="dc-text dc-sub" fill="${p.textMuted}">${tier.name} (Tier ${tier.tier}) ¬∑ ${weather.icon} ${weather.label}</text>
+</g>`;
 }
 
-// ???????????????????????????????????????????
-// ?? ±≥≈Î ∑ª¥ı∏µ
-// ???????????????????????????????????????????
-
-function renderTraffic(
-  traffic: CityTraffic,
-  buildings: CityBuilding[],
-  colors: CityStyleColors,
-): string {
-  if (traffic.vehicleCount === 0 || buildings.length < 3) return '';
-
-  const gridCols = Math.min(4, buildings.length);
-  const gridRows = Math.ceil(buildings.length / gridCols);
-  const centerCol = (gridCols - 1) / 2;
-  const centerRow = (gridRows - 1) / 2;
-  const frontPos = gridToScreen(gridCols / 2, gridRows - 1 + 1.2, centerCol, centerRow);
-  const roadY = frontPos.y + 7;
-
-  const vColors = ['#ff6b6b', '#48dbfb', '#feca57', '#54a0ff', '#5f27cd', '#01a3a4'];
-  let vehicles = '';
-
-  for (let i = 0; i < traffic.vehicleCount; i++) {
-    const color = vColors[i % vColors.length];
-    const del = (i * 2.5 + ((i * 37) % 10) / 3).toFixed(1);
-    const y = roadY + (i % 2 === 0 ? -3 : 3);
-    const cls = i % 2 === 0 ? 'dc-veh' : 'dc-veh-r';
-
-    vehicles += `<g class="${cls}" style="animation-delay:${del}s">
-      <rect x="0" y="${n(y - 3)}" width="14" height="6" rx="2" fill="${color}"/>
-      <rect x="2" y="${n(y - 5)}" width="5" height="3" rx="1" fill="${color}" opacity="0.8"/>
-      <circle cx="3" cy="${n(y + 4)}" r="1.5" fill="#333"/>
-      <circle cx="11" cy="${n(y + 4)}" r="1.5" fill="#333"/>
-    </g>`;
-  }
-
-  return `<g>${vehicles}</g>`;
-}
-
-// ???????????????????????????????????????????
-// ??? ≥Øææ »ø∞˙
-// ???????????????????????????????????????????
-
-function renderWeather(weather: WeatherInfo, colors: CityStyleColors): string {
-  switch (weather.type) {
-    case 'sunny': return renderSun();
-    case 'cloudy_s': return renderClouds(2, 0.35);
-    case 'cloudy': return renderClouds(4, 0.5);
-    case 'rainy': return renderRain();
-    case 'snowy': return renderSnow();
-    case 'rainbow': return renderRainbow();
-    case 'fireworks': return renderFireworks();
-    case 'volcano': return renderVolcano();
-    default: return '';
-  }
-}
-
-function renderSun(): string {
-  return `<g>
-    <circle cx="700" cy="40" r="18" fill="#ffd700" opacity="0.9" filter="url(#glow)"/>
-    <circle cx="700" cy="40" r="26" fill="#ffd700" opacity="0.12"/>
-    <circle cx="700" cy="40" r="35" fill="#ffd700" opacity="0.05"/>
-  </g>`;
-}
-
-function renderClouds(count: number, opacity: number): string {
-  let clouds = '';
-  for (let i = 0; i < count; i++) {
-    const x = 100 + i * 175 + ((i * 67) % 40);
-    const y = 20 + ((i * 29) % 20);
-    const sc = 0.6 + ((i * 41) % 40) / 100;
-    clouds += `<g transform="translate(${n(x)},${n(y)}) scale(${sc.toFixed(2)})" opacity="${opacity}">
-      <ellipse cx="0" cy="0" rx="32" ry="10" fill="#ccc"/>
-      <ellipse cx="-14" cy="3" rx="20" ry="8" fill="#bbb"/>
-      <ellipse cx="16" cy="2" rx="22" ry="9" fill="#bbb"/>
-    </g>`;
-  }
-  return `<g>${clouds}</g>`;
-}
-
-function renderRain(): string {
-  let drops = renderClouds(3, 0.6);
-  for (let i = 0; i < 25; i++) {
-    const x = ((i * 167 + 43) % SVG_WIDTH);
-    const del = ((i * 89 + 13) % 30) / 20;
-    drops += `<line x1="${x}" y1="0" x2="${x - 2}" y2="8"
-      stroke="#6699cc" stroke-width="1" opacity="0.4"
-      class="dc-rain" style="animation-delay:${del.toFixed(2)}s"/>`;
-  }
-  return `<g>${drops}</g>`;
-}
-
-function renderSnow(): string {
-  let flakes = renderClouds(3, 0.4);
-  for (let i = 0; i < 20; i++) {
-    const x = ((i * 173 + 37) % SVG_WIDTH);
-    const del = ((i * 97 + 19) % 40) / 10;
-    const sz = 1.5 + ((i * 53) % 3);
-    flakes += `<circle cx="${x}" cy="0" r="${sz}" fill="white" opacity="0.7"
-      class="dc-snow" style="animation-delay:${del.toFixed(1)}s"/>`;
-  }
-  return `<g>${flakes}</g>`;
-}
-
-function renderRainbow(): string {
-  const cx = SVG_WIDTH / 2;
-  const cy = CITY_HEIGHT * 0.55;
-  const rbColors = ['#ff0000', '#ff8800', '#ffff00', '#00ff00', '#0088ff', '#4400ff', '#8800ff'];
-  let arcs = '';
-  rbColors.forEach((col, i) => {
-    const r = 140 - i * 7;
-    arcs += `<path d="M${cx - r},${cy} A${r},${r} 0 0,1 ${cx + r},${cy}"
-      fill="none" stroke="${col}" stroke-width="3.5" opacity="0.25"
-      class="dc-rb" style="animation-delay:${(i * 0.3).toFixed(1)}s"/>`;
-  });
-  return `<g>${arcs}</g>`;
-}
-
-function renderFireworks(): string {
-  let fw = '';
-  const fwColors = ['#ff0000', '#00ff44', '#ffff00', '#ff00ff', '#00ffff', '#ff8800'];
-  for (let i = 0; i < 6; i++) {
-    const x = 100 + ((i * 137 + 41) % (SVG_WIDTH - 200));
-    const y = 25 + ((i * 89 + 23) % 50);
-    const col = fwColors[i];
-    const del = (i * 1.2).toFixed(1);
-
-    fw += `<circle cx="${x}" cy="${y}" r="2" fill="${col}" opacity="0.9" class="dc-fw" style="animation-delay:${del}s"/>`;
-    for (let j = 0; j < 8; j++) {
-      const a = (j / 8) * Math.PI * 2;
-      const px = x + Math.cos(a) * 10;
-      const py = y + Math.sin(a) * 10;
-      fw += `<circle cx="${n(px)}" cy="${n(py)}" r="1.2" fill="${col}" opacity="0.5" class="dc-fw" style="animation-delay:${(parseFloat(del) + 0.3).toFixed(1)}s"/>`;
-    }
-  }
-  return `<g>${fw}</g>`;
-}
-
-function renderVolcano(): string {
-  let smoke = '';
-  for (let i = 0; i < 6; i++) {
-    const x = 320 + ((i * 47) % 160);
-    const y = CITY_HEIGHT * 0.45 + ((i * 31) % 25);
-    const sz = 4 + ((i * 19) % 5);
-    const del = (i * 0.5).toFixed(1);
-    smoke += `<circle cx="${x}" cy="${y}" r="${sz}" fill="#ff4444" opacity="0.25" class="dc-smk" style="animation-delay:${del}s"/>
-      <circle cx="${x + 5}" cy="${y - 5}" r="${n(sz * 0.6)}" fill="#ff6600" opacity="0.15" class="dc-smk" style="animation-delay:${(parseFloat(del) + 0.3).toFixed(1)}s"/>`;
-  }
-  return `<g>${smoke}</g>`;
-}
-
-// ???????????????????????????????????????????
-// ?? ¿ÂΩƒ ø‰º“ (≥™π´, ∞°∑ŒµÓ µÓ)
-// ???????????????????????????????????????????
-
-function renderDecorations(
-  tier: CityTier,
-  buildings: CityBuilding[],
-  colors: CityStyleColors,
-  isNeon: boolean,
-): string {
-  if (tier.tier === 0 || buildings.length === 0) return '';
-
-  const gridCols = Math.min(4, buildings.length);
-  const gridRows = Math.ceil(buildings.length / gridCols);
-  const centerCol = (gridCols - 1) / 2;
-  const centerRow = (gridRows - 1) / 2;
-
-  let deco = '';
-
-  // ≥™π´ (Tier 1+)
-  if (tier.tier >= 1) {
-    const treePositions = [
-      gridToScreen(-1, 0.5, centerCol, centerRow),
-      gridToScreen(gridCols, 0.5, centerCol, centerRow),
-      gridToScreen(-0.8, gridRows - 0.5, centerCol, centerRow),
-      gridToScreen(gridCols + 0.2, gridRows - 0.5, centerCol, centerRow),
-      gridToScreen(gridCols / 2, gridRows + 0.5, centerCol, centerRow),
-    ];
-    const treeCount = Math.min(treePositions.length, tier.tier + 1);
-    for (let i = 0; i < treeCount; i++) {
-      deco += renderTree(treePositions[i].x, treePositions[i].y, colors, isNeon);
-    }
-  }
-
-  // ∞°∑ŒµÓ (Tier 2+)
-  if (tier.tier >= 2) {
-    const lampPositions = [
-      gridToScreen(-0.3, gridRows - 0.2, centerCol, centerRow),
-      gridToScreen(gridCols - 0.7, gridRows + 0.2, centerCol, centerRow),
-    ];
-    for (const pos of lampPositions) {
-      deco += renderStreetLamp(pos.x, pos.y + 10, colors);
-    }
-  }
-
-  // ∫–ºˆ (Tier 3+)
-  if (tier.tier >= 3) {
-    const fPos = gridToScreen(gridCols + 0.8, gridRows * 0.4, centerCol, centerRow);
-    deco += `<ellipse cx="${n(fPos.x)}" cy="${n(fPos.y)}" rx="10" ry="5" fill="#4FC3F7" opacity="0.35"/>
-      <line x1="${n(fPos.x)}" y1="${n(fPos.y - 10)}" x2="${n(fPos.x)}" y2="${n(fPos.y)}" stroke="#4FC3F7" stroke-width="1.5" opacity="0.4"/>
-      <circle cx="${n(fPos.x)}" cy="${n(fPos.y - 12)}" r="2" fill="#4FC3F7" opacity="0.25"/>`;
-  }
-
-  // «Ô±‚ (Tier 4+)
-  if (tier.tier >= 4) {
-    deco += renderHelicopter(130, 25, colors);
-  }
-
-  // ∫Ò«‡º± (Tier 5)
-  if (tier.tier >= 5) {
-    deco += renderAirship(SVG_WIDTH * 0.7, 18, colors);
-  }
-
-  return `<g>${deco}</g>`;
-}
-
-function renderTree(x: number, y: number, colors: CityStyleColors, isNeon: boolean): string {
-  if (isNeon) {
-    return `<g>
-      <line x1="${n(x)}" y1="${n(y)}" x2="${n(x)}" y2="${n(y - 12)}" stroke="${colors.glowColor}" stroke-width="1" opacity="0.3"/>
-      <polygon points="${n(x - 6)},${n(y - 8)} ${n(x)},${n(y - 20)} ${n(x + 6)},${n(y - 8)}" fill="${colors.glowColor}" opacity="0.15"/>
-    </g>`;
-  }
-  return `<g>
-    <rect x="${n(x - 1.5)}" y="${n(y - 8)}" width="3" height="8" fill="#8B4513" opacity="0.7"/>
-    <polygon points="${n(x - 7)},${n(y - 6)} ${n(x)},${n(y - 20)} ${n(x + 7)},${n(y - 6)}" fill="#2ecc71" opacity="0.7"/>
-    <polygon points="${n(x - 5)},${n(y - 12)} ${n(x)},${n(y - 23)} ${n(x + 5)},${n(y - 12)}" fill="#27ae60" opacity="0.6"/>
-  </g>`;
-}
-
-function renderStreetLamp(x: number, y: number, colors: CityStyleColors): string {
-  return `<g>
-    <rect x="${n(x - 0.7)}" y="${n(y - 16)}" width="1.5" height="16" fill="#666" rx="0.5"/>
-    <circle cx="${n(x)}" cy="${n(y - 18)}" r="2.5" fill="${colors.glowColor}" opacity="0.6"/>
-    <circle cx="${n(x)}" cy="${n(y - 18)}" r="6" fill="${colors.glowColor}" opacity="0.1"/>
-  </g>`;
-}
-
-function renderHelicopter(x: number, y: number, _colors: CityStyleColors): string {
-  return `<g opacity="0.5">
-    <ellipse cx="${x}" cy="${y}" rx="9" ry="3.5" fill="#555"/>
-    <line x1="${x - 11}" y1="${y - 2}" x2="${x + 11}" y2="${y - 2}" stroke="#777" stroke-width="0.8"/>
-    <line x1="${x + 7}" y1="${y}" x2="${x + 15}" y2="${y + 2}" stroke="#555" stroke-width="0.8"/>
-  </g>`;
-}
-
-function renderAirship(x: number, y: number, colors: CityStyleColors): string {
-  return `<g opacity="0.45">
-    <ellipse cx="${x}" cy="${y}" rx="28" ry="9" fill="#888"/>
-    <rect x="${x - 9}" y="${y + 7}" width="18" height="5" rx="1.5" fill="#666"/>
-    <text x="${x}" y="${y + 3}" text-anchor="middle" class="dc-t" font-size="4.5" fill="${colors.textColor}" opacity="0.5">GITPRO</text>
-  </g>`;
-}
-
-// ???????????????????????????????????????????
-// ?? «Ï¥ı & «™≈Õ
-// ???????????????????????????????????????????
-
-function renderHeader(
-  username: string,
-  tier: CityTier,
-  weather: WeatherInfo,
-  colors: CityStyleColors,
-): string {
-  return `<g>
-    <text x="${SVG_WIDTH / 2}" y="22" text-anchor="middle"
-      class="dc-t dc-title" fill="${colors.textColor}">
-      ${tier.icon} ${escapeXml(username)}&apos;s Dev City</text>
-    <text x="${SVG_WIDTH / 2}" y="36" text-anchor="middle"
-      class="dc-t dc-sub" fill="${colors.textSecondary}">
-      ${tier.name} (Tier ${tier.tier}) °§ ${weather.icon} ${weather.label}</text>
-  </g>`;
-}
-
-function renderFooter(stats: CityStats, colors: CityStyleColors): string {
+function renderFooter(stats: CityStats, p: Palette): string {
   const y = SVG_HEIGHT - FOOTER_HEIGHT;
   const items = [
-    { icon: '??', label: 'Buildings', value: stats.totalBuildings.toString() },
-    { icon: '??', label: 'Population', value: formatPopulation(stats.population) },
-    { icon: '??', label: 'Commits', value: stats.totalCommits.toString() },
-    { icon: '?', label: 'Stars', value: stats.totalStars.toString() },
-    { icon: '??', label: 'Streak', value: `${stats.streakDays}d` },
-    { icon: '??', label: 'Top Lang', value: stats.topLanguage },
-  ];
-  const sp = SVG_WIDTH / items.length;
-
-  const itemsStr = items.map((item, i) => {
-    const x = sp / 2 + i * sp;
-    return `<text x="${n(x)}" y="${y + 18}" text-anchor="middle" class="dc-t dc-ft" fill="${colors.textSecondary}">${item.icon} ${item.label}</text>
-    <text x="${n(x)}" y="${y + 33}" text-anchor="middle" class="dc-t dc-fv" fill="${colors.textColor}">${escapeXml(item.value)}</text>`;
-  }).join('\n    ');
-
-  return `<g>
-    <line x1="16" y1="${y + 2}" x2="${SVG_WIDTH - 16}" y2="${y + 2}" stroke="${colors.border}" stroke-width="0.5" opacity="0.5"/>
-    ${itemsStr}
-  </g>`;
+    ['Buildings', String(stats.totalBuildings)],
+    ['Population', fmtPop(stats.population)],
+    ['Commits', String(stats.totalCommits)],
+    ['Stars', String(stats.totalStars)],
+    ['Streak', `${stats.streakDays}d`],
+    ['Top', stats.topLanguage],
+  ] as const;
+  const unit = SVG_WIDTH / items.length;
+  const labels = items.map((it, i) => {
+    const x = unit / 2 + i * unit;
+    return `<text x="${n(x)}" y="${y + 19}" text-anchor="middle" class="dc-text dc-small" fill="${p.textMuted}">${it[0]}</text>
+    <text x="${n(x)}" y="${y + 35}" text-anchor="middle" class="dc-text dc-sub" fill="${p.text}">${escapeXml(it[1])}</text>`;
+  }).join('');
+  return `<g><line x1="18" y1="${y + 3}" x2="782" y2="${y + 3}" stroke="${p.border}" stroke-width="0.8"/>${labels}</g>`;
 }
 
-// ???????????????????????????????????????????
-// ?? ∏ﬁ¿Œ ∑ª¥ı «‘ºˆ
-// ???????????????????????????????????????????
-
-
-// ?ê‚ïê?ê‚ïê?ê‚ïê?ê‚ïê?ê‚ïê?ê‚ïê?ê‚ïê?ê‚ïê?ê‚ïê?ê‚ïê?ê‚ïê?ê‚ïê?ê‚ïê?ê‚ïê?ê‚ïê?ê‚ïê?ê‚ïê?ê‚ïê?ê‚ïê?ê‚ïê?ê‚ïê??
-// Flat City (2D) renderer - preview-style
-// ?ê‚ïê?ê‚ïê?ê‚ïê?ê‚ïê?ê‚ïê?ê‚ïê?ê‚ïê?ê‚ïê?ê‚ïê?ê‚ïê?ê‚ïê?ê‚ïê?ê‚ïê?ê‚ïê?ê‚ïê?ê‚ïê?ê‚ïê?ê‚ïê?ê‚ïê?ê‚ïê?ê‚ïê??
-
-interface FlatCityColors {
-  skyTop: string;
-  skyMid: string;
-  skyBottom: string;
-  groundTop: string;
-  groundBottom: string;
-  road: string;
-  roadStroke: string;
-  roadLine: string;
-  buildingFill: string;
-  buildingStroke: string;
-  textPrimary: string;
-  textSecondary: string;
-  border: string;
-  neon: string;
-  window: string;
-  smoke: string;
-  moon: string;
-}
-
-function getFlatColors(): FlatCityColors {
-  return {
-    skyTop: '#1a1040',
-    skyMid: '#0d1534',
-    skyBottom: '#0a192f',
-    groundTop: '#1a2744',
-    groundBottom: '#0d1b30',
-    road: '#1a2744',
-    roadStroke: '#2a3754',
-    roadLine: '#F59E0B',
-    buildingFill: '#2d4a6f',
-    buildingStroke: '#3a5a80',
-    textPrimary: '#58a6ff',
-    textSecondary: '#8b949e',
-    border: '#2a3754',
-    neon: '#A855F7',
-    window: '#58a6ff',
-    smoke: '#8b949e',
-    moon: '#ddd8c4',
-  };
-}
-
-function buildFlatDefs(colors: FlatCityColors): string {
-  return `<defs>
-  <linearGradient id="skyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-    <stop offset="0%" stop-color="${colors.skyTop}"/>
-    <stop offset="50%" stop-color="${colors.skyMid}"/>
-    <stop offset="100%" stop-color="${colors.skyBottom}"/>
-  </linearGradient>
-  <linearGradient id="groundGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-    <stop offset="0%" stop-color="${colors.groundTop}"/>
-    <stop offset="100%" stop-color="${colors.groundBottom}"/>
-  </linearGradient>
-  <filter id="cityShadow">
-    <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#000" flood-opacity="0.4"/>
-  </filter>
-  <filter id="neonGlow">
-    <feGaussianBlur stdDeviation="2" result="blur"/>
-    <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-  </filter>
-</defs>`;
-}
-
-function buildFlatStyles(animate: boolean): string {
-  const anim = animate ? `
-  @keyframes dc-smoke { 0%{transform:translateY(0);opacity:0.4} 100%{transform:translateY(-15px);opacity:0} }
-  @keyframes dc-neon { 0%,100%{opacity:0.6} 50%{opacity:1} }
-  @keyframes dc-car { 0%{transform:translateX(-20px)} 100%{transform:translateX(820px)} }
-  @keyframes dc-car-rev { 0%{transform:translateX(820px)} 100%{transform:translateX(-20px)} }
-  @keyframes dc-rain { 0%{transform:translateY(-10px);opacity:0} 50%{opacity:0.4} 100%{transform:translateY(460px);opacity:0} }
-  @keyframes dc-building-appear { from{transform:scaleY(0);opacity:0} to{transform:scaleY(1);opacity:1} }
-  .dc-smoke{animation:dc-smoke 3s ease-out infinite}
-  .dc-neon{animation:dc-neon 2s ease-in-out infinite}
-  .dc-car{animation:dc-car 12s linear infinite}
-  .dc-car-rev{animation:dc-car-rev 15s linear infinite}
-  .dc-building{animation:dc-building-appear 0.6s ease-out forwards;transform-origin:bottom}
-  ` : `
-  .dc-building{opacity:1}
-  `;
-
-  return `<style>
-  .dc-text{font-family:'Segoe UI','Noto Sans KR',sans-serif}
-  ${anim}
-</style>`;
-}
-
-function renderFlatHeader(
-  username: string,
-  tier: CityTier,
-  weather: WeatherInfo,
-  colors: FlatCityColors,
-): string {
-  return `<text x="400" y="30" text-anchor="middle" class="dc-text" font-size="14" font-weight="700" fill="${colors.textPrimary}" letter-spacing="2">
-  DEV CITY</text>
-<text x="400" y="46" text-anchor="middle" class="dc-text" font-size="10" fill="${colors.textSecondary}">
-  ${escapeXml(username)} °§ ${tier.icon} Tier ${tier.tier}: ${tier.name} °§ ${weather.label}</text>`;
-}
-
-function renderFlatFooter(
-  stats: CityStats,
-  tier: CityTier,
-  weather: WeatherInfo,
-  colors: FlatCityColors,
-): string {
-  const y = 455;
-  return `<rect x="0" y="${y}" width="800" height="45" rx="0" fill="#0a0e27" opacity="0.7"/>
-<text x="40" y="${y + 23}" class="dc-text" font-size="9" fill="${colors.textSecondary}">gitpro Dev City</text>
-<text x="200" y="${y + 23}" class="dc-text" font-size="9" fill="${colors.textSecondary}">Buildings ${stats.totalBuildings}</text>
-<text x="320" y="${y + 23}" class="dc-text" font-size="9" fill="${colors.textSecondary}">Tier ${tier.tier}: ${tier.name}</text>
-<text x="470" y="${y + 23}" class="dc-text" font-size="9" fill="${colors.textSecondary}">${weather.label} (${stats.todayCommits} commits)</text>
-<text x="760" y="${y + 23}" text-anchor="end" class="dc-text" font-size="9" fill="${colors.textSecondary}">${new Date().toISOString().split('T')[0]}</text>`;
-}
-
-function renderFlatSky(colors: FlatCityColors): string {
-  return `<rect width="800" height="500" rx="16" fill="url(#skyGrad)"/>
-<circle cx="680" cy="80" r="25" fill="${colors.moon}" opacity="0.15"/>
-<circle cx="686" cy="76" r="25" fill="${colors.skyTop}" opacity="0.9"/>
-<circle cx="100" cy="60" r="1" fill="#fff" opacity="0.5"/>
-<circle cx="250" cy="40" r="0.8" fill="#fff" opacity="0.4"/>
-<circle cx="450" cy="55" r="1.2" fill="#fff" opacity="0.6"/>
-<circle cx="550" cy="35" r="0.7" fill="#fff" opacity="0.3"/>
-<circle cx="720" cy="50" r="0.9" fill="#fff" opacity="0.5"/>
-<circle cx="350" cy="70" r="0.6" fill="#fff" opacity="0.35"/>`;
-}
-
-function renderFlatGround(colors: FlatCityColors): string {
-  return `<rect x="0" y="340" width="800" height="160" rx="0" fill="url(#groundGrad)"/>
-<rect x="0" y="355" width="800" height="30" fill="${colors.road}" stroke="${colors.roadStroke}" stroke-width="0.5"/>
-<line x1="0" y1="370" x2="800" y2="370" stroke="${colors.roadLine}" stroke-width="1" stroke-dasharray="20 15" opacity="0.4"/>
-<rect x="0" y="400" width="800" height="20" fill="${colors.road}" stroke="${colors.roadStroke}" stroke-width="0.5"/>
-<line x1="0" y1="410" x2="800" y2="410" stroke="${colors.roadLine}" stroke-width="0.8" stroke-dasharray="15 12" opacity="0.3"/>`;
-}
-
-function renderFlatTraffic(traffic: CityTraffic): string {
-  if (traffic.vehicleCount === 0) return '';
-  const colors = ['#EF4444', '#3B82F6', '#3fb950', '#F59E0B'];
-  const base = [
-    { y: 365, w: 18, h: 8, cls: 'dc-car' },
-    { y: 372, w: 16, h: 7, cls: 'dc-car-rev' },
-    { y: 405, w: 14, h: 7, cls: 'dc-car' },
-  ];
-  let out = '';
-  for (let i = 0; i < Math.min(traffic.vehicleCount, 6); i++) {
-    const b = base[i % base.length];
-    const c = colors[i % colors.length];
-    const del = (i * 3).toFixed(1);
-    out += `<g class="${b.cls}" style="animation-delay:${del}s">
-  <rect x="0" y="${b.y}" width="${b.w}" height="${b.h}" rx="3" fill="${c}" opacity="0.7"/>
-  <rect x="${b.w - 4}" y="${b.y + 2}" width="4" height="4" rx="1" fill="#F59E0B" opacity="0.8"/>
-</g>`;
-  }
-  return out;
-}
-
-function renderFlatBuilding(
-  building: CityBuilding,
-  x: number,
-  y: number,
-  width: number,
-  height: number,
-  colors: FlatCityColors,
-  delay: number,
-): string {
-  const main = building.isDormant ? '#5f6b7a' : colors.buildingFill;
-  const stroke = building.isDormant ? '#4a5566' : colors.buildingStroke;
-  const winColor = building.isDormant ? '#9aa4b2' : colors.window;
-  const rows = Math.max(2, Math.floor(height / 30));
-  const cols = Math.max(2, Math.floor(width / 20));
-  const winW = Math.max(6, Math.floor((width - 16) / cols));
-  const winH = 10;
-  let wins = '';
-  for (let r = 0; r < rows; r++) {
-    for (let c = 0; c < cols; c++) {
-      const wx = x + 8 + c * (winW + 4);
-      const wy = y + 15 + r * (winH + 8);
-      const op = building.isDormant ? 0.15 : 0.2 + ((r * 3 + c * 2) % 5) * 0.05;
-      wins += `<rect x="${wx}" y="${wy}" width="${winW}" height="${winH}" rx="1" fill="${winColor}" opacity="${op.toFixed(2)}"/>`;
-    }
-  }
-
-  let decor = '';
-  switch (building.buildingType) {
-    case 'factory':
-      decor = `<rect x="${x + 5}" y="${y - 15}" width="12" height="15" fill="${stroke}"/>
-<circle cx="${x + 11}" cy="${y - 17}" r="5" fill="${colors.smoke}" opacity="0.3" class="dc-smoke"/>
-<circle cx="${x + 11}" cy="${y - 22}" r="4" fill="${colors.smoke}" opacity="0.2" class="dc-smoke" style="animation-delay:0.5s"/>`;
-      break;
-    case 'mall':
-      decor = `<rect x="${x}" y="${y}" width="${width}" height="10" rx="3" fill="#61DAFB" opacity="0.4"/>`;
-      break;
-    case 'lab':
-      decor = `<line x1="${x + width / 2}" y1="${y}" x2="${x + width / 2}" y2="${y - 30}" stroke="${colors.neon}" stroke-width="2"/>
-<circle cx="${x + width / 2}" cy="${y - 32}" r="3" fill="${colors.neon}" opacity="0.6" class="dc-neon"/>
-<circle cx="${x + width / 2}" cy="${y - 32}" r="10" fill="none" stroke="${colors.neon}" stroke-width="0.5" opacity="0.2" class="dc-neon"/>`;
-      break;
-    case 'library':
-      decor = `<polygon points="${x - 3},${y} ${x + width / 2},${y - 25} ${x + width + 3},${y}" fill="${stroke}"/>`;
-      break;
-    case 'cityhall':
-      decor = `<polygon points="${x - 5},${y} ${x + width / 2},${y - 25} ${x + width + 5},${y}" fill="${stroke}"/>
-<line x1="${x + width / 2}" y1="${y - 25}" x2="${x + width / 2}" y2="${y - 45}" stroke="${colors.textSecondary}" stroke-width="1.5"/>
-<rect x="${x + width / 2}" y="${y - 45}" width="15" height="10" fill="${colors.textPrimary}" opacity="0.6" class="dc-neon"/>`;
-      break;
-    case 'warehouse':
-      decor = `<rect x="${x}" y="${y}" width="${width}" height="9" fill="#F59E0B" opacity="0.3"/>
-<line x1="${x}" y1="${y + height / 2}" x2="${x + width}" y2="${y + height / 2}" stroke="${stroke}" stroke-width="0.5" opacity="0.4"/>`;
-      break;
-    case 'telecom':
-      decor = `<line x1="${x + width / 2}" y1="${y}" x2="${x + width / 2}" y2="${y - 20}" stroke="${colors.neon}" stroke-width="1.5"/>
-<circle cx="${x + width / 2}" cy="${y - 22}" r="3" fill="${colors.neon}" opacity="0.6" class="dc-neon"/>`;
-      break;
-    case 'arcade':
-      decor = `<rect x="${x + 6}" y="${y + 6}" width="${width - 12}" height="6" fill="#FF4081" opacity="0.4"/>`;
-      break;
-    case 'garage':
-      decor = `<rect x="${x + 8}" y="${y + height - 20}" width="${width - 16}" height="14" fill="${stroke}" opacity="0.35"/>`;
-      break;
-    case 'ruin':
-      decor = `<line x1="${x}" y1="${y + height - 10}" x2="${x + width}" y2="${y + height - 20}" stroke="${stroke}" stroke-width="1" opacity="0.4"/>`;
-      break;
-    default:
-      break;
-  }
-
-  const label = escapeXml(building.repoName.length > 12 ? `${building.repoName.slice(0, 12)}...` : building.repoName);
-  return `<g class="dc-building" style="animation-delay:${delay.toFixed(2)}s" filter="url(#cityShadow)">
-  <rect x="${x}" y="${y}" width="${width}" height="${height}" rx="2" fill="${main}" stroke="${stroke}" stroke-width="0.5"/>
-  ${decor}
-  ${wins}
-  <text x="${x + width / 2}" y="${y - 6}" text-anchor="middle" font-size="14">${building.info.icon}</text>
-  <text x="${x + width / 2}" y="${y + height + 12}" text-anchor="middle" class="dc-text" font-size="8" fill="${colors.textSecondary}" opacity="0.8">${label}</text>
-</g>`;
-}
-
-function renderFlatBuildings(
-  buildings: CityBuilding[],
-  colors: FlatCityColors,
-): string {
-  if (buildings.length === 0) {
-    return `<text x="400" y="260" text-anchor="middle" class="dc-text" font-size="12" fill="${colors.textSecondary}">No buildings yet</text>`;
-  }
-
-  const maxPerRow = buildings.length > 8 ? 5 : 6;
-  const baseX = maxPerRow === 5 ? 90 : 80;
-  const gap = maxPerRow === 5 ? 135 : 120;
-  let out = '';
-  buildings.forEach((b, i) => {
-    const row = Math.floor(i / maxPerRow);
-    const col = i % maxPerRow;
-    const baseY = 340 - row * 115;
-    const width = [70, 80, 60, 65, 75, 55][col % 6];
-    const height = [140, 110, 170, 80, 120, 60][col % 6] * (row === 0 ? 1 : 0.8);
-    const x = baseX + col * gap;
-    const y = baseY - height;
-    out += renderFlatBuilding(b, x, y, width, height, colors, i * 0.08);
-  });
-  return out;
-}
-
-function renderFlatDecorations(): string {
-  return `<g>
-  <rect x="170" y="320" width="3" height="25" fill="#8b949e" opacity="0.5"/>
-  <circle cx="171" cy="318" r="5" fill="#F59E0B" opacity="0.15"/>
-  <circle cx="171" cy="318" r="2" fill="#F59E0B" opacity="0.5"/>
-  <rect x="320" y="320" width="3" height="25" fill="#8b949e" opacity="0.5"/>
-  <circle cx="321" cy="318" r="5" fill="#F59E0B" opacity="0.15"/>
-  <circle cx="321" cy="318" r="2" fill="#F59E0B" opacity="0.5"/>
-  <rect x="530" y="320" width="3" height="25" fill="#8b949e" opacity="0.5"/>
-  <circle cx="531" cy="318" r="5" fill="#F59E0B" opacity="0.15"/>
-  <circle cx="531" cy="318" r="2" fill="#F59E0B" opacity="0.5"/>
-  <rect x="660" y="320" width="3" height="25" fill="#8b949e" opacity="0.5"/>
-  <circle cx="661" cy="318" r="5" fill="#F59E0B" opacity="0.15"/>
-  <circle cx="661" cy="318" r="2" fill="#F59E0B" opacity="0.5"/>
-  <g transform="translate(30, 395)">
-    <rect x="8" y="15" width="4" height="12" fill="#5a3825"/>
-    <circle cx="10" cy="12" r="10" fill="#3fb950" opacity="0.4"/>
-    <circle cx="10" cy="8" r="7" fill="#3fb950" opacity="0.3"/>
-  </g>
-  <g transform="translate(760, 390)">
-    <rect x="8" y="18" width="3" height="10" fill="#5a3825"/>
-    <circle cx="10" cy="15" r="8" fill="#3fb950" opacity="0.35"/>
-  </g>
-</g>`;
-}
-
-function renderFlatCity(
-  username: string,
-  profile: CityProfile,
-  config: DevCityConfig,
-): string {
-  const colors = getFlatColors();
-  const defs = buildFlatDefs(colors);
-  const styles = buildFlatStyles(config.animation !== false);
-  const city = [
-    renderFlatSky(colors),
-    renderFlatHeader(username, profile.tier, profile.weather, colors),
-    renderFlatGround(colors),
-    renderFlatBuildings(profile.buildings, colors),
-    renderFlatDecorations(),
-    config.show_traffic !== false ? renderFlatTraffic(profile.traffic) : '',
-    renderFlatFooter(profile.stats, profile.tier, profile.weather, colors),
-    `<rect x="1" y="1" width="798" height="498" rx="15" fill="none" stroke="${colors.border}" stroke-width="1" opacity="0.4"/>`,
-  ].join('\n');
-
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="${SVG_WIDTH}" height="${SVG_HEIGHT}" viewBox="0 0 ${SVG_WIDTH} ${SVG_HEIGHT}">
-${defs}
-${styles}
-${city}
-</svg>`;
-}
 export interface CityRenderData {
   username: string;
   profile: CityProfile;
@@ -1251,46 +1166,40 @@ export interface CityRenderData {
 
 export function renderCity(data: CityRenderData): string {
   const { username, profile, config, theme } = data;
-  const style = config.city_style || 'pixel';
-  if (style === 'pixel' || style === 'flat') {
-    return renderFlatCity(username, profile, config);
-  }
+  const style: CityStyle = config.city_style || 'tycoon';
   const isNeon = style === 'neon';
-  const colors = getCityStyleColors(style, theme);
+  const p = getPalette(style, theme);
+  const cameraTransform = style === 'neon'
+    ? 'translate(-8,4) scale(1.03,0.97)'
+    : style === 'simcity'
+      ? 'translate(-6,2) scale(1.02,0.98)'
+      : 'translate(-4,3) scale(1.015,0.985)';
 
-  const defs = buildDefs(colors, isNeon);
-  const styles = buildStyles(colors, config.animation !== false);
-
-  // µµΩ√ ø‰º“ (city ¡¬«•∞Ë ≥ª∫Œ)
-  const cityElements = [
-    renderIsometricGround(profile.buildings, colors, isNeon),
-    renderBuildings(profile.buildings, colors, isNeon),
-    renderDecorations(profile.tier, profile.buildings, colors, isNeon),
-    config.show_traffic !== false ? renderTraffic(profile.traffic, profile.buildings, colors) : '',
-    config.show_weather !== false ? renderWeather(profile.weather, colors) : '',
+  const grid = getGrid(profile.buildings.length);
+  const layers = [
+    renderBackdropSkyline(profile.tier, p, style),
+    renderAtmosphere(p, style),
+    renderGround(grid, p, style),
+    renderRoads(grid, p),
+    renderStreetLife(grid, p),
+    renderDistrictBlocks(profile.buildings, grid, p),
+    renderDistrictRoadAccents(profile.buildings, grid, p),
+    style === 'simcity' ? renderSimcityZoning(profile.buildings, grid, p) : '',
+    style === 'simcity' ? renderParks(grid, p) : '',
+    renderBuildings(profile.buildings, grid, p, isNeon),
+    style === 'simcity' ? renderLandmarks(profile.tier, grid, p) : '',
+    config.show_traffic !== false ? renderTraffic(profile.traffic, grid, p) : '',
+    config.show_weather !== false ? renderWeather(profile.weather, p) : '',
   ].join('\n');
 
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${SVG_WIDTH}" height="${SVG_HEIGHT}" viewBox="0 0 ${SVG_WIDTH} ${SVG_HEIGHT}">
-${defs}
-${styles}
-
-<!-- πË∞Ê -->
-<rect width="${SVG_WIDTH}" height="${SVG_HEIGHT}" rx="16" fill="url(#skyGrad)"/>
-
-<!-- «Ï¥ı -->
-${renderHeader(username, profile.tier, profile.weather, colors)}
-
-<!-- µµΩ√ øµø™ -->
-<g transform="translate(0,${CITY_Y})">
-  ${cityElements}
-</g>
-
-<!-- «™≈Õ -->
-${renderFooter(profile.stats, colors)}
-
-<!-- ø‹∞˚ ≈◊µŒ∏Æ -->
-<rect x="1" y="1" width="${SVG_WIDTH - 2}" height="${SVG_HEIGHT - 2}" rx="15"
-  fill="none" stroke="${colors.border}" stroke-width="1" opacity="0.5"/>
+${buildDefs(p, isNeon)}
+${buildStyles(config.animation !== false)}
+<rect width="${SVG_WIDTH}" height="${SVG_HEIGHT}" rx="16" fill="url(#dcSky)"/>
+<rect x="0" y="${CITY_Y}" width="${SVG_WIDTH}" height="${CITY_HEIGHT}" fill="${p.haze}" opacity="0.06"/>
+${renderHeader(username, profile.tier, profile.weather, p)}
+<g transform="translate(0,${CITY_Y}) ${cameraTransform}">${layers}</g>
+${renderFooter(profile.stats, p)}
+<rect x="1" y="1" width="798" height="498" rx="15" fill="none" stroke="${p.border}" stroke-width="1" opacity="0.58"/>
 </svg>`;
 }
-

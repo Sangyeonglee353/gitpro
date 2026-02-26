@@ -1,4 +1,4 @@
-// ═══════════════════════════════════════════
+﻿// ═══════════════════════════════════════════
 // 🎮 gitpro - 핵심 타입 정의
 // ═══════════════════════════════════════════
 
@@ -210,7 +210,7 @@ export interface ConstellationConfig extends BaseModuleConfig {
 }
 
 export interface DevCityConfig extends BaseModuleConfig {
-  city_style: 'pixel' | 'isometric' | 'flat' | 'neon';
+  city_style: 'tycoon' | 'simcity' | 'neon';
   show_weather: boolean;
   show_traffic: boolean;
   animation: boolean;
@@ -313,3 +313,4 @@ export interface ModuleRegistryEntry {
   id: ModuleId;
   factory: () => GitProModule;
 }
+

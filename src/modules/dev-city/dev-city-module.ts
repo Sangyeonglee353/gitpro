@@ -1,10 +1,10 @@
-// ═══════════════════════════════════════════
+﻿// ═══════════════════════════════════════════
 // 🏙️ Dev City Module - 메인 모듈 클래스
 // ═══════════════════════════════════════════
 //
 // GitHub 활동을 아이소메트릭 픽셀아트 도시로 변환합니다.
 // 레포지토리 → 건물, 커밋 → 교통, 활동 → 날씨
-// 4가지 도시 스타일: pixel, isometric, flat, neon
+// 3D 도시 스타일: tycoon, simcity, neon
 
 import {
   GitProModule,
@@ -49,7 +49,7 @@ export class DevCityModule implements GitProModule {
     }
 
     // 4. SVG 렌더링
-    console.log(`    🎴 도시 스타일: ${config.city_style || 'pixel'}`);
+    console.log(`    🎴 도시 스타일: ${config.city_style || 'tycoon'}`);
     console.log(`    🌦️ 날씨 표시: ${config.show_weather !== false ? 'ON' : 'OFF'}`);
     console.log(`    🚗 교통 표시: ${config.show_traffic !== false ? 'ON' : 'OFF'}`);
     console.log(`    ✨ 애니메이션: ${config.animation !== false ? 'ON' : 'OFF'}`);
@@ -72,3 +72,4 @@ export class DevCityModule implements GitProModule {
     return { svg, markdown, stateUpdate };
   }
 }
+

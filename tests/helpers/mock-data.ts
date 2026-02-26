@@ -1,4 +1,4 @@
-// ═══════════════════════════════════════════
+﻿// ═══════════════════════════════════════════
 // 🧪 테스트용 목 데이터
 // ═══════════════════════════════════════════
 
@@ -211,7 +211,7 @@ export function createMockConfig(overrides?: Partial<GitProConfig>): GitProConfi
       },
       'dev-city': {
         enabled: true,
-        city_style: 'pixel',
+        city_style: 'tycoon',
         show_weather: true,
         show_traffic: true,
         animation: true,
@@ -289,3 +289,4 @@ export function createMockTheme(): ThemeColors {
     cardGradientEnd: '#0d1117',
   };
 }
+

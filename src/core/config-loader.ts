@@ -1,4 +1,4 @@
-// ═══════════════════════════════════════════
+﻿// ═══════════════════════════════════════════
 // 📄 Config Loader - gitpro.config.yml 파싱
 // ═══════════════════════════════════════════
 
@@ -51,7 +51,7 @@ const DEFAULT_CONFIG: GitProConfig = {
     },
     'dev-city': {
       enabled: false,
-      city_style: 'pixel',
+      city_style: 'tycoon',
       show_weather: true,
       show_traffic: true,
       animation: true,
@@ -192,10 +192,10 @@ function validateModuleConfigs(config: GitProConfig): void {
   }
 
   const dc = config.modules['dev-city'];
-  const validDCCityStyles = ['pixel', 'isometric', 'flat', 'neon'];
+  const validDCCityStyles = ['tycoon', 'simcity', 'neon'];
   if (!validDCCityStyles.includes(dc.city_style)) {
-    console.warn(`⚠️  dev-city.city_style "${dc.city_style}"이(가) 잘못되었습니다. "pixel"로 기본 설정됩니다.`);
-    dc.city_style = 'pixel';
+    console.warn(`⚠️  dev-city.city_style "${dc.city_style}"이(가) 잘못되었습니다. "tycoon"로 기본 설정됩니다.`);
+    dc.city_style = 'tycoon';
   }
 }
 
@@ -207,4 +207,5 @@ export function getEnabledModules(config: GitProConfig): string[] {
     .filter(([_, modConfig]) => (modConfig as { enabled: boolean }).enabled)
     .map(([id]) => id);
 }
+
 

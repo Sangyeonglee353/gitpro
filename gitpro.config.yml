@@ -1,4 +1,4 @@
-# ═══════════════════════════════════════════
+﻿# ═══════════════════════════════════════════
 # 🎮 gitpro - All-in-One GitHub Profile Suite
 # ═══════════════════════════════════════════
 # 이 파일 하나로 모든 모듈을 제어합니다.
@@ -72,7 +72,7 @@ modules:
   # 🏙️ 개발자 도시
   dev-city:
     enabled: true
-    city_style: "flat"         # pixel | isometric | flat | neon
+    city_style: "tycoon"      # tycoon | simcity | neon
     show_weather: true
     show_traffic: true
     animation: true
@@ -95,4 +95,5 @@ readme:
   module_order: []              # 모듈 표시 순서 (빈 배열이면 기본 순서)
                                 # 예: ["trading-card", "code-pet", "code-dna"]
   show_last_updated: true       # 마지막 업데이트 시간 표시
+
 
