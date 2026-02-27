@@ -130,7 +130,7 @@
       <text x="352.5" y="250" text-anchor="middle"
             class="card-text stat-label" fill="#F59E0B">⚡ SPD</text>
       <text x="352.5" y="278" text-anchor="middle"
-            class="card-text stat-value" fill="#e6edf3">500</text>
+            class="card-text stat-value" fill="#e6edf3">999</text>
     </g>
 
   <!-- 구분선 -->
@@ -142,7 +142,7 @@
     <text x="40" y="320" class="card-text" font-size="12" font-weight="600" fill="#58a6ff">
       🔥 Streak Master</text>
     <text x="40" y="334" class="card-text ability-text" fill="#8b949e">
-      57일 연속 커밋! 방어력 대폭 상승</text>
+      58일 연속 커밋! 방어력 대폭 상승</text>
     <text x="40" y="348" class="card-text" font-size="12" font-weight="600" fill="#58a6ff">
       🌍 Polyglot</text>
     <text x="40" y="362" class="card-text ability-text" fill="#8b949e">
@@ -159,30 +159,30 @@
     <text x="40" y="422" class="card-text skill-text" fill="#e6edf3">Python</text>
     <rect x="160" y="414" width="120" height="8" rx="4" ry="4"
           fill="#161b22"/>
-    <rect x="160" y="414" width="34" height="8" rx="4" ry="4"
+    <rect x="160" y="414" width="33" height="8" rx="4" ry="4"
           fill="#3572A5"/>
     <text x="290" y="422" class="card-text skill-text"
           fill="#8b949e">Lv.3</text>
     <text x="380" y="422" text-anchor="end" class="card-text skill-text"
-          fill="#8b949e">28.0%</text>
+          fill="#8b949e">27.7%</text>
     <text x="40" y="444" class="card-text skill-text" fill="#e6edf3">Jupyter Notebook</text>
     <rect x="160" y="436" width="120" height="8" rx="4" ry="4"
           fill="#161b22"/>
-    <rect x="160" y="436" width="33" height="8" rx="4" ry="4"
+    <rect x="160" y="436" width="32" height="8" rx="4" ry="4"
           fill="#8b949e"/>
     <text x="290" y="444" class="card-text skill-text"
           fill="#8b949e">Lv.3</text>
     <text x="380" y="444" text-anchor="end" class="card-text skill-text"
-          fill="#8b949e">27.3%</text>
+          fill="#8b949e">26.8%</text>
     <text x="40" y="466" class="card-text skill-text" fill="#e6edf3">TypeScript</text>
     <rect x="160" y="458" width="120" height="8" rx="4" ry="4"
           fill="#161b22"/>
-    <rect x="160" y="458" width="21" height="8" rx="4" ry="4"
+    <rect x="160" y="458" width="23" height="8" rx="4" ry="4"
           fill="#3178c6"/>
     <text x="290" y="466" class="card-text skill-text"
           fill="#8b949e">Lv.2</text>
     <text x="380" y="466" text-anchor="end" class="card-text skill-text"
-          fill="#8b949e">17.8%</text>
+          fill="#8b949e">19.0%</text>
     <text x="40" y="488" class="card-text skill-text" fill="#e6edf3">HTML</text>
     <rect x="160" y="480" width="120" height="8" rx="4" ry="4"
           fill="#161b22"/>
@@ -191,7 +191,7 @@
     <text x="290" y="488" class="card-text skill-text"
           fill="#8b949e">Lv.1</text>
     <text x="380" y="488" text-anchor="end" class="card-text skill-text"
-          fill="#8b949e">11.1%</text>
+          fill="#8b949e">10.9%</text>
     <text x="40" y="510" class="card-text skill-text" fill="#e6edf3">JavaScript</text>
     <rect x="160" y="502" width="120" height="8" rx="4" ry="4"
           fill="#161b22"/>
@@ -200,7 +200,7 @@
     <text x="290" y="510" class="card-text skill-text"
           fill="#8b949e">Lv.1</text>
     <text x="380" y="510" text-anchor="end" class="card-text skill-text"
-          fill="#8b949e">10.0%</text>
+          fill="#8b949e">9.8%</text>
 
   <!-- 풋터 -->
   <text x="30" y="562" class="card-text footer-text" fill="#8b949e">
