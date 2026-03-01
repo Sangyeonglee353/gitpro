@@ -56,6 +56,12 @@ const DEFAULT_CONFIG: GitProConfig = {
       show_traffic: true,
       animation: true,
     },
+    'metro-city': {
+      enabled: false,
+      show_weather: true,
+      show_traffic: true,
+      animation: true,
+    },
   },
   readme: {
     auto_update: true,

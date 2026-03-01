@@ -169,6 +169,7 @@ export interface ModulesConfig {
   'code-pet': CodePetConfig;
   constellation: ConstellationConfig;
   'dev-city': DevCityConfig;
+  'metro-city': MetroCityConfig;
 }
 
 export interface BaseModuleConfig {
@@ -211,6 +212,12 @@ export interface ConstellationConfig extends BaseModuleConfig {
 
 export interface DevCityConfig extends BaseModuleConfig {
   city_style: 'tycoon' | 'simcity' | 'neon';
+  show_weather: boolean;
+  show_traffic: boolean;
+  animation: boolean;
+}
+
+export interface MetroCityConfig extends BaseModuleConfig {
   show_weather: boolean;
   show_traffic: boolean;
   animation: boolean;

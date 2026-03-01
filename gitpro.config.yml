@@ -77,6 +77,13 @@ modules:
     show_traffic: true
     animation: true
 
+  # 🏗️ 메트로 도시 (현대 도시 건설 테마)
+  metro-city:
+    enabled: false
+    show_weather: true
+    show_traffic: true
+    animation: true
+
 # ═══════════════════════════════════════════
 # 📄 프로필 README 자동 생성 설정
 # ═══════════════════════════════════════════

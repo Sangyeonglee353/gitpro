@@ -59,6 +59,10 @@ const MODULE_REGISTRY: Record<string, () => Promise<GitProModule>> = {
     const { DevCityModule } = await import('../modules/dev-city');
     return new DevCityModule();
   },
+  'metro-city': async () => {
+    const { MetroCityModule } = await import('../modules/metro-city');
+    return new MetroCityModule();
+  },
 };
 
 /**

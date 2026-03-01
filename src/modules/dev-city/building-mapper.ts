@@ -19,7 +19,7 @@ export type BuildingType =
   | 'arcade'     // 🎮 게임 → 오락실
   | 'telecom'    // 📱 모바일 앱 → 통신사
   | 'cityhall'   // 🏛️ 프로필 README → 시청
-  | 'ruin';      // 🏚️ 비활성 레포 → 폐허
+  | 'ruin';      // 🏚️ 아카이브 레포 → 폐허
 
 /** 건물 정보 */
 export interface BuildingInfo {
@@ -66,8 +66,8 @@ const BUILDING_META: Record<BuildingType, Omit<BuildingInfo, 'heightFactor'>> = 
     icon: '🔧',
     name: 'Garage',
     label: '정비소',
-    colorMain: '#78909C',
-    colorAccent: '#37474F',
+    colorMain: '#7D9E88',
+    colorAccent: '#3E6148',
   },
   lab: {
     type: 'lab',

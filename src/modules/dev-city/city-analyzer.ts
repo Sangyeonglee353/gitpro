@@ -12,6 +12,8 @@ import {
   ContributionDay,
   CityState,
 } from '../../types';
+
+export type { ContributionDay };
 import {
   classifyBuilding,
   getBuildingInfo,
@@ -76,6 +78,8 @@ export interface CityProfile {
   stats: CityStats;
   /** 도시 상태 (영구 저장) */
   stateUpdate: CityState;
+  /** 기여 캘린더 (아이소메트릭 지형 렌더링용) */
+  contributionCalendar: ContributionDay[];
 }
 
 /** 도시 통계 */
@@ -134,6 +138,7 @@ export function analyzeCity(
     traffic,
     stats,
     stateUpdate,
+    contributionCalendar: data.contributionCalendar,
   };
 }
 
