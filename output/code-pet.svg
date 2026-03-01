@@ -133,7 +133,7 @@
 
   <!-- 나이 -->
   <text x="116" y="205" class="pet-text pet-small" fill="#8b949e">
-    Day 18</text>
+    Day 19</text>
 
   <!-- ═══ 우측 영역: 정보 + EXP ═══ -->
 
@@ -182,7 +182,7 @@
     <rect x="214" y="184" width="auto" height="18" rx="9" ry="9"
           fill="#3572A5" opacity="0.1"/>
     <text x="222" y="196" class="pet-text pet-label"
-          fill="#3572A5">+23.9k EXP earned!</text>
+          fill="#3572A5">+24.2k EXP earned!</text>
 
   <!-- 최근 획득 EXP -->
   <line x1="214" y1="212" x2="460" y2="212"
@@ -190,13 +190,13 @@
   <text x="214" y="226" class="pet-text pet-label"
       fill="#8b949e">📊 EXP 내역</text>
     <text x="218" y="242" class="pet-text pet-small" fill="#e6edf3">
-      🎉 PR 109개 머지</text>
+      🎉 PR 111개 머지</text>
     <text x="460" y="242" text-anchor="end" class="pet-text pet-small"
-          fill="#3572A5">+13.1k</text>
+          fill="#3572A5">+13.3k</text>
     <text x="218" y="258" class="pet-text pet-small" fill="#e6edf3">
-      🔀 PR 110개 생성</text>
+      🔀 PR 112개 생성</text>
     <text x="460" y="258" text-anchor="end" class="pet-text pet-small"
-          fill="#3572A5">+5.5k</text>
+          fill="#3572A5">+5.6k</text>
     <text x="218" y="274" class="pet-text pet-small" fill="#e6edf3">
       📦 레포지토리 118개</text>
     <text x="460" y="274" text-anchor="end" class="pet-text pet-small"
