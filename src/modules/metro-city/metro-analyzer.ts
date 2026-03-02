@@ -140,10 +140,18 @@ function classifyMetroBuilding(repo: GitHubRepository): MetroType {
 
 // ── 메인 분석 함수 ──────────────────────────────────────────────
 
+function parseTimestamp(value: string): number {
+  const parsed = new Date(value).getTime();
+  return Number.isFinite(parsed) ? parsed : 0;
+}
+
 export function analyzeMetroCity(
   data: GitHubData,
   previousState: CityState
 ): MetroCityProfile {
+  const now = Date.now();
+  const oneYearAgo = now - 365 * 24 * 60 * 60 * 1000;
+
   // 1. 레포 필터링 (포크 제외, 최대 20개)
   const repos = data.repositories
     .filter(r => !r.isFork)
@@ -157,6 +165,7 @@ export function analyzeMetroCity(
   const buildings: MetroBuilding[] = repos.map((repo, i) => {
     const buildingType = classifyMetroBuilding(repo);
     const heightFactor = Math.log10(Math.max(1, repo.totalCommits)) / Math.log10(Math.max(2, maxCommits));
+    const lastUpdateTs = parseTimestamp(repo.pushedAt || repo.updatedAt);
     return {
       repoName:     repo.name,
       description:  repo.description,
@@ -166,7 +175,7 @@ export function analyzeMetroCity(
       totalCommits: repo.totalCommits,
       gridRow:      Math.floor(i / cols),
       gridCol:      i % cols,
-      isDormant:    repo.isArchived,
+      isDormant:    repo.isArchived || lastUpdateTs < oneYearAgo,
       height:       46 + heightFactor * 80,
     };
   });

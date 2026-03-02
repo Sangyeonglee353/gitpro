@@ -216,6 +216,12 @@ export function createMockConfig(overrides?: Partial<GitProConfig>): GitProConfi
         show_traffic: true,
         animation: true,
       },
+      'metro-city': {
+        enabled: true,
+        show_weather: true,
+        show_traffic: true,
+        animation: true,
+      },
     },
     readme: {
       auto_update: true,

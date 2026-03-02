@@ -14,6 +14,15 @@ import {
 import { analyzeMetroCity } from './metro-analyzer';
 import { renderMetroCity } from './metro-renderer';
 
+function normalizeMetroCityConfig(config: Partial<MetroCityConfig> | undefined): MetroCityConfig {
+  return {
+    enabled: config?.enabled ?? true,
+    show_weather: config?.show_weather ?? true,
+    show_traffic: config?.show_traffic ?? true,
+    animation: config?.animation ?? true,
+  };
+}
+
 export class MetroCityModule implements GitProModule {
   readonly id = 'metro-city';
   readonly name = 'Metro City';
@@ -22,7 +31,7 @@ export class MetroCityModule implements GitProModule {
 
   async generate(context: ModuleContext): Promise<ModuleOutput> {
     const { githubData, moduleConfig, globalConfig, state, theme } = context;
-    const config = moduleConfig as unknown as MetroCityConfig;
+    const config = normalizeMetroCityConfig(moduleConfig as Partial<MetroCityConfig>);
 
     // 1. 도시 데이터 분석 (metro-city 독자 분석기)
     console.log('    🏗️ 메트로 도시 데이터 분석 시작...');

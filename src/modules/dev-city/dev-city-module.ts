@@ -16,6 +16,21 @@ import { analyzeCity } from './city-analyzer';
 import { renderCity } from './city-renderer';
 import { getBuildingIcon } from './building-mapper';
 
+function normalizeDevCityConfig(config: Partial<DevCityConfig> | undefined): DevCityConfig {
+  const style = config?.city_style;
+  const city_style = style === 'tycoon' || style === 'simcity' || style === 'neon'
+    ? style
+    : 'tycoon';
+
+  return {
+    enabled: config?.enabled ?? true,
+    city_style,
+    show_weather: config?.show_weather ?? true,
+    show_traffic: config?.show_traffic ?? true,
+    animation: config?.animation ?? true,
+  };
+}
+
 export class DevCityModule implements GitProModule {
   readonly id = 'dev-city';
   readonly name = 'Dev City';
@@ -24,7 +39,7 @@ export class DevCityModule implements GitProModule {
 
   async generate(context: ModuleContext): Promise<ModuleOutput> {
     const { githubData, moduleConfig, globalConfig, state, theme } = context;
-    const config = moduleConfig as unknown as DevCityConfig;
+    const config = normalizeDevCityConfig(moduleConfig as Partial<DevCityConfig>);
 
     // 1. 도시 데이터 분석
     console.log('    🏗️ 도시 데이터 분석 시작...');

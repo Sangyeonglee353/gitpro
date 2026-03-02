@@ -1310,10 +1310,13 @@ export interface CityRenderData {
 
 export function renderCity(data: CityRenderData): string {
   const { username, profile, config, theme } = data;
-  const style: CityStyle = (config.city_style as CityStyle) || 'tycoon';
+  const style = config.city_style === 'simcity' || config.city_style === 'neon'
+    ? config.city_style
+    : 'tycoon';
   const isNeon = style === 'neon';
   const p = getPalette(style, theme);
   const animate = config.animation !== false;
+  const grid = getGrid(profile.buildings.length);
 
   const cameraTransform = style === 'neon'
     ? 'translate(-8,4) scale(1.03,0.97)'
@@ -1327,10 +1330,22 @@ export function renderCity(data: CityRenderData): string {
 
   // ── 레이어: backdrop → atmosphere → contribution terrain → weather ──
   // dev-city = jasonlong/isometric-contributions 스타일 순수 기여 시각화
+  const zoningLayer = style === 'simcity'
+    ? renderSimcityZoning(profile.buildings, grid, p)
+    : renderDistrictBlocks(profile.buildings, grid, p);
+
   const layers = [
     renderBackdropSkyline(profile.tier, p, style),
     renderAtmosphere(p, style),
     contribTerrain,
+    renderGround(grid, p, style),
+    renderRoads(grid, p),
+    zoningLayer,
+    renderParks(grid, p),
+    renderLandmarks(profile.tier, grid, p),
+    renderBuildings(profile.buildings, grid, p, isNeon),
+    renderStreetLife(grid, p),
+    config.show_traffic !== false ? renderTraffic(profile.traffic, grid, p) : '',
     config.show_weather !== false ? renderWeather(profile.weather, p) : '',
   ].join('\n');
 
