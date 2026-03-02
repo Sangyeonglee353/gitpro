@@ -16,6 +16,30 @@ import {
 import { analyzeChronicle, getChapterTitleKo } from './chronicle-analyzer';
 import { renderChronicle } from './chronicle-renderer';
 
+function normalizeChronicleConfig(config: Partial<ChronicleConfig> | undefined): ChronicleConfig {
+  const style = config?.style;
+  const safeStyle =
+    style === 'rpg' || style === 'book' || style === 'timeline' || style === 'comic'
+      ? style
+      : 'rpg';
+
+  const language = config?.language;
+  const safeLanguage = language === 'ko' || language === 'en' ? language : 'ko';
+
+  const maxChaptersRaw = config?.max_chapters;
+  const max_chapters =
+    typeof maxChaptersRaw === 'number' && Number.isFinite(maxChaptersRaw)
+      ? Math.max(1, Math.min(20, Math.floor(maxChaptersRaw)))
+      : 8;
+
+  return {
+    enabled: config?.enabled ?? true,
+    max_chapters,
+    style: safeStyle,
+    language: safeLanguage,
+  };
+}
+
 export class ChronicleModule implements GitProModule {
   readonly id = 'chronicle';
   readonly name = 'Dev Chronicle';
@@ -24,12 +48,12 @@ export class ChronicleModule implements GitProModule {
 
   async generate(context: ModuleContext): Promise<ModuleOutput> {
     const { githubData, moduleConfig, globalConfig, theme, state } = context;
-    const config = moduleConfig as unknown as ChronicleConfig;
+    const config = normalizeChronicleConfig(moduleConfig as Partial<ChronicleConfig>);
     const chronicleState = state.chronicle;
 
     // 1. 연대기 분석
     console.log('    📖 연대기 분석 시작...');
-    const maxChapters = config.max_chapters || 8;
+    const maxChapters = config.max_chapters;
     const profile = analyzeChronicle(githubData, maxChapters, chronicleState);
 
     console.log(`    📊 총 ${profile.chapters.length}개 챕터 감지됨`);
@@ -52,7 +76,7 @@ export class ChronicleModule implements GitProModule {
     console.log(`    💻 총 ${profile.summary.totalCommits} 커밋 · ${profile.summary.reposCreated} 레포 · ${profile.summary.languagesLearned} 언어`);
 
     // 5. SVG 렌더링
-    console.log(`    🎴 스타일: ${config.style || 'rpg'} / 언어: ${config.language || 'ko'}`);
+    console.log(`    🎴 스타일: ${config.style} / 언어: ${config.language}`);
     const svg = renderChronicle({
       username: globalConfig.username,
       profile,

@@ -16,6 +16,33 @@ import { analyzeDNA, getCodingStyleInfo } from './dna-analyzer';
 import { generateColorPalette } from './dna-colors';
 import { renderDNA } from './dna-renderer';
 
+function normalizeCodeDNAConfig(config: Partial<CodeDNAConfig> | undefined): CodeDNAConfig {
+  const shape = config?.shape;
+  const safeShape =
+    shape === 'circular' || shape === 'helix' || shape === 'spiral' || shape === 'fingerprint'
+      ? shape
+      : 'circular';
+
+  const colorScheme = config?.color_scheme;
+  const safeColorScheme =
+    colorScheme === 'language' ||
+    colorScheme === 'mood' ||
+    colorScheme === 'rainbow' ||
+    colorScheme === 'monochrome'
+      ? colorScheme
+      : 'language';
+
+  const complexity = config?.complexity;
+  const safeComplexity = complexity === 'simple' || complexity === 'detailed' ? complexity : 'detailed';
+
+  return {
+    enabled: config?.enabled ?? true,
+    shape: safeShape,
+    color_scheme: safeColorScheme,
+    complexity: safeComplexity,
+  };
+}
+
 export class CodeDNAModule implements GitProModule {
   readonly id = 'code-dna';
   readonly name = 'Code DNA';
@@ -24,7 +51,7 @@ export class CodeDNAModule implements GitProModule {
 
   async generate(context: ModuleContext): Promise<ModuleOutput> {
     const { githubData, moduleConfig, globalConfig, theme } = context;
-    const config = moduleConfig as unknown as CodeDNAConfig;
+    const config = normalizeCodeDNAConfig(moduleConfig as Partial<CodeDNAConfig>);
 
     // 1. DNA 프로파일 분석
     console.log('    🔬 DNA 분석 시작...');
@@ -37,12 +64,12 @@ export class CodeDNAModule implements GitProModule {
 
     // 3. 색상 팔레트 생성
     const palette = generateColorPalette(
-      config.color_scheme || 'language',
+      config.color_scheme,
       profile.languageDistribution,
       profile.codingStyle,
       theme
     );
-    console.log(`    🎨 색상 모드: ${config.color_scheme || 'language'}`);
+    console.log(`    🎨 색상 모드: ${config.color_scheme}`);
 
     // 4. 활동 분석 로그
     console.log(`    🌐 다양성 지수: ${(profile.repoDiversity * 100).toFixed(1)}%`);
@@ -71,7 +98,7 @@ export class CodeDNAModule implements GitProModule {
     console.log(`    📅 최다 활동 요일: ${mostActiveDay.dayKo}요일 (${mostActiveDay.rawCommits}커밋)`);
 
     // 5. DNA SVG 렌더링
-    console.log(`    🎴 DNA 형태: ${config.shape || 'circular'} / 복잡도: ${config.complexity || 'detailed'}`);
+    console.log(`    🎴 DNA 형태: ${config.shape} / 복잡도: ${config.complexity}`);
     const svg = renderDNA({
       username: globalConfig.username,
       profile,

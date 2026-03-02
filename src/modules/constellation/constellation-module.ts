@@ -16,6 +16,33 @@ import { analyzeConstellation } from './constellation-analyzer';
 import { renderConstellation } from './constellation-renderer';
 import { getRepoTypeIcon } from './star-mapper';
 
+function normalizeConstellationConfig(
+  config: Partial<ConstellationConfig> | undefined
+): ConstellationConfig {
+  const skyTheme = config?.sky_theme;
+  const safeSkyTheme =
+    skyTheme === 'midnight' ||
+    skyTheme === 'aurora' ||
+    skyTheme === 'sunset' ||
+    skyTheme === 'deep_space'
+      ? skyTheme
+      : 'midnight';
+
+  const maxConstellationsRaw = config?.max_constellations;
+  const max_constellations =
+    typeof maxConstellationsRaw === 'number' && Number.isFinite(maxConstellationsRaw)
+      ? Math.max(1, Math.min(20, Math.floor(maxConstellationsRaw)))
+      : 10;
+
+  return {
+    enabled: config?.enabled ?? true,
+    sky_theme: safeSkyTheme,
+    show_meteors: config?.show_meteors ?? true,
+    show_nebula: config?.show_nebula ?? true,
+    max_constellations,
+  };
+}
+
 export class ConstellationModule implements GitProModule {
   readonly id = 'constellation';
   readonly name = 'Commit Constellation';
@@ -24,11 +51,11 @@ export class ConstellationModule implements GitProModule {
 
   async generate(context: ModuleContext): Promise<ModuleOutput> {
     const { githubData, moduleConfig, globalConfig, theme } = context;
-    const config = moduleConfig as unknown as ConstellationConfig;
+    const config = normalizeConstellationConfig(moduleConfig as Partial<ConstellationConfig>);
 
     // 1. 별자리 데이터 분석
     console.log('    🔭 별자리 분석 시작...');
-    const maxConstellations = config.max_constellations || 10;
+    const maxConstellations = config.max_constellations;
     const profile = analyzeConstellation(githubData, maxConstellations);
 
     // 2. 분석 결과 로그
@@ -61,7 +88,7 @@ export class ConstellationModule implements GitProModule {
     }
 
     // 5. SVG 렌더링
-    console.log(`    🎴 하늘 테마: ${config.sky_theme || 'midnight'}`);
+    console.log(`    🎴 하늘 테마: ${config.sky_theme}`);
     console.log(`    ☄️ 유성 표시: ${config.show_meteors !== false ? 'ON' : 'OFF'}`);
     console.log(`    ✦ 성운 표시: ${config.show_nebula !== false ? 'ON' : 'OFF'}`);
 

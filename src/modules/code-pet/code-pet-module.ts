@@ -22,6 +22,16 @@ import {
 import { calculateExp, calculatePetAge, getActivityStatus } from './exp-calculator';
 import { renderPetCard } from './pet-renderer';
 
+function normalizeCodePetConfig(config: Partial<CodePetConfig> | undefined): CodePetConfig {
+  return {
+    enabled: config?.enabled ?? true,
+    custom_name: (config?.custom_name || '').slice(0, 32),
+    show_mood: config?.show_mood ?? true,
+    show_stats: config?.show_stats ?? true,
+    animation: config?.animation ?? true,
+  };
+}
+
 export class CodePetModule implements GitProModule {
   readonly id = 'code-pet';
   readonly name = 'Code Pet';
@@ -30,7 +40,7 @@ export class CodePetModule implements GitProModule {
 
   async generate(context: ModuleContext): Promise<ModuleOutput> {
     const { githubData, moduleConfig, globalConfig, state, theme } = context;
-    const config = moduleConfig as unknown as CodePetConfig;
+    const config = normalizeCodePetConfig(moduleConfig as Partial<CodePetConfig>);
     const petState = state.pet;
 
     // 1. 펫 종류 결정 (첫 실행 or 변경)
@@ -81,7 +91,7 @@ export class CodePetModule implements GitProModule {
       hunger: expReport.newHunger,
       expReport,
       petAge,
-      customName: config.custom_name || '',
+      customName: config.custom_name,
       activityStatus,
       config,
       theme,

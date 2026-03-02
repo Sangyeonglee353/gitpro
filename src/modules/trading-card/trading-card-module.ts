@@ -12,6 +12,33 @@ import { calculateStats, determineRarity, determineCharacterType } from './stats
 import { detectAbilities } from './ability-detector';
 import { renderCard } from './card-renderer';
 
+function normalizeTradingCardConfig(
+  config: Partial<TradingCardConfig> | undefined
+): TradingCardConfig {
+  const style = config?.style;
+  const safeStyle =
+    style === 'hologram' || style === 'pixel' || style === 'minimal' || style === 'anime'
+      ? style
+      : 'hologram';
+
+  const maxSkillsRaw = config?.max_skills;
+  const max_skills =
+    typeof maxSkillsRaw === 'number' && Number.isFinite(maxSkillsRaw)
+      ? Math.max(1, Math.min(10, Math.floor(maxSkillsRaw)))
+      : 5;
+
+  const custom_title = (config?.custom_title || '').slice(0, 80);
+
+  return {
+    enabled: config?.enabled ?? true,
+    style: safeStyle,
+    show_ability: config?.show_ability ?? true,
+    show_skills: config?.show_skills ?? true,
+    max_skills,
+    custom_title,
+  };
+}
+
 export class TradingCardModule implements GitProModule {
   readonly id = 'trading-card';
   readonly name = 'Dev Trading Card';
@@ -20,7 +47,7 @@ export class TradingCardModule implements GitProModule {
 
   async generate(context: ModuleContext): Promise<ModuleOutput> {
     const { githubData, moduleConfig, globalConfig, state, theme } = context;
-    const config = moduleConfig as unknown as TradingCardConfig;
+    const config = normalizeTradingCardConfig(moduleConfig as Partial<TradingCardConfig>);
 
     // 1. 스탯 산출
     const stats = calculateStats(githubData);
@@ -44,7 +71,7 @@ export class TradingCardModule implements GitProModule {
     const totalLangSize = Object.values(githubData.languages).reduce((a, b) => a + b, 0);
     const topLanguages = Object.entries(githubData.languages)
       .sort((a, b) => b[1] - a[1])
-      .slice(0, config.max_skills || 5)
+      .slice(0, config.max_skills)
       .map(([name, size]) => ({
         name,
         percent: totalLangSize > 0 ? (size / totalLangSize) * 100 : 0,
@@ -58,7 +85,7 @@ export class TradingCardModule implements GitProModule {
       rarity,
       abilities,
       topLanguages,
-      customTitle: config.custom_title || '',
+      customTitle: config.custom_title,
       config,
       theme,
       seasonNumber: state.card.seasonNumber,
