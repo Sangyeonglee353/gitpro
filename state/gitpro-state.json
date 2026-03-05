@@ -1,12 +1,12 @@
 {
-  "lastUpdated": "2026-03-05T12:41:09.675Z",
+  "lastUpdated": "2026-03-05T19:10:26.581Z",
   "pet": {
     "species": "pythonix",
     "stage": 4,
-    "exp": 1549350,
+    "exp": 1576400,
     "mood": 100,
     "hunger": 0,
-    "lastFed": "2026-03-05T12:41:09.630Z",
+    "lastFed": "2026-03-05T19:10:26.125Z",
     "birthDate": "2026-02-10T12:55:31.670Z",
     "abilities": []
   },
@@ -30,7 +30,7 @@
     ],
     "currentQuest": {
       "type": "The Grind",
-      "progress": 100
+      "progress": 0
     }
   },
   "card": {
