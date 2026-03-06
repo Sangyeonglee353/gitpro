@@ -335,7 +335,7 @@
     🎯 진행 중인 퀘스트</text>
 
   <text x="26" y="684" class="chr-text chr-chapter-sub" fill="#e6edf3">
-    🔥 The Grind — 65/30일</text>
+    🔥 The Grind — 66/30일</text>
 
   <!-- 프로그레스 바 -->
   <rect x="26" y="690" width="300" height="4" rx="2" fill="#30363d" opacity="0.3"/>
