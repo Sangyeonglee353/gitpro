@@ -1,12 +1,12 @@
 {
-  "lastUpdated": "2026-03-14T01:18:14.670Z",
+  "lastUpdated": "2026-03-14T12:33:07.291Z",
   "pet": {
     "species": "pythonix",
     "stage": 4,
-    "exp": 2409490,
+    "exp": 2437560,
     "mood": 100,
     "hunger": 0,
-    "lastFed": "2026-03-14T01:18:14.622Z",
+    "lastFed": "2026-03-14T12:33:06.976Z",
     "birthDate": "2026-02-10T12:55:31.670Z",
     "abilities": []
   },
