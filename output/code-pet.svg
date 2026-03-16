@@ -123,7 +123,7 @@
   <rect x="26" y="170" width="160" height="18" rx="9" ry="9"
         fill="#161b22" stroke="#30363d" stroke-width="0.5"/>
   <text x="106" y="183" text-anchor="middle" class="pet-text pet-status"
-        fill="#8b949e">🎮 활발하게 놀고 있어요!</text>
+        fill="#8b949e">💤 심심해하고 있어요...</text>
 
   <!-- 속성 태그 -->
   <rect x="26" y="194" width="70" height="16" rx="8" ry="8"
@@ -133,7 +133,7 @@
 
   <!-- 나이 -->
   <text x="116" y="205" class="pet-text pet-small" fill="#8b949e">
-    Day 33</text>
+    Day 34</text>
 
   <!-- ═══ 우측 영역: 정보 + EXP ═══ -->
 
@@ -150,7 +150,7 @@
   <!-- EXP 바 -->
   <text x="214" y="80" class="pet-text pet-label" fill="#8b949e">EXP</text>
   <text x="460" y="80" text-anchor="end" class="pet-text pet-value"
-        fill="#3572A5">2.6M</text>
+        fill="#3572A5">2.7M</text>
   <rect x="214" y="86" width="246" height="8" rx="4" ry="4"
         fill="#161b22"/>
   <rect x="214" y="86" width="246" height="8" rx="4" ry="4"
