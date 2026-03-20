@@ -133,7 +133,7 @@
 
   <!-- 나이 -->
   <text x="116" y="205" class="pet-text pet-small" fill="#8b949e">
-    Day 37</text>
+    Day 38</text>
 
   <!-- ═══ 우측 영역: 정보 + EXP ═══ -->
 
@@ -198,9 +198,9 @@
     <text x="460" y="258" text-anchor="end" class="pet-text pet-small"
           fill="#3572A5">+6.8k</text>
     <text x="218" y="274" class="pet-text pet-small" fill="#e6edf3">
-      📦 레포지토리 124개</text>
+      📦 레포지토리 125개</text>
     <text x="460" y="274" text-anchor="end" class="pet-text pet-small"
-          fill="#3572A5">+3.7k</text>
+          fill="#3572A5">+3.8k</text>
 
   <!-- 펫 반응 메시지 -->
   
