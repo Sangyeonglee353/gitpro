@@ -133,7 +133,7 @@
 
   <!-- 나이 -->
   <text x="116" y="205" class="pet-text pet-small" fill="#8b949e">
-    Day 36</text>
+    Day 37</text>
 
   <!-- ═══ 우측 영역: 정보 + EXP ═══ -->
 
@@ -198,7 +198,7 @@
     <text x="460" y="258" text-anchor="end" class="pet-text pet-small"
           fill="#3572A5">+6.8k</text>
     <text x="218" y="274" class="pet-text pet-small" fill="#e6edf3">
-      📦 레포지토리 123개</text>
+      📦 레포지토리 124개</text>
     <text x="460" y="274" text-anchor="end" class="pet-text pet-small"
           fill="#3572A5">+3.7k</text>
 
@@ -215,7 +215,7 @@
   <text x="20" y="308" class="pet-text pet-small" fill="#8b949e">
     🐾 gitpro Code Pet</text>
   <text x="460" y="308" text-anchor="end" class="pet-text pet-small"
-        fill="#8b949e">2026-03-19</text>
+        fill="#8b949e">2026-03-20</text>
 
   <!-- 전설 시머 효과 -->
   

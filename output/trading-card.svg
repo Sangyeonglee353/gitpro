@@ -168,12 +168,12 @@
     <text x="40" y="444" class="card-text skill-text" fill="#e6edf3">Jupyter Notebook</text>
     <rect x="160" y="436" width="120" height="8" rx="4" ry="4"
           fill="#161b22"/>
-    <rect x="160" y="436" width="32" height="8" rx="4" ry="4"
+    <rect x="160" y="436" width="31" height="8" rx="4" ry="4"
           fill="#8b949e"/>
     <text x="290" y="444" class="card-text skill-text"
           fill="#8b949e">Lv.3</text>
     <text x="380" y="444" text-anchor="end" class="card-text skill-text"
-          fill="#8b949e">26.3%</text>
+          fill="#8b949e">26.2%</text>
     <text x="40" y="466" class="card-text skill-text" fill="#e6edf3">TypeScript</text>
     <rect x="160" y="458" width="120" height="8" rx="4" ry="4"
           fill="#161b22"/>
@@ -182,7 +182,7 @@
     <text x="290" y="466" class="card-text skill-text"
           fill="#8b949e">Lv.2</text>
     <text x="380" y="466" text-anchor="end" class="card-text skill-text"
-          fill="#8b949e">19.3%</text>
+          fill="#8b949e">19.2%</text>
     <text x="40" y="488" class="card-text skill-text" fill="#e6edf3">HTML</text>
     <rect x="160" y="480" width="120" height="8" rx="4" ry="4"
           fill="#161b22"/>
@@ -200,7 +200,7 @@
     <text x="290" y="510" class="card-text skill-text"
           fill="#8b949e">Lv.1</text>
     <text x="380" y="510" text-anchor="end" class="card-text skill-text"
-          fill="#8b949e">10.3%</text>
+          fill="#8b949e">10.4%</text>
 
   <!-- 풋터 -->
   <text x="30" y="562" class="card-text footer-text" fill="#8b949e">
