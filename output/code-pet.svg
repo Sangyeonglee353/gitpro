@@ -150,7 +150,7 @@
   <!-- EXP 바 -->
   <text x="214" y="80" class="pet-text pet-label" fill="#8b949e">EXP</text>
   <text x="460" y="80" text-anchor="end" class="pet-text pet-value"
-        fill="#3572A5">3.1M</text>
+        fill="#3572A5">3.2M</text>
   <rect x="214" y="86" width="246" height="8" rx="4" ry="4"
         fill="#161b22"/>
   <rect x="214" y="86" width="246" height="8" rx="4" ry="4"
@@ -182,7 +182,7 @@
     <rect x="214" y="184" width="auto" height="18" rx="9" ry="9"
           fill="#3572A5" opacity="0.1"/>
     <text x="222" y="196" class="pet-text pet-label"
-          fill="#3572A5">+28.7k EXP earned!</text>
+          fill="#3572A5">+28.8k EXP earned!</text>
 
   <!-- 최근 획득 EXP -->
   <line x1="214" y1="212" x2="460" y2="212"
@@ -215,7 +215,7 @@
   <text x="20" y="308" class="pet-text pet-small" fill="#8b949e">
     🐾 gitpro Code Pet</text>
   <text x="460" y="308" text-anchor="end" class="pet-text pet-small"
-        fill="#8b949e">2026-03-22</text>
+        fill="#8b949e">2026-03-23</text>
 
   <!-- 전설 시머 효과 -->
   
