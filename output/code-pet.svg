@@ -133,7 +133,7 @@
 
   <!-- 나이 -->
   <text x="116" y="205" class="pet-text pet-small" fill="#8b949e">
-    Day 41</text>
+    Day 42</text>
 
   <!-- ═══ 우측 영역: 정보 + EXP ═══ -->
 
@@ -182,7 +182,7 @@
     <rect x="214" y="184" width="auto" height="18" rx="9" ry="9"
           fill="#3572A5" opacity="0.1"/>
     <text x="222" y="196" class="pet-text pet-label"
-          fill="#3572A5">+28.8k EXP earned!</text>
+          fill="#3572A5">+29.1k EXP earned!</text>
 
   <!-- 최근 획득 EXP -->
   <line x1="214" y1="212" x2="460" y2="212"
@@ -190,17 +190,17 @@
   <text x="214" y="226" class="pet-text pet-label"
       fill="#8b949e">📊 EXP 내역</text>
     <text x="218" y="242" class="pet-text pet-small" fill="#e6edf3">
-      🎉 PR 136개 머지</text>
+      🎉 PR 137개 머지</text>
     <text x="460" y="242" text-anchor="end" class="pet-text pet-small"
-          fill="#3572A5">+16.3k</text>
+          fill="#3572A5">+16.4k</text>
     <text x="218" y="258" class="pet-text pet-small" fill="#e6edf3">
-      🔀 PR 137개 생성</text>
+      🔀 PR 138개 생성</text>
     <text x="460" y="258" text-anchor="end" class="pet-text pet-small"
-          fill="#3572A5">+6.8k</text>
+          fill="#3572A5">+6.9k</text>
     <text x="218" y="274" class="pet-text pet-small" fill="#e6edf3">
-      📦 레포지토리 125개</text>
+      📦 레포지토리 130개</text>
     <text x="460" y="274" text-anchor="end" class="pet-text pet-small"
-          fill="#3572A5">+3.8k</text>
+          fill="#3572A5">+3.9k</text>
 
   <!-- 펫 반응 메시지 -->
   
@@ -215,7 +215,7 @@
   <text x="20" y="308" class="pet-text pet-small" fill="#8b949e">
     🐾 gitpro Code Pet</text>
   <text x="460" y="308" text-anchor="end" class="pet-text pet-small"
-        fill="#8b949e">2026-03-24</text>
+        fill="#8b949e">2026-03-25</text>
 
   <!-- 전설 시머 효과 -->
   

@@ -130,7 +130,7 @@
       <text x="352.5" y="250" text-anchor="middle"
             class="card-text stat-label" fill="#F59E0B">⚡ SPD</text>
       <text x="352.5" y="278" text-anchor="middle"
-            class="card-text stat-value" fill="#e6edf3">500</text>
+            class="card-text stat-value" fill="#e6edf3">600</text>
     </g>
 
   <!-- 구분선 -->
@@ -159,12 +159,12 @@
     <text x="40" y="422" class="card-text skill-text" fill="#e6edf3">Python</text>
     <rect x="160" y="414" width="120" height="8" rx="4" ry="4"
           fill="#161b22"/>
-    <rect x="160" y="414" width="33" height="8" rx="4" ry="4"
+    <rect x="160" y="414" width="32" height="8" rx="4" ry="4"
           fill="#3572A5"/>
     <text x="290" y="422" class="card-text skill-text"
           fill="#8b949e">Lv.3</text>
     <text x="380" y="422" text-anchor="end" class="card-text skill-text"
-          fill="#8b949e">27.4%</text>
+          fill="#8b949e">26.8%</text>
     <text x="40" y="444" class="card-text skill-text" fill="#e6edf3">Jupyter Notebook</text>
     <rect x="160" y="436" width="120" height="8" rx="4" ry="4"
           fill="#161b22"/>
@@ -173,16 +173,16 @@
     <text x="290" y="444" class="card-text skill-text"
           fill="#8b949e">Lv.3</text>
     <text x="380" y="444" text-anchor="end" class="card-text skill-text"
-          fill="#8b949e">26.1%</text>
+          fill="#8b949e">25.5%</text>
     <text x="40" y="466" class="card-text skill-text" fill="#e6edf3">TypeScript</text>
     <rect x="160" y="458" width="120" height="8" rx="4" ry="4"
           fill="#161b22"/>
-    <rect x="160" y="458" width="23" height="8" rx="4" ry="4"
+    <rect x="160" y="458" width="25" height="8" rx="4" ry="4"
           fill="#3178c6"/>
     <text x="290" y="466" class="card-text skill-text"
           fill="#8b949e">Lv.2</text>
     <text x="380" y="466" text-anchor="end" class="card-text skill-text"
-          fill="#8b949e">19.3%</text>
+          fill="#8b949e">21.2%</text>
     <text x="40" y="488" class="card-text skill-text" fill="#e6edf3">HTML</text>
     <rect x="160" y="480" width="120" height="8" rx="4" ry="4"
           fill="#161b22"/>
@@ -191,16 +191,16 @@
     <text x="290" y="488" class="card-text skill-text"
           fill="#8b949e">Lv.1</text>
     <text x="380" y="488" text-anchor="end" class="card-text skill-text"
-          fill="#8b949e">10.8%</text>
+          fill="#8b949e">10.5%</text>
     <text x="40" y="510" class="card-text skill-text" fill="#e6edf3">JavaScript</text>
     <rect x="160" y="502" width="120" height="8" rx="4" ry="4"
           fill="#161b22"/>
-    <rect x="160" y="502" width="13" height="8" rx="4" ry="4"
+    <rect x="160" y="502" width="12" height="8" rx="4" ry="4"
           fill="#f1e05a"/>
     <text x="290" y="510" class="card-text skill-text"
           fill="#8b949e">Lv.1</text>
     <text x="380" y="510" text-anchor="end" class="card-text skill-text"
-          fill="#8b949e">10.5%</text>
+          fill="#8b949e">10.2%</text>
 
   <!-- 풋터 -->
   <text x="30" y="562" class="card-text footer-text" fill="#8b949e">
