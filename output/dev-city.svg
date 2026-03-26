@@ -53,12 +53,10 @@
 <line x1="0" y1="410" x2="800" y2="410" stroke="#F59E0B" stroke-width="0.8" stroke-dasharray="15 12" opacity="0.3"/>
 <g class="dc-building" style="animation-delay:0.00s" filter="url(#cityShadow)">
   <rect x="90" y="200" width="70" height="140" rx="2" fill="#2d4a6f" stroke="#3a5a80" stroke-width="0.5"/>
-  <polygon points="85,200 125,175 165,200" fill="#3a5a80"/>
-<line x1="125" y1="175" x2="125" y2="155" stroke="#8b949e" stroke-width="1.5"/>
-<rect x="125" y="155" width="15" height="10" fill="#58a6ff" opacity="0.6" class="dc-neon"/>
+  <rect x="90" y="200" width="70" height="10" rx="3" fill="#61DAFB" opacity="0.4"/>
   <rect x="98" y="215" width="18" height="10" rx="1" fill="#58a6ff" opacity="0.20"/><rect x="120" y="215" width="18" height="10" rx="1" fill="#58a6ff" opacity="0.30"/><rect x="142" y="215" width="18" height="10" rx="1" fill="#58a6ff" opacity="0.40"/><rect x="98" y="233" width="18" height="10" rx="1" fill="#58a6ff" opacity="0.35"/><rect x="120" y="233" width="18" height="10" rx="1" fill="#58a6ff" opacity="0.20"/><rect x="142" y="233" width="18" height="10" rx="1" fill="#58a6ff" opacity="0.30"/><rect x="98" y="251" width="18" height="10" rx="1" fill="#58a6ff" opacity="0.25"/><rect x="120" y="251" width="18" height="10" rx="1" fill="#58a6ff" opacity="0.35"/><rect x="142" y="251" width="18" height="10" rx="1" fill="#58a6ff" opacity="0.20"/><rect x="98" y="269" width="18" height="10" rx="1" fill="#58a6ff" opacity="0.40"/><rect x="120" y="269" width="18" height="10" rx="1" fill="#58a6ff" opacity="0.25"/><rect x="142" y="269" width="18" height="10" rx="1" fill="#58a6ff" opacity="0.35"/>
-  <text x="125" y="194" text-anchor="middle" font-size="14">🏛️</text>
-  <text x="125" y="352" text-anchor="middle" class="dc-text" font-size="8" fill="#8b949e" opacity="0.8">gitpro</text>
+  <text x="125" y="194" text-anchor="middle" font-size="14">🏬</text>
+  <text x="125" y="352" text-anchor="middle" class="dc-text" font-size="8" fill="#8b949e" opacity="0.8">partner-comp...</text>
 </g><g class="dc-building" style="animation-delay:0.08s" filter="url(#cityShadow)">
   <rect x="225" y="230" width="80" height="110" rx="2" fill="#2d4a6f" stroke="#3a5a80" stroke-width="0.5"/>
   <polygon points="220,230 265,205 310,230" fill="#3a5a80"/>
@@ -66,100 +64,102 @@
 <rect x="265" y="185" width="15" height="10" fill="#58a6ff" opacity="0.6" class="dc-neon"/>
   <rect x="233" y="245" width="16" height="10" rx="1" fill="#58a6ff" opacity="0.20"/><rect x="253" y="245" width="16" height="10" rx="1" fill="#58a6ff" opacity="0.30"/><rect x="273" y="245" width="16" height="10" rx="1" fill="#58a6ff" opacity="0.40"/><rect x="293" y="245" width="16" height="10" rx="1" fill="#58a6ff" opacity="0.25"/><rect x="233" y="263" width="16" height="10" rx="1" fill="#58a6ff" opacity="0.35"/><rect x="253" y="263" width="16" height="10" rx="1" fill="#58a6ff" opacity="0.20"/><rect x="273" y="263" width="16" height="10" rx="1" fill="#58a6ff" opacity="0.30"/><rect x="293" y="263" width="16" height="10" rx="1" fill="#58a6ff" opacity="0.40"/><rect x="233" y="281" width="16" height="10" rx="1" fill="#58a6ff" opacity="0.25"/><rect x="253" y="281" width="16" height="10" rx="1" fill="#58a6ff" opacity="0.35"/><rect x="273" y="281" width="16" height="10" rx="1" fill="#58a6ff" opacity="0.20"/><rect x="293" y="281" width="16" height="10" rx="1" fill="#58a6ff" opacity="0.30"/>
   <text x="265" y="224" text-anchor="middle" font-size="14">🏛️</text>
-  <text x="265" y="352" text-anchor="middle" class="dc-text" font-size="8" fill="#8b949e" opacity="0.8">Sangyeonglee...</text>
+  <text x="265" y="352" text-anchor="middle" class="dc-text" font-size="8" fill="#8b949e" opacity="0.8">gitpro</text>
 </g><g class="dc-building" style="animation-delay:0.16s" filter="url(#cityShadow)">
   <rect x="360" y="170" width="60" height="170" rx="2" fill="#2d4a6f" stroke="#3a5a80" stroke-width="0.5"/>
-  <rect x="360" y="170" width="60" height="10" rx="3" fill="#61DAFB" opacity="0.4"/>
+  <polygon points="355,170 390,145 425,170" fill="#3a5a80"/>
+<line x1="390" y1="145" x2="390" y2="125" stroke="#8b949e" stroke-width="1.5"/>
+<rect x="390" y="125" width="15" height="10" fill="#58a6ff" opacity="0.6" class="dc-neon"/>
   <rect x="368" y="185" width="14" height="10" rx="1" fill="#58a6ff" opacity="0.20"/><rect x="386" y="185" width="14" height="10" rx="1" fill="#58a6ff" opacity="0.30"/><rect x="404" y="185" width="14" height="10" rx="1" fill="#58a6ff" opacity="0.40"/><rect x="368" y="203" width="14" height="10" rx="1" fill="#58a6ff" opacity="0.35"/><rect x="386" y="203" width="14" height="10" rx="1" fill="#58a6ff" opacity="0.20"/><rect x="404" y="203" width="14" height="10" rx="1" fill="#58a6ff" opacity="0.30"/><rect x="368" y="221" width="14" height="10" rx="1" fill="#58a6ff" opacity="0.25"/><rect x="386" y="221" width="14" height="10" rx="1" fill="#58a6ff" opacity="0.35"/><rect x="404" y="221" width="14" height="10" rx="1" fill="#58a6ff" opacity="0.20"/><rect x="368" y="239" width="14" height="10" rx="1" fill="#58a6ff" opacity="0.40"/><rect x="386" y="239" width="14" height="10" rx="1" fill="#58a6ff" opacity="0.25"/><rect x="404" y="239" width="14" height="10" rx="1" fill="#58a6ff" opacity="0.35"/><rect x="368" y="257" width="14" height="10" rx="1" fill="#58a6ff" opacity="0.30"/><rect x="386" y="257" width="14" height="10" rx="1" fill="#58a6ff" opacity="0.40"/><rect x="404" y="257" width="14" height="10" rx="1" fill="#58a6ff" opacity="0.25"/>
-  <text x="390" y="164" text-anchor="middle" font-size="14">🏬</text>
-  <text x="390" y="352" text-anchor="middle" class="dc-text" font-size="8" fill="#8b949e" opacity="0.8">pdfPicker</text>
+  <text x="390" y="164" text-anchor="middle" font-size="14">🏛️</text>
+  <text x="390" y="352" text-anchor="middle" class="dc-text" font-size="8" fill="#8b949e" opacity="0.8">Sangyeonglee...</text>
 </g><g class="dc-building" style="animation-delay:0.24s" filter="url(#cityShadow)">
-  <rect x="495" y="260" width="65" height="80" rx="2" fill="#5f6b7a" stroke="#4a5566" stroke-width="0.5"/>
-  <line x1="527.5" y1="260" x2="527.5" y2="230" stroke="#A855F7" stroke-width="2"/>
-<circle cx="527.5" cy="228" r="3" fill="#A855F7" opacity="0.6" class="dc-neon"/>
-<circle cx="527.5" cy="228" r="10" fill="none" stroke="#A855F7" stroke-width="0.5" opacity="0.2" class="dc-neon"/>
-  <rect x="503" y="275" width="16" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/><rect x="523" y="275" width="16" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/><rect x="543" y="275" width="16" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/><rect x="503" y="293" width="16" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/><rect x="523" y="293" width="16" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/><rect x="543" y="293" width="16" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/>
-  <text x="527.5" y="254" text-anchor="middle" font-size="14">🔬</text>
-  <text x="527.5" y="352" text-anchor="middle" class="dc-text" font-size="8" fill="#8b949e" opacity="0.8">ai-musthave</text>
+  <rect x="495" y="260" width="65" height="80" rx="2" fill="#2d4a6f" stroke="#3a5a80" stroke-width="0.5"/>
+  <rect x="495" y="260" width="65" height="10" rx="3" fill="#61DAFB" opacity="0.4"/>
+  <rect x="503" y="275" width="16" height="10" rx="1" fill="#58a6ff" opacity="0.20"/><rect x="523" y="275" width="16" height="10" rx="1" fill="#58a6ff" opacity="0.30"/><rect x="543" y="275" width="16" height="10" rx="1" fill="#58a6ff" opacity="0.40"/><rect x="503" y="293" width="16" height="10" rx="1" fill="#58a6ff" opacity="0.35"/><rect x="523" y="293" width="16" height="10" rx="1" fill="#58a6ff" opacity="0.20"/><rect x="543" y="293" width="16" height="10" rx="1" fill="#58a6ff" opacity="0.30"/>
+  <text x="527.5" y="254" text-anchor="middle" font-size="14">🏬</text>
+  <text x="527.5" y="352" text-anchor="middle" class="dc-text" font-size="8" fill="#8b949e" opacity="0.8">pdfPicker</text>
 </g><g class="dc-building" style="animation-delay:0.32s" filter="url(#cityShadow)">
   <rect x="630" y="220" width="75" height="120" rx="2" fill="#5f6b7a" stroke="#4a5566" stroke-width="0.5"/>
-  <rect x="635" y="205" width="12" height="15" fill="#4a5566"/>
-<circle cx="641" cy="203" r="5" fill="#8b949e" opacity="0.3" class="dc-smoke"/>
-<circle cx="641" cy="198" r="4" fill="#8b949e" opacity="0.2" class="dc-smoke" style="animation-delay:0.5s"/>
+  <line x1="667.5" y1="220" x2="667.5" y2="190" stroke="#A855F7" stroke-width="2"/>
+<circle cx="667.5" cy="188" r="3" fill="#A855F7" opacity="0.6" class="dc-neon"/>
+<circle cx="667.5" cy="188" r="10" fill="none" stroke="#A855F7" stroke-width="0.5" opacity="0.2" class="dc-neon"/>
   <rect x="638" y="235" width="19" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/><rect x="661" y="235" width="19" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/><rect x="684" y="235" width="19" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/><rect x="638" y="253" width="19" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/><rect x="661" y="253" width="19" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/><rect x="684" y="253" width="19" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/><rect x="638" y="271" width="19" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/><rect x="661" y="271" width="19" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/><rect x="684" y="271" width="19" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/><rect x="638" y="289" width="19" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/><rect x="661" y="289" width="19" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/><rect x="684" y="289" width="19" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/>
-  <text x="667.5" y="214" text-anchor="middle" font-size="14">🏗️</text>
-  <text x="667.5" y="352" text-anchor="middle" class="dc-text" font-size="8" fill="#8b949e" opacity="0.8">24NewsBot</text>
+  <text x="667.5" y="214" text-anchor="middle" font-size="14">🔬</text>
+  <text x="667.5" y="352" text-anchor="middle" class="dc-text" font-size="8" fill="#8b949e" opacity="0.8">ai-musthave</text>
 </g><g class="dc-building" style="animation-delay:0.40s" filter="url(#cityShadow)">
   <rect x="90" y="113" width="70" height="112" rx="2" fill="#5f6b7a" stroke="#4a5566" stroke-width="0.5"/>
-  <line x1="125" y1="113" x2="125" y2="83" stroke="#A855F7" stroke-width="2"/>
-<circle cx="125" cy="81" r="3" fill="#A855F7" opacity="0.6" class="dc-neon"/>
-<circle cx="125" cy="81" r="10" fill="none" stroke="#A855F7" stroke-width="0.5" opacity="0.2" class="dc-neon"/>
+  <rect x="95" y="98" width="12" height="15" fill="#4a5566"/>
+<circle cx="101" cy="96" r="5" fill="#8b949e" opacity="0.3" class="dc-smoke"/>
+<circle cx="101" cy="91" r="4" fill="#8b949e" opacity="0.2" class="dc-smoke" style="animation-delay:0.5s"/>
   <rect x="98" y="128" width="18" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/><rect x="120" y="128" width="18" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/><rect x="142" y="128" width="18" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/><rect x="98" y="146" width="18" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/><rect x="120" y="146" width="18" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/><rect x="142" y="146" width="18" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/><rect x="98" y="164" width="18" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/><rect x="120" y="164" width="18" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/><rect x="142" y="164" width="18" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/>
-  <text x="125" y="107" text-anchor="middle" font-size="14">🔬</text>
-  <text x="125" y="237" text-anchor="middle" class="dc-text" font-size="8" fill="#8b949e" opacity="0.8">ai-hongong</text>
+  <text x="125" y="107" text-anchor="middle" font-size="14">🏗️</text>
+  <text x="125" y="237" text-anchor="middle" class="dc-text" font-size="8" fill="#8b949e" opacity="0.8">24NewsBot</text>
 </g><g class="dc-building" style="animation-delay:0.48s" filter="url(#cityShadow)">
   <rect x="225" y="137" width="80" height="88" rx="2" fill="#5f6b7a" stroke="#4a5566" stroke-width="0.5"/>
-  <rect x="225" y="137" width="80" height="10" rx="3" fill="#61DAFB" opacity="0.4"/>
+  <line x1="265" y1="137" x2="265" y2="107" stroke="#A855F7" stroke-width="2"/>
+<circle cx="265" cy="105" r="3" fill="#A855F7" opacity="0.6" class="dc-neon"/>
+<circle cx="265" cy="105" r="10" fill="none" stroke="#A855F7" stroke-width="0.5" opacity="0.2" class="dc-neon"/>
   <rect x="233" y="152" width="16" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/><rect x="253" y="152" width="16" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/><rect x="273" y="152" width="16" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/><rect x="293" y="152" width="16" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/><rect x="233" y="170" width="16" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/><rect x="253" y="170" width="16" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/><rect x="273" y="170" width="16" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/><rect x="293" y="170" width="16" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/>
-  <text x="265" y="131" text-anchor="middle" font-size="14">🏬</text>
-  <text x="265" y="237" text-anchor="middle" class="dc-text" font-size="8" fill="#8b949e" opacity="0.8">react-useful...</text>
+  <text x="265" y="131" text-anchor="middle" font-size="14">🔬</text>
+  <text x="265" y="237" text-anchor="middle" class="dc-text" font-size="8" fill="#8b949e" opacity="0.8">ai-hongong</text>
 </g><g class="dc-building" style="animation-delay:0.56s" filter="url(#cityShadow)">
   <rect x="360" y="89" width="60" height="136" rx="2" fill="#5f6b7a" stroke="#4a5566" stroke-width="0.5"/>
   <rect x="360" y="89" width="60" height="10" rx="3" fill="#61DAFB" opacity="0.4"/>
   <rect x="368" y="104" width="14" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/><rect x="386" y="104" width="14" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/><rect x="404" y="104" width="14" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/><rect x="368" y="122" width="14" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/><rect x="386" y="122" width="14" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/><rect x="404" y="122" width="14" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/><rect x="368" y="140" width="14" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/><rect x="386" y="140" width="14" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/><rect x="404" y="140" width="14" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/><rect x="368" y="158" width="14" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/><rect x="386" y="158" width="14" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/><rect x="404" y="158" width="14" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/>
   <text x="390" y="83" text-anchor="middle" font-size="14">🏬</text>
-  <text x="390" y="237" text-anchor="middle" class="dc-text" font-size="8" fill="#8b949e" opacity="0.8">react</text>
+  <text x="390" y="237" text-anchor="middle" class="dc-text" font-size="8" fill="#8b949e" opacity="0.8">react-useful...</text>
 </g><g class="dc-building" style="animation-delay:0.64s" filter="url(#cityShadow)">
   <rect x="495" y="161" width="65" height="64" rx="2" fill="#5f6b7a" stroke="#4a5566" stroke-width="0.5"/>
   <rect x="495" y="161" width="65" height="10" rx="3" fill="#61DAFB" opacity="0.4"/>
   <rect x="503" y="176" width="16" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/><rect x="523" y="176" width="16" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/><rect x="543" y="176" width="16" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/><rect x="503" y="194" width="16" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/><rect x="523" y="194" width="16" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/><rect x="543" y="194" width="16" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/>
   <text x="527.5" y="155" text-anchor="middle" font-size="14">🏬</text>
-  <text x="527.5" y="237" text-anchor="middle" class="dc-text" font-size="8" fill="#8b949e" opacity="0.8">react-ppt-de...</text>
+  <text x="527.5" y="237" text-anchor="middle" class="dc-text" font-size="8" fill="#8b949e" opacity="0.8">react</text>
 </g><g class="dc-building" style="animation-delay:0.72s" filter="url(#cityShadow)">
   <rect x="630" y="129" width="75" height="96" rx="2" fill="#5f6b7a" stroke="#4a5566" stroke-width="0.5"/>
-  <polygon points="627,129 667.5,104 708,129" fill="#4a5566"/>
+  <rect x="630" y="129" width="75" height="10" rx="3" fill="#61DAFB" opacity="0.4"/>
   <rect x="638" y="144" width="19" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/><rect x="661" y="144" width="19" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/><rect x="684" y="144" width="19" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/><rect x="638" y="162" width="19" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/><rect x="661" y="162" width="19" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/><rect x="684" y="162" width="19" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/><rect x="638" y="180" width="19" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/><rect x="661" y="180" width="19" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/><rect x="684" y="180" width="19" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/>
-  <text x="667.5" y="123" text-anchor="middle" font-size="14">📚</text>
-  <text x="667.5" y="237" text-anchor="middle" class="dc-text" font-size="8" fill="#8b949e" opacity="0.8">blog-comment</text>
+  <text x="667.5" y="123" text-anchor="middle" font-size="14">🏬</text>
+  <text x="667.5" y="237" text-anchor="middle" class="dc-text" font-size="8" fill="#8b949e" opacity="0.8">react-ppt-de...</text>
 </g><g class="dc-building" style="animation-delay:0.80s" filter="url(#cityShadow)">
   <rect x="90" y="-2" width="70" height="112" rx="2" fill="#5f6b7a" stroke="#4a5566" stroke-width="0.5"/>
-  <rect x="90" y="-2" width="70" height="10" rx="3" fill="#61DAFB" opacity="0.4"/>
+  <polygon points="87,-2 125,-27 163,-2" fill="#4a5566"/>
   <rect x="98" y="13" width="18" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/><rect x="120" y="13" width="18" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/><rect x="142" y="13" width="18" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/><rect x="98" y="31" width="18" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/><rect x="120" y="31" width="18" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/><rect x="142" y="31" width="18" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/><rect x="98" y="49" width="18" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/><rect x="120" y="49" width="18" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/><rect x="142" y="49" width="18" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/>
-  <text x="125" y="-8" text-anchor="middle" font-size="14">🏬</text>
-  <text x="125" y="122" text-anchor="middle" class="dc-text" font-size="8" fill="#8b949e" opacity="0.8">how-about-id...</text>
+  <text x="125" y="-8" text-anchor="middle" font-size="14">📚</text>
+  <text x="125" y="122" text-anchor="middle" class="dc-text" font-size="8" fill="#8b949e" opacity="0.8">blog-comment</text>
 </g><g class="dc-building" style="animation-delay:0.88s" filter="url(#cityShadow)">
   <rect x="225" y="22" width="80" height="88" rx="2" fill="#5f6b7a" stroke="#4a5566" stroke-width="0.5"/>
-  <polygon points="222,22 265,-3 308,22" fill="#4a5566"/>
+  <rect x="225" y="22" width="80" height="10" rx="3" fill="#61DAFB" opacity="0.4"/>
   <rect x="233" y="37" width="16" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/><rect x="253" y="37" width="16" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/><rect x="273" y="37" width="16" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/><rect x="293" y="37" width="16" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/><rect x="233" y="55" width="16" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/><rect x="253" y="55" width="16" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/><rect x="273" y="55" width="16" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/><rect x="293" y="55" width="16" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/>
-  <text x="265" y="16" text-anchor="middle" font-size="14">📚</text>
-  <text x="265" y="122" text-anchor="middle" class="dc-text" font-size="8" fill="#8b949e" opacity="0.8">TIL</text>
+  <text x="265" y="16" text-anchor="middle" font-size="14">🏬</text>
+  <text x="265" y="122" text-anchor="middle" class="dc-text" font-size="8" fill="#8b949e" opacity="0.8">how-about-id...</text>
 </g><g class="dc-building" style="animation-delay:0.96s" filter="url(#cityShadow)">
   <rect x="360" y="-26" width="60" height="136" rx="2" fill="#5f6b7a" stroke="#4a5566" stroke-width="0.5"/>
-  <line x1="390" y1="-26" x2="390" y2="-56" stroke="#A855F7" stroke-width="2"/>
-<circle cx="390" cy="-58" r="3" fill="#A855F7" opacity="0.6" class="dc-neon"/>
-<circle cx="390" cy="-58" r="10" fill="none" stroke="#A855F7" stroke-width="0.5" opacity="0.2" class="dc-neon"/>
+  <polygon points="357,-26 390,-51 423,-26" fill="#4a5566"/>
   <rect x="368" y="-11" width="14" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/><rect x="386" y="-11" width="14" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/><rect x="404" y="-11" width="14" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/><rect x="368" y="7" width="14" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/><rect x="386" y="7" width="14" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/><rect x="404" y="7" width="14" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/><rect x="368" y="25" width="14" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/><rect x="386" y="25" width="14" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/><rect x="404" y="25" width="14" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/><rect x="368" y="43" width="14" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/><rect x="386" y="43" width="14" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/><rect x="404" y="43" width="14" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/>
-  <text x="390" y="-32" text-anchor="middle" font-size="14">🔬</text>
-  <text x="390" y="122" text-anchor="middle" class="dc-text" font-size="8" fill="#8b949e" opacity="0.8">PL_training</text>
+  <text x="390" y="-32" text-anchor="middle" font-size="14">📚</text>
+  <text x="390" y="122" text-anchor="middle" class="dc-text" font-size="8" fill="#8b949e" opacity="0.8">TIL</text>
 </g><g class="dc-building" style="animation-delay:1.04s" filter="url(#cityShadow)">
   <rect x="495" y="46" width="65" height="64" rx="2" fill="#5f6b7a" stroke="#4a5566" stroke-width="0.5"/>
-  <rect x="495" y="46" width="65" height="10" rx="3" fill="#61DAFB" opacity="0.4"/>
+  <line x1="527.5" y1="46" x2="527.5" y2="16" stroke="#A855F7" stroke-width="2"/>
+<circle cx="527.5" cy="14" r="3" fill="#A855F7" opacity="0.6" class="dc-neon"/>
+<circle cx="527.5" cy="14" r="10" fill="none" stroke="#A855F7" stroke-width="0.5" opacity="0.2" class="dc-neon"/>
   <rect x="503" y="61" width="16" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/><rect x="523" y="61" width="16" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/><rect x="543" y="61" width="16" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/><rect x="503" y="79" width="16" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/><rect x="523" y="79" width="16" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/><rect x="543" y="79" width="16" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/>
-  <text x="527.5" y="40" text-anchor="middle" font-size="14">🏬</text>
-  <text x="527.5" y="122" text-anchor="middle" class="dc-text" font-size="8" fill="#8b949e" opacity="0.8">react-youtub...</text>
+  <text x="527.5" y="40" text-anchor="middle" font-size="14">🔬</text>
+  <text x="527.5" y="122" text-anchor="middle" class="dc-text" font-size="8" fill="#8b949e" opacity="0.8">PL_training</text>
 </g><g class="dc-building" style="animation-delay:1.12s" filter="url(#cityShadow)">
   <rect x="630" y="14" width="75" height="96" rx="2" fill="#5f6b7a" stroke="#4a5566" stroke-width="0.5"/>
-  <rect x="630" y="14" width="75" height="9" fill="#F59E0B" opacity="0.3"/>
-<line x1="630" y1="62" x2="705" y2="62" stroke="#4a5566" stroke-width="0.5" opacity="0.4"/>
+  <rect x="630" y="14" width="75" height="10" rx="3" fill="#61DAFB" opacity="0.4"/>
   <rect x="638" y="29" width="19" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/><rect x="661" y="29" width="19" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/><rect x="684" y="29" width="19" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/><rect x="638" y="47" width="19" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/><rect x="661" y="47" width="19" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/><rect x="684" y="47" width="19" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/><rect x="638" y="65" width="19" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/><rect x="661" y="65" width="19" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/><rect x="684" y="65" width="19" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/>
-  <text x="667.5" y="8" text-anchor="middle" font-size="14">📦</text>
-  <text x="667.5" y="122" text-anchor="middle" class="dc-text" font-size="8" fill="#8b949e" opacity="0.8">bolier-plate...</text>
+  <text x="667.5" y="8" text-anchor="middle" font-size="14">🏬</text>
+  <text x="667.5" y="122" text-anchor="middle" class="dc-text" font-size="8" fill="#8b949e" opacity="0.8">react-youtub...</text>
 </g><g class="dc-building" style="animation-delay:1.20s" filter="url(#cityShadow)">
   <rect x="90" y="-117" width="70" height="112" rx="2" fill="#5f6b7a" stroke="#4a5566" stroke-width="0.5"/>
-  <rect x="90" y="-117" width="70" height="10" rx="3" fill="#61DAFB" opacity="0.4"/>
+  <rect x="90" y="-117" width="70" height="9" fill="#F59E0B" opacity="0.3"/>
+<line x1="90" y1="-61" x2="160" y2="-61" stroke="#4a5566" stroke-width="0.5" opacity="0.4"/>
   <rect x="98" y="-102" width="18" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/><rect x="120" y="-102" width="18" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/><rect x="142" y="-102" width="18" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/><rect x="98" y="-84" width="18" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/><rect x="120" y="-84" width="18" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/><rect x="142" y="-84" width="18" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/><rect x="98" y="-66" width="18" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/><rect x="120" y="-66" width="18" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/><rect x="142" y="-66" width="18" height="10" rx="1" fill="#9aa4b2" opacity="0.15"/>
-  <text x="125" y="-123" text-anchor="middle" font-size="14">🏬</text>
-  <text x="125" y="7" text-anchor="middle" class="dc-text" font-size="8" fill="#8b949e" opacity="0.8">boiler-plate</text>
+  <text x="125" y="-123" text-anchor="middle" font-size="14">📦</text>
+  <text x="125" y="7" text-anchor="middle" class="dc-text" font-size="8" fill="#8b949e" opacity="0.8">bolier-plate...</text>
 </g>
 <g>
   <rect x="170" y="320" width="3" height="25" fill="#8b949e" opacity="0.5"/>
@@ -189,7 +189,7 @@
 <text x="40" y="478" class="dc-text" font-size="9" fill="#8b949e">gitpro Dev City</text>
 <text x="200" y="478" class="dc-text" font-size="9" fill="#8b949e">Buildings 16</text>
 <text x="320" y="478" class="dc-text" font-size="9" fill="#8b949e">Tier 3: City</text>
-<text x="470" y="478" class="dc-text" font-size="9" fill="#8b949e">Fireworks (5 commits)</text>
-<text x="760" y="478" text-anchor="end" class="dc-text" font-size="9" fill="#8b949e">2026-03-25</text>
+<text x="470" y="478" class="dc-text" font-size="9" fill="#8b949e">Fireworks (3 commits)</text>
+<text x="760" y="478" text-anchor="end" class="dc-text" font-size="9" fill="#8b949e">2026-03-26</text>
 <rect x="1" y="1" width="798" height="498" rx="15" fill="none" stroke="#2a3754" stroke-width="1" opacity="0.4"/>
 </svg>

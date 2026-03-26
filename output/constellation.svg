@@ -345,7 +345,7 @@
     <text x="520.0" y="240.3"
           text-anchor="middle" class="cst-text cst-name"
           fill="#e6edf3" opacity="0.70">
-      ⭐ gitpro&apos;s Star</text>
+      ⭐ partner-comp&apos;s Star</text>
     
   </g>
 <g class="cst-constellation" style="animation-delay: 0.20s">
@@ -353,7 +353,7 @@
     
     <!-- 별 -->
     <circle cx="255.6" cy="276.1"
-                    r="1.0" fill="#c8d6e5"
+                    r="1.0" fill="#58a6ff"
                     opacity="0.30" 
                     class="cst-bg-star-slow" style="animation-delay: 1.3s"/>
             
@@ -361,7 +361,7 @@
     <text x="255.6" y="308.9"
           text-anchor="middle" class="cst-text cst-name"
           fill="#e6edf3" opacity="0.70">
-      ⭐ Sangyeonglee&apos;s Star</text>
+      ⭐ gitpro&apos;s Star</text>
     
   </g>
 <g class="cst-constellation" style="animation-delay: 0.40s">
@@ -369,7 +369,7 @@
     
     <!-- 별 -->
     <circle cx="419.9" cy="90.0"
-                    r="1.0" fill="#e34c26"
+                    r="1.0" fill="#c8d6e5"
                     opacity="0.30" 
                     class="cst-bg-star-slow" style="animation-delay: 2.6s"/>
             
@@ -377,7 +377,7 @@
     <text x="419.9" y="122.8"
           text-anchor="middle" class="cst-text cst-name"
           fill="#e6edf3" opacity="0.70">
-      🛡️ pdfPicker&apos;s Shield</text>
+      ⭐ Sangyeonglee&apos;s Star</text>
     
   </g>
 <g class="cst-constellation" style="animation-delay: 0.60s">
@@ -385,15 +385,15 @@
     
     <!-- 별 -->
     <circle cx="553.0" cy="311.0"
-                    r="0.7" fill="#cc4444"
-                    opacity="0.12" 
+                    r="1.0" fill="#e34c26"
+                    opacity="0.30" 
                     class="cst-bg-star-slow" style="animation-delay: 3.9s"/>
             
     <!-- 이름 -->
     <text x="553.0" y="343.8"
           text-anchor="middle" class="cst-text cst-name"
-          fill="#e6edf3" opacity="0.28">
-      👁️ ai-musthave&apos;s Eye</text>
+          fill="#e6edf3" opacity="0.70">
+      🛡️ pdfPicker&apos;s Shield</text>
     
   </g>
 <g class="cst-constellation" style="animation-delay: 0.80s">
@@ -409,7 +409,7 @@
     <text x="132.4" y="215.7"
           text-anchor="middle" class="cst-text cst-name"
           fill="#e6edf3" opacity="0.28">
-      ⭐ 24NewsBot&apos;s Star</text>
+      👁️ ai-musthave&apos;s Eye</text>
     
   </g>
 <g class="cst-constellation" style="animation-delay: 1.00s">
@@ -425,7 +425,7 @@
     <text x="644.4" y="159.6"
           text-anchor="middle" class="cst-text cst-name"
           fill="#e6edf3" opacity="0.28">
-      👁️ ai-hongong&apos;s Eye</text>
+      ⭐ 24NewsBot&apos;s Star</text>
     
   </g>
 <g class="cst-constellation" style="animation-delay: 1.20s">
@@ -441,7 +441,7 @@
     <text x="320.6" y="385.5"
           text-anchor="middle" class="cst-text cst-name"
           fill="#e6edf3" opacity="0.28">
-      🛡️ react-useful&apos;s Shiel…</text>
+      👁️ ai-hongong&apos;s Eye</text>
     
   </g>
 <g class="cst-constellation" style="animation-delay: 1.40s">
@@ -457,7 +457,7 @@
     <text x="252.1" y="95.0"
           text-anchor="middle" class="cst-text cst-name"
           fill="#e6edf3" opacity="0.28">
-      🛡️ react&apos;s Shield</text>
+      🛡️ react-useful&apos;s Shiel…</text>
     
   </g>
 <g class="cst-constellation" style="animation-delay: 1.60s">
@@ -473,7 +473,7 @@
     <text x="704.0" y="299.8"
           text-anchor="middle" class="cst-text cst-name"
           fill="#e6edf3" opacity="0.28">
-      🛡️ react-ppt-de&apos;s Shiel…</text>
+      🛡️ react&apos;s Shield</text>
     
   </g>
 <g class="cst-constellation" style="animation-delay: 1.80s">
@@ -489,7 +489,7 @@
     <text x="96.0" y="309.1"
           text-anchor="middle" class="cst-text cst-name"
           fill="#e6edf3" opacity="0.28">
-      📜 blog-comment&apos;s Scrol…</text>
+      🛡️ react-ppt-de&apos;s Shiel…</text>
     
   </g>
 <g class="cst-meteor-anim" style="animation-delay: 1.4s; transform-origin: 611px 79px;">

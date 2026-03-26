@@ -133,7 +133,7 @@
 
   <!-- 나이 -->
   <text x="116" y="205" class="pet-text pet-small" fill="#8b949e">
-    Day 42</text>
+    Day 43</text>
 
   <!-- ═══ 우측 영역: 정보 + EXP ═══ -->
 
@@ -174,15 +174,15 @@
     <text x="214" y="162" class="pet-text pet-label" fill="#8b949e">
       🍖 포만감</text>
     <text x="460" y="162" text-anchor="end" class="pet-text pet-label"
-          fill="#e6edf3">100%</text>
+          fill="#e6edf3">90%</text>
     <rect x="214" y="168" width="246" height="6" rx="3" ry="3"
           fill="#161b22"/>
-    <rect x="214" y="168" width="246" height="6" rx="3" ry="3"
+    <rect x="214" y="168" width="221" height="6" rx="3" ry="3"
           fill="#3572A5"/>
     <rect x="214" y="184" width="auto" height="18" rx="9" ry="9"
           fill="#3572A5" opacity="0.1"/>
     <text x="222" y="196" class="pet-text pet-label"
-          fill="#3572A5">+29.1k EXP earned!</text>
+          fill="#3572A5">+29.2k EXP earned!</text>
 
   <!-- 최근 획득 EXP -->
   <line x1="214" y1="212" x2="460" y2="212"
@@ -190,13 +190,13 @@
   <text x="214" y="226" class="pet-text pet-label"
       fill="#8b949e">📊 EXP 내역</text>
     <text x="218" y="242" class="pet-text pet-small" fill="#e6edf3">
-      🎉 PR 137개 머지</text>
+      🎉 PR 138개 머지</text>
     <text x="460" y="242" text-anchor="end" class="pet-text pet-small"
-          fill="#3572A5">+16.4k</text>
+          fill="#3572A5">+16.6k</text>
     <text x="218" y="258" class="pet-text pet-small" fill="#e6edf3">
-      🔀 PR 138개 생성</text>
+      🔀 PR 139개 생성</text>
     <text x="460" y="258" text-anchor="end" class="pet-text pet-small"
-          fill="#3572A5">+6.9k</text>
+          fill="#3572A5">+7.0k</text>
     <text x="218" y="274" class="pet-text pet-small" fill="#e6edf3">
       📦 레포지토리 130개</text>
     <text x="460" y="274" text-anchor="end" class="pet-text pet-small"
@@ -215,7 +215,7 @@
   <text x="20" y="308" class="pet-text pet-small" fill="#8b949e">
     🐾 gitpro Code Pet</text>
   <text x="460" y="308" text-anchor="end" class="pet-text pet-small"
-        fill="#8b949e">2026-03-25</text>
+        fill="#8b949e">2026-03-26</text>
 
   <!-- 전설 시머 효과 -->
   
